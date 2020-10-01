@@ -1,5 +1,8 @@
 .DS_STORE
 
+# editor configs
+.vscode
+
 /dist/
 node_modules
 .rpt2_cache

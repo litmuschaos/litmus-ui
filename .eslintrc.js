@@ -6,7 +6,11 @@ const rules = {
 
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['react-hooks'],
+  plugins: ['react-hooks', '@typescript-eslint'],
+  env: {
+    browser: true,
+    es6: true,
+  },
   parserOptions: {
     ecmaVersion: 2018,
     ecmaFeatures: {
@@ -20,22 +24,40 @@ module.exports = {
     'prettier/@typescript-eslint',
   ],
   rules: {
-    '@typescript-eslint/camelcase': rules.OFF,
+    'no-undef': rules.ON,
     '@typescript-eslint/explicit-function-return-type': rules.OFF,
-    '@typescript-eslint/explicit-member-accessibility': rules.OFF,
     '@typescript-eslint/no-non-null-assertion': rules.OFF,
-    '@typescript-eslint/no-unused-vars': rules.OFF,
-    '@typescript-eslint/array-type': rules.OFF,
+    '@typescript-eslint/no-unused-vars': rules.ON,
     '@typescript-eslint/no-explicit-any': rules.OFF,
-    '@typescript-eslint/no-empty-interface': rules.OFF,
-    '@typescript-eslint/no-empty-function': rules.OFF,
-    '@typescript-eslint/no-use-before-define': rules.OFF,
-    '@typescript-eslint/no-object-literal-type-assertion': rules.OFF,
     'react/no-deprecated': rules.OFF,
     'react/prop-types': rules.OFF,
     'react-hooks/rules-of-hooks': rules.ON,
     'react-hooks/exhaustive-deps': rules.WARN,
-    'prefer-spread': rules.WARN,
+    'react/static-property-placement': [
+      'warn',
+      'property assignment',
+      { defaultProps: 'static public field' },
+    ],
+    'lines-between-class-members': rules.OFF,
+    'no-restricted-syntax': rules.OFF,
+    'no-nested-ternary': rules.OFF,
+    'no-plusplus': rules.OFF,
+    'multiline-ternary': rules.OFF,
+    'no-useless-constructor': rules.OFF,
+    'max-len': [
+      'warn',
+      {
+        code: 100,
+        tabWidth: 2,
+        comments: 100,
+        ignoreComments: false,
+        ignoreTrailingComments: true,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
+      },
+    ],
   },
   settings: {
     react: {
