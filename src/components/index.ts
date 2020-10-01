@@ -1,3 +1,3 @@
-export * from './Button';
-export * from './Loader';
-export * from './InputField';
+// make sure you import all components into this file
+
+export * from './Example';

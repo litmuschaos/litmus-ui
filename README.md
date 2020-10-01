@@ -1,24 +1,136 @@
+# React Library Boilerplate
 
-## Kubera UI
+This react library boilerplate uses the following:
 
-A common component library for kubera products, which is build using storybook and keeping react as the base. Once, the components are developed, they are then publish to npmjs as a node package for further use in different projects.
+- Typescript
+- Rollup
+- Prettier
+- ESLint
+- StyleLint
+- Storybook
+- SCSS
+- Jest
+- React Testing Library
 
-### Get started
+## Setup
 
-In order to getting started with the compoent library, just clone this repo then change directory to kubera-ui and perform the following steps as mentioned below.
- 
-### `npm install`
+1. Edit the `package.json` file. Set you app's name, description, version, author, homepage, bugs, and repository fields with the correct information.
+1. Run `yarn` to add all the project's dependencies.
 
-All the package dependencies will get installed. During its install process, It will look into your project's dependencies and provide you with the best configuration available.
+## Folder Structure
 
-### `npm run storybook` 
+```
+├── .storybook
+|   ├── main.js
+├── coverage
+├── dist
+├── mocks
+|   ├── styleMock.js
+├── node_modules
+├── scripts
+|   ├── postBuild.js
+├── src
+│   ├── components
+|   |   ├── Example
+|   |   ├── index.ts
+|   ├── index.ts
+├── .eslintrc.js
+├── .gitignore
+├── .prettierrc.js
+├── jest.config.js
+├── LICENSE
+├── package.json
+├── README.md
+├── rollup.config.js
+├── stylelint.config.js
+├── tsconfig.json
+```
 
-It will start Storybook locally and output the address. Depending on your system configuration, it will automatically open the address in a new browser tab and you'll be greeted by a welcome screen.
+## Add a new component
 
-## Learn More
+- add the new component directory in the `src/components` directory following this folder structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+├── MyComponent
+|   ├── index.ts
+|   ├── MyComponent.scss
+|   ├── MyComponent.stories.tsx
+|   ├── MyComponent.tsx
+|   ├── __tests__
+|   |   ├── MyComponent.test.tsx
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Once you have created your new component make sure you have exported it in the `src/components/index.ts` file. Doing so allows the component to be compiled into the final bundle using rollup.
 
-Storybook helps you document components for reuse and automatically visually test your components to prevent bugs. [Storybook docs](https://storybook.js.org/docs/react/get-started/introduction)
+```
+// src/components/index.ts
+export * from './MyComponent';
+export * from './SomeOtherComponent';
+```
+
+You can develope your new component using storybook as your playground. Once you have added the `.stories.tsx` file for you new component, you can run `yarn storybook` to start the service.
+
+## Tests
+
+```
+$ yarn test
+```
+
+With coverage
+
+```
+$ yarn test:coverage
+```
+
+Watch
+
+```
+$ yarn test:watch
+```
+
+## Prettier
+
+```
+$ yarn format
+```
+
+Validate project formatting
+
+```
+$ yarn format:check
+```
+
+## Lint
+
+```
+$ yarn lint
+```
+
+## Storybook
+
+```
+$ yarn storybook
+```
+
+## Building your library
+
+```
+$ yarn build
+```
+
+The build output will go into the `dist` directory
+
+## Publishing your Library on NPM
+
+Once you have created an account on NPM you will be able to publish your library using these commands
+
+```
+$ yarn build
+$ cd dist
+$ npm pack
+$ npm publish
+```
+
+> Note: You will have to manually bump your versions in the `package.json` file.
+
+> Note: You will need to update the package.json name property with the name your library will be using on npm.
