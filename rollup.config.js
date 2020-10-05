@@ -1,11 +1,10 @@
-import typescript from 'rollup-plugin-typescript2';
-import { terser } from 'rollup-plugin-terser';
-import postcss from 'rollup-plugin-postcss';
 import commonjs from '@rollup/plugin-commonjs';
+import postcss from 'rollup-plugin-postcss';
+import { terser } from 'rollup-plugin-terser';
+import typescript from 'rollup-plugin-typescript2';
 import pkg from './package.json';
 
 const globals = {
-  classnames: 'classnames',
   react: 'React',
 };
 
@@ -36,5 +35,20 @@ export default {
       sourcemap: true,
     },
   ],
-  plugins: [commonjs(), postcss(), typescript(), terser()],
+  plugins: [
+    commonjs(),
+    postcss({
+      plugins: [
+        require('postcss-easy-import')({ prefix: '_' }), // keep this first
+        require('cssnano')({
+          preset: 'default',
+        }),
+        require('autoprefixer')({
+          browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'],
+        }),
+      ],
+    }),
+    typescript(),
+    terser(),
+  ],
 };

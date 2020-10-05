@@ -1,29 +1,19 @@
-import classnames from 'classnames';
+import { Button } from '@material-ui/core';
 import React from 'react';
-import './example.scss';
+import withTheme from '../../theme';
+import useStyles from './styles';
 
-export interface ExampleProps {
-  active?: boolean | undefined;
-  disabled?: boolean | undefined;
-  children?: any;
-  className?: string;
-}
+const Example: React.FC = ({ children }) => {
+  const classes = useStyles();
 
-export class Example extends React.PureComponent<ExampleProps> {
-  public render() {
-    const { active, disabled, className, children, ...rest } = this.props;
+  return (
+    <Button
+      className={classes.button}
+      onClick={() => console.log('hello world')}
+    >
+      {children}
+    </Button>
+  );
+};
 
-    const classes = classnames(
-      'Example',
-      active && `Example--active`,
-      disabled && `Example--disabled`,
-      className
-    );
-
-    return (
-      <button {...rest} className={classes}>
-        {children}
-      </button>
-    );
-  }
-}
+export default withTheme(Example);
