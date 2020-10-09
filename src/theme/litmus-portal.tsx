@@ -1,6 +1,6 @@
 import { createTheme } from './base';
 
-const LitmusPortalTheme = createTheme({
+const litmusPortalTheme = createTheme({
   palette: {
     primary: {
       main: '#5B44BA',
@@ -16,6 +16,16 @@ const LitmusPortalTheme = createTheme({
       main: '#109B67',
       light: '#109B6710',
       dark: '#128359',
+    },
+    error: {
+      light: '#CA2C2C10',
+      main: '#CA2C2C',
+      dark: '#A62F28',
+    },
+    warning: {
+      light: '#F6B92B20',
+      main: '#F6B92B',
+      dark: '#402C01',
     },
     background: {
       default: '#FAFBFD',
@@ -44,16 +54,22 @@ const LitmusPortalTheme = createTheme({
     progressBarGradient:
       'linear-gradient(90.43deg, #5B44BA 0.35%, #858CDD 51.03%, #109B67 99.64%)',
     status: {
-      running: '#F6FB92B',
-      completed: '#109B67',
-      pending: '#B9B9B9',
-      failed: '#CA2C2C',
-    },
-    statusBackground: {
-      running: '#F6FB92B20',
-      completed: '#109B6720',
-      pending: '#B9B9B920',
-      failed: '#CA2C2C20',
+      running: {
+        text: '#F6FB92B',
+        background: '#F6FB92B20',
+      },
+      completed: {
+        text: '#109B67',
+        background: '#109B6720',
+      },
+      pending: {
+        text: '#B9B9B9',
+        background: '#B9B9B920',
+      },
+      failed: {
+        text: '#CA2C2C',
+        background: '#CA2C2C20',
+      },
     },
     cards: {
       background: '#FFFFFF',
@@ -61,37 +77,9 @@ const LitmusPortalTheme = createTheme({
     },
   },
 
+  // MUI Overrides
+
   overrides: {
-    MuiSlider: {
-      thumb: {
-        opacity: 0,
-      },
-      mark: {
-        marginLeft: -6.8,
-        paddingTop: 1.8,
-        backgroundImage: `url(${'./icons/arrow.svg'})`,
-        backgroundColor: 'none',
-        '&[data-index="9"]': {
-          backgroundImage: 'none',
-        },
-      },
-      markActive: {
-        backgroundImage: `url(${'./icons/arrow.svg'})`,
-        backgroundColor: 'none',
-      },
-      markLabel: {
-        fontFamily: 'Ubuntu',
-        fontSize: 15,
-        marginTop: -5,
-        marginLeft: '-5%',
-        color: 'rgba(0, 0, 0, 0.4)',
-      },
-      markLabelActive: {
-        fontFamily: 'Ubuntu',
-        fontSize: 15,
-        color: '#FFFFFF',
-      },
-    },
     MuiTab: {
       root: {
         '&$selected': {
@@ -113,4 +101,4 @@ const LitmusPortalTheme = createTheme({
   },
 });
 
-export { LitmusPortalTheme };
+export { litmusPortalTheme };

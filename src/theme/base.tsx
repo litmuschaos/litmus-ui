@@ -20,72 +20,84 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 // Augument the Palette interface
 declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
-    // Augmenting Litmus Portal Custom Theme Palette
-    sidebarMenu?: string;
-    loginBackground?: string;
-    disabledBackground?: string;
-    highlight?: string;
-    horizontalStepper?: {
-      completed?: string;
-      active?: string;
-      pending?: string;
+    // Base Theme Palette
+    sidebarMenu: string;
+    loginBackground: string;
+    disabledBackground: string;
+    highlight: string;
+    horizontalStepper: {
+      completed: string;
+      active: string;
+      pending: string;
     };
-    border?: {
-      main?: string;
-      success?: string;
-      error?: string;
+    border: {
+      main: string;
+      success: string;
+      error: string;
     };
-    progressBarGradient?: string;
-    status?: {
-      running?: string;
-      completed?: string;
-      pending?: string;
-      failed?: string;
+    progressBarGradient: string;
+    status: {
+      running: {
+        text: string;
+        background: string;
+      };
+      completed: {
+        text: string;
+        background: string;
+      };
+      pending: {
+        text: string;
+        background: string;
+      };
+      failed: {
+        text: string;
+        background: string;
+      };
     };
-    statusBackground?: {
-      running?: string;
-      completed?: string;
-      pending?: string;
-      failed?: string;
-    };
-    cards?: {
-      background?: string;
-      highlight?: string;
+    cards: {
+      background: string;
+      highlight: string;
     };
   }
   // allow configuration using `createMuiTheme`
   interface PaletteOptions {
-    // Augmenting Litmus Portal Custom Theme Palette Options
+    // Base Theme Palette options
     sidebarMenu?: string;
     loginBackground?: string;
     disabledBackground?: string;
     highlight?: string;
     horizontalStepper?: {
-      completed?: string;
-      active?: string;
-      pending?: string;
+      completed: string;
+      active: string;
+      pending: string;
     };
     border?: {
-      main?: string;
-      success?: string;
-      error?: string;
+      main: string;
+      success: string;
+      error: string;
     };
     progressBarGradient?: string;
     status?: {
-      running?: string;
-      completed?: string;
-      pending?: string;
-      failed?: string;
-    };
-    statusBackground?: {
-      running?: string;
-      completed?: string;
-      pending?: string;
-      failed?: string;
+      running: {
+        text: string;
+        background: string;
+      };
+      completed: {
+        text: string;
+        background: string;
+      };
+      pending: {
+        text: string;
+        background: string;
+      };
+      failed: {
+        text: string;
+        background: string;
+      };
     };
     cards?: {
-      background?: string;
-      highlight?: string;
+      background: string;
+      highlight: string;
     };
   }
 }
@@ -95,16 +107,6 @@ function createTheme(
 ) {
   return createMuiTheme({
     palette: {
-      error: {
-        light: '#CA2C2C10',
-        main: '#CA2C2C',
-        dark: '#A62F28',
-      },
-      warning: {
-        light: '#F6B92B20',
-        main: '#F6B92B',
-        dark: '#402C01',
-      },
       ...paletteOptions,
     },
     typography: {
@@ -115,8 +117,4 @@ function createTheme(
   });
 }
 
-const theme = createTheme({
-  overrides: {},
-});
-
-export { theme, createTheme };
+export { createTheme };
