@@ -1,6 +1,5 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
-import withTheme from '../../theme';
 import useStyles from './styles';
 
 const Example: React.FC = ({ children }) => {
@@ -16,4 +15,4 @@ const Example: React.FC = ({ children }) => {
   );
 };
 
-export default withTheme(Example);
+export default Example;

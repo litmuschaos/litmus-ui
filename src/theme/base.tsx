@@ -1,6 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
-import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 // Agument the Theme interface
 declare module '@material-ui/core/styles/createMuiTheme' {
@@ -101,14 +100,11 @@ declare module '@material-ui/core/styles/createPalette' {
     };
   }
 }
-function createTheme(
-  themeOptions?: ThemeOptions,
-  paletteOptions?: PaletteOptions
-) {
+
+// Function for creating custom themes
+
+function createTheme(themeOptions?: ThemeOptions) {
   return createMuiTheme({
-    palette: {
-      ...paletteOptions,
-    },
     typography: {
       fontSize: 12,
       fontFamily: 'Ubuntu',

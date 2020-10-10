@@ -1,19 +1,40 @@
 import { CssBaseline } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { Theme, ThemeProvider } from '@material-ui/core/styles';
 import * as React from 'react';
-import { theme } from './base';
+import { kuberaChaosTheme } from './kubera-chaos';
+import { litmusPortalTheme } from './litmus-portal';
 
-const withTheme = (Component: any) => {
-  function WithTheme(props: object) {
-    return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...props} />
-      </ThemeProvider>
-    );
+interface IKuberaThemeProviderProps {
+  platform:
+    | 'litmus-portal'
+    | 'kubera-chaos'
+    | 'kubera-propel'
+    | 'kubera-core'
+    | 'kubera-subscription';
+}
+
+function getTheme(themeLabel: string): Theme {
+  switch (themeLabel) {
+    case 'litmus-portal':
+      return litmusPortalTheme;
+    case 'kubera-chaos':
+      return kuberaChaosTheme;
+    default:
+      return kuberaChaosTheme;
   }
+}
 
-  return WithTheme;
+const KuberaThemeProvider: React.FC<IKuberaThemeProviderProps> = ({
+  platform,
+  children,
+}) => {
+  const platformTheme = getTheme(platform);
+  return (
+    <ThemeProvider theme={platformTheme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
 };
 
-export default withTheme;
+export { KuberaThemeProvider };
