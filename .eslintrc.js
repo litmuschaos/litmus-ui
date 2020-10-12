@@ -58,6 +58,13 @@ module.exports = {
         ignoreRegExpLiterals: true,
       },
     ],
+    '@typescript-eslint/naming-convention': [
+      rules.ON,
+      {
+        selector: 'typeLike',
+        format: ['StrictPascalCase'],
+      },
+    ],
   },
   settings: {
     react: {

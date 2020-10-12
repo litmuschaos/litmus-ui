@@ -6,7 +6,7 @@ module.exports = {
     'declaration-empty-line-before': [
       'never',
       {
-        except: ['after-comment', 'after-declaration', 'first-nested'],
+        except: ['after-comment', 'after-declaration'],
       },
     ],
     'no-missing-end-of-source-newline': null,

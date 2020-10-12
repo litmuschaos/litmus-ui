@@ -4,7 +4,7 @@ import * as React from 'react';
 import { kuberaChaosTheme } from './kubera-chaos';
 import { litmusPortalTheme } from './litmus-portal';
 
-interface IKuberaThemeProviderProps {
+interface KuberaThemeProviderProps {
   platform:
     | 'litmus-portal'
     | 'kubera-chaos'
@@ -24,7 +24,7 @@ function getTheme(themeLabel: string): Theme {
   }
 }
 
-const KuberaThemeProvider: React.FC<IKuberaThemeProviderProps> = ({
+const KuberaThemeProvider: React.FC<KuberaThemeProviderProps> = ({
   platform,
   children,
 }) => {

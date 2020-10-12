@@ -2,19 +2,19 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
 
 // Agument the Theme interface
-declare module '@material-ui/core/styles/createMuiTheme' {
-  interface Theme {
-    // newProperty: {
-    // 	key: value;
-    // }
-  }
-  // allow configuration using `createMuiTheme`
-  interface ThemeOptions {
-    // newProperty?: {
-    // 	key?: value;
-    // }
-  }
-}
+// declare module '@material-ui/core/styles/createMuiTheme' {
+//   interface Theme {
+//     // newProperty: {
+//     // 	key: value;
+//     // }
+//   }
+//   // allow configuration using `createMuiTheme`
+//   interface ThemeOptions {
+//     // newProperty?: {
+//     // 	key?: value;
+//     // }
+//   }
+// }
 
 // Augument the Palette interface
 declare module '@material-ui/core/styles/createPalette' {
