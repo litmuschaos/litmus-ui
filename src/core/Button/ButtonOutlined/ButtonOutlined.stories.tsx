@@ -1,10 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { KuberaThemeProvider } from '../../../theme';
-import {
-  ButtonOutlinedDefault,
-  ButtonOutlinedHighlight,
-} from '../ButtonOutlined';
+import { ButtonOutlined } from '../ButtonOutlined';
 
 storiesOf('Button', module)
   // Litmus Portal
@@ -19,24 +16,27 @@ storiesOf('Button', module)
         }}
       >
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlinedDefault handleClick={() => console.log('clicked')}>
+          <ButtonOutlined handleClick={() => console.log('clicked')}>
             Button Outlined
-          </ButtonOutlinedDefault>
+          </ButtonOutlined>
         </div>
 
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlinedHighlight handleClick={() => console.log('clicked')}>
+          <ButtonOutlined
+            isDefault={false}
+            handleClick={() => console.log('clicked')}
+          >
             Button Highlight
-          </ButtonOutlinedHighlight>
+          </ButtonOutlined>
         </div>
 
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlinedDefault
+          <ButtonOutlined
             isDisabled={true}
             handleClick={() => console.log('clicked')}
           >
             Button Outlined Disabled
-          </ButtonOutlinedDefault>
+          </ButtonOutlined>
         </div>
       </div>
     </KuberaThemeProvider>
@@ -56,24 +56,27 @@ storiesOf('Button', module)
         }}
       >
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlinedDefault handleClick={() => console.log('clicked')}>
+          <ButtonOutlined handleClick={() => console.log('clicked')}>
             Button Outlined
-          </ButtonOutlinedDefault>
+          </ButtonOutlined>
         </div>
 
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlinedHighlight handleClick={() => console.log('clicked')}>
+          <ButtonOutlined
+            isDefault={false}
+            handleClick={() => console.log('clicked')}
+          >
             Button Highlight
-          </ButtonOutlinedHighlight>
+          </ButtonOutlined>
         </div>
 
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlinedDefault
+          <ButtonOutlined
             isDisabled={true}
             handleClick={() => console.log('clicked')}
           >
             Button Outlined Disabled
-          </ButtonOutlinedDefault>
+          </ButtonOutlined>
         </div>
       </div>
     </KuberaThemeProvider>

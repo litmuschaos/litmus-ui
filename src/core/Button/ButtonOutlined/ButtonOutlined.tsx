@@ -1,27 +1,28 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
-import useGlobalStyles from '../styles';
 import useStyles from './styles';
 
-interface IButtonOutlinedDefault {
+interface ButtonOutlinedProps {
+  isDefault?: boolean;
   isDisabled?: boolean;
   handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   styles?: Object;
   children?: React.ReactNode;
 }
 
-const ButtonOutlinedDefault: React.FC<IButtonOutlinedDefault> = ({
+const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
+  isDefault,
   isDisabled,
   handleClick,
   styles,
   children,
 }) => {
-  // Styles
-  const classes = useStyles();
-  const global = useGlobalStyles();
-
   // Component
   if (isDisabled === undefined) isDisabled = false;
+  if (isDefault === undefined) isDefault = true;
+
+  // Styles
+  const classes = useStyles(isDefault);
 
   return (
     <Button
@@ -30,19 +31,19 @@ const ButtonOutlinedDefault: React.FC<IButtonOutlinedDefault> = ({
       size="medium"
       disabled={isDisabled}
       onClick={handleClick}
-      className={`${global.buttonOutline} ${classes.border}`}
+      className={`${classes.buttonOutline} ${classes.border}`}
     >
       {isDisabled ? (
-        <div
-          className={`${global.valueField} ${classes.text} ${classes.disabled}`}
-        >
+        <div className={`${classes.valueField} ${classes.disabled}`}>
           {children}
         </div>
       ) : (
-        <div className={`${global.valueField} ${classes.text}`}>{children}</div>
+        <div className={`${classes.valueField} ${classes.text}`}>
+          {children}
+        </div>
       )}
     </Button>
   );
 };
 
-export { ButtonOutlinedDefault };
+export { ButtonOutlined };
