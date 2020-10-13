@@ -3,7 +3,7 @@ import React from 'react';
 import { KuberaThemeProvider } from '../../../theme';
 import { ButtonOutlined } from '../ButtonOutlined';
 
-storiesOf('Button Outlined', module)
+storiesOf('Button/Button Outlined', module)
   // Litmus Portal
   .add('Litmus Portal', () => (
     <KuberaThemeProvider platform="litmus-portal">
