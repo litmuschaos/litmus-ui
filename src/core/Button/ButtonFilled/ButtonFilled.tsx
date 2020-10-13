@@ -2,13 +2,13 @@ import { Button } from '@material-ui/core';
 import React from 'react';
 import useStyles from './styles';
 
-interface ButtonOutlinedProps {
-  variant?: 'default' | 'highlight';
+interface ButtonFilledProps {
+  variant?: 'default' | 'error' | 'success';
   disabled?: boolean;
   handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
+const ButtonFilled: React.FC<ButtonFilledProps> = ({
   variant,
   disabled,
   handleClick,
@@ -19,8 +19,10 @@ const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
 
   function getVariant(type: typeof variant): string {
     switch (type) {
-      case 'highlight':
-        return classes.highlight;
+      case 'error':
+        return classes.error;
+      case 'success':
+        return classes.success;
       default:
         return '';
     }
@@ -28,15 +30,15 @@ const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
 
   return (
     <Button
-      variant="outlined"
+      variant="contained"
       size="medium"
       disabled={disabled}
       onClick={handleClick}
-      className={`${classes.root} ${getVariant(variant)}`}
+      className={`${classes.root} ${getVariant(variant)} `}
     >
       {children}
     </Button>
   );
 };
 
-export { ButtonOutlined };
+export { ButtonFilled };

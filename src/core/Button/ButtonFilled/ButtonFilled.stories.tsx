@@ -1,9 +1,9 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { KuberaThemeProvider } from '../../../theme';
-import { ButtonOutlined } from '../ButtonOutlined';
+import { ButtonFilled } from '../ButtonFilled';
 
-storiesOf('Button Outlined', module)
+storiesOf('Button Filled', module)
   // Litmus Portal
   .add('Litmus Portal', () => (
     <KuberaThemeProvider platform="litmus-portal">
@@ -16,27 +16,39 @@ storiesOf('Button Outlined', module)
         }}
       >
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlined handleClick={() => console.log('clicked')}>
-            Button Outlined
-          </ButtonOutlined>
-        </div>
-
-        <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlined
-            variant="highlight"
+          <ButtonFilled
+            variant="default"
             handleClick={() => console.log('clicked')}
           >
-            Button Highlight
-          </ButtonOutlined>
+            Button Filled Default
+          </ButtonFilled>
         </div>
 
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlined
+          <ButtonFilled
+            variant="error"
+            handleClick={() => console.log('clicked')}
+          >
+            Button Filled Error
+          </ButtonFilled>
+        </div>
+
+        <div style={{ margin: '1rem 1rem' }}>
+          <ButtonFilled
+            variant="success"
+            handleClick={() => console.log('clicked')}
+          >
+            Button Filled Success
+          </ButtonFilled>
+        </div>
+
+        <div style={{ margin: '1rem 1rem' }}>
+          <ButtonFilled
             disabled={true}
             handleClick={() => console.log('clicked')}
           >
-            Button Outlined Disabled
-          </ButtonOutlined>
+            Button Filled Disabled
+          </ButtonFilled>
         </div>
       </div>
     </KuberaThemeProvider>
@@ -56,27 +68,39 @@ storiesOf('Button Outlined', module)
         }}
       >
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlined handleClick={() => console.log('clicked')}>
-            Button Outlined
-          </ButtonOutlined>
-        </div>
-
-        <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlined
-            variant="highlight"
+          <ButtonFilled
+            variant="default"
             handleClick={() => console.log('clicked')}
           >
-            Button Highlight
-          </ButtonOutlined>
+            Button Filled Default
+          </ButtonFilled>
         </div>
 
         <div style={{ margin: '1rem 1rem' }}>
-          <ButtonOutlined
+          <ButtonFilled
+            variant="error"
+            handleClick={() => console.log('clicked')}
+          >
+            Button Filled Error
+          </ButtonFilled>
+        </div>
+
+        <div style={{ margin: '1rem 1rem' }}>
+          <ButtonFilled
+            variant="success"
+            handleClick={() => console.log('clicked')}
+          >
+            Button Filled Success
+          </ButtonFilled>
+        </div>
+
+        <div style={{ margin: '1rem 1rem' }}>
+          <ButtonFilled
             disabled={true}
             handleClick={() => console.log('clicked')}
           >
-            Button Outlined Disabled
-          </ButtonOutlined>
+            Button Filled Disabled
+          </ButtonFilled>
         </div>
       </div>
     </KuberaThemeProvider>

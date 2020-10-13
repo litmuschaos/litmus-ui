@@ -2,19 +2,11 @@ import { fade, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   // Global
-  buttonOutline: {
-    minWidth: '6.875rem',
-    height: '2.8125rem',
-    border: '0.0625rem solid',
+  root: {
+    padding: theme.spacing(1.5, 2),
     textTransform: 'none',
     background: 'transparent',
-  },
-  valueField: {
     fontSize: '0.75rem',
-  },
-
-  // Button Outlined
-  border: {
     borderColor: theme.palette.highlight,
     '&:hover': {
       borderColor: theme.palette.highlight,
@@ -23,14 +15,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     '&:disabled': {
       borderColor: theme.palette.disabledBackground,
+      color: theme.palette.text.disabled,
     },
   },
-  disabled: {
-    color: theme.palette.text.disabled,
-  },
-  text: {
-    color: (props) =>
-      props !== true ? theme.palette.highlight : theme.palette.text.primary,
+
+  // Button Outlined
+  highlight: {
+    color: theme.palette.highlight,
   },
 }));
 
