@@ -66,7 +66,7 @@ React component library for faster and easier web development. Build your own de
 | Script          | Description                                                                         |
 | --------------- | :---------------------------------------------------------------------------------- |
 | `dev`           | Start the development storybook server with hot module reloading.                   |
-| `format`        | Format your code with                                                               |
+| `format`        | Format your code with Prettier                                                      |
 | `format:check`  | Formats only the changed code with Prettier.                                        |
 | `clean`         | Safely remove files and folders on all platforms directories.                       |
 | `test`          | Run your Jest tests once.                                                           |

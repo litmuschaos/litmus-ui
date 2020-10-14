@@ -31,7 +31,7 @@ To ensure that your PR is of high quality and to maintain the coding standards t
 3. Please fill in the details of the changes that have been made/modified with the respective PR and also check of the necessary checklist in the PR checklist itself.
 4. Always lint your project locally before sending a PR
     ```
-    npm run lint
+    yarn run lint
     ```
 
 5. Don’t skip husky pre-commit checks as it ensures your code is well formatted and linted as well. Please don’t bypass husky since non-formatted code are very easy to detect.
