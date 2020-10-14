@@ -38,3 +38,4 @@ const KuberaThemeProvider: React.FC<KuberaThemeProviderProps> = ({
 };
 
 export { KuberaThemeProvider };
+export type { KuberaThemeProviderProps };

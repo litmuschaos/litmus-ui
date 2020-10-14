@@ -7,7 +7,7 @@ describe('Button Outlined Component', () => {
   it('Renders', () => {
     const { getByText } = render(
       <KuberaThemeProvider platform="kubera-chaos">
-        <ButtonOutlined handleClick={() => {}}>Button Outlined</ButtonOutlined>
+        <ButtonOutlined onClick={() => {}}>Button Outlined</ButtonOutlined>
       </KuberaThemeProvider>
     );
 

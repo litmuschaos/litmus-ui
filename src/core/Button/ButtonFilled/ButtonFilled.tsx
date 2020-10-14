@@ -1,24 +1,24 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
-import useStyles from './styles';
+import { ButtonBaseProps } from '../base';
+import { useStyles } from './styles';
 
-interface ButtonFilledProps {
-  variant?: 'default' | 'error' | 'success';
-  disabled?: boolean;
-  handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+type Variant = 'default' | 'error' | 'success' | undefined;
+
+interface ButtonFilledProps extends ButtonBaseProps {
+  variant?: Variant;
 }
 
 const ButtonFilled: React.FC<ButtonFilledProps> = ({
   variant,
-  disabled,
-  handleClick,
   children,
+  ...rest
 }) => {
   // Styles
   const classes = useStyles();
 
-  function getVariant(type: typeof variant): string {
-    switch (type) {
+  function getVariant(variant: Variant): string {
+    switch (variant) {
       case 'error':
         return classes.error;
       case 'success':
@@ -31,10 +31,8 @@ const ButtonFilled: React.FC<ButtonFilledProps> = ({
   return (
     <Button
       variant="contained"
-      size="medium"
-      disabled={disabled}
-      onClick={handleClick}
       className={`${classes.root} ${getVariant(variant)} `}
+      {...rest}
     >
       {children}
     </Button>
