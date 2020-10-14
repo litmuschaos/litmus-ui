@@ -10,9 +10,11 @@
 
 ## BRANCH SPECIFICATIONS
 
-dev - This branch is for incomplete unstable components, accepting and reviewing PRs for the same.
-next - This branch is for components which are complete but don't have all the required specification (tests, stories, etc) shifted from `dev`
-master - This branch is for stable components shifted from `next`
+`dev` - This branch is for incomplete unstable components, accepting and reviewing PRs for the same.
+
+`next` - This branch is for components which are complete but don't have all the required specification (tests, stories, etc) shifted from `dev`
+
+`master` - This branch is for stable components shifted from `next`
 
 ## PULL REQUEST SPECIFICATIONS
 
@@ -34,4 +36,5 @@ To ensure that your PR is of high quality and to maintain the coding standards t
 
 5. Don’t skip husky pre-commit checks as it ensures your code is well formatted and linted as well. Please don’t bypass husky since non-formatted code are very easy to detect.
 6. Always ensure all the necessary CircleCI builds (frontend, backend, docker, etc) are passing, if not please open a detailed view and check the exact problem for the build failure.
-7. Keep the main repository as an upstream in order to always fetch from the main repository and keep your local branch as updated as possible to not hinder your work.
+7. Please provide `<component>.stories.tsx` and `__tests__` along with each component you send a PR for.
+8. Keep the main repository as an upstream in order to always fetch from the main repository and keep your local branch as updated as possible to not hinder your work.

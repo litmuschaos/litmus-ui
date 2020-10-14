@@ -97,7 +97,7 @@ Kubera UI is built using the following:
 
 ### `4. Contribution Guidelines`
 
-Check our official contribution guidelines
+Check our [official contribution guidelines](https://github.com/arkajyotiMukherjee/kubera-ui/blob/v1.0.0/CONTRIBUTION.md)
 
 ### `5. Adding a new component`
 
@@ -126,7 +126,9 @@ You can develope your new component using storybook as your playground. Once you
 ### `6. Branch`
 
 `dev` - This branch is for incomplete unstable components, accepting and reviewing PRs for the same.
+
 `next` - This branch is for components which are complete but don't have all the required specification (tests, stories, etc) shifted from `dev`
+
 `master` - This branch is for stable components shifted from `next`
 
 ### `7. Publishing your Library on NPM`
