@@ -1,23 +1,20 @@
-# React Library Boilerplate
+# Kubera UI
 
-This react library boilerplate uses the following:
+React component library for faster and easier web development. Build your own design system, or start with Kubera UI.
 
-- Typescript
-- Rollup
-- Prettier
-- ESLint
-- StyleLint
-- Storybook
-- SCSS
-- Jest
-- React Testing Library
+## Table of Contents
 
-## Setup
+1. [Project Structure](#1-project-structure)
+2. [Available Scripts](#2-available-scripts)
+3. [Tech Stack](#3-tech-stack)
+4. [Contribution Guidelines](#4-contribution-guidelines)
+5. [Adding a Component](#5-adding-a-new-component)
+6. [Branch](#6-branch)
+7. [Publishing your Library on NPM](#7-publishing-your-library-on-npm)
+<br><br><br>
 
-1. Edit the `package.json` file. Set you app's name, description, version, author, homepage, bugs, and repository fields with the correct information.
-1. Run `yarn` to add all the project's dependencies.
 
-## Folder Structure
+### `1. Project Structure`
 
 ```
 ├── .storybook
@@ -30,97 +27,109 @@ This react library boilerplate uses the following:
 ├── scripts
 |   ├── postBuild.js
 ├── src
-│   ├── components
-|   |   ├── Example
+│   ├── core
+|   |   ├── <Stable Components>
+|   |   |   ├── __tests__
+|   |   |   ├── <components>.stories.tsx
+|   |   |   ├── index.ts
+|   |   |   ├── <components>.tsx
+|   |   |   ├── styles.tsx
+|   |   ├── index.ts
+│   ├── labs
+|   |   ├── <UnStable Components>
+|   |   |   ├── __tests__
+|   |   |   ├── <components>.stories.tsx
+|   |   |   ├── index.ts
+|   |   |   ├── <components>.tsx
+|   |   |   ├── styles.tsx
 |   |   ├── index.ts
 |   ├── index.ts
+├── .eslintignore
 ├── .eslintrc.js
 ├── .gitignore
 ├── .prettierrc.js
 ├── jest.config.js
 ├── LICENSE
 ├── package.json
+├── package.lock.json
 ├── README.md
+├── CONTRIBUTION.md
 ├── rollup.config.js
 ├── stylelint.config.js
 ├── tsconfig.json
+├── yarn.lock
 ```
 
-## Add a new component
 
-- add the new component directory in the `src/components` directory following this folder structure
+### `2. Available Scripts`
+
+| Script          | Description                                                                         |
+| --------------- | :---------------------------------------------------------------------------------- |
+| `dev`           | Start the development storybook server with hot module reloading.                   |
+| `format`        | Format your code with                                                               |
+| `format:check`  | Formats only the changed code with Prettier.                                        |
+| `clean`         | Safely remove files and folders on all platforms directories.                       |
+| `test`          | Run your Jest tests once.                                                           |
+| `test:watch`    | Run your Jest tests in watch mode.                                                  |
+| `test:coverage` | Run your Jest tests and check for code coverage.                                    |
+| `lint`          | Lint both your code and style with ESLint.                                          |
+| `lint:script`   | Lint only your code with ESLint.                                                    |
+| `lint:watch`    | Lint your code with ESLint in watch mode.                                           |
+| `lint:style`    | Lint your css with ESLint.                                                          |
+| `storybook`     | Start the storybook server.                                                         |
+| `build`         | Compile your application and make it ready for deployment                           |
+
+
+### `3. Tech Stack`
+
+Kubera UI is built using the following:
+
+- Typescript
+- Rollup
+- Prettier
+- ESLint
+- StyleLint
+- Storybook
+- Husky
+- Material UI
+- Jest
+- React Testing Library
+
+### `4. Contribution Guidelines`
+
+Check our official contribution guidelines
+
+### `5. Adding a new component`
+
+- add the new component directory in the `src/labs` directory following this folder structure
 
 ```
 ├── MyComponent
 |   ├── index.ts
-|   ├── MyComponent.scss
-|   ├── MyComponent.stories.tsx
+|   ├── styles.ts
 |   ├── MyComponent.tsx
+|   ├── MyComponent.stories.tsx
 |   ├── __tests__
 |   |   ├── MyComponent.test.tsx
 ```
 
-Once you have created your new component make sure you have exported it in the `src/components/index.ts` file. Doing so allows the component to be compiled into the final bundle using rollup.
+Once you have created your new component make sure you have exported it in the `src/labs/index.ts` file. Doing so allows the component to be compiled into the final bundle using rollup.
 
 ```
-// src/components/index.ts
+// src/labs/index.ts
 export * from './MyComponent';
 export * from './SomeOtherComponent';
 ```
 
 You can develope your new component using storybook as your playground. Once you have added the `.stories.tsx` file for you new component, you can run `yarn storybook` to start the service.
 
-## Tests
+### `6. Branch`
 
-```
-$ yarn test
-```
+`dev` - This branch is for incomplete unstable components, accepting and reviewing PRs for the same.
+`next` - This branch is for components which are complete but don't have all the required specification (tests, stories, etc) shifted from `dev`
+`master` - This branch is for stable components shifted from `next`
 
-With coverage
-
-```
-$ yarn test:coverage
-```
-
-Watch
-
-```
-$ yarn test:watch
-```
-
-## Prettier
-
-```
-$ yarn format
-```
-
-Validate project formatting
-
-```
-$ yarn format:check
-```
-
-## Lint
-
-```
-$ yarn lint
-```
-
-## Storybook
-
-```
-$ yarn storybook
-```
-
-## Building your library
-
-```
-$ yarn build
-```
-
-The build output will go into the `dist` directory
-
-## Publishing your Library on NPM
+### `7. Publishing your Library on NPM`
 
 Once you have created an account on NPM you will be able to publish your library using these commands
 
