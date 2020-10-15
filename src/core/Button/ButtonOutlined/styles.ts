@@ -11,7 +11,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&:hover': {
       borderColor: theme.palette.highlight,
       background: 'transparent',
-      boxShadow: `${fade(theme.palette.highlight, 0.5)} 0 0.3rem 0.4rem 0`,
+      boxShadow: `0px 4px 5px -2px ${fade(
+        theme.palette.highlight,
+        0.2
+      )},0px 7px 10px 1px ${fade(
+        theme.palette.highlight,
+        0.14
+      )},0px 2px 16px 1px ${fade(theme.palette.highlight, 0.12)}`,
     },
     '&:disabled': {
       borderColor: theme.palette.disabledBackground,

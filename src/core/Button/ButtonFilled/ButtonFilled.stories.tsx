@@ -44,4 +44,25 @@ storiesOf('Button/Button Filled', module)
         Button Filled Disabled
       </ButtonFilled>
     </ThemedBackground>
+  ))
+
+  // Kubera Propel
+  .add('Kubera Propel', () => (
+    <ThemedBackground platform="kubera-propel" row>
+      <ButtonFilled variant="default" onClick={() => console.log('clicked')}>
+        Button Filled Default
+      </ButtonFilled>
+
+      <ButtonFilled variant="error" onClick={() => console.log('clicked')}>
+        Button Filled Error
+      </ButtonFilled>
+
+      <ButtonFilled variant="success" onClick={() => console.log('clicked')}>
+        Button Filled Success
+      </ButtonFilled>
+
+      <ButtonFilled disabled onClick={() => console.log('clicked')}>
+        Button Filled Disabled
+      </ButtonFilled>
+    </ThemedBackground>
   ));

@@ -10,14 +10,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.text.secondary,
     '&:hover': {
       background: theme.palette.primary.main,
-      //   boxShadow: `${fade(theme.palette.primary.main, 0.5)} 0 0.3rem 0.4rem 0`,
-      boxShadow: `0px 3px 5px -1px ${fade(
+      boxShadow: `0px 4px 5px -2px ${fade(
         theme.palette.primary.main,
         0.2
-      )},0px 5px 8px 0px ${fade(
+      )},0px 7px 10px 1px ${fade(
         theme.palette.primary.main,
         0.14
-      )},0px 1px 14px 0px ${fade(theme.palette.primary.main, 0.12)}`,
+      )},0px 2px 16px 1px ${fade(theme.palette.primary.main, 0.12)}`,
     },
     '&:disabled': {
       background: theme.palette.disabledBackground,
@@ -30,14 +29,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: theme.palette.error.main,
     '&:hover': {
       background: theme.palette.error.main,
-      boxShadow: `${fade(theme.palette.error.main, 0.5)} 0 0.3rem 0.4rem 0`,
+      boxShadow: `0px 4px 5px -2px ${fade(
+        theme.palette.error.main,
+        0.2
+      )},0px 7px 10px 1px ${fade(
+        theme.palette.error.main,
+        0.14
+      )},0px 2px 16px 1px ${fade(theme.palette.error.main, 0.12)}`,
     },
   },
   success: {
     background: theme.palette.success.main,
     '&:hover': {
       background: theme.palette.success.main,
-      boxShadow: `${fade(theme.palette.success.main, 0.5)} 0 0.3rem 0.4rem 0`,
+      boxShadow: `0px 4px 5px -2px ${fade(
+        theme.palette.success.main,
+        0.2
+      )},0px 7px 10px 1px ${fade(
+        theme.palette.success.main,
+        0.14
+      )},0px 2px 16px 1px ${fade(theme.palette.success.main, 0.12)}`,
     },
   },
 }));

@@ -20,4 +20,13 @@ storiesOf('Button/Button Hybrid', module)
         Button Hybrid
       </ToggleButton>
     </ThemedBackground>
+  ))
+
+  // Kubera Propel
+  .add('Kubera Propel', () => (
+    <ThemedBackground platform="kubera-propel" row>
+      <ToggleButton onClick={() => console.log('clicked')}>
+        Button Hybrid
+      </ToggleButton>
+    </ThemedBackground>
   ));
