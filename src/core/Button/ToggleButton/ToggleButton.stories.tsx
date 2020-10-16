@@ -29,4 +29,22 @@ storiesOf('Button/Button Hybrid', module)
         Button Hybrid
       </ToggleButton>
     </ThemedBackground>
+  ))
+
+  // Kubera Portal
+  .add('Kubera Portal', () => (
+    <ThemedBackground platform="kubera-portal" row>
+      <ToggleButton onClick={() => console.log('clicked')}>
+        Button Hybrid
+      </ToggleButton>
+    </ThemedBackground>
+  ))
+
+  // Kubera Core
+  .add('Kubera Core', () => (
+    <ThemedBackground platform="kubera-core" row>
+      <ToggleButton onClick={() => console.log('clicked')}>
+        Button Hybrid
+      </ToggleButton>
+    </ThemedBackground>
   ));

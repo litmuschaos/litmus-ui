@@ -1,5 +1,7 @@
 # Kubera UI
 
+[![DeepScan grade](https://deepscan.io/api/teams/11347/projects/14259/branches/260658/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=11347&pid=14259&bid=260658)
+
 React component library for faster and easier web development. Build your own design system, or start with Kubera UI.
 
 ## Table of Contents

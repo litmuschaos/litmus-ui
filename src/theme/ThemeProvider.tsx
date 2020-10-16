@@ -2,12 +2,15 @@ import { CssBaseline } from '@material-ui/core';
 import { Theme, ThemeProvider } from '@material-ui/core/styles';
 import * as React from 'react';
 import { kuberaChaosTheme } from './kubera-chaos';
+import { kuberaCoreTheme } from './kubera-core';
+import { kuberaPortalTheme } from './kubera-portal';
 import { kuberaPropelTheme } from './kubera-propel';
 import { litmusPortalTheme } from './litmus-portal';
 
 interface KuberaThemeProviderProps {
   platform:
     | 'litmus-portal'
+    | 'kubera-portal'
     | 'kubera-chaos'
     | 'kubera-propel'
     | 'kubera-core'
@@ -22,6 +25,10 @@ function getTheme(themeLabel: string): Theme {
       return kuberaChaosTheme;
     case 'kubera-propel':
       return kuberaPropelTheme;
+    case 'kubera-core':
+      return kuberaCoreTheme;
+    case 'kubera-portal':
+      return kuberaPortalTheme;
     default:
       return kuberaChaosTheme;
   }
