@@ -1,14 +1,12 @@
 module.exports = {
+  processors: ['stylelint-processor-styled-components'],
   extends: 'stylelint-config-standard',
-  ignoreFiles: ['src/**/*.snap'],
   rules: {
+    'value-no-vendor-prefix': true,
+    'property-no-vendor-prefix': true,
     'no-empty-source': null,
-    'declaration-empty-line-before': [
-      'never',
-      {
-        except: ['after-comment', 'after-declaration'],
-      },
-    ],
     'no-missing-end-of-source-newline': null,
+    'declaration-colon-newline-after': null,
+    'value-keyword-case': null,
   },
 };

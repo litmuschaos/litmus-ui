@@ -1,17 +1,17 @@
 {
   "name": "kubera-ui",
-  "license": "MIT",
-  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "version": "0.1.0",
   "private": false,
   "description": "Component Library for Kubera products",
-  "author": "MayaData",
+  "author": "MayaData, Inc.",
   "homepage": "https://github.com/mayadata-io/kubera-ui",
   "bugs": {
     "url": "https://github.com/mayadata-io/kubera-ui/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mayadata-io/kubera-ui.git"
+    "url": "git+https://github.com/mayadata-io/kubera-ui.git"
   },
   "scripts": {
     "build": "yarn clean; rollup -c; yarn postBuild",
@@ -30,6 +30,7 @@
   },
   "lint-staged": {
     "src/**/*.+(js|jsx|ts|tsx)": [
+      "yarn lint",
       "yarn format",
       "git add"
     ],
@@ -95,6 +96,7 @@
     "rollup-plugin-typescript2": "^0.27.0",
     "stylelint": "^13.3.2",
     "stylelint-config-standard": "^20.0.0",
+    "stylelint-processor-styled-components": "^1.10.0",
     "ts-jest": "^25.3.1",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",

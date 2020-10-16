@@ -1,5 +1,4 @@
-import { CssBaseline } from '@material-ui/core';
-import { Theme, ThemeProvider } from '@material-ui/core/styles';
+import { CssBaseline, Theme, ThemeProvider } from '@material-ui/core';
 import * as React from 'react';
 import { kuberaChaosTheme } from './kubera-chaos';
 import { kuberaCoreTheme } from './kubera-core';
@@ -7,7 +6,7 @@ import { kuberaPortalTheme } from './kubera-portal';
 import { kuberaPropelTheme } from './kubera-propel';
 import { litmusPortalTheme } from './litmus-portal';
 
-interface KuberaThemeProviderProps {
+export interface KuberaThemeProviderProps {
   platform:
     | 'litmus-portal'
     | 'kubera-portal'
@@ -48,4 +47,3 @@ const KuberaThemeProvider: React.FC<KuberaThemeProviderProps> = ({
 };
 
 export { KuberaThemeProvider };
-export type { KuberaThemeProviderProps };

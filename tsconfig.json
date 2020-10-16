@@ -20,6 +20,12 @@
     "strict": true,
     "target": "es5"
   },
-  "exclude": ["node_modules", "**/*.stories.*", "**/*.test.*", "**/*.spec.*"],
+  "exclude": [
+    "node_modules",
+    "**/*.stories.*",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/utils"
+  ],
   "include": ["./src"]
 }
