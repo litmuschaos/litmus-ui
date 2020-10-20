@@ -1,0 +1,46 @@
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+
+# Defining Jobs
+jobs:
+  lint:
+    docker:
+      - image: circleci/node:10.13.0
+    steps:
+      - checkout
+      - run: yarn install
+      - run:
+          name: Linting the script and css files
+          command: yarn lint
+  build:
+    docker:
+      - image: circleci/node:10.13.0
+    steps:
+      - checkout
+      - run: yarn install
+      - run:
+          name: Building the project
+          command: yarn build
+  test:
+    docker:
+      - image: circleci/node:10.13.0
+    steps:
+      - checkout
+      - run: yarn install
+      - run:
+          name: Running Unit Tests
+          command: yarn test
+
+
+# Orchestrating our job run sequence
+workflows:
+  lint_build_and_test:
+    jobs:
+      - lint
+      - build:
+          requires:
+            - lint
+      - test:
+          requires:
+            - build
