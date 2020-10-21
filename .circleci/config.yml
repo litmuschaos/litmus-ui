@@ -9,7 +9,7 @@ jobs:
       - image: circleci/node:10.13.0
     steps:
       - checkout
-      - run: yarn install
+      - run: yarn install --production=false
       - run:
           name: Linting the script and css files
           command: yarn lint
@@ -38,9 +38,7 @@ workflows:
   lint_build_and_test:
     jobs:
       - lint
-      - build:
-          requires:
-            - lint
+      - build
       - test:
           requires:
             - build
