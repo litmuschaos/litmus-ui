@@ -30,7 +30,7 @@ const kuberaCoreTheme = createTheme({
     background: {
       default:
         'linear-gradient(67.59deg, #191B42 -0.7%, #191B42 -0.69%, #191B42 25.35%, #0B3147 98.91%)',
-      paper: '#1C2126',
+      paper: '#0B0F1A',
     },
     sidebarMenu: '#14011830',
     loginBackground: '#FFFFFF',
@@ -73,7 +73,7 @@ const kuberaCoreTheme = createTheme({
       },
     },
     cards: {
-      background: '#0B0F1A',
+      background: '#1C2126',
       highlight: '#D074D1',
     },
   },

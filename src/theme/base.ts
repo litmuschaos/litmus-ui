@@ -2,7 +2,7 @@ import { createMuiTheme, ThemeOptions } from '@material-ui/core';
 
 // Agument the Theme interface
 declare module '@material-ui/core/styles/createMuiTheme' {
-  interface Theme {
+  export interface Theme {
     kuberaCoreCards: {
       kuberaChaos: {
         card: string;
@@ -23,7 +23,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
     };
   }
   // allow configuration using `createMuiTheme`
-  interface ThemeOptions {
+  export interface ThemeOptions {
     kuberaCoreCards?: {
       kuberaChaos?: {
         card: string;
@@ -47,7 +47,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 
 // Augument the Palette interface
 declare module '@material-ui/core/styles/createPalette' {
-  interface Palette {
+  export interface Palette {
     // Base Theme Palette
     sidebarMenu: string;
     loginBackground: string;
@@ -88,7 +88,7 @@ declare module '@material-ui/core/styles/createPalette' {
     };
   }
   // allow configuration using `createMuiTheme`
-  interface PaletteOptions {
+  export interface PaletteOptions {
     // Base Theme Palette options
     sidebarMenu?: string;
     loginBackground?: string;
