@@ -86,6 +86,10 @@ declare module '@material-ui/core/styles/createPalette' {
       background: string;
       highlight: string;
     };
+    modal: {
+      background: string;
+      backdrop: string;
+    };
   }
   // allow configuration using `createMuiTheme`
   export interface PaletteOptions {
@@ -126,6 +130,10 @@ declare module '@material-ui/core/styles/createPalette' {
     cards?: {
       background: string;
       highlight: string;
+    };
+    modal?: {
+      background: string;
+      backdrop: string;
     };
   }
 }

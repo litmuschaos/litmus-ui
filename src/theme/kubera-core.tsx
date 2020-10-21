@@ -3,7 +3,7 @@ import { createTheme } from './base';
 const kuberaCoreTheme = createTheme({
   palette: {
     primary: {
-      main: '#D074D1',
+      main: '#C34FC5',
       light: '#266C90',
       dark: '#825398',
     },
@@ -14,25 +14,25 @@ const kuberaCoreTheme = createTheme({
     },
     success: {
       main: '#109B67',
-      light: '#109B6730',
+      light: '#109B674D',
       dark: '#128359',
     },
     error: {
       main: '#CA2C2C',
-      light: '#CA2C2C10',
+      light: '#CA2C2C33',
       dark: '#A62F28',
     },
     warning: {
       main: '#F6B92B',
-      light: '#F6B92B20',
+      light: '#F6B92B33',
       dark: '#402C01',
     },
     background: {
       default:
         'linear-gradient(67.59deg, #191B42 -0.7%, #191B42 -0.69%, #191B42 25.35%, #0B3147 98.91%)',
-      paper: '#0B0F1A',
+      paper: '#1C2126',
     },
-    sidebarMenu: '#14011830',
+    sidebarMenu: '#1401184D',
     loginBackground: '#FFFFFF',
     disabledBackground: '#777777',
     text: {
@@ -41,7 +41,7 @@ const kuberaCoreTheme = createTheme({
       disabled: '#B9B9B9',
       hint: '#B9B9B9',
     },
-    highlight: '#D074D1',
+    highlight: '#C34FC5',
     horizontalStepper: {
       completed: '#17DB92',
       active: '#EAD7A2',
@@ -57,24 +57,28 @@ const kuberaCoreTheme = createTheme({
     status: {
       running: {
         text: '#DBA017',
-        background: '#DBA01750',
+        background: '#DBA01780',
       },
       completed: {
         text: '#17DB92',
-        background: '#17DB9220',
+        background: '#17DB9233',
       },
       pending: {
         text: '#B9B9B9',
-        background: '#B9B9B920',
+        background: '#B9B9B980',
       },
       failed: {
-        text: '#DB1717',
-        background: '#DB171750',
+        text: '#CA2C2C',
+        background: '#CA2C2C80',
       },
     },
     cards: {
+      background: '#2B333B',
+      highlight: '#C34FC5',
+    },
+    modal: {
       background: '#1C2126',
-      highlight: '#D074D1',
+      backdrop: '#071F3599',
     },
   },
 
@@ -82,19 +86,19 @@ const kuberaCoreTheme = createTheme({
 
   kuberaCoreCards: {
     kuberaChaos: {
-      card: 'dummy',
+      card: 'linear-gradient(255.08deg, #0D654B 7.37%, #0B4F3A 100%)',
       license: {
-        selection: 'dummy',
-        header: 'dummy',
-        body: 'dummy',
+        selection: '#0000004D',
+        header: 'linear-gradient(255.08deg, #0E694E 7.37%, #094533 100%)',
+        body: 'linear-gradient(255.08deg, #074633 7.37%, #04281E 100%)',
       },
     },
     kuberaPropel: {
-      card: 'dummy',
+      card: 'linear-gradient(63.18deg, #2C354D 5.01%, #323E5B 102.43%)',
       license: {
-        selection: 'dummy',
-        header: 'dummy',
-        body: 'dummy',
+        selection: '#0000004D',
+        header: 'linear-gradient(63.18deg, #262F44 5.01%, #323E5B 102.43%)',
+        body: 'linear-gradient(63.18deg, #1C2232 5.01%, #252E46 102.43%)',
       },
     },
   },
@@ -105,7 +109,7 @@ const kuberaCoreTheme = createTheme({
     MuiTab: {
       root: {
         '&$selected': {
-          color: '#D074D1',
+          color: '#C34FC5',
         },
       },
     },
@@ -113,7 +117,7 @@ const kuberaCoreTheme = createTheme({
       root: {
         paddingLeft: 20,
         '&[data-shrink="true"]': {
-          color: '#D074D1',
+          color: '#C34FC5',
         },
       },
       asterisk: {

@@ -15,17 +15,17 @@ const kuberaChaosTheme = createTheme({
     },
     success: {
       main: '#2DA660',
-      light: '#2DA66010',
+      light: '#2DA6601A',
       dark: '#128359',
     },
     error: {
       main: '#CA2C2C',
-      light: '#CA2C2C10',
+      light: '#CA2C2C1A',
       dark: '#A62F28',
     },
     warning: {
       main: '#F6B92B',
-      light: '#F6B92B20',
+      light: '#F6B92B33',
       dark: '#402C01',
     },
     background: {
@@ -33,9 +33,9 @@ const kuberaChaosTheme = createTheme({
         'linear-gradient(67.59deg, #0F2625 -0.71%, #112826 24.2%, #172D2B 98.91%)',
       paper: '#1C2126',
     },
-    sidebarMenu: '#132926',
+    sidebarMenu: '#0A181866',
     loginBackground: 'linear-gradient(180deg, #20605C 0%, #153F3C 100%)',
-    disabledBackground: '#434343',
+    disabledBackground: '#2B333B',
     text: {
       primary: '#FFFFFF',
       secondary: '#FFFFFF',
@@ -57,25 +57,29 @@ const kuberaChaosTheme = createTheme({
       'linear-gradient(90.43deg, #52F995 0.35%, #F6B92B 99.62%, #F6B92B 99.63%)',
     status: {
       running: {
-        text: '#F6FB92B',
-        background: '#F6FB92B50',
+        text: '#F6B92B',
+        background: '#F6B92B80',
       },
       completed: {
         text: '#2DA660',
-        background: '#2DA66050',
+        background: '#2DA66033',
       },
       pending: {
         text: '#B9B9B9',
-        background: '#B9B9B950',
+        background: '#B9B9B980',
       },
       failed: {
         text: '#CA2C2C',
-        background: '#CA2C2C50',
+        background: '#CA2C2C80',
       },
     },
     cards: {
       background: '#2B333B',
       highlight: '#2DA660',
+    },
+    modal: {
+      background: '#1C2126',
+      backdrop: '#00000099',
     },
   },
 

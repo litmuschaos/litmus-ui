@@ -14,17 +14,17 @@ const kuberaPropelTheme = createTheme({
     },
     success: {
       main: '#17DB92',
-      light: '#17DB9210',
+      light: '#17DB921A',
       dark: '#12AB72',
     },
     error: {
       main: '#DB1717',
-      light: '#DB171710',
+      light: '#DB17171A',
       dark: '#7D0D0D',
     },
     warning: {
       main: '#DBA017',
-      light: '#DBA01720',
+      light: '#DBA01733',
       dark: '#7D5B0D',
     },
     background: {
@@ -57,24 +57,28 @@ const kuberaPropelTheme = createTheme({
     status: {
       running: {
         text: '#DBA017',
-        background: '#DBA01750',
+        background: '#DBA01780',
       },
       completed: {
         text: '#17DB92',
-        background: '#17DB9220',
+        background: '#17DB9233',
       },
       pending: {
         text: '#B9B9B9',
-        background: '#B9B9B920',
+        background: '#B9B9B933',
       },
       failed: {
         text: '#DB1717',
-        background: '#DB171750',
+        background: '#DB171780',
       },
     },
     cards: {
       background: '#0B0F1A',
       highlight: '#CEC19C',
+    },
+    modal: {
+      background: '#0B0F1A',
+      backdrop: '#00000099',
     },
   },
 

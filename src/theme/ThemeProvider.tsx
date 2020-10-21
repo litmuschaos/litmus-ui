@@ -12,8 +12,7 @@ export interface KuberaThemeProviderProps {
     | 'kubera-portal'
     | 'kubera-chaos'
     | 'kubera-propel'
-    | 'kubera-core'
-    | 'kubera-subscription';
+    | 'kubera-core';
 }
 
 function getTheme(themeLabel: string): Theme {
