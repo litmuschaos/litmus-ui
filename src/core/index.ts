@@ -1,4 +1,5 @@
 export * from './Button';
+export * from './InputField';
 export * from './ProgressBar';
 export * from './Text';
 export * from './Pills';
