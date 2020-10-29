@@ -5,3 +5,4 @@ export * from './Pills';
 export * from './Link';
 export * from './ButtonGroup';
 export * from './Search';
+export * from './Modal';
