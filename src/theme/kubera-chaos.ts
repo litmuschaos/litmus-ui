@@ -82,29 +82,6 @@ const kuberaChaosTheme = createTheme({
       backdrop: '#00000099',
     },
   },
-
-  // MUI Overrides
-
-  overrides: {
-    MuiTab: {
-      root: {
-        '&$selected': {
-          color: '#28CB69',
-        },
-      },
-    },
-    MuiFormLabel: {
-      root: {
-        paddingLeft: 20,
-        '&[data-shrink="true"]': {
-          color: '#28CB69',
-        },
-      },
-      asterisk: {
-        color: 'transparent',
-      },
-    },
-  },
 });
 
 export { kuberaChaosTheme };

@@ -76,29 +76,6 @@ const litmusPortalTheme = createTheme({
       highlight: '#109B6710',
     },
   },
-
-  // MUI Overrides
-
-  overrides: {
-    MuiTab: {
-      root: {
-        '&$selected': {
-          color: '#5B44BA',
-        },
-      },
-    },
-    MuiFormLabel: {
-      root: {
-        paddingLeft: 20,
-        '&[data-shrink="true"]': {
-          color: '#5B44BA',
-        },
-      },
-      asterisk: {
-        color: 'transparent',
-      },
-    },
-  },
 });
 
 export { litmusPortalTheme };

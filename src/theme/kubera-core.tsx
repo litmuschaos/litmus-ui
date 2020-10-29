@@ -102,29 +102,6 @@ const kuberaCoreTheme = createTheme({
       },
     },
   },
-
-  // MUI Overrides
-
-  overrides: {
-    MuiTab: {
-      root: {
-        '&$selected': {
-          color: '#C34FC5',
-        },
-      },
-    },
-    MuiFormLabel: {
-      root: {
-        paddingLeft: 20,
-        '&[data-shrink="true"]': {
-          color: '#C34FC5',
-        },
-      },
-      asterisk: {
-        color: 'transparent',
-      },
-    },
-  },
 });
 
 export { kuberaCoreTheme };

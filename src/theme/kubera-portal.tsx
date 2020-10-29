@@ -80,29 +80,6 @@ const kuberaPortalTheme = createTheme({
       backdrop: '#1F104499',
     },
   },
-
-  // MUI Overrides
-
-  overrides: {
-    MuiTab: {
-      root: {
-        '&$selected': {
-          color: '#DE7EDF',
-        },
-      },
-    },
-    MuiFormLabel: {
-      root: {
-        paddingLeft: 20,
-        '&[data-shrink="true"]': {
-          color: '#DE7EDF',
-        },
-      },
-      asterisk: {
-        color: 'transparent',
-      },
-    },
-  },
 });
 
 export { kuberaPortalTheme };

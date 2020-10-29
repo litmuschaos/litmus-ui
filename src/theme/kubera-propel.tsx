@@ -32,7 +32,7 @@ const kuberaPropelTheme = createTheme({
         'linear-gradient(67.59deg, #1F232E -0.7%, #1F232E -0.69%, #1E2945 98.91%)',
       paper: '#0B0F1A',
     },
-    sidebarMenu: '#0B0F1A40',
+    sidebarMenu: '#0B0F1A66',
     loginBackground: 'linear-gradient(180deg, #20605C 0%, #153F3C 100%)',
     disabledBackground: '#777777',
     text: {
@@ -73,35 +73,12 @@ const kuberaPropelTheme = createTheme({
       },
     },
     cards: {
-      background: '#0B0F1A',
+      background: '#2B2F3B',
       highlight: '#CEC19C',
     },
     modal: {
       background: '#0B0F1A',
       backdrop: '#00000099',
-    },
-  },
-
-  // MUI Overrides
-
-  overrides: {
-    MuiTab: {
-      root: {
-        '&$selected': {
-          color: '#EAD7A2',
-        },
-      },
-    },
-    MuiFormLabel: {
-      root: {
-        paddingLeft: 20,
-        '&[data-shrink="true"]': {
-          color: '#EAD7A2',
-        },
-      },
-      asterisk: {
-        color: 'transparent',
-      },
     },
   },
 });
