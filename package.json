@@ -53,6 +53,7 @@
   "types": "index.d.ts",
   "dependencies": {
     "@material-ui/core": "^4.10.2",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/icons": "^4.9.1",
     "d3-array": "^2.8.0",
     "react": "^16.9.0",
