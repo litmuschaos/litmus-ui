@@ -142,6 +142,15 @@ declare module '@material-ui/core/styles/createPalette' {
 
 function createTheme(themeOptions?: ThemeOptions) {
   return createMuiTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 960,
+        lg: 1520,
+        xl: 1920,
+      },
+    },
     typography: {
       fontSize: 12,
       fontFamily: 'Ubuntu',
