@@ -1,9 +1,9 @@
-import React from 'react';
-import RadioButton from '../../RadioButton';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import { render, cleanup, fireEvent } from '@testing-library/react';
-import { KuberaThemeProvider } from '../../../theme';
 import { screen } from '@testing-library/dom';
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import { KuberaThemeProvider } from '../../../theme';
+import { RadioButton } from '../RadioButton';
 
 afterEach(cleanup);
 jest.useFakeTimers();

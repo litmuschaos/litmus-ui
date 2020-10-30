@@ -8,5 +8,4 @@ export * from './Pills';
 export * from './ProgressBar';
 export * from './RadioButton';
 export * from './Search';
-export * from './Tabs';
 export * from './Text';

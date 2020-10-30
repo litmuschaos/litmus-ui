@@ -1,6 +1,6 @@
-import { TextFieldProps } from '@material-ui/core/TextField';
+import { OutlinedInputProps } from '@material-ui/core';
 
 export type BaseInputProps = Omit<
-  TextFieldProps,
+  OutlinedInputProps,
   'variant' | 'startAdornment' | 'endAdornment'
 >;

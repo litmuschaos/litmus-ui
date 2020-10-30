@@ -26,6 +26,7 @@
     "build-storybook": "build-storybook -s public",
     "storybook": "start-storybook -p 9001 -s ./src/assets -c .storybook",
     "test": "jest --maxWorkers=2",
+    "test:clean": "jest --clearCache",
     "test:watch": "yarn test --watch",
     "test:coverage": "jest --coverage --colors --maxWorkers=2"
   },

@@ -1,91 +1,291 @@
-import React from 'react';
-import RadioButton from '../RadioButton';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { storiesOf } from '@storybook/react';
+import React, { useState } from 'react';
 import { ThemedBackground } from '../../../src/utils/storybook';
+import { RadioButton } from '../RadioButton';
 
 storiesOf('RadioButton', module)
   // Litmus Portal
-  .add('Litmus Portal', () => (
-    <ThemedBackground platform="litmus-portal" row>
-      <RadioGroup row>
-        <RadioButton value="1">Target cluster</RadioButton>
-        <RadioButton value="2">Target cluster</RadioButton>
-        <RadioButton value="3">Target cluster</RadioButton>
-        <RadioButton disabled={true} checked={true}>
-          Target cluster
+  .add('Litmus Portal', () => {
+    const [selected, setSelected] = useState('A');
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSelected(event.target.value);
+    };
+
+    return (
+      <ThemedBackground platform="litmus-portal">
+        <h2>Radio Buttons with Radio Group</h2>
+        <RadioGroup
+          name="cluster options"
+          value={selected}
+          onChange={handleChange}
+          row
+        >
+          <RadioButton value="A" onChange={handleChange}>
+            Cluster A
+          </RadioButton>
+          <RadioButton value="B" onChange={handleChange}>
+            Cluster B
+          </RadioButton>
+          <RadioButton value="C" onChange={handleChange}>
+            Cluster C
+          </RadioButton>
+          <RadioButton disabled={true} checked={false}>
+            Target cluster
+          </RadioButton>
+        </RadioGroup>
+
+        <h2>Radio Buttons without Radio Group</h2>
+        <RadioButton
+          checked={selected === 'A'}
+          value="A"
+          onChange={handleChange}
+        >
+          Cluster A
         </RadioButton>
-      </RadioGroup>
-      <RadioButton value="1">Target cluster</RadioButton>
-      <RadioButton value="2">Target cluster</RadioButton>
-      <RadioButton value="3">Target cluster</RadioButton>
-    </ThemedBackground>
-  ))
+        <RadioButton
+          checked={selected === 'B'}
+          value="B"
+          onChange={handleChange}
+        >
+          Cluster B
+        </RadioButton>
+        <RadioButton
+          checked={selected === 'C'}
+          value="C"
+          onChange={handleChange}
+        >
+          Cluster C
+        </RadioButton>
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Chaos
-  .add('Kubera Chaos', () => (
-    <ThemedBackground platform="kubera-chaos" row>
-      <RadioGroup row>
-        <RadioButton value="1">Target cluster</RadioButton>
-        <RadioButton value="2">Target cluster</RadioButton>
-        <RadioButton value="3">Target cluster</RadioButton>
-        <RadioButton disabled={true} checked={true}>
-          Target cluster
+  .add('Kubera Chaos', () => {
+    const [selected, setSelected] = useState('A');
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSelected(event.target.value);
+    };
+
+    return (
+      <ThemedBackground platform="kubera-chaos">
+        <h2>Radio Buttons with Radio Group</h2>
+        <RadioGroup
+          name="cluster options"
+          value={selected}
+          onChange={handleChange}
+          row
+        >
+          <RadioButton value="A" onChange={handleChange}>
+            Cluster A
+          </RadioButton>
+          <RadioButton value="B" onChange={handleChange}>
+            Cluster B
+          </RadioButton>
+          <RadioButton value="C" onChange={handleChange}>
+            Cluster C
+          </RadioButton>
+          <RadioButton disabled={true} checked={false}>
+            Target cluster
+          </RadioButton>
+        </RadioGroup>
+
+        <h2>Radio Buttons without Radio Group</h2>
+        <RadioButton
+          checked={selected === 'A'}
+          value="A"
+          onChange={handleChange}
+        >
+          Cluster A
         </RadioButton>
-      </RadioGroup>
-      <RadioButton value="1">Target cluster</RadioButton>
-      <RadioButton value="2">Target cluster</RadioButton>
-      <RadioButton value="3">Target cluster</RadioButton>
-    </ThemedBackground>
-  ))
+        <RadioButton
+          checked={selected === 'B'}
+          value="B"
+          onChange={handleChange}
+        >
+          Cluster B
+        </RadioButton>
+        <RadioButton
+          checked={selected === 'C'}
+          value="C"
+          onChange={handleChange}
+        >
+          Cluster C
+        </RadioButton>
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Propel
-  .add('Kubera Propel', () => (
-    <ThemedBackground platform="kubera-propel" row>
-      <RadioGroup row>
-        <RadioButton value="1">Target cluster</RadioButton>
-        <RadioButton value="2">Target cluster</RadioButton>
-        <RadioButton value="3">Target cluster</RadioButton>
-        <RadioButton disabled={true} checked={true}>
-          Target cluster
+  .add('Kubera Propel', () => {
+    const [selected, setSelected] = useState('A');
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSelected(event.target.value);
+    };
+
+    return (
+      <ThemedBackground platform="kubera-propel">
+        <h2>Radio Buttons with Radio Group</h2>
+        <RadioGroup
+          name="cluster options"
+          value={selected}
+          onChange={handleChange}
+          row
+        >
+          <RadioButton value="A" onChange={handleChange}>
+            Cluster A
+          </RadioButton>
+          <RadioButton value="B" onChange={handleChange}>
+            Cluster B
+          </RadioButton>
+          <RadioButton value="C" onChange={handleChange}>
+            Cluster C
+          </RadioButton>
+          <RadioButton disabled={true} checked={false}>
+            Target cluster
+          </RadioButton>
+        </RadioGroup>
+
+        <h2>Radio Buttons without Radio Group</h2>
+        <RadioButton
+          checked={selected === 'A'}
+          value="A"
+          onChange={handleChange}
+        >
+          Cluster A
         </RadioButton>
-      </RadioGroup>
-      <RadioButton value="1">Target cluster</RadioButton>
-      <RadioButton value="2">Target cluster</RadioButton>
-      <RadioButton value="3">Target cluster</RadioButton>
-    </ThemedBackground>
-  ))
+        <RadioButton
+          checked={selected === 'B'}
+          value="B"
+          onChange={handleChange}
+        >
+          Cluster B
+        </RadioButton>
+        <RadioButton
+          checked={selected === 'C'}
+          value="C"
+          onChange={handleChange}
+        >
+          Cluster C
+        </RadioButton>
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Portal
-  .add('Kubera Portal', () => (
-    <ThemedBackground platform="kubera-portal" row>
-      <RadioGroup row>
-        <RadioButton value="1">Target cluster</RadioButton>
-        <RadioButton value="2">Target cluster</RadioButton>
-        <RadioButton value="3">Target cluster</RadioButton>
-        <RadioButton disabled={true} checked={true}>
-          Target cluster
+  .add('Kubera Portal', () => {
+    const [selected, setSelected] = useState('A');
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSelected(event.target.value);
+    };
+
+    return (
+      <ThemedBackground platform="kubera-portal">
+        <h2>Radio Buttons with Radio Group</h2>
+        <RadioGroup
+          name="cluster options"
+          value={selected}
+          onChange={handleChange}
+          row
+        >
+          <RadioButton value="A" onChange={handleChange}>
+            Cluster A
+          </RadioButton>
+          <RadioButton value="B" onChange={handleChange}>
+            Cluster B
+          </RadioButton>
+          <RadioButton value="C" onChange={handleChange}>
+            Cluster C
+          </RadioButton>
+          <RadioButton disabled={true} checked={false}>
+            Target cluster
+          </RadioButton>
+        </RadioGroup>
+
+        <h2>Radio Buttons without Radio Group</h2>
+        <RadioButton
+          checked={selected === 'A'}
+          value="A"
+          onChange={handleChange}
+        >
+          Cluster A
         </RadioButton>
-      </RadioGroup>
-      <RadioButton value="1">Target cluster</RadioButton>
-      <RadioButton value="2">Target cluster</RadioButton>
-      <RadioButton value="3">Target cluster</RadioButton>
-    </ThemedBackground>
-  ))
+        <RadioButton
+          checked={selected === 'B'}
+          value="B"
+          onChange={handleChange}
+        >
+          Cluster B
+        </RadioButton>
+        <RadioButton
+          checked={selected === 'C'}
+          value="C"
+          onChange={handleChange}
+        >
+          Cluster C
+        </RadioButton>
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Core
-  .add('Kubera Core', () => (
-    <ThemedBackground platform="kubera-core" row>
-      <RadioGroup row>
-        <RadioButton value="1">Target cluster</RadioButton>
-        <RadioButton value="2">Target cluster</RadioButton>
-        <RadioButton value="3">Target cluster</RadioButton>
-        <RadioButton disabled={true} checked={true}>
-          Target cluster
+  .add('Kubera Core', () => {
+    const [selected, setSelected] = useState('A');
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSelected(event.target.value);
+    };
+
+    return (
+      <ThemedBackground platform="kubera-core">
+        <h2>Radio Buttons with Radio Group</h2>
+        <RadioGroup
+          name="cluster options"
+          value={selected}
+          onChange={handleChange}
+          row
+        >
+          <RadioButton value="A" onChange={handleChange}>
+            Cluster A
+          </RadioButton>
+          <RadioButton value="B" onChange={handleChange}>
+            Cluster B
+          </RadioButton>
+          <RadioButton value="C" onChange={handleChange}>
+            Cluster C
+          </RadioButton>
+          <RadioButton disabled={true} checked={false}>
+            Target cluster
+          </RadioButton>
+        </RadioGroup>
+
+        <h2>Radio Buttons without Radio Group</h2>
+        <RadioButton
+          checked={selected === 'A'}
+          value="A"
+          onChange={handleChange}
+        >
+          Cluster A
         </RadioButton>
-      </RadioGroup>
-      <RadioButton value="1">Target cluster</RadioButton>
-      <RadioButton value="2">Target cluster</RadioButton>
-      <RadioButton value="3">Target cluster</RadioButton>
-    </ThemedBackground>
-  ));
+        <RadioButton
+          checked={selected === 'B'}
+          value="B"
+          onChange={handleChange}
+        >
+          Cluster B
+        </RadioButton>
+        <RadioButton
+          checked={selected === 'C'}
+          value="C"
+          onChange={handleChange}
+        >
+          Cluster C
+        </RadioButton>
+      </ThemedBackground>
+    );
+  });

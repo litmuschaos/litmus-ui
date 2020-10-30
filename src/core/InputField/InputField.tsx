@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
 import {
+  FormControl,
   IconButton,
   InputAdornment,
-  OutlinedInput,
   InputLabel,
-  FormControl,
+  OutlinedInput,
 } from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import React, { useState } from 'react';
 import { BaseInputProps } from './base';
 import { useStyles } from './styles';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 type Variant = 'primary' | 'error' | 'success' | undefined;
 
@@ -19,26 +19,21 @@ interface InputProps extends BaseInputProps {
 }
 const InputField: React.FC<InputProps> = ({
   variant,
-  label,
-  disabled,
-  type,
-  value,
-  required,
   startIcon,
   endIcon,
-  onChange,
+  disabled,
+  label,
+  type,
+  ...rest
 }) => {
   const classes = useStyles();
-  const [showPassword, setShowPassword] = useState<boolean>(true);
+  // Hides or shows the password
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const handleClickShowPassword = () => {
-    setShowPassword(true);
+    setShowPassword(!showPassword);
   };
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    setShowPassword(false);
-  };
+
   function getVariant(variant: Variant): string {
     switch (variant) {
       case 'error':
@@ -49,106 +44,61 @@ const InputField: React.FC<InputProps> = ({
         return classes.primary;
     }
   }
-  if (type === 'password') {
-    return (
-      <FormControl
-        data-testid="inputField"
-        variant="outlined"
-        className={
-          disabled
-            ? classes.disabled
-            : `${classes.root}  ${getVariant(variant)}`
-        }
+
+  return (
+    <FormControl
+      data-testid="inputField"
+      variant="outlined"
+      className={
+        disabled ? classes.disabled : `${classes.root}  ${getVariant(variant)}`
+      }
+    >
+      <InputLabel
+        htmlFor="outlined-adornment-password"
+        className={disabled ? `MuiInputLabel-shrink MuiFormLabel-filled` : ``}
       >
-        <InputLabel
-          htmlFor="outlined-adornment-password"
-          className={disabled ? `MuiInputLabel-shrink MuiFormLabel-filled` : ``}
-        >
-          {label}
-        </InputLabel>
-        <OutlinedInput
-          role="OutlinedInput"
-          type={showPassword ? 'text' : 'password'}
-          value={value}
-          error={variant === 'error' ? true : false}
-          disabled={disabled}
-          onChange={onChange}
-          required={required}
-          endAdornment={
+        {label}
+      </InputLabel>
+      <OutlinedInput
+        role="OutlinedInput"
+        type={
+          type === 'text' || !type ? 'text' : showPassword ? 'text' : 'password'
+        }
+        error={variant === 'error' ? true : false}
+        disabled={disabled}
+        endAdornment={
+          type === 'password' ? (
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </IconButton>
             </InputAdornment>
-          }
-          startAdornment={
-            startIcon ? (
-              <InputAdornment position="start">
-                <IconButton aria-label="password field icon" edge="start">
-                  {startIcon}
-                </IconButton>
-              </InputAdornment>
-            ) : (
-              ''
-            )
-          }
-          labelWidth={70}
-        />
-      </FormControl>
-    );
-  } else {
-    return (
-      <FormControl
-        data-testid="inputField"
-        variant="outlined"
-        className={
-          disabled
-            ? classes.disabled
-            : `${classes.root}  ${getVariant(variant)}`
-        }
-      >
-        <InputLabel
-          htmlFor="outlined-adornment-password"
-          className={disabled ? `MuiInputLabel-shrink MuiFormLabel-filled` : ``}
-        >
-          {label}
-        </InputLabel>
-        <OutlinedInput
-          role="OutlinedInput"
-          type={type}
-          value={value}
-          error={variant === 'error' ? true : false}
-          disabled={disabled}
-          onChange={onChange}
-          required={required}
-          startAdornment={
-            startIcon ? (
-              <InputAdornment position="start">
-                <IconButton edge="start">{startIcon}</IconButton>
-              </InputAdornment>
-            ) : (
-              ''
-            )
-          }
-          endAdornment={
-            endIcon ? (
+          ) : (
+            endIcon && (
               <InputAdornment position="end">
                 <IconButton edge="end">{endIcon}</IconButton>
               </InputAdornment>
-            ) : (
-              ''
             )
-          }
-          labelWidth={70}
-        />
-      </FormControl>
-    );
-  }
+          )
+        }
+        startAdornment={
+          startIcon && (
+            <InputAdornment position="start">
+              <IconButton aria-label="password field icon" edge="start">
+                {startIcon}
+              </IconButton>
+            </InputAdornment>
+          )
+        }
+        labelWidth={70}
+        {...rest}
+      />
+    </FormControl>
+  );
 };
 
 export { InputField };
