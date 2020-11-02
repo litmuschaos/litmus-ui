@@ -1,9 +1,7 @@
-import React from 'react';
-import { useStyles } from './styles';
-import { TypographyBaseProps } from '../base';
 import Typography from '@material-ui/core/Typography';
-
-type Variant = 'bold' | undefined;
+import React from 'react';
+import { TypographyBaseProps, Variant } from '../base';
+import { useStyles } from './styles';
 
 interface HeaderProps extends TypographyBaseProps {
   variant?: Variant;
@@ -17,6 +15,8 @@ const Header: React.FC<HeaderProps> = ({ color, variant, children }) => {
     switch (variant) {
       case 'bold':
         return classes.bold;
+      case 'small':
+        return classes.small;
       default:
         return classes.primary;
     }

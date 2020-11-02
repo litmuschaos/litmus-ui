@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   primary: {
     fontWeight: 'normal',
   },
+  bold: {
+    fontWeight: 'bold',
+  },
   small: {
     fontSize: '0.75rem',
     fontWeight: 'normal',

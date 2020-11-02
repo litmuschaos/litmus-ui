@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   bold: {
     fontWeight: 'bold',
   },
+  small: {
+    fontSize: '1.5rem',
+  },
 }));
 
 export { useStyles };
