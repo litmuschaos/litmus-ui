@@ -1,9 +1,7 @@
-import React from 'react';
-import { useStyles } from './styles';
-import { TypographyBaseProps } from '../base';
 import Typography from '@material-ui/core/Typography';
-
-type Variant = 'small' | undefined;
+import React from 'react';
+import { TypographyBaseProps, Variant } from '../base';
+import { useStyles } from './styles';
 
 interface ParagraphProps extends TypographyBaseProps {
   variant?: Variant;
@@ -15,6 +13,8 @@ const Paragraph: React.FC<ParagraphProps> = ({ color, variant, children }) => {
 
   function getVarinat(variant: Variant): string {
     switch (variant) {
+      case 'bold':
+        return classes.bold;
       case 'small':
         return classes.small;
       default:
