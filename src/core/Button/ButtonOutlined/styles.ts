@@ -3,6 +3,7 @@ import { fade, makeStyles, Theme } from '@material-ui/core';
 const useStyles = makeStyles((theme: Theme) => ({
   // Global
   root: {
+    height: 'fit-content',
     padding: theme.spacing(1.5, 2),
     textTransform: 'none',
     background: 'transparent',

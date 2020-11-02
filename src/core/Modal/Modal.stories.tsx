@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { ThemedBackground } from '../../utils/storybook';
-import Modal from './Modal';
+import { Modal } from './Modal';
 
 storiesOf('Modal/Base Modal', module)
   // Kubera Chaos

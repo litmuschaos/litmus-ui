@@ -5,7 +5,16 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   export interface Theme {
     kuberaCoreCards: {
       kuberaChaos: {
+        background: {
+          default: string;
+          paper: string;
+        };
+        button: {
+          unconfigured: string;
+          configured: string;
+        };
         card: string;
+        highlight: string;
         license: {
           selection: string;
           header: string;
@@ -13,7 +22,16 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         };
       };
       kuberaPropel: {
+        background: {
+          default: string;
+          paper: string;
+        };
+        button: {
+          unconfigured: string;
+          configured: string;
+        };
         card: string;
+        highlight: string;
         license: {
           selection: string;
           header: string;
@@ -26,7 +44,16 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   export interface ThemeOptions {
     kuberaCoreCards?: {
       kuberaChaos?: {
+        background: {
+          default: string;
+          paper: string;
+        };
+        button: {
+          unconfigured: string;
+          configured: string;
+        };
         card: string;
+        highlight: string;
         license: {
           selection: string;
           header: string;
@@ -34,7 +61,16 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         };
       };
       kuberaPropel?: {
+        background: {
+          default: string;
+          paper: string;
+        };
+        button: {
+          unconfigured: string;
+          configured: string;
+        };
         card: string;
+        highlight: string;
         license: {
           selection: string;
           header: string;

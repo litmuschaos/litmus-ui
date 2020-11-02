@@ -86,7 +86,16 @@ const kuberaCoreTheme = createTheme({
 
   kuberaCoreCards: {
     kuberaChaos: {
-      card: 'linear-gradient(255.08deg, #0D654B 7.37%, #0B4F3A 100%)',
+      background: {
+        default: 'linear-gradient(268.56deg, #443F93 1.65%, #292A5B 61.02%)',
+        paper: 'linear-gradient(255.08deg, #0F7B5B 7.37%, #0E5B44 100%)',
+      },
+      button: {
+        unconfigured: '#52F99540',
+        configured: '#2BCB69',
+      },
+      card: 'linear-gradient(255.08deg, #0F7B5B 7.37%, #0E5B44 100%)',
+      highlight: '#52FF95',
       license: {
         selection: '#0000004D',
         header: 'linear-gradient(255.08deg, #0E694E 7.37%, #094533 100%)',
@@ -94,7 +103,16 @@ const kuberaCoreTheme = createTheme({
       },
     },
     kuberaPropel: {
+      background: {
+        default: 'linear-gradient(265.69deg, #108461 1.43%, #0C262E 64.44%)',
+        paper: 'linear-gradient(249.11deg, #5759A5 25.9%, #505193 94.35%)',
+      },
+      button: {
+        unconfigured: '#EAD74240',
+        configured: '#BDAC74',
+      },
       card: 'linear-gradient(63.18deg, #2C354D 5.01%, #323E5B 102.43%)',
+      highlight: '#EAD7A2',
       license: {
         selection: '#0000004D',
         header: 'linear-gradient(63.18deg, #262F44 5.01%, #323E5B 102.43%)',
