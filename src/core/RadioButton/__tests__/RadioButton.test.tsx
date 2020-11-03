@@ -1,4 +1,4 @@
-import RadioGroup from '@material-ui/core/RadioGroup';
+import { RadioGroup } from '@material-ui/core';
 import { screen } from '@testing-library/dom';
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';

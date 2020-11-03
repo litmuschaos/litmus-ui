@@ -87,36 +87,40 @@ const kuberaCoreTheme = createTheme({
   kuberaCoreCards: {
     kuberaChaos: {
       background: {
-        default: 'linear-gradient(268.56deg, #443F93 1.65%, #292A5B 61.02%)',
-        paper: 'linear-gradient(255.08deg, #0F7B5B 7.37%, #0E5B44 100%)',
+        default: 'linear-gradient(267.51deg, #118F6A 1.47%, #0C262E 100%)',
+        paper:
+          'linear-gradient(255.08deg, #10805E 7.37%, rgba(16, 128, 94, 0) 100%)',
       },
       button: {
         unconfigured: '#52F99540',
-        configured: '#2BCB69',
+        configured: '#28CB69',
       },
       card: 'linear-gradient(255.08deg, #0F7B5B 7.37%, #0E5B44 100%)',
       highlight: '#52FF95',
       license: {
         selection: '#0000004D',
-        header: 'linear-gradient(255.08deg, #0E694E 7.37%, #094533 100%)',
-        body: 'linear-gradient(255.08deg, #074633 7.37%, #04281E 100%)',
+        header:
+          'linear-gradient(256.44deg, #109B67 10.29%, rgba(4, 40, 30, 0.58) 71.07%)',
+        body: 'linear-gradient(267.83deg, #074633 1.48%, #0C262E 100%)',
       },
     },
     kuberaPropel: {
       background: {
-        default: 'linear-gradient(265.69deg, #108461 1.43%, #0C262E 64.44%)',
-        paper: 'linear-gradient(249.11deg, #5759A5 25.9%, #505193 94.35%)',
+        default: 'linear-gradient(267.13deg, #E9D08C 2.06%, #7E6E42 100%)',
+        paper:
+          'linear-gradient(249.11deg, #E9D08C 25.9%, rgba(126, 110, 66, 0) 94.35%)',
       },
       button: {
-        unconfigured: '#EAD74240',
-        configured: '#BDAC74',
+        unconfigured: '#EAD7A240',
+        configured: '#EAD7A2',
       },
-      card: 'linear-gradient(63.18deg, #2C354D 5.01%, #323E5B 102.43%)',
+      card: 'linear-gradient(264.22deg, #323E5B 2.84%, #2C354D 100%)',
       highlight: '#EAD7A2',
       license: {
         selection: '#0000004D',
-        header: 'linear-gradient(63.18deg, #262F44 5.01%, #323E5B 102.43%)',
-        body: 'linear-gradient(63.18deg, #1C2232 5.01%, #252E46 102.43%)',
+        header:
+          'linear-gradient(264.6deg, #E9D08C 14.02%, rgba(84, 65, 13, 0.21) 88.13%)',
+        body: 'linear-gradient(264.22deg, #534A32 2.84%, #221E15 100%)',
       },
     },
   },
