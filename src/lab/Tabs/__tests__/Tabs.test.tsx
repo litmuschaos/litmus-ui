@@ -1,7 +1,7 @@
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import Tabs from '../Tabs';
-import { render, fireEvent, screen, cleanup } from '@testing-library/react';
 import { KuberaThemeProvider } from '../../../theme';
+import { Tabs } from '../Tabs';
 
 afterEach(cleanup);
 jest.useFakeTimers();

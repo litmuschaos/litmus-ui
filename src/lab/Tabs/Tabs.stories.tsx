@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { ThemedBackground } from '../../../src/utils/storybook';
-import Tabs from './Tabs';
+import { Tabs } from './Tabs';
 
 storiesOf('Tabs', module)
   // Litmus Portal

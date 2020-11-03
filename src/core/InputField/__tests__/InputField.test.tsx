@@ -1,8 +1,8 @@
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { KuberaThemeProvider } from '../../../theme';
 import { InputField } from '../InputField';
-import { screen } from '@testing-library/dom';
 
 afterEach(cleanup);
 jest.useFakeTimers();
@@ -12,19 +12,17 @@ describe('InputField component', () => {
     render(
       <KuberaThemeProvider platform="kubera-chaos">
         <InputField
-          label="primary"
+          label="Text Input"
           variant="primary"
           type="text"
           disabled={false}
-          startIcon={null}
-          endIcon={null}
           onChange={() => console.log('change')}
         />
       </KuberaThemeProvider>
     );
     //get OutlinedInput byRole
-    const input = screen.getByRole('OutlinedInput');
-    //get input from OutlinedInput
+    const input = screen.getByTestId('inputField');
+    //get input from TextField
     const inputValue = input.querySelector('input') as HTMLElement;
     //check attributes
     expect(inputValue).toHaveProperty('type', 'text');

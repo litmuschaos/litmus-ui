@@ -5,7 +5,7 @@ import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
 import React from 'react';
 import { TabBaseProps } from './base';
-import useStyles from './styles';
+import { useStyles } from './styles';
 
 interface TabsProps extends TabBaseProps {
   label: string[];
@@ -51,4 +51,4 @@ const Tabs: React.FC<TabsProps> = ({ label, content, onChange, value }) => {
   );
 };
 
-export default Tabs;
+export { Tabs };

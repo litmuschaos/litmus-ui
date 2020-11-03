@@ -1,6 +1,6 @@
+import { FormControl, Input, InputAdornment } from '@material-ui/core';
+import { Search as SearchIcon } from '@material-ui/icons';
 import React from 'react';
-import SearchIcon from '@material-ui/icons/Search';
-import { FormControl, InputAdornment, Input } from '@material-ui/core';
 import { BaseSearchProps } from './base';
 import { useStyles } from './styles';
 

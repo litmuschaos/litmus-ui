@@ -1,7 +1,7 @@
 import { Button, Modal as MuiModal } from '@material-ui/core';
 import React from 'react';
 import { ModalBaseProps } from './base';
-import useStyles from './styles';
+import { useStyles } from './styles';
 
 interface ModalProps extends ModalBaseProps {
   hasCloseBtn: boolean;

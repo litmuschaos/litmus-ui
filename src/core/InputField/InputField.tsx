@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from '@material-ui/core';
+import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { BaseInputProps } from './base';
@@ -22,7 +16,6 @@ const InputField: React.FC<InputProps> = ({
   startIcon,
   endIcon,
   disabled,
-  label,
   type,
   ...rest
 }) => {
@@ -46,27 +39,17 @@ const InputField: React.FC<InputProps> = ({
   }
 
   return (
-    <FormControl
+    <TextField
       data-testid="inputField"
       variant="outlined"
       className={
         disabled ? classes.disabled : `${classes.root}  ${getVariant(variant)}`
       }
-    >
-      <InputLabel
-        htmlFor="outlined-adornment-password"
-        className={disabled ? `MuiInputLabel-shrink MuiFormLabel-filled` : ``}
-      >
-        {label}
-      </InputLabel>
-      <OutlinedInput
-        role="OutlinedInput"
-        type={
-          type === 'text' || !type ? 'text' : showPassword ? 'text' : 'password'
-        }
-        error={variant === 'error' ? true : false}
-        disabled={disabled}
-        endAdornment={
+      type={type !== 'password' ? type : showPassword ? 'text' : 'password'}
+      error={variant === 'error'}
+      disabled={disabled}
+      InputProps={{
+        endAdornment:
           type === 'password' ? (
             <InputAdornment position="end">
               <IconButton
@@ -83,21 +66,17 @@ const InputField: React.FC<InputProps> = ({
                 <IconButton edge="end">{endIcon}</IconButton>
               </InputAdornment>
             )
-          )
-        }
-        startAdornment={
-          startIcon && (
-            <InputAdornment position="start">
-              <IconButton aria-label="password field icon" edge="start">
-                {startIcon}
-              </IconButton>
-            </InputAdornment>
-          )
-        }
-        labelWidth={70}
-        {...rest}
-      />
-    </FormControl>
+          ),
+        startAdornment: startIcon && (
+          <InputAdornment position="start">
+            <IconButton aria-label="password field icon" edge="start">
+              {startIcon}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
+      {...rest}
+    />
   );
 };
 

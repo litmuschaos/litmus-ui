@@ -1,5 +1,4 @@
 export * from './Button';
-export * from './ButtonGroup';
 export * from './InputField';
 export * from './KuberaCard';
 export * from './Link';

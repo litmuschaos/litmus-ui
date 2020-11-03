@@ -2,17 +2,13 @@ import { makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    border: '0.0.625rem solid',
     width: '25rem',
-    borderRadius: '0.25rem',
     '& label': {
       color: theme.palette.text.hint,
-      paddingLeft: '1.75rem',
     },
     background: theme.palette.background.paper,
     '& fieldset': {
       borderColor: theme.palette.border.main,
-      paddingLeft: '1.5rem !important',
     },
     '& .MuiSvgIcon-root': {
       color: theme.palette.text.hint,
@@ -24,14 +20,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: theme.palette.background.paper,
     '& fieldset': {
       borderColor: `${theme.palette.border.main} !important`,
-      paddingLeft: '1.5rem !important',
       '& legend': {
         width: '3.78125rem !important',
       },
     },
     '& label': {
       color: `${theme.palette.border.main} !important`,
-      paddingLeft: '1.75rem',
     },
   },
   primary: {
