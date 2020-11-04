@@ -80,6 +80,26 @@ const kuberaPortalTheme = createTheme({
       backdrop: '#1F104499',
     },
   },
+
+  // Kubera Portal Additional Theme Options
+
+  kuberaPortalCards: {
+    kuberaChaos: {
+      background:
+        'linear-gradient(267.52deg, #118F6A 1.29%, rgba(12, 38, 46, 0) 100%)',
+      highlight: '#52FF95',
+    },
+    kuberaPropel: {
+      background:
+        'linear-gradient(248.75deg, #C3A858 1.28%, rgba(195, 168, 88, 0) 94.35%)',
+      highlight: '#EAD7A2',
+    },
+    kuberaPortal: {
+      background:
+        'linear-gradient(98.61deg, #530963 23.84%, #66194F 44.73%, #6D1E49 54.81%, #893139 68.67%, #A44131 80.98%, #CF5A25 93.11%, #E06420 108.49%)',
+      highlight: '#DE7EDF',
+    },
+  },
 });
 
 export { kuberaPortalTheme };

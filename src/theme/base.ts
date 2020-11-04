@@ -3,6 +3,20 @@ import { createMuiTheme, ThemeOptions } from '@material-ui/core';
 // Agument the Theme interface
 declare module '@material-ui/core/styles/createMuiTheme' {
   export interface Theme {
+    kuberaPortalCards: {
+      kuberaChaos: {
+        background: string;
+        highlight: string;
+      };
+      kuberaPropel: {
+        background: string;
+        highlight: string;
+      };
+      kuberaPortal: {
+        background: string;
+        highlight: string;
+      };
+    };
     kuberaCoreCards: {
       kuberaChaos: {
         background: {
@@ -42,6 +56,20 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   }
   // allow configuration using `createMuiTheme`
   export interface ThemeOptions {
+    kuberaPortalCards?: {
+      kuberaChaos: {
+        background: string;
+        highlight: string;
+      };
+      kuberaPropel: {
+        background: string;
+        highlight: string;
+      };
+      kuberaPortal: {
+        background: string;
+        highlight: string;
+      };
+    };
     kuberaCoreCards?: {
       kuberaChaos?: {
         background: {
