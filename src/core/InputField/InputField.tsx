@@ -17,9 +17,10 @@ const InputField: React.FC<InputProps> = ({
   endIcon,
   disabled,
   type,
+  fullWidth,
   ...rest
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ fullWidth });
   // Hides or shows the password
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -43,7 +44,9 @@ const InputField: React.FC<InputProps> = ({
       data-testid="inputField"
       variant="outlined"
       className={
-        disabled ? classes.disabled : `${classes.root}  ${getVariant(variant)}`
+        disabled
+          ? `${classes.root}  ${classes.disabled}`
+          : `${classes.root}  ${getVariant(variant)}`
       }
       type={type !== 'password' ? type : showPassword ? 'text' : 'password'}
       error={variant === 'error'}

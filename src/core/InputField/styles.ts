@@ -1,14 +1,19 @@
 import { makeStyles, Theme } from '@material-ui/core';
 
+interface StyleProps {
+  fullWidth?: boolean;
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: '25rem',
+    color: theme.palette.text.primary,
+    width: (props: StyleProps) => (props.fullWidth ? '100%' : '25rem'),
     '& label': {
       color: theme.palette.text.hint,
     },
     background: theme.palette.background.paper,
     '& fieldset': {
-      borderColor: theme.palette.border.main,
+      borderColor: `${theme.palette.border.main} !important`,
     },
     '& .MuiSvgIcon-root': {
       color: theme.palette.text.hint,
@@ -16,14 +21,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   disabled: {
     color: theme.palette.text.disabled,
-    width: '25rem',
-    background: theme.palette.background.paper,
-    '& fieldset': {
-      borderColor: `${theme.palette.border.main} !important`,
-      '& legend': {
-        width: '3.78125rem !important',
-      },
-    },
     '& label': {
       color: `${theme.palette.border.main} !important`,
     },
