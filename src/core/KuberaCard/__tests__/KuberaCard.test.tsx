@@ -7,7 +7,7 @@ describe('Button Filled Component', () => {
   it('Renders', () => {
     const { getByText } = render(
       <KuberaThemeProvider platform="kubera-propel">
-        <KuberaCard width="15rem" height="20rem" glow>
+        <KuberaCard width="15rem" height="20rem" borderColor="#5B44BA" glow>
           Card With Glow
         </KuberaCard>
       </KuberaThemeProvider>

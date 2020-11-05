@@ -1,38 +1,28 @@
-import { Button, Modal as MuiModal } from '@material-ui/core';
+import { Modal as MuiModal } from '@material-ui/core';
 import React from 'react';
 import { ModalBaseProps } from './base';
 import { useStyles } from './styles';
 
 interface ModalProps extends ModalBaseProps {
-  hasCloseBtn: boolean;
+  width?: string;
+  onClose: () => void;
+  modalActions?: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({
   children,
-  hasCloseBtn,
+  width,
   open,
   onClose,
+  modalActions,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ width });
 
   return (
-    <MuiModal
-      open={open}
-      onClose={onClose}
-      disableBackdropClick
-      disableEscapeKeyDown
-      title="Modal"
-      aria-labelledby="simple-modal-title"
-    >
-      <div className={classes.root}>
-        {hasCloseBtn && (
-          <Button
-            variant="outlined"
-            className={classes.closeButton}
-            onClick={() => onClose}
-          >
-            &#x2715;
-          </Button>
+    <MuiModal open={open} onClose={onClose} className={classes.root}>
+      <div className={classes.content}>
+        {modalActions && (
+          <div className={classes.modalActions}>{modalActions}</div>
         )}
         {children}
       </div>
