@@ -1,1 +1,2 @@
-export * from './Graphs';
+export * from './Graphs/LineAreaGraph';
+export * from './Tabs/Tabs';

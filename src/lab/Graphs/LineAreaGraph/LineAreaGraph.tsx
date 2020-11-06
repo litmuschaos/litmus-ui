@@ -1,60 +1,41 @@
 import { Brush } from '@visx/brush';
 import { Bounds } from '@visx/brush/lib/types';
 import { localPoint } from '@visx/event';
-import { LinearGradient } from '@visx/gradient';
 import { scaleLinear, scaleTime } from '@visx/scale';
 import { Line } from '@visx/shape';
 import { defaultStyles, Tooltip, useTooltip } from '@visx/tooltip';
 import { bisector, extent, max } from 'd3-array';
 import React, { useCallback, useMemo, useState } from 'react';
-import { AreaChart } from './AreaChart';
-import { AreaGrapher, DataValue } from './base';
-
+import { PlotLineAreaGraph } from './PlotLineAreaGraph';
+import { LegendTable } from './LegendTable';
+import { AreaGrapher, DataValue, LegendData } from './base';
+import { useStyles } from './styles';
 type TooltipData = Array<AreaGrapher>;
 // Initialize some variables
 let containerX: number;
 let containerY: number;
 let dd1: DataValue;
 let dd0: DataValue;
-
 let i: number;
-
 let j: number;
 let indexer: number;
-const a: AreaGrapher = {
-  metricName: 'metric11',
-  data: [{ date: 10, value: 10 }],
-};
-const dd3: AreaGrapher[] = [a];
+
+const legenddata: Array<LegendData> = [{ value: [] }];
+const dd3: AreaGrapher[] = [{ metricName: '', data: [] }];
 const bisectDate = bisector<DataValue, Date>((d) => new Date(d.date * 1000))
   .left;
 
 const brushMargin = { top: 10, bottom: 15, left: 50, right: 20 };
-const chartSeparation = 30;
+const chartSeparation = 10;
 export const accentColorDark = '#08BBD7';
-export const accentColor = '#f6acc8';
-export const background = '#0A1818';
-export const background2 = '#0A1818';
-export const accentColor1 = '#08BBD7';
-export const accentColor2 = '#F6B92B';
-export const accentColor3 = '#E73939';
-export const accentColor4 = '#AD51C3';
-export const accentColor5 = '#FFF';
-const colorArr: string[] = [
-  accentColor1,
-  accentColor2,
-  accentColor3,
-  accentColor4,
-  accentColor,
-];
+
+export const blue = '#0098DD';
+const colorArr: string[] = ['#08BBD7', '#F6B92B', '#E73939', '#AD51C3', '#FFF'];
 const colorCount = 5;
-const selectedBrushStyle = {
-  fill: `url(#${13}-linearGragient)`,
-  stroke: 'white',
-};
+
 const tooltipStyles = {
   ...defaultStyles,
-  background,
+  background: '#0A1818',
   border: '1px solid white',
   color: 'white',
 };
@@ -68,18 +49,21 @@ export type AreaGraphProps = {
   openSeries: Array<AreaGrapher>;
   showPoints?: boolean;
   showGrid?: boolean;
+  showLegend?: true;
   width?: number;
   height?: number;
   margin?: { top: number; right: number; bottom: number; left: number };
   compact?: boolean;
+  legendTableHeight?: number;
 };
 
-const AreaGraph: React.FC<AreaGraphProps> = ({
+const LineAreaGraph: React.FC<AreaGraphProps> = ({
   compact = false,
   closedSeries,
   openSeries,
   showPoints = true,
   showGrid = true,
+  showLegend = true,
   width = 200,
   height = 200,
   margin = {
@@ -88,10 +72,16 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
     bottom: 20,
     right: 30,
   },
+  legendTableHeight = 200,
 }) => {
-  // const [filteredSeries, setFilteredStock] = useState(series);
+  const classes = useStyles({ width, height });
   const [filteredClosedSeries, setFilteredSeries] = useState(closedSeries);
   const [filteredOpenSeries, setfilteredOpenSeries] = useState(openSeries);
+  const closedSeriesCount = filteredClosedSeries
+    ? filteredClosedSeries.length
+    : 0;
+
+  // const openSeriesCount = filteredOpenSeries ? filteredOpenSeries.length : 0;
 
   const onBrushChange = useCallback(
     (domain: Bounds | null) => {
@@ -142,7 +132,7 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
   const topChartBottomMargin = compact
     ? chartSeparation / 2
     : chartSeparation + 10;
-  const topChartHeight = 0.8 * innerHeight - topChartBottomMargin;
+  const topChartHeight = innerHeight - topChartBottomMargin;
 
   // bounds
   const xMax = Math.max(width - margin.left - margin.right, 0);
@@ -201,9 +191,11 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
   } = useTooltip<TooltipData>({
     // initial tooltip state
     tooltipOpen: true,
-
-    // tooltipData: 'Move me with your mouse or finger',
   });
+  const getSum = (total: number, num: number) => {
+    return total + num;
+  };
+
   // tooltip handler
   const handleTooltip = useCallback(
     (
@@ -211,7 +203,6 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
     ) => {
       let { x } = localPoint(event) || { x: 0 };
       x = x - 50;
-      //   y = y - shiftT;
       const x0 = dateScale.invert(x);
 
       containerX = 'clientX' in event ? event.clientX : 0;
@@ -220,11 +211,9 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
       if (closedSeries) {
         for (i = 0; i < closedSeries.length; i++) {
           indexer = bisectDate(closedSeries[i].data, x0, 1);
-          // console.log("indeex", indexer);
           dd0 = closedSeries[i].data[indexer - 1];
           dd1 = closedSeries[i].data[indexer];
 
-          // console.log(dd0);
           if (dd1) {
             dd3[i] =
               x0.valueOf() - getDate(dd0).valueOf() >
@@ -233,7 +222,6 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
                 : { metricName: closedSeries[i].metricName, data: [dd0] };
           }
         }
-        // console.log("dd3", dd3);
       }
 
       if (openSeries) {
@@ -252,7 +240,6 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
           }
         }
       }
-      // console.log(dd3);
       if (width < 10) return null;
 
       showTooltip({
@@ -261,33 +248,52 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
     },
     [showTooltip, dateScale, closedSeries, openSeries, width]
   );
-  //tooltip end
-  // console.log(filteredSeries);
+  {
+    filteredClosedSeries &&
+      filteredClosedSeries.map((linedata, index) => {
+        legenddata[index] = {
+          value: [
+            linedata.metricName,
+            (
+              linedata.data.map((d) => d.value).reduce(getSum, 0) /
+              linedata.data.length
+            ).toString(),
+            closedSeries[index].data[
+              closedSeries[index].data.length - 1
+            ].value.toString(),
+          ],
+        };
+      });
+  }
+  {
+    filteredOpenSeries &&
+      filteredOpenSeries.map((linedata, index) => {
+        legenddata[index + closedSeriesCount] = {
+          value: [
+            linedata.metricName,
+            (
+              linedata.data.map((d) => d.value).reduce(getSum, 0) /
+              linedata.data.length
+            ).toString(),
+            openSeries[index].data[
+              openSeries[index].data.length - 1
+            ].value.toString(),
+          ],
+        };
+      });
+  }
   return (
     <div>
       <svg width={width} height={height}>
-        <LinearGradient
-          id="area-background-gradient"
-          from={background}
-          to={background2}
-        />
-        <LinearGradient
-          id={`${13}-linearGragient`}
-          from={'white'}
-          to={'white'}
-          fromOpacity={0.5}
-          toOpacity={0.1}
-        />
         <rect
           x={0}
           y={0}
           width={width}
-          height={yMax + margin.top + margin.bottom + 10}
-          fill="url(#area-background-gradient)"
-          // fill={"blue"}
+          height={height}
+          className={classes.rectBase}
         />
 
-        <AreaChart
+        <PlotLineAreaGraph
           hideBottomAxis={compact}
           showPoints={showPoints}
           closedSeries={filteredClosedSeries}
@@ -299,11 +305,10 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
           xMax={xMax}
           xScale={dateScale}
           yScale={valueScale}
-          gradientColor={background2}
           showGrid={showGrid}
         >
           <Brush
-            key={'hee'}
+            key={'brush'}
             xScale={dateScale}
             yScale={valueScale}
             width={xMax}
@@ -311,8 +316,6 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
             margin={brushMargin}
             handleSize={8}
             resizeTriggerAreas={['left', 'right']}
-            // brushDirection="horizontal"
-            // initialBrushPosition={initialBrushPosition}
             resetOnEnd={true}
             onBrushEnd={onBrushChange}
             onChange={() => hideTooltip()}
@@ -320,22 +323,21 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
               setFilteredSeries(closedSeries);
               setfilteredOpenSeries(openSeries);
             }}
-            selectedBoxStyle={selectedBrushStyle}
+            selectedBoxStyle={{
+              fill: 'white',
+              stroke: 'white',
+              fillOpacity: '0.2',
+            }}
             onMouseMove={handleTooltip}
             onMouseLeave={() => hideTooltip()}
           />
-
           {tooltipData &&
             dd3.map((d, i) => (
               <g key={`${i}-tooltip`}>
-                {/* vertical line for toolitip */}
                 <Line
                   from={{ x: dateScale(getDate(d.data[0])), y: 0 }}
                   to={{ x: dateScale(getDate(d.data[0])), y: yMax }}
-                  stroke={accentColorDark}
-                  strokeWidth={2}
-                  pointerEvents="none"
-                  strokeDasharray="5,2"
+                  className={classes.tooltipLine}
                 />
                 <circle
                   cx={dateScale(getDate(d.data[0]))}
@@ -350,23 +352,15 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
                 />
               </g>
             ))}
-        </AreaChart>
+          k
+        </PlotLineAreaGraph>
       </svg>
       {tooltipData && (
         <Tooltip top={containerY} left={containerX + 30} style={tooltipStyles}>
           {dd3.map((d, i) => (
             <div style={{ padding: '5px', display: 'flex' }} key={`bb- ${i}`}>
-              <div
-                style={{
-                  float: 'left',
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                }}
-              >
-                <hr
-                  color={colorArr[i % colorCount]}
-                  style={{ width: '10px', height: '1px' }}
-                />
+              <div className={classes.tooltipData}>
+                <hr color={colorArr[i % colorCount]} className={classes.hr} />
                 <span style={{ color: 'white', paddingLeft: '0.5em' }}>{`${
                   d.metricName
                 }:  ${getValue(d.data[0]).toString()}`}</span>
@@ -375,8 +369,17 @@ const AreaGraph: React.FC<AreaGraphProps> = ({
           ))}
         </Tooltip>
       )}
+
+      {showLegend && (
+        <LegendTable
+          data={legenddata}
+          heading={['', 'Avg', 'Curr']}
+          width={width}
+          height={legendTableHeight}
+        />
+      )}
     </div>
   );
 };
 
-export { AreaGraph };
+export { LineAreaGraph };

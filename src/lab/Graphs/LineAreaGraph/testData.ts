@@ -1,7 +1,3 @@
-import { storiesOf } from '@storybook/react';
-import React from 'react';
-import { ThemedBackground } from '../../../utils/storybook';
-import { AreaGraph } from './AreaGraph';
 import { AreaGrapher, DataValue } from './base';
 
 const data1: DataValue[] = [
@@ -25,21 +21,9 @@ const data2: DataValue[] = [
   { date: 8000, value: 10 },
 ];
 
-const seriestest: Array<AreaGrapher> = [
+const seriestest1: Array<AreaGrapher> = [
   { metricName: 'chaos-exporter', data: data1 },
 ];
 const seriestest2: Array<AreaGrapher> = [{ metricName: 'heptio', data: data2 }];
 
-storiesOf('Graphs/Area', module)
-  // Litmus Portal
-  .add('Kubera Chaos', () => (
-    <ThemedBackground platform="kubera-chaos">
-      <AreaGraph
-        width={600}
-        height={400}
-        closedSeries={seriestest}
-        openSeries={seriestest2}
-        showPoints={true}
-      />
-    </ThemedBackground>
-  ));
+export { seriestest1, seriestest2 };

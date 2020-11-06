@@ -7,22 +7,12 @@ import { MarkerCircle } from '@visx/marker';
 import { AreaClosed, LinePath } from '@visx/shape';
 import React from 'react';
 import { AreaGrapher, DataValue } from './base';
-
+import { useStyles } from './styles';
 // Initialize some variables
 const axisColor = '#fff';
-export const accentColor = '#f6acc8';
-export const background = '#584153';
-export const background2 = '#af8baf';
-export const accentColor1 = '#08BBD7';
-export const accentColor2 = '#F6B92B';
-export const accentColor3 = '#E73939';
-export const accentColor4 = '#AD51C3';
-const colorArr: string[] = [
-  accentColor1,
-  accentColor2,
-  accentColor3,
-  accentColor4,
-];
+
+const colorArr: string[] = ['#08BBD7', '#F6B92B', '#E73939', '#AD51C3', '#FFF'];
+
 const colorCount = 4;
 const axisBottomTickLabelProps = {
   textAnchor: 'middle' as const,
@@ -33,7 +23,7 @@ const axisBottomTickLabelProps = {
 const axisLeftTickLabelProps = {
   dx: '-0.25em',
   dy: '0.25em',
-  fontFamily: 'Arial',
+  fontFamily: 'Ubuntu',
   fontSize: 10,
   textAnchor: 'end' as const,
   fill: axisColor,
@@ -41,7 +31,7 @@ const axisLeftTickLabelProps = {
 const axisRightTickLabelProps = {
   dx: '1.25em',
   dy: '0.25em',
-  fontFamily: 'Arial',
+  fontFamily: 'Ubuntu',
   fontSize: 10,
   textAnchor: 'end' as const,
   fill: axisColor,
@@ -53,7 +43,6 @@ const getStockValue = (d: DataValue) => d.value;
 
 interface AreaChartProps {
   data?: Array<AreaGrapher>;
-  gradientColor: string;
   xScale: AxisScale<number>;
   yScale: AxisScale<number>;
   closedSeries: Array<AreaGrapher>;
@@ -72,7 +61,7 @@ interface AreaChartProps {
   showPoints: boolean;
 }
 
-const AreaChart: React.FC<AreaChartProps> = ({
+const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   height,
   width,
   closedSeries,
@@ -91,7 +80,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
   showPoints = true,
   showGrid = true,
 }) => {
+  const classes = useStyles();
   if (width < 10) return null;
+
   return (
     <Group left={left || margin?.left} top={top || margin?.top}>
       {closedSeries.length > 0 &&
@@ -109,17 +100,13 @@ const AreaChart: React.FC<AreaChartProps> = ({
                 <GridRows
                   scale={yScale}
                   width={xMax}
-                  // strokeDasharray="1"
-                  stroke={accentColor}
-                  strokeOpacity={0.3}
+                  className={classes.grid}
                   pointerEvents="none"
                 />
                 <GridColumns
                   scale={xScale}
                   height={height}
-                  // strokeDasharray="1"
-                  stroke={accentColor}
-                  strokeOpacity={0.3}
+                  className={classes.grid}
                   pointerEvents="none"
                 />
               </Group>
@@ -219,4 +206,4 @@ const AreaChart: React.FC<AreaChartProps> = ({
   );
 };
 
-export { AreaChart };
+export { PlotLineAreaGraph };
