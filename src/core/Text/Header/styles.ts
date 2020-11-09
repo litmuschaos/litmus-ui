@@ -6,7 +6,7 @@ interface StyleProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    fontSize: '2.25rem',
+    fontSize: '3rem',
     color: (props: StyleProps) =>
       props ? props.color : theme.palette.text.primary,
   },
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'bold',
   },
   small: {
-    fontSize: '1.5rem',
+    fontSize: '2rem',
   },
 }));
 

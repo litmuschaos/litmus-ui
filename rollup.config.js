@@ -8,6 +8,8 @@ const globals = {
   react: 'React',
   'react-dom': 'ReactDOM',
   '@material-ui/core': 'MaterialUI',
+  '@material-ui/lab': 'MaterialUILab',
+  '@visx/visx': 'Visx',
 };
 
 export default {
@@ -28,7 +30,7 @@ export default {
       format: 'es',
       globals,
       sourcemap: true,
-    }
+    },
   ],
   plugins: [
     commonjs(),

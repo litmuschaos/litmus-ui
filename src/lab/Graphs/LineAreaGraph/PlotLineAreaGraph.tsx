@@ -1,10 +1,17 @@
-import { AxisBottom, AxisLeft, AxisRight, AxisScale } from '@visx/axis';
-import { curveMonotoneX } from '@visx/curve';
-import { LinearGradient } from '@visx/gradient';
-import { GridColumns, GridRows } from '@visx/grid';
-import { Group } from '@visx/group';
-import { MarkerCircle } from '@visx/marker';
-import { AreaClosed, LinePath } from '@visx/shape';
+import {
+  AreaClosed,
+  AxisBottom,
+  AxisLeft,
+  AxisRight,
+  AxisScale,
+  curveMonotoneX,
+  GridColumns,
+  GridRows,
+  Group,
+  LinearGradient,
+  LinePath,
+  MarkerCircle,
+} from '@visx/visx';
 import React from 'react';
 import { AreaGrapher, DataValue } from './base';
 import { useStyles } from './styles';

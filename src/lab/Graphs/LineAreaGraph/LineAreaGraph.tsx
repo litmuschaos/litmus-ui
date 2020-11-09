@@ -1,14 +1,19 @@
-import { Brush } from '@visx/brush';
 import { Bounds } from '@visx/brush/lib/types';
-import { localPoint } from '@visx/event';
-import { scaleLinear, scaleTime } from '@visx/scale';
-import { Line } from '@visx/shape';
-import { defaultStyles, Tooltip, useTooltip } from '@visx/tooltip';
+import {
+  Brush,
+  defaultStyles,
+  Line,
+  localPoint,
+  scaleLinear,
+  scaleTime,
+  Tooltip,
+  useTooltip,
+} from '@visx/visx';
 import { bisector, extent, max } from 'd3-array';
 import React, { useCallback, useMemo, useState } from 'react';
-import { PlotLineAreaGraph } from './PlotLineAreaGraph';
-import { LegendTable } from './LegendTable';
 import { AreaGrapher, DataValue, LegendData } from './base';
+import { LegendTable } from './LegendTable';
+import { PlotLineAreaGraph } from './PlotLineAreaGraph';
 import { useStyles } from './styles';
 type TooltipData = Array<AreaGrapher>;
 // Initialize some variables

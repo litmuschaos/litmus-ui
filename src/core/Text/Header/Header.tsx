@@ -8,7 +8,12 @@ interface HeaderProps extends TypographyBaseProps {
   color?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ color, variant, children }) => {
+const Header: React.FC<HeaderProps> = ({
+  color,
+  variant,
+  children,
+  ...rest
+}) => {
   const classes = useStyles({ color });
 
   function getVariant(variant: Variant): string {
@@ -23,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ color, variant, children }) => {
   }
 
   return (
-    <Typography className={`${classes.root} ${getVariant(variant)}`}>
+    <Typography className={`${classes.root} ${getVariant(variant)}`} {...rest}>
       {children}
     </Typography>
   );

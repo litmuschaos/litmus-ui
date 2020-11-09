@@ -8,7 +8,12 @@ interface ParagraphProps extends TypographyBaseProps {
   color?: string;
 }
 
-const Paragraph: React.FC<ParagraphProps> = ({ color, variant, children }) => {
+const Paragraph: React.FC<ParagraphProps> = ({
+  color,
+  variant,
+  children,
+  ...rest
+}) => {
   const classes = useStyles({ color });
 
   function getVarinat(variant: Variant): string {
@@ -23,7 +28,7 @@ const Paragraph: React.FC<ParagraphProps> = ({ color, variant, children }) => {
   }
 
   return (
-    <Typography className={`${classes.root} ${getVarinat(variant)}`}>
+    <Typography className={`${classes.root} ${getVarinat(variant)}`} {...rest}>
       {children}
     </Typography>
   );
