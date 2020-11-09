@@ -33,7 +33,6 @@ const LegendTable: React.FC<LegendProps> = ({
               heading.map((element, index) => (
                 <TableCell
                   key={`${index}-cell`}
-                  align={index == 0 ? 'left' : 'center'} //chnage it later
                   className={`${classes.tableFont} ${classes.tableHeading}`}
                 >
                   {element}
@@ -46,11 +45,7 @@ const LegendTable: React.FC<LegendProps> = ({
             data.map((row, i) => (
               <TableRow key={row.value[0]}>
                 {row.value.map((element, index) => (
-                  <TableCell
-                    key={element}
-                    align={index == 0 ? 'left' : 'center'}
-                    className={classes.tableCell}
-                  >
+                  <TableCell key={element} className={classes.tableCell}>
                     <div className={classes.tableDataRow}>
                       {index == 0 && (
                         <hr

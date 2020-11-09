@@ -18,14 +18,19 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'rgba(10, 24, 24, 0.9)',
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
-      width: '9px',
-      height: '9px',
+      width: '6px',
+      height: '6px',
     },
 
     '&::-webkit-scrollbar-track': {
-      backgroundColor: 'rgba(119, 119, 119,0.6)',
+      backgroundColor: 'rgba(10, 24, 24, 0.9)',
       borderRadius: '5px',
     },
+
+    '&::-webkit-scrollbar-corner': {
+      backgroundColor: 'rgba(10, 24, 24, 0.9)',
+    },
+
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: 'rgba(82,249,149,0.6)',
       borderRadius: '5px',
@@ -36,6 +41,8 @@ const useStyles = makeStyles(() => ({
   }),
   tableCell: {
     borderBottom: 'none',
+    maxWidth: '30%',
+    minWidth: '10%',
   },
   tableDataRow: {
     float: 'left',
@@ -43,20 +50,22 @@ const useStyles = makeStyles(() => ({
     alignItems: 'flex-start',
   },
   tableFont: {
-    borderBottom: 'none',
-    whiteSpace: 'nowrap',
     fontFamily: 'Ubuntu',
-    fontStyle: 'normal',
-    letterSpacing: '0em',
-    textAlign: 'left',
-    paddingLeft: '2.5em',
     fontSize: '0.8rem',
-    color: '#fff',
+    fontStyle: 'normal',
     fontWeight: 400,
+    lineHeight: '16px',
+    borderBottom: 'none',
+    letterSpacing: '0em',
+    paddingLeft: '0.5em',
+    textAlign: 'left',
   },
+
   tableHeading: {
+    paddingLeft: '1.5em',
     fontSize: '0.9rem',
     color: '#0098DD',
+    whiteSpace: 'nowrap',
     fontWeight: 500,
   },
 
