@@ -18,6 +18,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     '& .MuiSvgIcon-root': {
       color: theme.palette.text.hint,
     },
+    '& .MuiInputBase-input': {
+      '&:focus, &:hover, &:active': {
+        '&:-webkit-autofill': {
+          WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
+          WebkitTextFillColor: theme.palette.text.primary,
+        },
+      },
+      '&:-webkit-autofill': {
+        WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
+        WebkitTextFillColor: theme.palette.text.primary,
+      },
+    },
   },
   disabled: {
     color: theme.palette.text.disabled,
