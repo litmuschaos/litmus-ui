@@ -14,6 +14,8 @@ storiesOf('Modal/Base Modal', module)
         <Modal
           open={open}
           onClose={() => setOpen(false)}
+          disableBackdropClick
+          disableEscapeKeyDown
           modalActions={
             <ButtonOutlined onClick={() => setOpen(false)}>
               &#x2715;
