@@ -4,7 +4,11 @@ import React from 'react';
 import { BaseSearchProps } from './base';
 import { useStyles } from './styles';
 
-const Search: React.FC<BaseSearchProps> = ({ placeholder, onChange }) => {
+const Search: React.FC<BaseSearchProps> = ({
+  placeholder,
+  onChange,
+  className,
+}) => {
   // Styles
   const classes = useStyles();
 
@@ -12,7 +16,7 @@ const Search: React.FC<BaseSearchProps> = ({ placeholder, onChange }) => {
     <FormControl data-testid="search">
       <Input
         role="Search"
-        className={classes.root}
+        className={`${classes.root} ${className}`}
         onChange={onChange}
         id="input-with-icon-adornment"
         placeholder={placeholder}

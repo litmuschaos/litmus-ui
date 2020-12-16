@@ -7,7 +7,9 @@ describe('Toggle Button Component', () => {
   it('Renders', () => {
     const { getByText } = render(
       <KuberaThemeProvider platform="kubera-chaos">
-        <ToggleButton onClick={() => {}}>Toggle Button</ToggleButton>
+        <ToggleButton isToggled={true} onClick={() => {}}>
+          Toggle Button
+        </ToggleButton>
       </KuberaThemeProvider>
     );
 

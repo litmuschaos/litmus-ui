@@ -1,50 +1,70 @@
 import { storiesOf } from '@storybook/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemedBackground } from '../../../utils/storybook';
 import { ToggleButton } from './ToggleButton';
 
-storiesOf('Button/Button Hybrid', module)
+storiesOf('Button/Toggle Button', module)
   // Litmus Portal
-  .add('Litmus Portal', () => (
-    <ThemedBackground platform="litmus-portal" row>
-      <ToggleButton onClick={() => console.log('clicked')}>
-        Button Hybrid
-      </ToggleButton>
-    </ThemedBackground>
-  ))
+  .add('Litmus Portal', () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <ThemedBackground platform="litmus-portal" row>
+        <ToggleButton isToggled={open} onClick={() => setOpen(!open)}>
+          Toggle Button
+        </ToggleButton>
+        {open ? <p>Toggled</p> : <p>Not toggled</p>}
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Chaos
-  .add('Kubera Chaos', () => (
-    <ThemedBackground platform="kubera-chaos" row>
-      <ToggleButton onClick={() => console.log('clicked')}>
-        Button Hybrid
-      </ToggleButton>
-    </ThemedBackground>
-  ))
+  .add('Kubera Chaos', () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <ThemedBackground platform="litmus-portal" row>
+        <ToggleButton isToggled={open} onClick={() => setOpen(!open)}>
+          Toggle Button
+        </ToggleButton>
+        {open ? <p>Toggled</p> : <p>Not toggled</p>}
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Propel
-  .add('Kubera Propel', () => (
-    <ThemedBackground platform="kubera-propel" row>
-      <ToggleButton onClick={() => console.log('clicked')}>
-        Button Hybrid
-      </ToggleButton>
-    </ThemedBackground>
-  ))
+  .add('Kubera Propel', () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <ThemedBackground platform="litmus-portal" row>
+        <ToggleButton isToggled={open} onClick={() => setOpen(!open)}>
+          Toggle Button
+        </ToggleButton>
+        {open ? <p>Toggled</p> : <p>Not toggled</p>}
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Portal
-  .add('Kubera Portal', () => (
-    <ThemedBackground platform="kubera-portal" row>
-      <ToggleButton onClick={() => console.log('clicked')}>
-        Button Hybrid
-      </ToggleButton>
-    </ThemedBackground>
-  ))
+  .add('Kubera Portal', () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <ThemedBackground platform="litmus-portal" row>
+        <ToggleButton isToggled={open} onClick={() => setOpen(!open)}>
+          Toggle Button
+        </ToggleButton>
+        {open ? <p>Toggled</p> : <p>Not toggled</p>}
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Core
-  .add('Kubera Core', () => (
-    <ThemedBackground platform="kubera-core" row>
-      <ToggleButton onClick={() => console.log('clicked')}>
-        Button Hybrid
-      </ToggleButton>
-    </ThemedBackground>
-  ));
+  .add('Kubera Core', () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <ThemedBackground platform="litmus-portal" row>
+        <ToggleButton isToggled={open} onClick={() => setOpen(!open)}>
+          Toggle Button
+        </ToggleButton>
+        {open ? <p>Toggled</p> : <p>Not toggled</p>}
+      </ThemedBackground>
+    );
+  });

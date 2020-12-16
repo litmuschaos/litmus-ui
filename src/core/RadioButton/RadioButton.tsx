@@ -6,6 +6,7 @@ import { useStyles } from './styles';
 const RadioButton: React.FC<RadioBaseProps> = ({
   children,
   value,
+  className,
   ...rest
 }) => {
   const classes = useStyles();
@@ -15,7 +16,7 @@ const RadioButton: React.FC<RadioBaseProps> = ({
       value={value}
       labelPlacement="end"
       label={children}
-      className={classes.root}
+      className={`${classes.root} ${className}`}
       control={
         <Radio value={value} className={classes.styledRadio} {...rest} />
       }

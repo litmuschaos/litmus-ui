@@ -1,7 +1,7 @@
 import { Chip } from '@material-ui/core';
 import React from 'react';
-import { useStyles } from './style';
 import { ChipBaseProps } from '../base';
+import { useStyles } from './style';
 
 type Variant = 'default' | 'selected';
 
@@ -10,7 +10,7 @@ interface PillsProps extends ChipBaseProps {
   label: string;
 }
 
-const Pills: React.FC<PillsProps> = ({ variant, label }) => {
+const Pills: React.FC<PillsProps> = ({ variant, label, className }) => {
   const classes = useStyles();
   const getVariant = (variant: Variant) => {
     switch (variant) {
@@ -21,7 +21,10 @@ const Pills: React.FC<PillsProps> = ({ variant, label }) => {
     }
   };
   return (
-    <Chip label={label} className={`${classes.root} ${getVariant(variant)}`} />
+    <Chip
+      label={label}
+      className={`${classes.root} ${className} ${getVariant(variant)}`}
+    />
   );
 };
 export { Pills };

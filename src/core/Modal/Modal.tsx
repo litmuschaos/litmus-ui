@@ -14,13 +14,19 @@ const Modal: React.FC<ModalProps> = ({
   width,
   open,
   onClose,
+  className,
   modalActions,
   ...rest
 }) => {
   const classes = useStyles({ width });
 
   return (
-    <MuiModal open={open} onClose={onClose} className={classes.root} {...rest}>
+    <MuiModal
+      open={open}
+      onClose={onClose}
+      className={`${classes.root} ${className}`}
+      {...rest}
+    >
       <div className={classes.content}>
         {modalActions && (
           <div className={classes.modalActions}>{modalActions}</div>

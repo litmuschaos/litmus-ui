@@ -1,30 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ButtonBaseProps } from '../base';
 import { ButtonFilled } from '../ButtonFilled';
 import { ButtonOutlined } from '../ButtonOutlined';
 
-const ToggleButton: React.FC<ButtonBaseProps> = ({ onClick, children }) => {
-  // Styles
-  const [toggle, setToggle] = useState<boolean>(false);
+interface ToggleButtonProps extends ButtonBaseProps {
+  isToggled: boolean;
+}
 
-  return toggle ? (
-    <ButtonFilled
-      variant="default"
-      onClick={() => {
-        onClick;
-        setToggle(!toggle);
-      }}
-    >
+const ToggleButton: React.FC<ToggleButtonProps> = ({
+  isToggled,
+  onClick,
+  children,
+  className,
+}) => {
+  return isToggled ? (
+    <ButtonFilled variant="default" className={className} onClick={onClick}>
       {children}
     </ButtonFilled>
   ) : (
-    <ButtonOutlined
-      variant="highlight"
-      onClick={() => {
-        onClick;
-        setToggle(!toggle);
-      }}
-    >
+    <ButtonOutlined variant="highlight" className={className} onClick={onClick}>
       {children}
     </ButtonOutlined>
   );

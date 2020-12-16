@@ -6,16 +6,13 @@ module.exports = {
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
     '<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}',
+    '!<rootDir>/src/**/index.ts',
   ],
-  coveragePathIgnorePatterns: [
-    '/node_modules/',
-    'dist/',
-    '<rootDir>/src/index.ts',
-    '<rootDir>/src/components/index.ts',
-  ],
+  coveragePathIgnorePatterns: ['/node_modules/', 'dist/', '<rootDir>/src/lab/'],
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,ts,tsx,jsx}',
     '!<rootDir>/src/**/*.stories.*',
+    '!<rootDir>/src/**/index.ts',
   ],
   coverageThreshold: {
     global: {

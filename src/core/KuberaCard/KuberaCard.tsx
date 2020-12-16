@@ -6,6 +6,7 @@ interface KuberaCardProps {
   borderColor: string;
   width: string;
   height: string;
+  className?: string;
 }
 
 const KuberaCard: React.FC<KuberaCardProps> = ({
@@ -13,10 +14,11 @@ const KuberaCard: React.FC<KuberaCardProps> = ({
   borderColor,
   width,
   height,
+  className,
   children,
 }) => {
   const classes = useStyles({ glow, borderColor, width, height });
-  return <div className={classes.root}>{children}</div>;
+  return <div className={`${classes.root} ${className}`}>{children}</div>;
 };
 
 export { KuberaCard };

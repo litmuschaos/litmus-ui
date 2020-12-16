@@ -18,6 +18,7 @@ const InputField: React.FC<InputProps> = ({
   disabled,
   type,
   fullWidth,
+  className,
   ...rest
 }) => {
   const classes = useStyles({ fullWidth });
@@ -43,11 +44,9 @@ const InputField: React.FC<InputProps> = ({
     <TextField
       data-testid="inputField"
       variant="outlined"
-      className={
-        disabled
-          ? `${classes.root}  ${classes.disabled}`
-          : `${classes.root}  ${getVariant(variant)}`
-      }
+      className={`${classes.root} ${className} ${
+        disabled ? classes.disabled : getVariant(variant)
+      }`}
       type={type !== 'password' ? type : showPassword ? 'text' : 'password'}
       error={variant === 'error'}
       disabled={disabled}

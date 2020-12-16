@@ -12,6 +12,7 @@ interface ButtonFilledProps extends ButtonBaseProps {
 const ButtonFilled: React.FC<ButtonFilledProps> = ({
   variant,
   children,
+  className,
   ...rest
 }) => {
   // Styles
@@ -31,7 +32,7 @@ const ButtonFilled: React.FC<ButtonFilledProps> = ({
   return (
     <Button
       variant="contained"
-      className={`${classes.root} ${getVariant(variant)} `}
+      className={`${classes.root} ${className} ${getVariant(variant)}`}
       {...rest}
     >
       {children}

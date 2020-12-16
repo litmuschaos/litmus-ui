@@ -11,11 +11,11 @@ interface ButtonGroupProps extends ButtonBaseProps {
   variant?: Variant;
 }
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({ variant }) => {
+const ButtonGroup: React.FC<ButtonGroupProps> = ({ variant, className }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root} data-testid="switch">
+    <div className={`${classes.root} ${className}`} data-testid="switch">
       {/* Pass Button */}
       <ButtonFilled
         aria-label="left aligned"

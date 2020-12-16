@@ -5,25 +5,27 @@ import { ButtonFilled } from '../ButtonFilled';
 
 storiesOf('Button/Button Filled', module)
   // Litmus Portal
-  .add('Litmus Portal', () => (
-    <ThemedBackground platform="litmus-portal" row>
-      <ButtonFilled variant="default" onClick={() => console.log('clicked')}>
-        Button Filled Default
-      </ButtonFilled>
+  .add('Litmus Portal', () => {
+    return (
+      <ThemedBackground platform="litmus-portal" row>
+        <ButtonFilled variant="default" onClick={() => console.log('clicked')}>
+          Button Filled Default
+        </ButtonFilled>
 
-      <ButtonFilled variant="error" onClick={() => console.log('clicked')}>
-        Button Filled Error
-      </ButtonFilled>
+        <ButtonFilled variant="error" onClick={() => console.log('clicked')}>
+          Button Filled Error
+        </ButtonFilled>
 
-      <ButtonFilled variant="success" onClick={() => console.log('clicked')}>
-        Button Filled Success
-      </ButtonFilled>
+        <ButtonFilled variant="success" onClick={() => console.log('clicked')}>
+          Button Filled Success
+        </ButtonFilled>
 
-      <ButtonFilled disabled onClick={() => console.log('clicked')}>
-        Button Filled Disabled
-      </ButtonFilled>
-    </ThemedBackground>
-  ))
+        <ButtonFilled disabled onClick={() => console.log('clicked')}>
+          Button Filled Disabled
+        </ButtonFilled>
+      </ThemedBackground>
+    );
+  })
 
   // Kubera Chaos
   .add('Kubera Chaos', () => (

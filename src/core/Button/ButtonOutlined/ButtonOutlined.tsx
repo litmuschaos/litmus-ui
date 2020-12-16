@@ -12,6 +12,7 @@ interface ButtonOutlinedProps extends ButtonBaseProps {
 const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
   variant,
   children,
+  className,
   ...rest
 }) => {
   // Styles
@@ -29,7 +30,7 @@ const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
   return (
     <Button
       variant="outlined"
-      className={`${classes.root} ${getVariant(variant)}`}
+      className={`${classes.root} ${className} ${getVariant(variant)}`}
       {...rest}
     >
       {children}
