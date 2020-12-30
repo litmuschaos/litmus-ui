@@ -32,7 +32,7 @@ const kuberaCoreTheme = createTheme({
         'linear-gradient(67.59deg, #191B42 -0.7%, #191B42 -0.69%, #191B42 25.35%, #0B3147 98.91%)',
       paper: '#1C2126',
     },
-    sidebarMenu: '#1401184D',
+    sidebarMenu: '#151535',
     loginBackground: '#FFFFFF',
     disabledBackground: '#777777',
     text: {

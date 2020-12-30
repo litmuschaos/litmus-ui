@@ -17,6 +17,37 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         highlight: string;
       };
     };
+    graph: {
+      interleaveRed: string;
+      dashboard: {
+        lightBlue: string;
+        lightOrange: string;
+      };
+      line: {
+        violet: string;
+        violetLight: string;
+        brightPink: string;
+        darkPink: string;
+        yellow: string;
+        darkYellow: string;
+        orange: string;
+        lightGreen: string;
+        lightBlue: string;
+        darkBlue: string;
+      };
+      area: {
+        violet: string;
+        violetLight: string;
+        brightPink: string;
+        darkPink: string;
+        yellow: string;
+        darkYellow: string;
+        orange: string;
+        lightGreen: string;
+        lightBlue: string;
+        darkBlue: string;
+      };
+    };
     kuberaCoreCards: {
       kuberaChaos: {
         background: {
@@ -68,6 +99,37 @@ declare module '@material-ui/core/styles/createMuiTheme' {
       kuberaPortal: {
         background: string;
         highlight: string;
+      };
+    };
+    graph?: {
+      interleaveRed: string;
+      dashboard: {
+        lightBlue: string;
+        lightOrange: string;
+      };
+      line: {
+        violet: string;
+        violetLight: string;
+        brightPink: string;
+        darkPink: string;
+        yellow: string;
+        darkYellow: string;
+        orange: string;
+        lightGreen: string;
+        lightBlue: string;
+        darkBlue: string;
+      };
+      area: {
+        violet: string;
+        violetLight: string;
+        brightPink: string;
+        darkPink: string;
+        yellow: string;
+        darkYellow: string;
+        orange: string;
+        lightGreen: string;
+        lightBlue: string;
+        darkBlue: string;
       };
     };
     kuberaCoreCards?: {

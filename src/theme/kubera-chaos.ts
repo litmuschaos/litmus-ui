@@ -33,7 +33,7 @@ const kuberaChaosTheme = createTheme({
         'linear-gradient(67.59deg, #0F2625 -0.71%, #112826 24.2%, #172D2B 98.91%)',
       paper: '#1C2126',
     },
-    sidebarMenu: '#0A181866',
+    sidebarMenu: '#0E2120',
     loginBackground: 'linear-gradient(180deg, #20605C 0%, #153F3C 100%)',
     disabledBackground: '#2B333B',
     text: {
@@ -80,6 +80,40 @@ const kuberaChaosTheme = createTheme({
     modal: {
       background: '#1C2126',
       backdrop: '#00000099',
+    },
+  },
+
+  // Kubera Chaos Additional Theme Options
+
+  graph: {
+    interleaveRed: '#6A2625',
+    dashboard: {
+      lightBlue: '#08BBD7',
+      lightOrange: '#F6B92B',
+    },
+    line: {
+      violet: '#A93DDB',
+      violetLight: '#A05195',
+      brightPink: '#D45087',
+      darkPink: '#CC556A',
+      yellow: '#FFA600',
+      darkYellow: '#DFA73E',
+      orange: '#F6793E',
+      lightGreen: '#6DA966',
+      lightBlue: '#51C9DA',
+      darkBlue: '#2F4B7C',
+    },
+    area: {
+      violet: 'linear-gradient(180deg, #A93DDB73 0%, #A93DDB00 100%)',
+      violetLight: 'linear-gradient(180deg, #A0519573 0%, #A0519500 100%)',
+      brightPink: 'linear-gradient(180deg, #A4508773 0%, #D4508700 100%)',
+      darkPink: 'linear-gradient(180deg, #CC556A73 0%, #CC556A00 100%)',
+      yellow: 'linear-gradient(180deg, #FFA60073 0%, #FFA60000 100%)',
+      darkYellow: 'linear-gradient(180deg, #DFA73E73 0%, #DFA73E00 100%)',
+      orange: 'linear-gradient(180deg, #F6793E73 0%, #F6793E00 100%)',
+      lightGreen: 'linear-gradient(180deg, #6DA96673 0%, #6DA96600 100%)',
+      lightBlue: 'linear-gradient(180deg, #51C9DA73 0%, #51C9DA00 100%)',
+      darkBlue: 'linear-gradient(180deg, #2F4B7C73 0%, #2F4B7C00 100%)',
     },
   },
 });
