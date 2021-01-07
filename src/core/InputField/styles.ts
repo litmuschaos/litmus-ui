@@ -2,12 +2,13 @@ import { makeStyles, Theme } from '@material-ui/core';
 
 interface StyleProps {
   fullWidth?: boolean;
+  width?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     color: theme.palette.text.primary,
-    width: (props: StyleProps) => (props.fullWidth ? '100%' : '25rem'),
+    width: (props: StyleProps) => (props.fullWidth ? '100%' : props.width),
     '& label': {
       color: theme.palette.text.hint,
     },

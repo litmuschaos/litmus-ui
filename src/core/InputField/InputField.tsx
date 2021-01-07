@@ -8,11 +8,13 @@ type Variant = 'primary' | 'error' | 'success' | undefined;
 
 interface InputProps extends BaseInputProps {
   variant?: Variant;
+  width?: string;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
 }
 const InputField: React.FC<InputProps> = ({
   variant,
+  width,
   startIcon,
   endIcon,
   disabled,
@@ -21,7 +23,7 @@ const InputField: React.FC<InputProps> = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles({ fullWidth });
+  const classes = useStyles({ fullWidth, width: width ?? '25rem' });
   // Hides or shows the password
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
