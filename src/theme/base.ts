@@ -102,12 +102,12 @@ declare module '@material-ui/core/styles/createMuiTheme' {
       };
     };
     graph?: {
-      interleaveRed: string;
-      dashboard: {
+      interleaveRed?: string;
+      dashboard?: {
         lightBlue: string;
         lightOrange: string;
       };
-      line: {
+      line?: {
         violet: string;
         violetLight: string;
         brightPink: string;
@@ -119,7 +119,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         lightBlue: string;
         darkBlue: string;
       };
-      area: {
+      area?: {
         violet: string;
         violetLight: string;
         brightPink: string;
