@@ -47,14 +47,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   error: {
     background: theme.palette.background.paper,
-    color: theme.palette.error.main,
+    '& fieldset': {
+      borderColor: `${theme.palette.border.error} !important`,
+    },
     '& label': {
       color: `${theme.palette.error.main} !important`,
     },
   },
   success: {
     background: theme.palette.background.paper,
-    color: theme.palette.text.primary,
     '& fieldset': {
       borderColor: `${theme.palette.border.success} !important`,
     },
