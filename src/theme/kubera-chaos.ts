@@ -74,6 +74,7 @@ const kuberaChaosTheme = createTheme({
       },
     },
     cards: {
+      header: '#13171B',
       background: '#2B333B',
       highlight: '#2DA660',
     },
@@ -86,11 +87,12 @@ const kuberaChaosTheme = createTheme({
   // Kubera Chaos Additional Theme Options
 
   graph: {
-    interleaveRed: '#6A2625',
     dashboard: {
       lightBlue: '#08BBD7',
       lightOrange: '#F6B92B',
     },
+    toolTip: '#5252F6',
+    legendTableHeading: '#0098DD',
     line: {
       violet: '#A93DDB',
       violetLight: '#A05195',
@@ -104,16 +106,16 @@ const kuberaChaosTheme = createTheme({
       darkBlue: '#2F4B7C',
     },
     area: {
-      violet: 'linear-gradient(180deg, #A93DDB73 0%, #A93DDB00 100%)',
-      violetLight: 'linear-gradient(180deg, #A0519573 0%, #A0519500 100%)',
-      brightPink: 'linear-gradient(180deg, #A4508773 0%, #D4508700 100%)',
-      darkPink: 'linear-gradient(180deg, #CC556A73 0%, #CC556A00 100%)',
-      yellow: 'linear-gradient(180deg, #FFA60073 0%, #FFA60000 100%)',
-      darkYellow: 'linear-gradient(180deg, #DFA73E73 0%, #DFA73E00 100%)',
-      orange: 'linear-gradient(180deg, #F6793E73 0%, #F6793E00 100%)',
-      lightGreen: 'linear-gradient(180deg, #6DA96673 0%, #6DA96600 100%)',
-      lightBlue: 'linear-gradient(180deg, #51C9DA73 0%, #51C9DA00 100%)',
-      darkBlue: 'linear-gradient(180deg, #2F4B7C73 0%, #2F4B7C00 100%)',
+      violet: '#A93DDB73',
+      violetLight: '#A0519573',
+      brightPink: '#A4508773',
+      darkPink: '#CC556A73',
+      yellow: ' #FFA60073',
+      darkYellow: '#DFA73E73',
+      orange: '#F6793E73',
+      lightGreen: '#6DA96673',
+      lightBlue: '#51C9DA73',
+      darkBlue: '#2F4B7C73',
     },
   },
 });

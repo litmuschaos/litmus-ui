@@ -54,22 +54,23 @@
   "types": "index.d.ts",
   "dependencies": {
     "@material-ui/core": "^4.10.2",
-    "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@visx/visx": "^1.1.0",
     "d3-array": "^2.8.0",
+    "dayjs": "^1.10.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^5.2.0",
-    "@visx/visx": "^1.1.0"
+    "react-router-dom": "^5.2.0"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
+    "@visx/visx": "^1.1.0",
     "d3-array": "^2.8.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^5.2.0",
-    "@visx/visx": "^1.1.0"
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

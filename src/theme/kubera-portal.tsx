@@ -72,6 +72,7 @@ const kuberaPortalTheme = createTheme({
       },
     },
     cards: {
+      header: '#0B0F1A',
       background: '#370844',
       highlight: '#ED5C0C',
     },

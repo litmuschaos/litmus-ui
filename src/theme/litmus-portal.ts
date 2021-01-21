@@ -72,6 +72,7 @@ const litmusPortalTheme = createTheme({
       },
     },
     cards: {
+      header: '#EDF0F8',
       background: '#FFFFFF',
       highlight: '#109B6710',
     },

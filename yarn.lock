@@ -6122,6 +6122,11 @@ date-now@^0.1.4:
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
 
+dayjs@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.3.tgz#cf3357c8e7f508432826371672ebf376cb7d619b"
+  integrity sha512-/2fdLN987N8Ki7Id8BUN2nhuiRyxTLumQnSQf9CNncFCyqFsSKb9TNhzRYcC8K8eJSJOKvbvkImo/MKKhNi4iw==
+
 debounce@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.0.tgz#44a540abc0ea9943018dc0eaa95cce87f65cd131"

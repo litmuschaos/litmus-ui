@@ -73,6 +73,7 @@ const kuberaCoreTheme = createTheme({
       },
     },
     cards: {
+      header: '#0B0F1A',
       background: '#2B333B',
       highlight: '#C34FC5',
     },

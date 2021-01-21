@@ -10,8 +10,7 @@ import {
 import React from 'react';
 import { LegendData } from './base';
 import { useStyles } from './styles';
-const colorCount = 10;
-const colorArr: string[] = ['#08BBD7', '#F6B92B', '#E73939', '#AD51C3', '#FFF'];
+
 export type LegendProps = {
   data?: Array<LegendData>;
   heading?: Array<string>;
@@ -30,12 +29,12 @@ const LegendTable: React.FC<LegendProps> = ({
     <TableContainer className={classes.table}>
       <Table aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <TableRow className={classes.tableRow}>
             {heading &&
-              heading.map((element, index) => (
+              heading.map((element) => (
                 <TableCell
-                  key={`${index}-cell`}
-                  className={`${classes.tableFont} ${classes.tableHeading}`}
+                  key={`${element}-heading-cell`}
+                  className={`${classes.tableFont} ${classes.tableHeading} ${classes.tableCell}`}
                 >
                   {element}
                 </TableCell>
@@ -44,16 +43,19 @@ const LegendTable: React.FC<LegendProps> = ({
         </TableHead>
         <TableBody>
           {data &&
-            data.map((row, i) => (
-              <TableRow key={row.value[0]}>
+            data.map((row) => (
+              <TableRow
+                className={classes.tableRow}
+                key={`${row.value[0]} ${Math.random() * 100} }`}
+              >
                 {row.value.map((element, index) => (
-                  <TableCell key={element} className={classes.tableCell}>
+                  <TableCell
+                    key={`${element}-${Math.random() * 100} `}
+                    className={classes.tableCell}
+                  >
                     <div className={classes.tableDataRow}>
-                      {index == 0 && (
-                        <hr
-                          color={colorArr[i % colorCount]}
-                          className={classes.hr}
-                        />
+                      {index === 0 && (
+                        <hr color={row.baseColor} className={classes.hr} />
                       )}
 
                       <Typography className={classes.tableFont}>

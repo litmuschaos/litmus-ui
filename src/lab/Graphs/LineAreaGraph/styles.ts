@@ -1,49 +1,43 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core';
 
 interface StyleProps {
-  color?: string;
   width?: number;
   height?: number;
-  align?: string;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   rectBase: {
-    fill: 'rgba(10, 24, 24, 0.9)',
+    fill: theme.palette.background.paper,
   },
   table: (props: StyleProps) => ({
     display: 'flex',
     width: props.width,
     height: props.height,
-    backgroundColor: 'rgba(10, 24, 24, 0.9)',
+    backgroundColor: theme.palette.background.paper,
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
-      width: '6px',
-      height: '6px',
+      width: '3px',
+      height: '3px',
     },
 
     '&::-webkit-scrollbar-track': {
-      backgroundColor: 'rgba(10, 24, 24, 0.9)',
-      borderRadius: '5px',
+      backgroundColor: theme.palette.background.paper,
+      borderRadius: '3px',
     },
 
     '&::-webkit-scrollbar-corner': {
-      backgroundColor: 'rgba(10, 24, 24, 0.9)',
+      backgroundColor: theme.palette.background.paper,
     },
 
     '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(82,249,149,0.6)',
-      borderRadius: '5px',
+      backgroundColor: theme.palette.highlight,
+      borderRadius: '3px',
     },
     '&::-webkit-scrollbar-thumb:hover': {
-      background: 'rgba(82,249,149,0.9)',
+      backgroundColor: theme.palette.highlight,
     },
   }),
-  tableCell: {
-    borderBottom: 'none',
-    maxWidth: '30%',
-    minWidth: '10%',
-  },
+
   tableDataRow: {
     float: 'left',
     display: 'flex',
@@ -59,12 +53,13 @@ const useStyles = makeStyles(() => ({
     letterSpacing: '0em',
     paddingLeft: '0.5em',
     textAlign: 'left',
+    minWidth: '4rem',
   },
 
   tableHeading: {
     paddingLeft: '1.5em',
     fontSize: '0.9rem',
-    color: '#0098DD',
+    color: theme.graph.legendTableHeading,
     whiteSpace: 'nowrap',
     fontWeight: 500,
   },
@@ -74,19 +69,46 @@ const useStyles = makeStyles(() => ({
     height: '2px',
   },
   grid: {
-    stroke: '#777777',
-    strokeOpacity: 0.5,
+    stroke: theme.palette.disabledBackground,
+    strokeOpacity: 0.2,
   },
   tooltipLine: {
-    stroke: '#08BBD7',
-    strokeWidth: 2,
+    stroke: theme.graph.toolTip,
+    strokeWidth: 4,
     pointerEvents: 'none',
-    strokeDasharray: '5,2',
+  },
+  tooltipMetric: {
+    marginTop: '1rem',
+    marginLeft: '3rem',
+    padding: '0.5rem',
+    backgroundColor: `${theme.palette.cards.background} !important`,
+  },
+  tooltipDateStyles: {
+    position: 'relative',
+    transform: 'translate(30%,0)',
+    marginTop: '0.3rem',
+    backgroundColor: `${theme.graph.toolTip} !important`,
+    padding: '0.5rem',
   },
   tooltipData: {
     float: 'left',
     display: 'flex',
     alignItems: 'flex-start',
+    color: theme.palette.text.primary,
+    padding: '0.2rem',
+    '& span': {
+      paddingLeft: '0.5em',
+    },
+  },
+  tableRow: {
+    '& td': {
+      borderBottom: 'none !important',
+    },
+  },
+  tableCell: {
+    maxWidth: '30%',
+    minWidth: '10%',
   },
 }));
+
 export { useStyles };

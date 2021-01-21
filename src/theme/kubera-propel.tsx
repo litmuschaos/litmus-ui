@@ -73,6 +73,7 @@ const kuberaPropelTheme = createTheme({
       },
     },
     cards: {
+      header: '#0B0F1A',
       background: '#2B2F3B',
       highlight: '#CEC19C',
     },
