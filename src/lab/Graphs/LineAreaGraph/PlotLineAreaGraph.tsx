@@ -72,10 +72,10 @@ interface AreaChartProps {
   top?: number;
   left?: number;
   showPoints: boolean;
-  yLable?: string;
+  yLabel?: string;
   unit?: string;
   xAxistimeFormat?: string;
-  yLableOffset?: number;
+  yLabelOffset?: number;
 }
 
 const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
@@ -98,8 +98,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   showGrid = true,
   unit = '',
   xAxistimeFormat,
-  yLable,
-  yLableOffset = 45,
+  yLabel,
+  yLabelOffset = 45,
 }) => {
   const classes = useStyles();
   const { palette } = useTheme();
@@ -145,7 +145,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
       )}
       {closedSeries &&
         closedSeries.length > 0 &&
-        closedSeries.map((linedata, i) => (
+        closedSeries.map((linedata) => (
           <Group key={`${linedata.metricName}-group`}>
             <LinearGradient
               id={`${linedata.metricName}-linearGragient`}
@@ -211,10 +211,10 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
           stroke={palette.text.primary}
           tickFormat={(num) => intToString(num, unit)}
           tickLabelProps={() => axisLeftTickLabelProps}
-          label={yLable}
+          label={yLabel}
           labelProps={yLabelProps}
           left={left}
-          labelOffset={yLableOffset}
+          labelOffset={yLabelOffset}
         />
       )}
 

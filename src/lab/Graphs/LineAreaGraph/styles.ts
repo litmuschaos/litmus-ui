@@ -91,23 +91,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '0.5rem',
   },
   tooltipData: {
-    float: 'left',
     display: 'flex',
-    alignItems: 'flex-start',
     color: theme.palette.text.primary,
+    justifyContent: 'space-between',
     padding: '0.2rem',
     '& span': {
       paddingLeft: '0.5em',
+      maxWidth: '20rem',
+      lineHeight: '1rem',
     },
   },
-  tableRow: {
-    '& td': {
-      borderBottom: 'none !important',
-    },
+  tooltipLabel: {
+    display: 'flex',
   },
-  tableCell: {
-    maxWidth: '30%',
-    minWidth: '10%',
+  tooltipValue: {
+    paddingLeft: '0.2rem',
   },
 }));
 

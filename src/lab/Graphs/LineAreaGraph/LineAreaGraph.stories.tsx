@@ -12,10 +12,10 @@ storiesOf('Graphs/Area', module).add('Kubera Chaos', () => (
       closedSeries={seriestest1}
       openSeries={seriestest2}
       eventSeries={seriestest3}
-      showPoints={true}
-      showTips={true}
-      unit={'%'}
-      yLable={'Chaos'}
+      showPoints
+      showTips
+      unit="%"
+      yLabel="Chaos"
     />
   </ThemedBackground>
 ));

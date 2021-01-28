@@ -13,13 +13,9 @@ import {
 import { bisector, extent, max } from 'd3-array';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo, useState } from 'react';
-import {
-  AreaGraphProps,
-  DataValue,
-  LegendData,
-  ToolTipInterface,
-} from './base';
-import { LegendTable } from './LegendTable';
+import { LegendData } from '../LegendTable/base';
+import { LegendTable } from '../LegendTable/LegendTable';
+import { AreaGraphProps, DataValue, ToolTipInterface } from './base';
 import { PlotLineAreaGraph } from './PlotLineAreaGraph';
 import { useStyles } from './styles';
 
@@ -30,6 +26,7 @@ let i: number;
 let j: number;
 let indexer: number;
 let toolTipPointLength: number;
+
 // Accessor functions
 const getDateNum = (d: DataValue) =>
   typeof d.date === 'number'
@@ -73,7 +70,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
 }) => {
   const { palette, graph } = useTheme();
 
-  let legenddata: Array<LegendData> = [{ value: [], baseColor: '' }];
+  let legenddata: Array<LegendData> = [{ data: [], baseColor: '' }];
   const classes = useStyles({ width, height });
 
   const [filteredClosedSeries, setFilteredSeries] = useState(closedSeries);
@@ -422,82 +419,84 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
     ]
   );
   // legendData
-  legenddata = legenddata.splice(0);
-  if (filteredEventSeries) {
-    filteredEventSeries.map((linedata, index) => {
-      const pointerElement = legenTablePointerData
-        ? legenTablePointerData.filter(
-            (singleMetric) => singleMetric.metricName === linedata.metricName
-          )[0]
-        : undefined;
-      const curr = pointerElement
-        ? getValueStr(pointerElement.data)
-        : firstMouseEnterGraph
-        ? '--'
-        : getValueStr(linedata.data[linedata.data.length - 1]);
+  if (showLegend) {
+    legenddata = legenddata.splice(0);
+    if (filteredEventSeries) {
+      filteredEventSeries.map((linedata, index) => {
+        const pointerElement = legenTablePointerData
+          ? legenTablePointerData.filter(
+              (singleMetric) => singleMetric.metricName === linedata.metricName
+            )[0]
+          : undefined;
+        const curr = pointerElement
+          ? getValueStr(pointerElement.data)
+          : firstMouseEnterGraph
+          ? '--'
+          : getValueStr(linedata.data[linedata.data.length - 1]);
 
-      const avg = '--';
+        const avg = '--';
 
-      if (linedata.data !== undefined)
-        legenddata[index] = {
-          value: [linedata.metricName, avg, curr],
-          baseColor: linedata.baseColor,
-        };
-    });
-  }
-  if (filteredClosedSeries) {
-    filteredClosedSeries.map((linedata, index) => {
-      const pointerElement = legenTablePointerData
-        ? legenTablePointerData.filter(
-            (singleMetric) => singleMetric.metricName === linedata.metricName
-          )[0]
-        : undefined;
-      const curr = pointerElement
-        ? getValueStr(pointerElement.data)
-        : firstMouseEnterGraph
-        ? '--'
-        : getValueStr(linedata.data[linedata.data.length - 1]);
-      const avg = (
-        linedata.data.map((d) => (d.value ? d.value : 0)).reduce(getSum, 0) /
-        linedata.data.length
-      )
-        .toFixed(2)
-        .toString();
+        if (linedata.data !== undefined)
+          legenddata[index] = {
+            data: [linedata.metricName, avg, curr],
+            baseColor: linedata.baseColor,
+          };
+      });
+    }
+    if (filteredClosedSeries) {
+      filteredClosedSeries.map((linedata, index) => {
+        const pointerElement = legenTablePointerData
+          ? legenTablePointerData.filter(
+              (singleMetric) => singleMetric.metricName === linedata.metricName
+            )[0]
+          : undefined;
+        const curr = pointerElement
+          ? getValueStr(pointerElement.data)
+          : firstMouseEnterGraph
+          ? '--'
+          : getValueStr(linedata.data[linedata.data.length - 1]);
+        const avg = (
+          linedata.data.map((d) => (d.value ? d.value : 0)).reduce(getSum, 0) /
+          linedata.data.length
+        )
+          .toFixed(2)
+          .toString();
 
-      if (linedata.data !== undefined)
-        legenddata[index + eventSeriesCount] = {
-          value: [linedata.metricName, avg, curr],
-          baseColor: linedata.baseColor,
-        };
-    });
-  }
+        if (linedata.data !== undefined)
+          legenddata[index + eventSeriesCount] = {
+            data: [linedata.metricName, avg, curr],
+            baseColor: linedata.baseColor,
+          };
+      });
+    }
 
-  if (filteredOpenSeries) {
-    filteredOpenSeries.map((linedata, index) => {
-      const pointerElement = legenTablePointerData
-        ? legenTablePointerData.filter(
-            (singleMetric) => singleMetric.metricName === linedata.metricName
-          )[0]
-        : undefined;
-      const curr = pointerElement
-        ? getValueStr(pointerElement.data)
-        : firstMouseEnterGraph
-        ? '--'
-        : getValueStr(linedata.data[linedata.data.length - 1]);
+    if (filteredOpenSeries) {
+      filteredOpenSeries.map((linedata, index) => {
+        const pointerElement = legenTablePointerData
+          ? legenTablePointerData.filter(
+              (singleMetric) => singleMetric.metricName === linedata.metricName
+            )[0]
+          : undefined;
+        const curr = pointerElement
+          ? getValueStr(pointerElement.data)
+          : firstMouseEnterGraph
+          ? '--'
+          : getValueStr(linedata.data[linedata.data.length - 1]);
 
-      const avg = (
-        linedata.data.map((d) => (d.value ? d.value : 0)).reduce(getSum, 0) /
-        linedata.data.length
-      )
-        .toFixed(2)
-        .toString();
+        const avg = (
+          linedata.data.map((d) => (d.value ? d.value : 0)).reduce(getSum, 0) /
+          linedata.data.length
+        )
+          .toFixed(2)
+          .toString();
 
-      if (linedata.data !== undefined)
-        legenddata[index + eventSeriesCount + closedSeriesCount] = {
-          value: [linedata.metricName, avg, curr],
-          baseColor: linedata.baseColor,
-        };
-    });
+        if (linedata.data !== undefined)
+          legenddata[index + eventSeriesCount + closedSeriesCount] = {
+            data: [linedata.metricName, avg, curr],
+            baseColor: linedata.baseColor,
+          };
+      });
+    }
   }
 
   if (
@@ -622,10 +621,13 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
             {tooltipData.map((linedata) => (
               <div key={`tooltipName-value- ${linedata.metricName}`}>
                 <div className={classes.tooltipData}>
-                  <hr color={linedata.baseColor} className={classes.hr} />
-                  <span>{`${linedata.metricName}:  ${getValueStr(
-                    linedata.data
-                  )}`}</span>
+                  <div className={classes.tooltipLabel}>
+                    <hr color={linedata.baseColor} className={classes.hr} />
+                    <span>{`${linedata.metricName}`}</span>
+                  </div>
+                  <div className={classes.tooltipValue}>
+                    <span>{`${getValueStr(linedata.data)}`}</span>
+                  </div>
                 </div>
               </div>
             ))}
