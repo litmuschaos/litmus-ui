@@ -1,0 +1,5 @@
+**/node_modules/
+**/geo.json
+**/__tests__/
+**/*.stories.tsx
+**/coverage/
