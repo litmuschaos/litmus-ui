@@ -1,11 +1,11 @@
 ## STEPS TO CONTRIBUTE
 
-1. Find an issue to work on or create a new issue at [https://github.com/mayadata-io/kubera-ui/issues](https://github.com/mayadata-io/kubera-ui/issues) if you find a bug/suggest a new feature addition/change.
+1. Find an issue to work on or create a new issue at [https://github.com/litmuschaos/litmus-ui/issues](https://github.com/litmuschaos/litmus-ui/issues) if you find a bug/suggest a new feature addition/change.
 2. Fork the main repository to create a duplicate copy for yourself.
 3. Create a feature branch in the forked repository and always send a PR from the feature-branch to the dev branch of the main repository.
 
     ```
-    Example- S-ayanide/modal-component -> kubera-ui/dev
+    Example- S-ayanide/modal-component -> litmus-ui/dev
     ```
 
 ## BRANCH SPECIFICATIONS
