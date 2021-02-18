@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import React from "react";
+import { LitmusCard } from ".";
 import { ThemedBackground } from "../../utils/storybook";
-import { KuberaCard } from "../KuberaCard";
 
 const cardContainer = (content: string) => (
   <div
@@ -19,11 +19,11 @@ storiesOf("Card", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
     <ThemedBackground platform="litmus-portal" row>
-      <KuberaCard width="15rem" height="20rem" borderColor="#5B44BA" glow>
+      <LitmusCard width="15rem" height="20rem" borderColor="#5B44BA" glow>
         {cardContainer("Card With Glow")}
-      </KuberaCard>
-      <KuberaCard width="15rem" height="20rem" borderColor="#5B44BA">
+      </LitmusCard>
+      <LitmusCard width="15rem" height="20rem" borderColor="#5B44BA">
         {cardContainer("Card Without Glow")}
-      </KuberaCard>
+      </LitmusCard>
     </ThemedBackground>
   ));
