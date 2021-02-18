@@ -1,10 +1,10 @@
-import { makeStyles, Theme } from '@material-ui/core';
-import React from 'react';
+import { makeStyles, Theme } from "@material-ui/core";
+import React from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: '100%',
-    height: '100vh',
+    width: "100%",
+    height: "100vh",
     background: theme.palette.background.paper,
     padding: theme.spacing(2),
   },

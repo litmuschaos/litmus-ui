@@ -1,9 +1,9 @@
-import { Button } from '@material-ui/core';
-import React from 'react';
-import { ButtonBaseProps } from '../base';
-import { useStyles } from './styles';
+import { Button } from "@material-ui/core";
+import React from "react";
+import { ButtonBaseProps } from "../base";
+import { useStyles } from "./styles";
 
-type Variant = 'default' | 'error' | 'success' | undefined;
+type Variant = "default" | "error" | "success" | undefined;
 
 interface ButtonFilledProps extends ButtonBaseProps {
   variant?: Variant;
@@ -20,12 +20,12 @@ const ButtonFilled: React.FC<ButtonFilledProps> = ({
 
   function getVariant(variant: Variant): string {
     switch (variant) {
-      case 'error':
+      case "error":
         return classes.error;
-      case 'success':
+      case "success":
         return classes.success;
       default:
-        return '';
+        return "";
     }
   }
 

@@ -1,14 +1,14 @@
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: '10.18rem',
+    width: "10.18rem",
     color: theme.palette.text.hint,
-    '&:before': {
+    "&:before": {
       borderBottom: `0.0625rem solid ${theme.palette.border.main}`,
     },
-    '& input': {
-      '&:focus': {
+    "& input": {
+      "&:focus": {
         color: theme.palette.text.primary,
         borderColor: theme.palette.highlight,
       },

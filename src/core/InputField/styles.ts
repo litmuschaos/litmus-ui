@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles, Theme } from "@material-ui/core";
 
 interface StyleProps {
   fullWidth?: boolean;
@@ -8,25 +8,25 @@ interface StyleProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     color: theme.palette.text.primary,
-    width: (props: StyleProps) => (props.fullWidth ? '100%' : props.width),
-    '& label': {
+    width: (props: StyleProps) => (props.fullWidth ? "100%" : props.width),
+    "& label": {
       color: theme.palette.text.hint,
     },
     background: theme.palette.background.paper,
-    '& fieldset': {
+    "& fieldset": {
       borderColor: `${theme.palette.border.main} !important`,
     },
-    '& .MuiSvgIcon-root': {
+    "& .MuiSvgIcon-root": {
       color: theme.palette.text.hint,
     },
-    '& .MuiInputBase-input': {
-      '&:focus, &:hover, &:active': {
-        '&:-webkit-autofill': {
+    "& .MuiInputBase-input": {
+      "&:focus, &:hover, &:active": {
+        "&:-webkit-autofill": {
           WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
           WebkitTextFillColor: theme.palette.text.primary,
         },
       },
-      '&:-webkit-autofill': {
+      "&:-webkit-autofill": {
         WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
         WebkitTextFillColor: theme.palette.text.primary,
       },
@@ -34,32 +34,32 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   disabled: {
     color: theme.palette.text.disabled,
-    '& label': {
+    "& label": {
       color: `${theme.palette.border.main} !important`,
     },
   },
   primary: {
-    '&:hover': {
-      '& fieldset': {
+    "&:hover": {
+      "& fieldset": {
         borderColor: `${theme.palette.highlight} !important`,
       },
     },
   },
   error: {
     background: theme.palette.background.paper,
-    '& fieldset': {
+    "& fieldset": {
       borderColor: `${theme.palette.border.error} !important`,
     },
-    '& label': {
+    "& label": {
       color: `${theme.palette.error.main} !important`,
     },
   },
   success: {
     background: theme.palette.background.paper,
-    '& fieldset': {
+    "& fieldset": {
       borderColor: `${theme.palette.border.success} !important`,
     },
-    '& label': {
+    "& label": {
       color: ` ${theme.palette.success.main} !important`,
     },
   },

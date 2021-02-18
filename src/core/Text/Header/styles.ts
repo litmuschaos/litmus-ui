@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles, Theme } from "@material-ui/core";
 
 interface StyleProps {
   color?: string;
@@ -6,18 +6,18 @@ interface StyleProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    fontSize: '3rem',
+    fontSize: "3rem",
     color: (props: StyleProps) =>
       props ? props.color : theme.palette.text.primary,
   },
   primary: {
-    fontWeight: 'normal',
+    fontWeight: "normal",
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   small: {
-    fontSize: '2rem',
+    fontSize: "2rem",
   },
 }));
 

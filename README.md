@@ -1,8 +1,6 @@
-# Kubera UI
+# Litmus UI
 
-[![DeepScan grade](https://deepscan.io/api/teams/11347/projects/14259/branches/260658/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=11347&pid=14259&bid=260658)
-
-React component library for faster and easier web development. Build your own design system, or start with Kubera UI.
+React component library for faster and easier web development. Build your own design system, or start with Litmus UI.
 
 ## Table of Contents
 
@@ -84,7 +82,7 @@ React component library for faster and easier web development. Build your own de
 
 ### `3. Tech Stack`
 
-Kubera UI is built using the following:
+Litmus UI is built using the following:
 
 - Typescript
 - Rollup
@@ -99,7 +97,7 @@ Kubera UI is built using the following:
 
 ### `4. Contribution Guidelines`
 
-Check our [official contribution guidelines](https://github.com/arkajyotiMukherjee/kubera-ui/blob/v1.0.0/CONTRIBUTION.md)
+Check our [official contribution guidelines](https://github.com/litmuschaos/litmus-ui/blob/master/CONTRIBUTION.md)
 
 ### `5. Adding a new component`
 

@@ -1,1 +1,1 @@
-export * from './OutlinedPills';
+export * from "./OutlinedPills";

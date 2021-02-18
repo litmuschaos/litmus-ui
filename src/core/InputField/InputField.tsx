@@ -1,10 +1,10 @@
-import { IconButton, InputAdornment, TextField } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import React, { useState } from 'react';
-import { BaseInputProps } from './base';
-import { useStyles } from './styles';
+import { IconButton, InputAdornment, TextField } from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+import React, { useState } from "react";
+import { BaseInputProps } from "./base";
+import { useStyles } from "./styles";
 
-type Variant = 'primary' | 'error' | 'success' | undefined;
+type Variant = "primary" | "error" | "success" | undefined;
 
 interface InputProps extends BaseInputProps {
   variant?: Variant;
@@ -23,7 +23,7 @@ const InputField: React.FC<InputProps> = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles({ fullWidth, width: width ?? '25rem' });
+  const classes = useStyles({ fullWidth, width: width ?? "25rem" });
   // Hides or shows the password
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -33,9 +33,9 @@ const InputField: React.FC<InputProps> = ({
 
   function getVariant(variant: Variant): string {
     switch (variant) {
-      case 'error':
+      case "error":
         return classes.error;
-      case 'success':
+      case "success":
         return classes.success;
       default:
         return classes.primary;
@@ -49,12 +49,12 @@ const InputField: React.FC<InputProps> = ({
       className={`${classes.root} ${className} ${
         disabled ? classes.disabled : getVariant(variant)
       }`}
-      type={type !== 'password' ? type : showPassword ? 'text' : 'password'}
-      error={variant === 'error'}
+      type={type !== "password" ? type : showPassword ? "text" : "password"}
+      error={variant === "error"}
       disabled={disabled}
       InputProps={{
         endAdornment:
-          type === 'password' ? (
+          type === "password" ? (
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"

@@ -1,18 +1,18 @@
-import { render } from '@testing-library/react';
-import React from 'react';
-import { KuberaThemeProvider } from '../../../../theme';
-import { ToggleButton } from '../ToggleButton';
+import { render } from "@testing-library/react";
+import React from "react";
+import { LitmusThemeProvider } from "../../../../theme";
+import { ToggleButton } from "../ToggleButton";
 
-describe('Toggle Button Component', () => {
-  it('Renders', () => {
+describe("Toggle Button Component", () => {
+  it("Renders", () => {
     const { getByText } = render(
-      <KuberaThemeProvider platform="kubera-chaos">
+      <LitmusThemeProvider platform="litmus-portal">
         <ToggleButton isToggled={true} onClick={() => {}}>
           Toggle Button
         </ToggleButton>
-      </KuberaThemeProvider>
+      </LitmusThemeProvider>
     );
 
-    expect(getByText('Toggle Button')).toBeTruthy();
+    expect(getByText("Toggle Button")).toBeTruthy();
   });
 });

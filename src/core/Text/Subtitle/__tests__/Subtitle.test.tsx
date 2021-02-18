@@ -1,16 +1,16 @@
-import { render } from '@testing-library/react';
-import React from 'react';
-import { KuberaThemeProvider } from '../../../../theme';
-import { Subtitle } from '../Subtitle';
+import { render } from "@testing-library/react";
+import React from "react";
+import { LitmusThemeProvider } from "../../../../theme";
+import { Subtitle } from "../Subtitle";
 
-describe('Text Component', () => {
-  it('Renders', () => {
+describe("Text Component", () => {
+  it("Renders", () => {
     const { getByText } = render(
-      <KuberaThemeProvider platform="kubera-chaos">
+      <LitmusThemeProvider platform="litmus-portal">
         <Subtitle>Subtitle Text</Subtitle>
-      </KuberaThemeProvider>
+      </LitmusThemeProvider>
     );
 
-    expect(getByText('Subtitle Text')).toBeTruthy();
+    expect(getByText("Subtitle Text")).toBeTruthy();
   });
 });

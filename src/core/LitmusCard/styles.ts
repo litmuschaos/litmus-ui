@@ -1,4 +1,4 @@
-import { fade, makeStyles } from '@material-ui/core';
+import { fade, makeStyles } from "@material-ui/core";
 
 interface StyleProps {
   glow?: boolean;
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
           props.borderColor,
           0.14
         )},0px 1px 18px 0px ${fade(props.borderColor, 0.14)}`
-      : '',
+      : "",
     width: props.width,
     height: props.height,
     borderRadius: 10,

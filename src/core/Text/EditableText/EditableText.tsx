@@ -1,12 +1,11 @@
-import { IconButton, Typography } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import React from 'react';
-import { InputField } from './../../InputField/InputField';
-import { EditableTextBaseProps } from './base';
-import { useStyles } from './styles';
+import { IconButton, Typography } from "@material-ui/core";
+import { Edit, Save } from "@material-ui/icons";
+import React from "react";
+import { InputField } from "./../../InputField/InputField";
+import { EditableTextBaseProps } from "./base";
+import { useStyles } from "./styles";
 
-type Variant = 'primary' | 'error' | 'success' | undefined;
+type Variant = "primary" | "error" | "success" | undefined;
 interface EditableTextProps extends EditableTextBaseProps {
   variant?: Variant;
   width?: string;
@@ -29,7 +28,7 @@ const EditableText: React.FC<EditableTextProps> = ({
     multiline,
     variant,
     disabled,
-    width: width ?? '25rem',
+    width: width ?? "25rem",
   });
   return (
     <div data-testid="editableText">
@@ -57,9 +56,9 @@ const EditableText: React.FC<EditableTextProps> = ({
             disabled={disabled}
           >
             {toggleEditSave || disabled ? (
-              <EditIcon data-cy="edit" data-testid="edit-btn" />
+              <Edit data-cy="edit" data-testid="edit-btn" />
             ) : (
-              <SaveIcon data-cy="save" data-testid="save-btn" />
+              <Save data-cy="save" data-testid="save-btn" />
             )}
           </IconButton>
         </div>

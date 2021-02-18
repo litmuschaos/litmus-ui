@@ -1,62 +1,26 @@
-import { storiesOf } from '@storybook/react';
-import React, { useState } from 'react';
-import { ThemedBackground } from '../../../utils/storybook';
-import { EditableText } from './EditableText';
+import { storiesOf } from "@storybook/react";
+import React, { useState } from "react";
+import { ThemedBackground } from "../../../utils/storybook";
+import { EditableText } from "./EditableText";
 
-storiesOf('text/EditableText', module)
-  .add('Litmus Portal', () => {
-    const [valueText, setValueText] = useState('Hello World');
-    return (
-      <ThemedBackground platform="litmus-portal">
-        <div style={{ width: '80vw' }}>
-          <EditableText
-            label="Normal text field"
-            value={valueText}
-            onChange={(e) => setValueText(e.target.value)}
-            fullWidth
-          />
-          <br />
-          <EditableText
-            label="Normal text field"
-            value={valueText}
-            multiline
-            onChange={(e) => setValueText(e.target.value)}
-            fullWidth
-          />
-          <EditableText
-            label="Normal text field"
-            value={valueText}
-            variant="error"
-            multiline
-            onChange={(e) => setValueText(e.target.value)}
-            fullWidth
-          />
-          <EditableText
-            label="Normal text field"
-            value={valueText}
-            disabled
-            multiline
-            onChange={(e) => setValueText(e.target.value)}
-            fullWidth
-          />
-        </div>
-      </ThemedBackground>
-    );
-  })
-  .add('Kubera Chaos', () => {
-    const [valueText, setValueText] = useState('Hello World');
-    return (
-      <ThemedBackground platform="kubera-chaos">
+storiesOf("text/EditableText", module).add("Litmus Portal", () => {
+  const [valueText, setValueText] = useState("Hello World");
+  return (
+    <ThemedBackground platform="litmus-portal">
+      <div style={{ width: "80vw" }}>
         <EditableText
           label="Normal text field"
           value={valueText}
           onChange={(e) => setValueText(e.target.value)}
+          fullWidth
         />
+        <br />
         <EditableText
           label="Normal text field"
           value={valueText}
           multiline
           onChange={(e) => setValueText(e.target.value)}
+          fullWidth
         />
         <EditableText
           label="Normal text field"
@@ -74,108 +38,7 @@ storiesOf('text/EditableText', module)
           onChange={(e) => setValueText(e.target.value)}
           fullWidth
         />
-      </ThemedBackground>
-    );
-  })
-  .add('Kubera Propel', () => {
-    const [valueText, setValueText] = useState('Hello World');
-    return (
-      <ThemedBackground platform="kubera-propel">
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          onChange={(e) => setValueText(e.target.value)}
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          variant="error"
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-          fullWidth
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          disabled
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-          fullWidth
-        />
-      </ThemedBackground>
-    );
-  })
-  .add('Kubera Core', () => {
-    const [valueText, setValueText] = useState('Hello World');
-    return (
-      <ThemedBackground platform="kubera-core">
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          onChange={(e) => setValueText(e.target.value)}
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          variant="error"
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-          fullWidth
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          disabled
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-          fullWidth
-        />
-      </ThemedBackground>
-    );
-  })
-  .add('Kubera Portal', () => {
-    const [valueText, setValueText] = useState('Hello World');
-    return (
-      <ThemedBackground platform="kubera-portal">
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          onChange={(e) => setValueText(e.target.value)}
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          variant="error"
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-          fullWidth
-        />
-        <EditableText
-          label="Normal text field"
-          value={valueText}
-          disabled
-          multiline
-          onChange={(e) => setValueText(e.target.value)}
-          fullWidth
-        />
-      </ThemedBackground>
-    );
-  });
+      </div>
+    </ThemedBackground>
+  );
+});

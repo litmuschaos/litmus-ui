@@ -1,11 +1,11 @@
-import { fade, makeStyles, Theme } from '@material-ui/core';
+import { fade, makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     color: theme.palette.text.primary,
-    fontWeight: 'normal',
-    textDecorationLine: 'none',
-    '&:hover': {
+    fontWeight: "normal",
+    textDecorationLine: "none",
+    "&:hover": {
       color: theme.palette.secondary.main,
       boxShadow: `0px 4px 5px -2px ${fade(
         theme.palette.highlight,
@@ -15,18 +15,18 @@ const useStyles = makeStyles((theme: Theme) => ({
         0.14
       )},0px 2px 16px 1px ${fade(theme.palette.highlight, 0.12)}`,
     },
-    '&:focus': {
-      fontWeight: 'bold',
+    "&:focus": {
+      fontWeight: "bold",
     },
   },
   disabled: {
-    pointerEvents: 'none',
+    pointerEvents: "none",
     color: theme.palette.disabledBackground,
   },
-  '@global': {
-    '.active': {
+  "@global": {
+    ".active": {
       color: theme.palette.secondary.dark,
-      fontWeight: 'bold',
+      fontWeight: "bold",
     },
   },
 }));

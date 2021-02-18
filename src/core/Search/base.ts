@@ -1,3 +1,3 @@
-import { TextFieldProps } from '@material-ui/core/TextField';
+import { TextFieldProps } from "@material-ui/core/TextField";
 
-export type BaseSearchProps = Omit<TextFieldProps, 'color'>;
+export type BaseSearchProps = Omit<TextFieldProps, "color">;

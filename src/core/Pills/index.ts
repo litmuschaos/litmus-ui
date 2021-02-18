@@ -1,3 +1,3 @@
-export * from './BasicPills';
-export * from './LightPills';
-export * from './OutlinedPills';
+export * from "./BasicPills";
+export * from "./LightPills";
+export * from "./OutlinedPills";

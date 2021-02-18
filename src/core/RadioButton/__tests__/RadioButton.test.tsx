@@ -1,47 +1,47 @@
-import { RadioGroup } from '@material-ui/core';
-import { screen } from '@testing-library/dom';
-import { cleanup, fireEvent, render } from '@testing-library/react';
-import React from 'react';
-import { KuberaThemeProvider } from '../../../theme';
-import { RadioButton } from '../RadioButton';
+import { RadioGroup } from "@material-ui/core";
+import { screen } from "@testing-library/dom";
+import { cleanup, fireEvent, render } from "@testing-library/react";
+import React from "react";
+import { LitmusThemeProvider } from "../../../theme";
+import { RadioButton } from "../RadioButton";
 
 afterEach(cleanup);
 jest.useFakeTimers();
 
-describe('Radio Button Component', () => {
-  it('Renders', () => {
+describe("Radio Button Component", () => {
+  it("Renders", () => {
     render(
-      <KuberaThemeProvider platform="kubera-chaos">
+      <LitmusThemeProvider platform="litmus-portal">
         <RadioButton>Target cluster</RadioButton>
-      </KuberaThemeProvider>
+      </LitmusThemeProvider>
     );
     //get radio byRole
-    const radio = screen.getByRole('radio');
+    const radio = screen.getByRole("radio");
     //check type
-    expect(radio).toHaveProperty('type', 'radio');
+    expect(radio).toHaveProperty("type", "radio");
     //check value
-    expect(radio).toHaveProperty('value', '');
+    expect(radio).toHaveProperty("value", "");
     //check checked attribute
-    expect(radio).toHaveProperty('checked', false);
+    expect(radio).toHaveProperty("checked", false);
     //change checked value
     fireEvent.change(radio, { target: { checked: true } });
     //check checked changed value
-    expect(radio).toHaveProperty('checked', true);
+    expect(radio).toHaveProperty("checked", true);
     //give text value
-    fireEvent.change(radio, { target: { value: 'radio button text' } });
+    fireEvent.change(radio, { target: { value: "radio button text" } });
     //check given value
-    expect(radio).toHaveProperty('value', 'radio button text');
+    expect(radio).toHaveProperty("value", "radio button text");
   });
 });
 
 // Testing with RadioGroup ------------------------>
 
-describe('when clicked', () => {
-  it('should call a callback function', () => {
+describe("when clicked", () => {
+  it("should call a callback function", () => {
     const testFunction = jest.fn((value) => value);
     testFunction(1);
     const { getByTestId } = render(
-      <KuberaThemeProvider platform="kubera-chaos">
+      <LitmusThemeProvider platform="litmus-portal">
         <RadioGroup
           data-testid="radiogroup"
           onChange={testFunction}
@@ -55,9 +55,9 @@ describe('when clicked', () => {
             Phone
           </RadioButton>
         </RadioGroup>
-      </KuberaThemeProvider>
+      </LitmusThemeProvider>
     );
-    fireEvent.click(getByTestId('radiogroup'));
+    fireEvent.click(getByTestId("radiogroup"));
     expect(testFunction).toHaveBeenCalledTimes(1);
   });
 });

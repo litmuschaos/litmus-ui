@@ -1,10 +1,10 @@
-import { useTheme } from '@material-ui/core';
-import { Arc, Group } from '@visx/visx';
-import React, { useState } from 'react';
-import { LegendData } from '../LegendTable/base';
-import { LegendTable } from '../LegendTable/LegendTable';
-import { RadialChartProps } from './base';
-import { useStyles } from './styles';
+import { useTheme } from "@material-ui/core";
+import { Arc, Group } from "@visx/visx";
+import React, { useState } from "react";
+import { LegendData } from "../LegendTable/base";
+import { LegendTable } from "../LegendTable/LegendTable";
+import { RadialChartProps } from "./base";
+import { useStyles } from "./styles";
 
 export type ChordProps = {
   width: number;
@@ -36,9 +36,9 @@ const RadialChart = ({
   const { palette } = useTheme();
 
   let legenddata: Array<LegendData> = [{ data: [] }];
-  const [centerValue, setcenterValue] = useState<string>('0');
-  const [centerText, setCenterText] = useState<string>(heading ?? '');
-  const [currentHovered, setcurrentHovered] = useState<string>('');
+  const [centerValue, setcenterValue] = useState<string>("0");
+  const [centerText, setCenterText] = useState<string>(heading ?? "");
+  const [currentHovered, setcurrentHovered] = useState<string>("");
 
   const circleOrient = semiCircle ? 1 : 2;
   const classes = useStyles({ width, height, circleOrient });
@@ -65,10 +65,10 @@ const RadialChart = ({
           baseColor: elem.baseColor,
         };
       })
-    : [{ value: NaN, label: '' }];
-  if (centerValue === '0' && total > 0) {
+    : [{ value: NaN, label: "" }];
+  if (centerValue === "0" && total > 0) {
     setcenterValue(total.toString());
-    setCenterText(heading ?? '');
+    setCenterText(heading ?? "");
   }
 
   legenddata = legenddata.splice(0);
@@ -118,16 +118,16 @@ const RadialChart = ({
                       setcenterValue(radialData[i].value.toString());
                       setCenterText(`${elem.label}`);
                       setcurrentHovered(
-                        e.currentTarget.getAttribute('id')?.toString() ?? ''
+                        e.currentTarget.getAttribute("id")?.toString() ?? ""
                       );
                     }}
                     onMouseLeave={() => {
                       setcenterValue(total.toString());
                       setCenterText(`${heading}`);
-                      setcurrentHovered('');
+                      setcurrentHovered("");
                     }}
                     opacity={
-                      currentHovered === ''
+                      currentHovered === ""
                         ? 1
                         : currentHovered === `${elem.label}-arc`
                         ? 1

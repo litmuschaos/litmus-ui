@@ -1,7 +1,7 @@
-import React from 'react';
-import { ButtonBaseProps } from '../base';
-import { ButtonFilled } from '../ButtonFilled';
-import { ButtonOutlined } from '../ButtonOutlined';
+import React from "react";
+import { ButtonBaseProps } from "../base";
+import { ButtonFilled } from "../ButtonFilled";
+import { ButtonOutlined } from "../ButtonOutlined";
 
 interface ToggleButtonProps extends ButtonBaseProps {
   isToggled: boolean;

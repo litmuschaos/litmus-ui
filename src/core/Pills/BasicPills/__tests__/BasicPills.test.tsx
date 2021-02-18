@@ -1,16 +1,16 @@
-import { render } from '@testing-library/react';
-import React from 'react';
-import { KuberaThemeProvider } from '../../../../theme';
-import { Pills } from '../BasicPills';
+import { render } from "@testing-library/react";
+import React from "react";
+import { LitmusThemeProvider } from "../../../../theme";
+import { Pills } from "../BasicPills";
 
-describe('Basic Pills Component', () => {
-  it('Renders', () => {
+describe("Basic Pills Component", () => {
+  it("Renders", () => {
     const { getByText } = render(
-      <KuberaThemeProvider platform="kubera-chaos">
+      <LitmusThemeProvider platform="litmus-portal">
         <Pills variant="default" label="Basic Pill" />
-      </KuberaThemeProvider>
+      </LitmusThemeProvider>
     );
 
-    expect(getByText('Basic Pill')).toBeTruthy();
+    expect(getByText("Basic Pill")).toBeTruthy();
   });
 });

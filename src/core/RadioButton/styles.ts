@@ -1,21 +1,21 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   styledRadio: {
-    '&.MuiRadio-colorSecondary&.Mui-disabled': {
+    "&.MuiRadio-colorSecondary&.Mui-disabled": {
       color: theme.palette.disabledBackground,
     },
-    '&.Mui-checked': {
+    "&.Mui-checked": {
       color: theme.palette.highlight,
     },
-    '&.MuiRadio-colorPrimary&.Mui-disabled': {
+    "&.MuiRadio-colorPrimary&.Mui-disabled": {
       color: theme.palette.disabledBackground,
     },
     color: theme.palette.border.main,
-    '&.PrivateRadioButtonIcon-checked-13': {
+    "&.PrivateRadioButtonIcon-checked-13": {
       color: theme.palette.highlight,
     },
-    '&.MuiFormControlLabel-label&.Mui-disabled': {
+    "&.MuiFormControlLabel-label&.Mui-disabled": {
       color: theme.palette.text.disabled,
     },
   },

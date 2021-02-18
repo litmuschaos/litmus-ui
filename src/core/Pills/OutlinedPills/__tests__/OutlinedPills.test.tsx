@@ -1,16 +1,16 @@
-import { render } from '@testing-library/react';
-import React from 'react';
-import { KuberaThemeProvider } from '../../../../theme';
-import { OutlinedPills } from '../../../Pills';
+import { render } from "@testing-library/react";
+import React from "react";
+import { LitmusThemeProvider } from "../../../../theme";
+import { OutlinedPills } from "../../../Pills";
 
-describe('Basic Pills Component', () => {
-  it('Renders', () => {
+describe("Basic Pills Component", () => {
+  it("Renders", () => {
     const { getByText } = render(
-      <KuberaThemeProvider platform="kubera-chaos">
+      <LitmusThemeProvider platform="litmus-portal">
         <OutlinedPills label="Outlined Pill" />
-      </KuberaThemeProvider>
+      </LitmusThemeProvider>
     );
 
-    expect(getByText('Outlined Pill')).toBeTruthy();
+    expect(getByText("Outlined Pill")).toBeTruthy();
   });
 });

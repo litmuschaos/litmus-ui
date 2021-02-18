@@ -1,6 +1,6 @@
-import React from 'react';
-import { AreaGrapher, AreaGraphProps } from './base';
-import { ComputationGraph } from './ComputationGraph';
+import React from "react";
+import { AreaGrapher, AreaGraphProps } from "./base";
+import { ComputationGraph } from "./ComputationGraph";
 
 // Initialize some variables
 const filterUndefinedData = (
@@ -14,8 +14,8 @@ const filterUndefinedData = (
             (d) =>
               d &&
               d.date &&
-              (typeof d.date === 'number' || typeof d.date === 'string') &&
-              (typeof d.value === 'number' || typeof d.value === 'string')
+              (typeof d.date === "number" || typeof d.date === "string") &&
+              (typeof d.value === "number" || typeof d.value === "string")
           )
         )
     : data;
@@ -44,20 +44,20 @@ const LineAreaGraph: React.FC<AreaGraphProps> = ({
         if (
           augmentEventSeries[i].data[j].value === 1 &&
           (j - 1 < 0 ||
-            (j - 1 >= 0 && augmentEventSeries[i].data[j - 1].value === 'False'))
+            (j - 1 >= 0 && augmentEventSeries[i].data[j - 1].value === "False"))
         ) {
-          augmentEventSeries[i].data[j].value = 'Start';
+          augmentEventSeries[i].data[j].value = "Start";
         } else if (
           augmentEventSeries[i].data[j].value === 0 &&
           j - 1 >= 0 &&
-          (augmentEventSeries[i].data[j - 1].value === 'True' ||
-            augmentEventSeries[i].data[j - 1].value === 'Start')
+          (augmentEventSeries[i].data[j - 1].value === "True" ||
+            augmentEventSeries[i].data[j - 1].value === "Start")
         ) {
-          augmentEventSeries[i].data[j].value = 'End';
+          augmentEventSeries[i].data[j].value = "End";
         } else if (augmentEventSeries[i].data[j].value === 0) {
-          augmentEventSeries[i].data[j].value = 'False';
+          augmentEventSeries[i].data[j].value = "False";
         } else if (augmentEventSeries[i].data[j].value === 1) {
-          augmentEventSeries[i].data[j].value = 'True';
+          augmentEventSeries[i].data[j].value = "True";
         }
       }
     }

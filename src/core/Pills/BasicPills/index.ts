@@ -1,1 +1,1 @@
-export * from './BasicPills';
+export * from "./BasicPills";

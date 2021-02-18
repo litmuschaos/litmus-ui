@@ -1,4 +1,4 @@
-import { useTheme } from '@material-ui/core';
+import { useTheme } from "@material-ui/core";
 import {
   AreaClosed,
   AxisBottom,
@@ -14,27 +14,27 @@ import {
   LinePath,
   MarkerCircle,
   Polygon,
-} from '@visx/visx';
-import dayjs from 'dayjs';
-import React from 'react';
-import { AreaGrapher, DataValue } from './base';
-import { useStyles } from './styles';
+} from "@visx/visx";
+import dayjs from "dayjs";
+import React from "react";
+import { AreaGrapher, DataValue } from "./base";
+import { useStyles } from "./styles";
 
 // Accessors
 const getDateNum = (d: DataValue) =>
-  typeof d.date === 'number'
+  typeof d.date === "number"
     ? new Date(d.date)
     : new Date(parseInt(d.date, 10));
 const getValueNum = (d: DataValue) =>
-  typeof d.value === 'number' ? d.value : parseInt(d.value, 10);
+  typeof d.value === "number" ? d.value : parseInt(d.value, 10);
 
 const getValueStr = (d: DataValue) =>
-  typeof d.value === 'number' ? d.value.toFixed(2).toString() : d.value;
+  typeof d.value === "number" ? d.value.toFixed(2).toString() : d.value;
 
-let numValue = '';
+let numValue = "";
 const intToString = (value: number, unit: string) => {
-  numValue = '';
-  const suffixes = ['', 'k', 'm', 'b', 't'];
+  numValue = "";
+  const suffixes = ["", "k", "m", "b", "t"];
 
   const suffixNum = Math.floor(
     Math.floor(Math.abs(value)).toString().length / 3
@@ -96,7 +96,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   children,
   showPoints = true,
   showGrid = true,
-  unit = '',
+  unit = "",
   xAxistimeFormat,
   yLabel,
   yLabelOffset = 45,
@@ -104,28 +104,28 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   const classes = useStyles();
   const { palette } = useTheme();
   const axisBottomTickLabelProps = {
-    dy: '0.3rem',
-    textAnchor: 'middle' as const,
-    fontFamily: 'Ubuntu',
-    fontSize: '12px',
+    dy: "0.3rem",
+    textAnchor: "middle" as const,
+    fontFamily: "Ubuntu",
+    fontSize: "12px",
     fontWeight: 400,
     fill: palette.text.hint,
-    lineHeight: '12px',
+    lineHeight: "12px",
   };
   const axisLeftTickLabelProps = {
-    dy: '0.5em',
-    fontFamily: 'Ubuntu',
+    dy: "0.5em",
+    fontFamily: "Ubuntu",
     fontWeight: 400,
-    fontSize: '10px',
-    textAnchor: 'end' as const,
-    lineHeight: '12px',
+    fontSize: "10px",
+    textAnchor: "end" as const,
+    lineHeight: "12px",
     fill: palette.text.hint,
   };
   const yLabelProps = {
-    fontFamily: 'Ubuntu',
+    fontFamily: "Ubuntu",
     fontWeight: 700,
-    fontSize: '12px',
-    lineHeight: '12px',
+    fontSize: "12px",
+    lineHeight: "12px",
     fill: palette.text.primary,
   };
 
@@ -235,7 +235,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               data={linedata.data}
               x={(d) => xScale(getDateNum(d)) || 0}
               y={(d) => {
-                if (getValueStr(d) === 'False' || getValueStr(d) === 'End') {
+                if (getValueStr(d) === "False" || getValueStr(d) === "End") {
                   return yScale(yScale.domain()[0]) ?? 0;
                 } else {
                   return yScale(yScale.domain()[1]) ?? 0;
@@ -251,7 +251,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                 <g
                   key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}`}
                 >
-                  {(getValueStr(d) === 'Start' || getValueStr(d) === 'End') && (
+                  {(getValueStr(d) === "Start" || getValueStr(d) === "End") && (
                     <g>
                       <Polygon
                         sides={3}
@@ -266,7 +266,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                         fill={linedata.baseColor}
                         pointerEvents="none"
                         rotate={90}
-                        style={{ strokeLinejoin: 'round' }}
+                        style={{ strokeLinejoin: "round" }}
                       />
                       <Line
                         from={{ x: xScale(getDateNum(d)), y: 0 }}

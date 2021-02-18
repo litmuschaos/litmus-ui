@@ -1,7 +1,7 @@
-import { FormControlLabel, Radio } from '@material-ui/core';
-import React from 'react';
-import { RadioBaseProps } from './base';
-import { useStyles } from './styles';
+import { FormControlLabel, Radio } from "@material-ui/core";
+import React from "react";
+import { RadioBaseProps } from "./base";
+import { useStyles } from "./styles";
 
 const RadioButton: React.FC<RadioBaseProps> = ({
   children,

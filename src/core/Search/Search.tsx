@@ -1,8 +1,8 @@
-import { FormControl, Input, InputAdornment } from '@material-ui/core';
-import { Search as SearchIcon } from '@material-ui/icons';
-import React from 'react';
-import { BaseSearchProps } from './base';
-import { useStyles } from './styles';
+import { FormControl, Input, InputAdornment } from "@material-ui/core";
+import { Search as SearchIcon } from "@material-ui/icons";
+import React from "react";
+import { BaseSearchProps } from "./base";
+import { useStyles } from "./styles";
 
 const Search: React.FC<BaseSearchProps> = ({
   placeholder,

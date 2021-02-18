@@ -1,3 +1,3 @@
-import { TextFieldProps } from '@material-ui/core';
+import { TextFieldProps } from "@material-ui/core";
 
-export type EditableTextBaseProps = Omit<TextFieldProps, 'variant'>;
+export type EditableTextBaseProps = Omit<TextFieldProps, "variant">;

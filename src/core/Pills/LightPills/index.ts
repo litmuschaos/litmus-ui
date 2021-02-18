@@ -1,1 +1,1 @@
-export * from './LightPills';
+export * from "./LightPills";

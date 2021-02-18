@@ -1,4 +1,4 @@
-import { AreaGrapher, DataValue } from './base';
+import { AreaGrapher, DataValue } from "./base";
 
 const data1: DataValue[] = [
   { date: 1000, value: 20 },
@@ -48,23 +48,23 @@ const data4: DataValue[] = [
 ];
 const seriestest1: Array<AreaGrapher> = [
   {
-    metricName: 'teal',
+    metricName: "teal",
     data: data1,
-    baseColor: 'teal',
+    baseColor: "teal",
   },
 ];
 const seriestest2: Array<AreaGrapher> = [
-  { metricName: 'orange', data: data2, baseColor: 'orange' },
-  { metricName: 'pink', data: data22, baseColor: 'pink' },
+  { metricName: "orange", data: data2, baseColor: "orange" },
+  { metricName: "pink", data: data22, baseColor: "pink" },
 ];
 const seriestest3: Array<AreaGrapher> = [
   {
     metricName:
-      'chaos-pod-dele-haos-pod-delehaos-pod-delehaos-pod-delehaos-pod-delehaos-pod-dele',
+      "chaos-pod-dele-haos-pod-delehaos-pod-delehaos-pod-delehaos-pod-delehaos-pod-dele",
     data: data3,
-    baseColor: 'red',
+    baseColor: "red",
   },
-  { metricName: 'chaos-network-pod', data: data4, baseColor: 'yellow' },
+  { metricName: "chaos-network-pod", data: data4, baseColor: "yellow" },
 ];
 
 export { seriestest1, seriestest2, seriestest3 };

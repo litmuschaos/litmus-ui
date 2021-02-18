@@ -1,5 +1,5 @@
-import { useTheme } from '@material-ui/core';
-import { Bounds } from '@visx/brush/lib/types';
+import { useTheme } from "@material-ui/core";
+import { Bounds } from "@visx/brush/lib/types";
 import {
   Brush,
   Line,
@@ -9,15 +9,15 @@ import {
   scaleTime,
   Tooltip,
   useTooltip,
-} from '@visx/visx';
-import { bisector, extent, max } from 'd3-array';
-import dayjs from 'dayjs';
-import React, { useCallback, useMemo, useState } from 'react';
-import { LegendData } from '../LegendTable/base';
-import { LegendTable } from '../LegendTable/LegendTable';
-import { AreaGraphProps, DataValue, ToolTipInterface } from './base';
-import { PlotLineAreaGraph } from './PlotLineAreaGraph';
-import { useStyles } from './styles';
+} from "@visx/visx";
+import { bisector, extent, max } from "d3-array";
+import dayjs from "dayjs";
+import React, { useCallback, useMemo, useState } from "react";
+import { LegendData } from "../LegendTable/base";
+import { LegendTable } from "../LegendTable/LegendTable";
+import { AreaGraphProps, DataValue, ToolTipInterface } from "./base";
+import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
+import { useStyles } from "./styles";
 
 type TooltipData = Array<ToolTipInterface>;
 let dd1: DataValue;
@@ -29,14 +29,14 @@ let toolTipPointLength: number;
 
 // Accessor functions
 const getDateNum = (d: DataValue) =>
-  typeof d.date === 'number'
+  typeof d.date === "number"
     ? new Date(d.date)
     : new Date(parseInt(d.date, 10));
 const getValueNum = (d: DataValue) =>
-  typeof d.value === 'number' ? d.value : parseInt(d.value, 10);
+  typeof d.value === "number" ? d.value : parseInt(d.value, 10);
 
 const getValueStr = (d: DataValue) =>
-  typeof d.value === 'number' ? d.value.toFixed(2).toString() : d.value;
+  typeof d.value === "number" ? d.value.toFixed(2).toString() : d.value;
 
 // Bisectors
 const bisectDate = bisector<DataValue, Date>((d) => new Date(getDateNum(d)))
@@ -65,12 +65,12 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
     right: 10,
   },
   legendTableHeight = 200,
-  toolTiptimeFormat = 'MMM D,YYYY h:mm:ss a',
+  toolTiptimeFormat = "MMM D,YYYY h:mm:ss a",
   ...rest
 }) => {
   const { palette, graph } = useTheme();
 
-  let legenddata: Array<LegendData> = [{ data: [], baseColor: '' }];
+  let legenddata: Array<LegendData> = [{ data: [], baseColor: "" }];
   const classes = useStyles({ width, height });
 
   const [filteredClosedSeries, setFilteredSeries] = useState(closedSeries);
@@ -226,7 +226,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
     tooltipOpen: true,
   });
   const getSum = (total: number, num: number | string) => {
-    if (typeof num === 'number') {
+    if (typeof num === "number") {
       return total + (num || 0);
     } else {
       return total + (parseInt(num, 10) || 0);
@@ -240,7 +240,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
       event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>
     ) => {
       let pointerDataSelection: ToolTipInterface[] = [
-        { metricName: '', data: dd0, baseColor: '' },
+        { metricName: "", data: dd0, baseColor: "" },
       ];
       if (showTips) {
         let { x, y } = localPoint(event) || { x: 0, y: 0 };
@@ -362,7 +362,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
               };
               legenTablePointerData[j + legenTablePointerData.length] =
                 eventToolTip[j];
-              if (dd1.value !== 'False') {
+              if (dd1.value !== "False") {
                 pointerDataSelection[i] = eventToolTip[j];
                 i++;
               }
@@ -380,7 +380,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
               legenTablePointerData[j + legenTablePointerData.length] =
                 eventToolTip[j];
 
-              if (dd0.value !== 'False') {
+              if (dd0.value !== "False") {
                 pointerDataSelection[i] = eventToolTip[j];
                 i++;
               }
@@ -431,10 +431,10 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
         const curr = pointerElement
           ? getValueStr(pointerElement.data)
           : firstMouseEnterGraph
-          ? '--'
+          ? "--"
           : getValueStr(linedata.data[linedata.data.length - 1]);
 
-        const avg = '--';
+        const avg = "--";
 
         if (linedata.data !== undefined)
           legenddata[index] = {
@@ -453,7 +453,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
         const curr = pointerElement
           ? getValueStr(pointerElement.data)
           : firstMouseEnterGraph
-          ? '--'
+          ? "--"
           : getValueStr(linedata.data[linedata.data.length - 1]);
         const avg = (
           linedata.data.map((d) => (d.value ? d.value : 0)).reduce(getSum, 0) /
@@ -480,7 +480,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
         const curr = pointerElement
           ? getValueStr(pointerElement.data)
           : firstMouseEnterGraph
-          ? '--'
+          ? "--"
           : getValueStr(linedata.data[linedata.data.length - 1]);
 
         const avg = (
@@ -542,7 +542,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
           {...rest}
         >
           <LinearGradient
-            id={'linearGradient-Brush'}
+            id={"linearGradient-Brush"}
             from={palette.text.primary}
             to={palette.text.primary}
             fromOpacity={0.4}
@@ -556,14 +556,14 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
             height={yMax}
             margin={margin}
             handleSize={8}
-            resizeTriggerAreas={['left', 'right']}
+            resizeTriggerAreas={["left", "right"]}
             resetOnEnd
             onBrushEnd={onBrushChange}
             onChange={() => hideTooltip()}
             selectedBoxStyle={{
-              fill: 'url(#linearGradient-Brush)',
+              fill: "url(#linearGradient-Brush)",
               stroke: palette.text.primary,
-              strokeOpacity: '0.8',
+              strokeOpacity: "0.8",
             }}
             onMouseMove={handleTooltip}
             onClick={() => {
@@ -638,7 +638,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
       {showLegend && (
         <LegendTable
           data={legenddata}
-          heading={['Metric Name', 'Avg', 'Curr']}
+          heading={["Metric Name", "Avg", "Curr"]}
           width={width}
           height={legendTableHeight}
         />

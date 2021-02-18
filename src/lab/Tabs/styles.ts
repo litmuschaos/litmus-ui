@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   panel: {
-    width: '100%',
-    boxShadow: 'none',
-    background: 'transparent',
+    width: "100%",
+    boxShadow: "none",
+    background: "transparent",
     borderBottom: `0.0625rem solid ${theme.palette.border.main}`,
   },
 
@@ -16,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
   TabItem: {
     fontWeight: 500,
     color: theme.palette.text.hint,
-    fontSize: '1rem',
-    lineHeight: '140%',
-    textAlign: 'center',
-    textTransform: 'none',
+    fontSize: "1rem",
+    lineHeight: "140%",
+    textAlign: "center",
+    textTransform: "none",
   },
-  '&.MuiTab-textColorInherit&.Mui-selected': {
+  "&.MuiTab-textColorInherit&.Mui-selected": {
     color: theme.palette.highlight,
   },
 }));

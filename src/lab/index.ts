@@ -1,2 +1,2 @@
-export * from './Graphs';
-export * from './Tabs';
+export * from "./Graphs";
+export * from "./Tabs";

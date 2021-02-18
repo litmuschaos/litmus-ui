@@ -1,30 +1,30 @@
-import { render, cleanup, fireEvent } from '@testing-library/react';
-import React from 'react';
-import { KuberaThemeProvider } from '../../../theme';
-import { Search } from '../Search';
-import { screen } from '@testing-library/dom';
+import { screen } from "@testing-library/dom";
+import { cleanup, fireEvent, render } from "@testing-library/react";
+import React from "react";
+import { LitmusThemeProvider } from "../../../theme";
+import { Search } from "../Search";
 
 afterEach(cleanup);
 jest.useFakeTimers();
 
-describe('Search Component', () => {
-  it('Renders', () => {
+describe("Search Component", () => {
+  it("Renders", () => {
     render(
-      <KuberaThemeProvider platform="kubera-chaos">
+      <LitmusThemeProvider platform="litmus-portal">
         <Search data-testid="search" placeholder="search" />
-      </KuberaThemeProvider>
+      </LitmusThemeProvider>
     );
     //get Search byRole
-    const search = screen.getByRole('Search');
+    const search = screen.getByRole("Search");
     //get input from Search
-    const searchValue = search.querySelector('input') as HTMLElement;
+    const searchValue = search.querySelector("input") as HTMLElement;
     //check attributes
-    expect(searchValue).toHaveProperty('placeholder', 'search');
-    expect(searchValue).toHaveProperty('type', 'text');
-    expect(searchValue).toHaveProperty('value', '');
+    expect(searchValue).toHaveProperty("placeholder", "search");
+    expect(searchValue).toHaveProperty("type", "text");
+    expect(searchValue).toHaveProperty("value", "");
     //pass text value
-    fireEvent.change(searchValue, { target: { value: 'random search text' } });
+    fireEvent.change(searchValue, { target: { value: "random search text" } });
     //check passed text value
-    expect(searchValue).toHaveProperty('value', 'random search text');
+    expect(searchValue).toHaveProperty("value", "random search text");
   });
 });

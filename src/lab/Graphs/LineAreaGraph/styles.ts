@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles, Theme } from "@material-ui/core";
 
 interface StyleProps {
   width?: number;
@@ -10,102 +10,102 @@ const useStyles = makeStyles((theme: Theme) => ({
     fill: theme.palette.background.paper,
   },
   table: (props: StyleProps) => ({
-    display: 'flex',
+    display: "flex",
     width: props.width,
     height: props.height,
     backgroundColor: theme.palette.background.paper,
-    overflowY: 'auto',
-    '&::-webkit-scrollbar': {
-      width: '3px',
-      height: '3px',
+    overflowY: "auto",
+    "&::-webkit-scrollbar": {
+      width: "3px",
+      height: "3px",
     },
 
-    '&::-webkit-scrollbar-track': {
+    "&::-webkit-scrollbar-track": {
       backgroundColor: theme.palette.background.paper,
-      borderRadius: '3px',
+      borderRadius: "3px",
     },
 
-    '&::-webkit-scrollbar-corner': {
+    "&::-webkit-scrollbar-corner": {
       backgroundColor: theme.palette.background.paper,
     },
 
-    '&::-webkit-scrollbar-thumb': {
+    "&::-webkit-scrollbar-thumb": {
       backgroundColor: theme.palette.highlight,
-      borderRadius: '3px',
+      borderRadius: "3px",
     },
-    '&::-webkit-scrollbar-thumb:hover': {
+    "&::-webkit-scrollbar-thumb:hover": {
       backgroundColor: theme.palette.highlight,
     },
   }),
 
   tableDataRow: {
-    float: 'left',
-    display: 'flex',
-    alignItems: 'flex-start',
+    float: "left",
+    display: "flex",
+    alignItems: "flex-start",
   },
   tableFont: {
-    fontFamily: 'Ubuntu',
-    fontSize: '0.8rem',
-    fontStyle: 'normal',
+    fontFamily: "Ubuntu",
+    fontSize: "0.8rem",
+    fontStyle: "normal",
     fontWeight: 400,
-    lineHeight: '16px',
-    borderBottom: 'none',
-    letterSpacing: '0em',
-    paddingLeft: '0.5em',
-    textAlign: 'left',
-    minWidth: '4rem',
+    lineHeight: "16px",
+    borderBottom: "none",
+    letterSpacing: "0em",
+    paddingLeft: "0.5em",
+    textAlign: "left",
+    minWidth: "4rem",
   },
 
   tableHeading: {
-    paddingLeft: '1.5em',
-    fontSize: '0.9rem',
-    color: theme.graph.legendTableHeading,
-    whiteSpace: 'nowrap',
+    paddingLeft: "1.5em",
+    fontSize: "0.9rem",
+    color: theme.palette.graph.legendTableHeading,
+    whiteSpace: "nowrap",
     fontWeight: 500,
   },
 
   hr: {
-    width: '12px',
-    height: '2px',
+    width: "12px",
+    height: "2px",
   },
   grid: {
     stroke: theme.palette.disabledBackground,
     strokeOpacity: 0.2,
   },
   tooltipLine: {
-    stroke: theme.graph.toolTip,
+    stroke: theme.palette.graph.toolTip,
     strokeWidth: 4,
-    pointerEvents: 'none',
+    pointerEvents: "none",
   },
   tooltipMetric: {
-    marginTop: '1rem',
-    marginLeft: '3rem',
-    padding: '0.5rem',
+    marginTop: "1rem",
+    marginLeft: "3rem",
+    padding: "0.5rem",
     backgroundColor: `${theme.palette.cards.background} !important`,
   },
   tooltipDateStyles: {
-    position: 'relative',
-    transform: 'translate(30%,0)',
-    marginTop: '0.3rem',
-    backgroundColor: `${theme.graph.toolTip} !important`,
-    padding: '0.5rem',
+    position: "relative",
+    transform: "translate(30%,0)",
+    marginTop: "0.3rem",
+    backgroundColor: `${theme.palette.graph.toolTip} !important`,
+    padding: "0.5rem",
   },
   tooltipData: {
-    display: 'flex',
+    display: "flex",
     color: theme.palette.text.primary,
-    justifyContent: 'space-between',
-    padding: '0.2rem',
-    '& span': {
-      paddingLeft: '0.5em',
-      maxWidth: '20rem',
-      lineHeight: '1rem',
+    justifyContent: "space-between",
+    padding: "0.2rem",
+    "& span": {
+      paddingLeft: "0.5em",
+      maxWidth: "20rem",
+      lineHeight: "1rem",
     },
   },
   tooltipLabel: {
-    display: 'flex',
+    display: "flex",
   },
   tooltipValue: {
-    paddingLeft: '0.2rem',
+    paddingLeft: "0.2rem",
   },
 }));
 

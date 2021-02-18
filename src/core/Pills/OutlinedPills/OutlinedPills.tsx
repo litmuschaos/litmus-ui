@@ -1,7 +1,7 @@
-import { Chip } from '@material-ui/core';
-import React from 'react';
-import { ChipBaseProps } from '../base';
-import { useStyles } from './style';
+import { Chip } from "@material-ui/core";
+import React from "react";
+import { ChipBaseProps } from "../base";
+import { useStyles } from "./style";
 
 interface OutlinedPillsProps extends ChipBaseProps {
   label: string;

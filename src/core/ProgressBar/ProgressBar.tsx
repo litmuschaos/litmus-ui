@@ -1,7 +1,7 @@
-import { LinearProgress } from '@material-ui/core';
-import React from 'react';
-import { ProgressBarBaseProps } from './base';
-import { useStyles } from './styles';
+import { LinearProgress } from "@material-ui/core";
+import React from "react";
+import { ProgressBarBaseProps } from "./base";
+import { useStyles } from "./styles";
 
 interface ProgressBarProps extends ProgressBarBaseProps {
   color: string;

@@ -1,1 +1,1 @@
-export * from './LegendTable';
+export * from "./LegendTable";

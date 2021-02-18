@@ -6,10 +6,10 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@material-ui/core';
-import React from 'react';
-import { LegendData } from './base';
-import { useStyles } from './style';
+} from "@material-ui/core";
+import React from "react";
+import { LegendData } from "./base";
+import { useStyles } from "./style";
 
 export type LegendProps = {
   data?: Array<LegendData>;
@@ -41,7 +41,7 @@ const LegendTable: React.FC<LegendProps> = ({
               ))}
           </TableRow>
         </TableHead>
-        <TableBody style={{ width: '100%' }}>
+        <TableBody style={{ width: "100%" }}>
           {data &&
             data.map((row) => (
               <TableRow
