@@ -623,7 +623,9 @@ const ComputationGraph: React.FC<GraphProps> = ({
             left={tooltipLeft}
             className={classes.tooltipDateStyles}
           >
-            <div className={classes.tooltipData}>
+            <div
+              className={`${classes.tooltipData} ${classes.tooltipBottomDate}`}
+            >
               <span>{` ${dayjs(
                 new Date(getDateNum(tooltipData[0].data))
               ).format(toolTiptimeFormat)}`}</span>

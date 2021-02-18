@@ -100,6 +100,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       lineHeight: "1rem",
     },
   },
+  tooltipBottomDate: {
+    color: theme.palette.text.secondary,
+  },
   tooltipLabel: {
     display: "flex",
   },
