@@ -47,6 +47,7 @@ declare module "@material-ui/core/styles/createPalette" {
       };
     };
     cards: {
+      header: string;
       background: string;
       highlight: string;
     };
@@ -92,6 +93,7 @@ declare module "@material-ui/core/styles/createPalette" {
       };
     };
     cards?: {
+      header: string;
       background: string;
       highlight: string;
     };
