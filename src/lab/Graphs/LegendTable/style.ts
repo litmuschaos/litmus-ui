@@ -36,40 +36,30 @@ const useStyles = makeStyles((theme: Theme) => ({
   }),
   tableRow: {
     display: "flex",
-    justifyContent: "space-between",
     border: "none",
-    margin: "none",
-    width: "100%",
   },
   tableCell: {
-    display: "flex",
     border: "none",
-    margin: "none",
     alignContent: "flex-start",
-    padding: theme.spacing(1, 0),
+    padding: theme.spacing(0.7, 1),
   },
 
   tableHeading: {
-    display: "flex",
     border: "none",
-    margin: "0",
-    justifyContent: "space-between",
     color: theme.palette.graph.dashboard.lightBlue,
-    width: "4rem",
+    minWidth: "4rem",
     "&:first-child": {
-      maxWidth: "14rem",
-      minWidth: "4rem",
+      flexGrow: 1,
     },
   },
   tableLabel: {
-    maxWidth: "14rem",
+    display: "flex",
     minWidth: "4rem",
+    flexGrow: 1,
   },
   tableData: {
-    width: "4rem",
-    "& span": {
-      alignContent: "flex-start",
-    },
+    minWidth: "4rem",
+    alignContent: "flex-start",
   },
   tableFont: {
     wordWrap: "break-word",
@@ -78,7 +68,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.text.primary,
   },
   hr: {
-    position: "relative",
     width: "1rem",
     height: "0.2rem",
     alignSelf: "baseline",

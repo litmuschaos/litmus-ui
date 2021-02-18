@@ -1,3 +1,5 @@
+/* eslint-disable no-else-return,consistent-return,array-callback-return */
+
 import { useTheme } from "@material-ui/core";
 import {
   AreaClosed,
@@ -17,18 +19,18 @@ import {
 } from "@visx/visx";
 import dayjs from "dayjs";
 import React from "react";
-import { AreaGrapher, DataValue } from "./base";
+import { DateValue, GraphMetric } from "./base";
 import { useStyles } from "./styles";
 
 // Accessors
-const getDateNum = (d: DataValue) =>
+const getDateNum = (d: DateValue) =>
   typeof d.date === "number"
     ? new Date(d.date)
     : new Date(parseInt(d.date, 10));
-const getValueNum = (d: DataValue) =>
+const getValueNum = (d: DateValue) =>
   typeof d.value === "number" ? d.value : parseInt(d.value, 10);
 
-const getValueStr = (d: DataValue) =>
+const getValueStr = (d: DateValue) =>
   typeof d.value === "number" ? d.value.toFixed(2).toString() : d.value;
 
 let numValue = "";
@@ -57,9 +59,9 @@ const dateFormat = (date: number, xAxistimeFormat: string) => {
 interface AreaChartProps {
   xScale: AxisScale<number>;
   yScale: AxisScale<number>;
-  closedSeries?: Array<AreaGrapher>;
-  openSeries?: Array<AreaGrapher>;
-  eventSeries?: Array<AreaGrapher>;
+  closedSeries?: Array<GraphMetric>;
+  openSeries?: Array<GraphMetric>;
+  eventSeries?: Array<GraphMetric>;
   showGrid?: boolean;
   width: number;
   height: number;
@@ -99,7 +101,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   unit = "",
   xAxistimeFormat,
   yLabel,
-  yLabelOffset = 45,
+  yLabelOffset = 10,
 }) => {
   const classes = useStyles();
   const { palette } = useTheme();
@@ -127,6 +129,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
     fontSize: "12px",
     lineHeight: "12px",
     fill: palette.text.primary,
+    background: "red",
   };
 
   if (width < 10) return null;
@@ -145,25 +148,25 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
       )}
       {closedSeries &&
         closedSeries.length > 0 &&
-        closedSeries.map((linedata) => (
+        closedSeries.map((linedata: GraphMetric) => (
           <Group key={`${linedata.metricName}-group`}>
             <LinearGradient
-              id={`${linedata.metricName}-linearGragient`}
+              id={`${linedata.metricName}-${linedata.baseColor}-linearGragient`}
               from={linedata.baseColor}
               to={linedata.baseColor}
               fromOpacity={0.5}
               toOpacity={0.1}
             />
 
-            <AreaClosed<DataValue>
-              key={`${linedata.metricName}-line`}
+            <AreaClosed<DateValue>
+              key={`${linedata.metricName}-area`}
               data={linedata.data}
               x={(d) => xScale(getDateNum(d)) || 0}
               y={(d) => yScale(getValueNum(d)) || 0}
               yScale={yScale}
               strokeWidth={2}
               stroke={linedata.baseColor}
-              fill={`url(#${linedata.metricName}-linearGragient)`}
+              fill={`url(#${linedata.metricName}-${linedata.baseColor}-linearGragient)`}
               curve={curveMonotoneX}
             />
 
@@ -220,7 +223,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
 
       {eventSeries &&
         eventSeries.length > 0 &&
-        eventSeries.map((linedata, i) => (
+        eventSeries.map((linedata) => (
           <Group key={`${linedata.metricName}-eventSeries`}>
             <LinearGradient
               id={`${linedata.metricName}-linearGragient-eventSeries`}
@@ -230,7 +233,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               toOpacity={0.1}
             />
 
-            <AreaClosed<DataValue>
+            <AreaClosed<DateValue>
               key={`${linedata.metricName}-eventSeries`}
               data={linedata.data}
               x={(d) => xScale(getDateNum(d)) || 0}
@@ -295,7 +298,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               refX={2.5}
               fillOpacity={0.6}
             />
-            <LinePath<DataValue>
+            <LinePath<DateValue>
               data={openLineData.data}
               x={(d) => xScale(getDateNum(d)) ?? 0}
               y={(d) => yScale(getValueNum(d)) ?? 0}

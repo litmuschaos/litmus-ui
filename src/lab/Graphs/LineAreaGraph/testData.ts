@@ -1,6 +1,6 @@
-import { AreaGrapher, DataValue } from "./base";
+import { DateValue, GraphMetric } from "./base";
 
-const data1: DataValue[] = [
+const data1: DateValue[] = [
   { date: 1000, value: 20 },
   { date: 2000, value: 30 },
   { date: 3000, value: 35 },
@@ -10,7 +10,7 @@ const data1: DataValue[] = [
   { date: 7000, value: 30 },
   { date: 8000, value: 10 },
 ];
-const data2: DataValue[] = [
+const data2: DateValue[] = [
   { date: 1000, value: 40 },
   { date: 2000, value: 10 },
   { date: 3000, value: 55 },
@@ -20,7 +20,7 @@ const data2: DataValue[] = [
   { date: 7000, value: 60 },
   { date: 8000, value: 10 },
 ];
-const data22: DataValue[] = [
+const data22: DateValue[] = [
   { date: 1000, value: 0 },
   { date: 2000, value: 14 },
   { date: 3000, value: 5 },
@@ -30,14 +30,14 @@ const data22: DataValue[] = [
   { date: 7000, value: 20 },
   { date: 8000, value: 30 },
 ];
-const data3: DataValue[] = [
+const data3: DateValue[] = [
   { date: 3000, value: 1 },
   { date: 4000, value: 0 },
   { date: 5000, value: 0 },
   { date: 6000, value: 0 },
   { date: 7000, value: 0 },
 ];
-const data4: DataValue[] = [
+const data4: DateValue[] = [
   { date: 3000, value: 0 },
   { date: 4000, value: 0 },
   { date: 5000, value: 0 },
@@ -46,18 +46,18 @@ const data4: DataValue[] = [
   { date: 8000, value: 0 },
   { date: 9000, value: 0 },
 ];
-const seriestest1: Array<AreaGrapher> = [
+const seriestest1: Array<GraphMetric> = [
   {
     metricName: "teal",
     data: data1,
     baseColor: "teal",
   },
 ];
-const seriestest2: Array<AreaGrapher> = [
+const seriestest2: Array<GraphMetric> = [
   { metricName: "orange", data: data2, baseColor: "orange" },
   { metricName: "pink", data: data22, baseColor: "pink" },
 ];
-const seriestest3: Array<AreaGrapher> = [
+const seriestest3: Array<GraphMetric> = [
   {
     metricName:
       "chaos-pod-dele-haos-pod-delehaos-pod-delehaos-pod-delehaos-pod-delehaos-pod-dele",

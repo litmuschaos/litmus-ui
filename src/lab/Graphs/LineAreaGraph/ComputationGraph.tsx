@@ -1,3 +1,5 @@
+/* eslint-disable no-else-return,consistent-return,array-callback-return */
+
 import { useTheme } from "@material-ui/core";
 import { Bounds } from "@visx/brush/lib/types";
 import {
@@ -15,31 +17,51 @@ import dayjs from "dayjs";
 import React, { useCallback, useMemo, useState } from "react";
 import { LegendData } from "../LegendTable/base";
 import { LegendTable } from "../LegendTable/LegendTable";
-import { AreaGraphProps, DataValue, ToolTipInterface } from "./base";
+import { DateValue, GraphProps, ToolTipInterface } from "./base";
 import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
 import { useStyles } from "./styles";
 
 type TooltipData = Array<ToolTipInterface>;
-let dd1: DataValue;
-let dd0: DataValue;
+let dd1: DateValue;
+let dd0: DateValue;
 let i: number;
 let j: number;
 let indexer: number;
 let toolTipPointLength: number;
 
 // Accessor functions
-const getDateNum = (d: DataValue) =>
-  typeof d.date === "number"
-    ? new Date(d.date)
-    : new Date(parseInt(d.date, 10));
-const getValueNum = (d: DataValue) =>
-  typeof d.value === "number" ? d.value : parseInt(d.value, 10);
+const getDateNum = (d: DateValue) => {
+  if (d) {
+    if (typeof d.date === "number") {
+      return new Date(d.date);
+    } else return new Date(parseInt(d.date, 10));
+  } else {
+    return new Date(0);
+  }
+};
 
-const getValueStr = (d: DataValue) =>
-  typeof d.value === "number" ? d.value.toFixed(2).toString() : d.value;
+const getValueNum = (d: DateValue) => {
+  if (d) {
+    if (typeof d.value === "number") {
+      return d.value;
+    } else return parseInt(d.value, 10);
+  } else {
+    return NaN;
+  }
+};
+
+const getValueStr = (d: DateValue) => {
+  if (d) {
+    if (typeof d.value === "number") {
+      return d.value.toFixed(2).toString();
+    } else return d.value;
+  } else {
+    return "";
+  }
+};
 
 // Bisectors
-const bisectDate = bisector<DataValue, Date>((d) => new Date(getDateNum(d)))
+const bisectDate = bisector<DateValue, Date>((d) => new Date(getDateNum(d)))
   .left;
 const bisectorValue = bisector<ToolTipInterface, number>((d) =>
   getValueNum(d.data)
@@ -48,14 +70,13 @@ const bisectorValue = bisector<ToolTipInterface, number>((d) =>
 const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipInterface>;
 
-const ComputationGraph: React.FC<AreaGraphProps> = ({
+const ComputationGraph: React.FC<GraphProps> = ({
   compact = false,
   closedSeries,
   openSeries,
   eventSeries,
   showTips = true,
-  showPoints = true,
-  showLegend = true,
+  showLegendTable = true,
   width = 200,
   height = 200,
   margin = {
@@ -66,19 +87,18 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
   },
   legendTableHeight = 200,
   toolTiptimeFormat = "MMM D,YYYY h:mm:ss a",
+  showPoints = true,
   ...rest
 }) => {
-  const { palette, graph } = useTheme();
-
-  let legenddata: Array<LegendData> = [{ data: [], baseColor: "" }];
+  const { palette } = useTheme();
   const classes = useStyles({ width, height });
-
   const [filteredClosedSeries, setFilteredSeries] = useState(closedSeries);
   const [filteredOpenSeries, setfilteredOpenSeries] = useState(openSeries);
   const [filteredEventSeries, setfilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
 
+  let legenddata: Array<LegendData> = [{ data: [], baseColor: "" }];
   const closedSeriesCount = filteredClosedSeries
     ? filteredClosedSeries.length
     : 0;
@@ -244,8 +264,8 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
       ];
       if (showTips) {
         let { x, y } = localPoint(event) || { x: 0, y: 0 };
-        x = x - margin.left;
-        y = y - margin.top;
+        x -= margin.left;
+        y -= margin.top;
         const x0 = dateScale.invert(x);
         const y0 = valueScale.invert(y);
 
@@ -419,7 +439,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
     ]
   );
   // legendData
-  if (showLegend) {
+  if (showLegendTable) {
     legenddata = legenddata.splice(0);
     if (filteredEventSeries) {
       filteredEventSeries.map((linedata, index) => {
@@ -507,13 +527,13 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
   ) {
     setFilteredSeries(closedSeries);
     setfilteredOpenSeries(openSeries);
-    setfilteredOpenSeries(eventSeries);
+    setfilteredEventSeries(eventSeries);
   }
   return (
     <div
       onMouseLeave={() => hideTooltip()}
       style={{
-        width: width,
+        width,
         height: height + legendTableHeight,
       }}
     >
@@ -527,8 +547,8 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
         />
 
         <PlotLineAreaGraph
-          hideBottomAxis={compact}
           showPoints={showPoints}
+          hideBottomAxis={compact}
           closedSeries={filteredClosedSeries}
           openSeries={filteredOpenSeries}
           eventSeries={filteredEventSeries}
@@ -542,7 +562,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
           {...rest}
         >
           <LinearGradient
-            id={"linearGradient-Brush"}
+            id="linearGradient-Brush"
             from={palette.text.primary}
             to={palette.text.primary}
             fromOpacity={0.4}
@@ -587,7 +607,7 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
                 cx={dateScale(getDateNum(tooltipData[0].data))}
                 cy={valueScale(getValueNum(tooltipData[0].data))}
                 r={5}
-                fill={graph.toolTip}
+                fill={palette.graph.toolTip}
                 fillOpacity={1}
                 stroke={palette.text.primary}
                 strokeOpacity={1}
@@ -605,13 +625,11 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
             left={tooltipLeft}
             className={classes.tooltipDateStyles}
           >
-            {
-              <div className={classes.tooltipData}>
-                <span>{` ${dayjs(
-                  new Date(getDateNum(tooltipData[0].data))
-                ).format(toolTiptimeFormat)}`}</span>
-              </div>
-            }
+            <div className={classes.tooltipData}>
+              <span>{` ${dayjs(
+                new Date(getDateNum(tooltipData[0].data))
+              ).format(toolTiptimeFormat)}`}</span>
+            </div>
           </Tooltip>
           <Tooltip
             top={tooltipTop + margin.top}
@@ -634,15 +652,14 @@ const ComputationGraph: React.FC<AreaGraphProps> = ({
           </Tooltip>
         </div>
       )}
-
-      {showLegend && (
-        <LegendTable
-          data={legenddata}
-          heading={["Metric Name", "Avg", "Curr"]}
-          width={width}
-          height={legendTableHeight}
-        />
-      )}
+      <div style={{ width, height: legendTableHeight }}>
+        {showLegendTable && (
+          <LegendTable
+            data={legenddata}
+            heading={["Metric Name", "Avg", "Curr"]}
+          />
+        )}
+      </div>
     </div>
   );
 };

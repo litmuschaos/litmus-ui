@@ -7,18 +7,12 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
+import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import React from "react";
-import { LegendData } from "./base";
+import { LegendTableChildProps, LegendTableProps } from "./base";
 import { useStyles } from "./style";
 
-export type LegendProps = {
-  data?: Array<LegendData>;
-  heading?: Array<string>;
-  width?: number;
-  height?: number;
-};
-
-const LegendTable: React.FC<LegendProps> = ({
+const LegendTableChild: React.FC<LegendTableChildProps> = ({
   data,
   heading,
   width = 400,
@@ -53,26 +47,21 @@ const LegendTable: React.FC<LegendProps> = ({
                     (index === 0 && (
                       <TableCell
                         key={`${element}-${Math.random() * 100} `}
-                        className={classes.tableCell}
+                        className={`${classes.tableCell} ${classes.tableFont} ${classes.tableLabel}`}
                       >
-                        <hr color={row.baseColor} className={classes.hr} />
-                        <Typography
-                          className={`${classes.tableLabel} ${classes.tableFont}`}
-                        >
-                          {element}
-                        </Typography>
+                        <div
+                          className={classes.hr}
+                          style={{ background: row.baseColor }}
+                        />
+                        <Typography>{element}</Typography>
                       </TableCell>
                     )) ||
                     (index !== 0 && (
                       <TableCell
                         key={`${element}-${Math.random() * 100} `}
-                        className={classes.tableCell}
+                        className={`${classes.tableCell} ${classes.tableFont} ${classes.tableData}`}
                       >
-                        <Typography
-                          className={`${classes.tableData} ${classes.tableFont}`}
-                        >
-                          {element}
-                        </Typography>
+                        <Typography>{element}</Typography>
                       </TableCell>
                     ))
                 )}
@@ -81,6 +70,19 @@ const LegendTable: React.FC<LegendProps> = ({
         </TableBody>
       </Table>
     </TableContainer>
+  );
+};
+
+const LegendTable: React.FC<LegendTableProps> = ({ ...rest }) => {
+  return (
+    <ParentSize>
+      {({ width, height }) =>
+        width > 0 &&
+        height > 0 && (
+          <LegendTableChild width={width} height={height} {...rest} />
+        )
+      }
+    </ParentSize>
   );
 };
 export { LegendTable };
