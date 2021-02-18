@@ -60,7 +60,7 @@ const seriestest2: Array<GraphMetric> = [
 const seriestest3: Array<GraphMetric> = [
   {
     metricName:
-      "chaos-pod-dele-haos-pod-delehaos-pod-delehaos-pod-delehaos-pod-delehaos-pod-dele",
+      "chaos-pod-delete-chaos-pod-delete-chaos-pod-delete-chaos-pod-delete",
     data: data3,
     baseColor: "red",
   },
