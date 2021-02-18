@@ -85,8 +85,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tooltipDateStyles: {
     position: "relative",
-    transform: "translate(30%,0)",
-    marginTop: "0.3rem",
+    marginTop: "0.5rem",
     backgroundColor: `${theme.palette.graph.toolTip} !important`,
     padding: "0.5rem",
   },
@@ -100,6 +99,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       maxWidth: "20rem",
       lineHeight: "1rem",
     },
+  },
+  tooltipBottomDate: {
+    color: theme.palette.text.secondary,
   },
   tooltipLabel: {
     display: "flex",
