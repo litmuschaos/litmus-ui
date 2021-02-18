@@ -1,7 +1,7 @@
 import React from "react";
 import { useStyles } from "./styles";
 
-interface KuberaCardProps {
+interface LitmusCardProps {
   glow?: boolean;
   borderColor: string;
   width: string;
@@ -9,7 +9,7 @@ interface KuberaCardProps {
   className?: string;
 }
 
-const KuberaCard: React.FC<KuberaCardProps> = ({
+const LitmusCard: React.FC<LitmusCardProps> = ({
   glow,
   borderColor,
   width,
@@ -21,4 +21,4 @@ const KuberaCard: React.FC<KuberaCardProps> = ({
   return <div className={`${classes.root} ${className}`}>{children}</div>;
 };
 
-export { KuberaCard };
+export { LitmusCard };
