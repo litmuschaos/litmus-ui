@@ -2,12 +2,13 @@ import { makeStyles, Theme } from "@material-ui/core";
 
 interface StyleProps {
   fullWidth?: boolean;
+  width?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     color: theme.palette.text.primary,
-    width: (props: StyleProps) => (props.fullWidth ? "100%" : "25rem"),
+    width: (props: StyleProps) => (props.fullWidth ? "100%" : props.width),
     "& label": {
       color: theme.palette.text.hint,
     },
@@ -46,14 +47,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   error: {
     background: theme.palette.background.paper,
-    color: theme.palette.error.main,
+    "& fieldset": {
+      borderColor: `${theme.palette.border.error} !important`,
+    },
     "& label": {
       color: `${theme.palette.error.main} !important`,
     },
   },
   success: {
     background: theme.palette.background.paper,
-    color: theme.palette.text.primary,
     "& fieldset": {
       borderColor: `${theme.palette.border.success} !important`,
     },
