@@ -97,7 +97,7 @@ Litmus UI is built using the following:
 
 ### `4. Contribution Guidelines`
 
-Check our [official contribution guidelines](https://github.com/arkajyotiMukherjee/kubera-ui/blob/v1.0.0/CONTRIBUTION.md)
+Check our [official contribution guidelines](https://github.com/litmuschaos/litmus-ui/blob/master/CONTRIBUTION.md)
 
 ### `5. Adding a new component`
 
