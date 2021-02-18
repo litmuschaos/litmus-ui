@@ -1,6 +1,3 @@
-/* eslint-disable no-return-assign,no-return-assign */
-/* eslint-disable no-else-return,consistent-return,array-callback-return */
-
 import { useTheme } from "@material-ui/core";
 import { Arc, Group, ParentSize } from "@visx/visx";
 import React, { useState } from "react";

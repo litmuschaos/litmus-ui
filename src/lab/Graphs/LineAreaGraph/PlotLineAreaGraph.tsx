@@ -1,5 +1,3 @@
-/* eslint-disable no-else-return,consistent-return,array-callback-return */
-
 import { useTheme } from "@material-ui/core";
 import {
   AreaClosed,
