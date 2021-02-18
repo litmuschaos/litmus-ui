@@ -1,15 +1,10 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
-interface StyleProps {
-  width?: number;
-  height?: number;
-}
-
 const useStyles = makeStyles((theme: Theme) => ({
-  root: (props: StyleProps) => ({
+  root: {
     display: "flex",
-    width: props.width,
-    height: props.height,
+    width: "100%",
+    height: "100%",
     backgroundColor: theme.palette.background.paper,
     overflowY: "auto",
     "&::-webkit-scrollbar": {
@@ -33,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     "&::-webkit-scrollbar-thumb:hover": {
       backgroundColor: theme.palette.highlight,
     },
-  }),
+  },
   tableRow: {
     display: "flex",
     border: "none",

@@ -7,18 +7,12 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import React from "react";
-import { LegendTableChildProps, LegendTableProps } from "./base";
+import { LegendTableProps } from "./base";
 import { useStyles } from "./style";
 
-const LegendTableChild: React.FC<LegendTableChildProps> = ({
-  data,
-  heading,
-  width = 400,
-  height = 200,
-}) => {
-  const classes = useStyles({ width, height });
+const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
+  const classes = useStyles();
   return (
     <TableContainer className={classes.root}>
       <Table aria-label="simple table" cellPadding="0.2">
@@ -73,16 +67,4 @@ const LegendTableChild: React.FC<LegendTableChildProps> = ({
   );
 };
 
-const LegendTable: React.FC<LegendTableProps> = ({ ...rest }) => {
-  return (
-    <ParentSize>
-      {({ width, height }) =>
-        width > 0 &&
-        height > 0 && (
-          <LegendTableChild width={width} height={height} {...rest} />
-        )
-      }
-    </ParentSize>
-  );
-};
 export { LegendTable };

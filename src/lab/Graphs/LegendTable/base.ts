@@ -7,7 +7,3 @@ export type LegendTableProps = {
   data?: Array<LegendData>;
   heading?: Array<string>;
 };
-export interface LegendTableChildProps extends LegendTableProps {
-  width?: number;
-  height?: number;
-}
