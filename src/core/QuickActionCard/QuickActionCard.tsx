@@ -30,12 +30,7 @@ const QuickActionCard: React.FC<QuickActionCardPropsArray> = ({
       data-testid="quickActionCardComponent"
       className={`${classes.quickActionCard} ${className}`}
     >
-      <Typography
-        data-testid="quickActionCardComponent-title"
-        className={classes.title}
-      >
-        {title}
-      </Typography>
+      <Typography className={classes.title}>{title}</Typography>
 
       <List>
         {quickActions.map((quickAction) => (

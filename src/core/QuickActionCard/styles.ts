@@ -3,12 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   title: {
     color: theme.palette.text.hint,
-    ontSize: "0.84rem",
+    fontSize: "0.875rem",
   },
   singleActionLink: {
     color: theme.palette.text.primary,
     paddingLeft: theme.spacing(2),
-    fontSize: "0.85rem",
+    fontSize: "1rem",
     fontWeight: 400,
   },
   listItems: {
