@@ -1,6 +1,5 @@
-import { List, ListItem, useTheme } from "@material-ui/core";
+import { List, ListItem, Typography } from "@material-ui/core";
 import React from "react";
-import { Paragraph, Subtitle } from "../..";
 import { QuickActionCardProps, QuickActionCardPropsArray } from "./base";
 import useStyles from "./styles";
 
@@ -15,7 +14,8 @@ const QuickActionItems: React.FC<QuickActionCardProps> = ({
   return (
     <ListItem button onClick={onClick} className={classes.listItems}>
       <img src={src} alt={alt} />
-      <Paragraph variant="small">{text}</Paragraph>
+      <Typography className={classes.singleActionLink}>{text}</Typography>
+      {/* <Paragraph variant="small">{text}</Paragraph> */}
     </ListItem>
   );
 };
@@ -26,20 +26,26 @@ const QuickActionCard: React.FC<QuickActionCardPropsArray> = ({
   className,
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <div
       data-testid="quickActionCardComponent"
       className={`${classes.quickActionCard} ${className}`}
     >
-      <Subtitle
+      <Typography
         data-testid="quickActionCardComponent-title"
-        variant="small"
-        color={theme.palette.text.hint}
+        variant="subtitle1"
+        className={classes.title}
       >
         {title}
-      </Subtitle>
+      </Typography>
+      {/* <Subtitle
+        data-testid="quickActionCardComponent-title"
+        variant="small"
+        // color={theme.palette.text.hint}
+      >
+        {title}
+      </Subtitle> */}
       <List>
         {quickActions.map((quickAction) => (
           <QuickActionItems key={quickAction.alt} {...quickAction} />
