@@ -1,12 +1,8 @@
-import { List, ListItem, useTheme } from '@material-ui/core';
-import { Paragraph, Subtitle } from 'kubera-ui';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  QuickActionCardProps,
-  QuickActionCardPropsArray,
-} from '../../models/quickAction';
-import useStyles from './styles';
+import { List, ListItem, useTheme } from "@material-ui/core";
+import React from "react";
+import { Paragraph, Subtitle } from "../..";
+import { QuickActionCardProps, QuickActionCardPropsArray } from "./base";
+import useStyles from "./styles";
 
 const QuickActionItems: React.FC<QuickActionCardProps> = ({
   src,
@@ -16,19 +12,15 @@ const QuickActionItems: React.FC<QuickActionCardProps> = ({
   text,
 }) => {
   const classes = useStyles();
+  console.log(src);
   return (
-    <ListItem
-      id="ListItems"
-      button
-      onClick={onClick}
-      className={classes.listItems}
-    >
+    <ListItem button onClick={onClick} className={classes.listItems}>
       <img src={src} alt={alt} />
       {onClick ? (
-        <Paragraph>{text}</Paragraph>
+        <Paragraph variant="small">{text}</Paragraph>
       ) : (
         <a href={href} target="_" rel="noreferrer noopener">
-          <Paragraph>{text}</Paragraph>
+          <Paragraph variant="small">{text}</Paragraph>
         </a>
       )}
     </ListItem>
@@ -36,23 +28,27 @@ const QuickActionItems: React.FC<QuickActionCardProps> = ({
 };
 
 const QuickActionCard: React.FC<QuickActionCardPropsArray> = ({
-  propsArray,
+  quickActions,
+  title,
 }) => {
-  const { t } = useTranslation();
   const classes = useStyles();
   const theme = useTheme();
+
   return (
-    <div data-cy="quickActionCardComponent" className={classes.quickActionCard}>
+    <div
+      data-testid="quickActionCardComponent"
+      className={classes.quickActionCard}
+    >
       <Subtitle variant="small" color={theme.palette.text.hint}>
-        {t('support.quickActionCard.quickActions')}
+        {title}
       </Subtitle>
       <List>
-        {propsArray.map((element) => (
-          <QuickActionItems {...element} />
+        {quickActions.map((quickAction) => (
+          <QuickActionItems key={quickAction.alt} {...quickAction} />
         ))}
       </List>
     </div>
   );
 };
 
-export default QuickActionCard;
+export { QuickActionCard };
