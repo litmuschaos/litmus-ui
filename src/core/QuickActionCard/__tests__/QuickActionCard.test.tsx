@@ -3,7 +3,7 @@ import { cleanup, render } from "@testing-library/react";
 import React from "react";
 import { LitmusThemeProvider } from "../../..";
 import { QuickActionCard } from "../QuickActionCard";
-import { quickActionsTestData } from "../testData";
+import { quickActionTestData } from "../testData";
 
 afterEach(cleanup);
 jest.useFakeTimers();
@@ -13,7 +13,7 @@ describe("EditablText component", () => {
     render(
       <LitmusThemeProvider platform="litmus-portal">
         <QuickActionCard
-          quickActions={quickActionsTestData}
+          quickActions={quickActionTestData}
           title={"Quick Actions"}
         />
       </LitmusThemeProvider>
@@ -23,8 +23,15 @@ describe("EditablText component", () => {
     const quickActionCardComponent = screen.getByTestId(
       "quickActionCardComponent"
     );
-
+    const quickActionCardComponentTitle = screen.getByTestId(
+      "quickActionCardComponent-title"
+    );
     expect(quickActionCardComponent).toBeTruthy();
-    const pTags = quickActionCardComponent.querySelector("p") as HTMLElement;
+
+    const titleValue = quickActionCardComponentTitle.querySelector(
+      "p"
+    ) as HTMLElement;
+
+    expect(titleValue.textContent).toBe("Quick Actions");
   });
 });

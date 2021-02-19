@@ -2,12 +2,12 @@ import { storiesOf } from "@storybook/react";
 import React from "react";
 import { ThemedBackground } from "../../utils/storybook";
 import { QuickActionCard } from "./QuickActionCard";
-import { quickActionsTestData } from "./testData";
+import { quickActionTestData } from "./testData";
 
 storiesOf("QuickAction", module).add("Litmus Portal", () => (
   <ThemedBackground platform="litmus-portal" row>
     <QuickActionCard
-      quickActions={quickActionsTestData}
+      quickActions={quickActionTestData}
       title={"Quick Actions"}
     />
   </ThemedBackground>

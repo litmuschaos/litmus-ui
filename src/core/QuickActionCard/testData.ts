@@ -1,16 +1,16 @@
-const quickActionsTestData = [
+const quickActionTestData = [
   {
-    src: "./docsIcon.png",
-    alt: "S icon",
-    href: "https://forms.gle/Zrd2qqTa8TqfR7ZB8",
-    text: "Mack",
+    src: "",
+    alt: "1 icon",
+    onClick: () => (window.location.href = "https://litmuschaos.io/"),
+    text: "Litmus1",
   },
   {
-    src: "../TestIcons/docsIcon.png",
-    alt: "D icon",
-    href: "https://kubera-docs.mayadatastaging.io/",
-    text: "Jack",
+    src: "",
+    alt: "2 icon",
+    onClick: () => (window.location.href = "https://litmuschaos.io/"),
+    text: "Litmus2 ",
   },
 ];
 
-export { quickActionsTestData };
+export { quickActionTestData };

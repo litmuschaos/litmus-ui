@@ -2,11 +2,11 @@ export interface QuickActionCardProps {
   onClick?: () => void;
   src: string;
   alt: string;
-  href?: string;
   text: string;
 }
 
 export interface QuickActionCardPropsArray {
+  className?: string;
   quickActions: QuickActionCardProps[];
   title?: string;
 }

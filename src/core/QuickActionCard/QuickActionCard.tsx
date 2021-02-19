@@ -8,7 +8,6 @@ const QuickActionItems: React.FC<QuickActionCardProps> = ({
   src,
   onClick,
   alt,
-  href,
   text,
 }) => {
   const classes = useStyles();
@@ -16,13 +15,7 @@ const QuickActionItems: React.FC<QuickActionCardProps> = ({
   return (
     <ListItem button onClick={onClick} className={classes.listItems}>
       <img src={src} alt={alt} />
-      {onClick ? (
-        <Paragraph variant="small">{text}</Paragraph>
-      ) : (
-        <a href={href} target="_" rel="noreferrer noopener">
-          <Paragraph variant="small">{text}</Paragraph>
-        </a>
-      )}
+      <Paragraph variant="small">{text}</Paragraph>
     </ListItem>
   );
 };
@@ -30,6 +23,7 @@ const QuickActionItems: React.FC<QuickActionCardProps> = ({
 const QuickActionCard: React.FC<QuickActionCardPropsArray> = ({
   quickActions,
   title,
+  className,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -37,9 +31,13 @@ const QuickActionCard: React.FC<QuickActionCardPropsArray> = ({
   return (
     <div
       data-testid="quickActionCardComponent"
-      className={classes.quickActionCard}
+      className={`${classes.quickActionCard} ${className}`}
     >
-      <Subtitle variant="small" color={theme.palette.text.hint}>
+      <Subtitle
+        data-testid="quickActionCardComponent-title"
+        variant="small"
+        color={theme.palette.text.hint}
+      >
         {title}
       </Subtitle>
       <List>
