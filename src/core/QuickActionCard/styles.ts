@@ -3,13 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   title: {
     color: theme.palette.text.hint,
+    ontSize: "0.84rem",
   },
   singleActionLink: {
     color: theme.palette.text.primary,
     paddingLeft: theme.spacing(2),
-    textDecoration: "none",
-    margin: 0,
-    fontSize: "0.9rem",
+    fontSize: "0.85rem",
     fontWeight: 400,
   },
   listItems: {
@@ -19,13 +18,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     "& img": {
       height: "100%",
-      width: "2rem",
       margin: "auto",
+      marginLeft: "0",
       color: theme.palette.highlight,
     },
   },
   quickActionCard: {
-    fontSize: "1.125rem",
     backgroundColor: "inherit",
     width: "auto",
     marginLeft: theme.spacing(0.5),

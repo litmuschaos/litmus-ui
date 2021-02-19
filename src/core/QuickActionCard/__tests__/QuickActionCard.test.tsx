@@ -23,15 +23,6 @@ describe("EditablText component", () => {
     const quickActionCardComponent = screen.getByTestId(
       "quickActionCardComponent"
     );
-    const quickActionCardComponentTitle = screen.getByTestId(
-      "quickActionCardComponent-title"
-    );
     expect(quickActionCardComponent).toBeTruthy();
-
-    const titleValue = quickActionCardComponentTitle.querySelector(
-      "p"
-    ) as HTMLElement;
-
-    expect(titleValue.getAttribute("textContent")).toBe("Quick Actions");
   });
 });

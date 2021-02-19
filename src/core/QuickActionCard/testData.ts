@@ -1,25 +1,25 @@
 const quickActionTestData = [
   {
     src: "",
-    alt: "1 icon",
+    alt: "1 ",
     onClick: () => (window.location.href = "https://litmuschaos.io/"),
     text: "Litmus docs",
   },
   {
     src: "",
-    alt: "2 icon",
+    alt: "2",
     onClick: () => (window.location.href = "https://litmuschaos.io/"),
     text: "Litmus docs",
   },
   {
     src: "",
-    alt: "3 icon",
+    alt: "3",
     onClick: () => (window.location.href = "https://litmuschaos.io/"),
     text: "Litmus docs",
   },
   {
     src: "",
-    alt: "4 icon",
+    alt: "4",
     onClick: () => (window.location.href = "https://litmuschaos.io/"),
     text: "Litmus docs",
   },
