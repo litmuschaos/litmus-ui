@@ -32,6 +32,6 @@ describe("EditablText component", () => {
       "p"
     ) as HTMLElement;
 
-    expect(titleValue.textContent).toBe("Quick Actions");
+    expect(titleValue.getAttribute("textContent")).toBe("Quick Actions");
   });
 });
