@@ -24,5 +24,13 @@ describe("EditablText component", () => {
       "quickActionCardComponent"
     );
     expect(quickActionCardComponent).toBeTruthy();
+
+    // Get element using alt text and check src
+    const image_01 = screen.getByAltText("1");
+    const testUrl = new RegExp("[.]*testUrl[0-9]", "g");
+    expect(image_01.getAttribute("src")).toMatch(testUrl);
+
+    const image_02 = screen.getByAltText("2");
+    expect(image_02.getAttribute("src")).toMatch(testUrl);
   });
 });
