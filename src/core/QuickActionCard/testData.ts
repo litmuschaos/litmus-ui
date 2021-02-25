@@ -1,5 +1,11 @@
 const quickActionTestData = [
   {
+    src: "testUrl0",
+    alt: "0",
+    onClick: () => (window.location.href = "https://litmuschaos.io/"),
+    text: "Litmus docs",
+  },
+  {
     src: "testUrl1",
     alt: "1",
     onClick: () => (window.location.href = "https://litmuschaos.io/"),
@@ -14,12 +20,6 @@ const quickActionTestData = [
   {
     src: "testUrl3",
     alt: "3",
-    onClick: () => (window.location.href = "https://litmuschaos.io/"),
-    text: "Litmus docs",
-  },
-  {
-    src: "testUrl4",
-    alt: "4",
     onClick: () => (window.location.href = "https://litmuschaos.io/"),
     text: "Litmus docs",
   },
