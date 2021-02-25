@@ -27,7 +27,7 @@ describe("QuickActionCard", () => {
 
     // Get element using alt text and check src
     for (let i = 0; i < 4; i++) {
-      let image = screen.getByAltText(i.toString());
+      const image = screen.getByAltText(i.toString());
       expect(image.getAttribute("src")).toMatch(`testUrl${i}`);
     }
   });
