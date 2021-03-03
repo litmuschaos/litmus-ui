@@ -68,10 +68,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "12px",
     height: "2px",
   },
-  grid: {
-    stroke: theme.palette.disabledBackground,
-    strokeOpacity: 0.2,
-  },
   tooltipLine: {
     stroke: theme.palette.graph.toolTip,
     strokeWidth: 4,
