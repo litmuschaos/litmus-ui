@@ -1,6 +1,6 @@
-import { DateValue, GraphMetric } from "./base";
+import { DateValue, GraphMetric } from "../../Graphs/LineAreaGraph";
 
-const data1: DateValue[] = [
+const openSeriesData1: DateValue[] = [
   { date: 1000, value: 20 },
   { date: 2000, value: 30 },
   { date: 3000, value: 35 },
@@ -10,7 +10,7 @@ const data1: DateValue[] = [
   { date: 7000, value: 30 },
   { date: 8000, value: 10 },
 ];
-const data2: DateValue[] = [
+const closedSeriesData1: DateValue[] = [
   { date: 1000, value: 40 },
   { date: 2000, value: 10 },
   { date: 3000, value: 55 },
@@ -20,7 +20,7 @@ const data2: DateValue[] = [
   { date: 7000, value: 60 },
   { date: 8000, value: 10 },
 ];
-const data22: DateValue[] = [
+const closedSeriesData2: DateValue[] = [
   { date: 1000, value: 0 },
   { date: 2000, value: 14 },
   { date: 3000, value: 5 },
@@ -30,14 +30,14 @@ const data22: DateValue[] = [
   { date: 7000, value: 20 },
   { date: 8000, value: 30 },
 ];
-const data3: DateValue[] = [
+const eventSeriesData1: DateValue[] = [
   { date: 3000, value: 1 },
   { date: 4000, value: 0 },
   { date: 5000, value: 0 },
   { date: 6000, value: 0 },
   { date: 7000, value: 0 },
 ];
-const data4: DateValue[] = [
+const eventSeriesData2: DateValue[] = [
   { date: 3000, value: 0 },
   { date: 4000, value: 0 },
   { date: 5000, value: 0 },
@@ -46,25 +46,29 @@ const data4: DateValue[] = [
   { date: 8000, value: 0 },
   { date: 9000, value: 0 },
 ];
-const seriestest1: Array<GraphMetric> = [
+const openSeriesData: Array<GraphMetric> = [
   {
     metricName: "teal",
-    data: data1,
+    data: openSeriesData1,
     baseColor: "teal",
   },
 ];
-const seriestest2: Array<GraphMetric> = [
-  { metricName: "orange", data: data2, baseColor: "orange" },
-  { metricName: "pink", data: data22, baseColor: "pink" },
+const closedSeriesData: Array<GraphMetric> = [
+  { metricName: "orange", data: closedSeriesData1, baseColor: "orange" },
+  { metricName: "pink", data: closedSeriesData2, baseColor: "pink" },
 ];
-const seriestest3: Array<GraphMetric> = [
+const eventSeriesData: Array<GraphMetric> = [
   {
     metricName:
       "chaos-pod-delete-chaos-pod-delete-chaos-pod-delete-chaos-pod-delete",
-    data: data3,
+    data: eventSeriesData1,
     baseColor: "red",
   },
-  { metricName: "chaos-network-pod", data: data4, baseColor: "yellow" },
+  {
+    metricName: "chaos-network-pod",
+    data: eventSeriesData2,
+    baseColor: "yellow",
+  },
 ];
 
-export { seriestest1, seriestest2, seriestest3 };
+export { eventSeriesData, openSeriesData, closedSeriesData };

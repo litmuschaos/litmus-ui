@@ -1,7 +1,7 @@
 import { List, ListItem, Typography } from "@material-ui/core";
 import React from "react";
 import { QuickActionCardProps, QuickActionCardPropsArray } from "./base";
-import useStyles from "./styles";
+import { useStyles } from "./styles";
 
 const QuickActionItems: React.FC<QuickActionCardProps> = ({
   src,
