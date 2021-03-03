@@ -1,7 +1,7 @@
 {
   "name": "litmus-ui",
   "license": "Apache-2.0",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "description": "Component Library for LitmusChaos",
   "author": "LitmusChaos Authors",
@@ -66,6 +66,8 @@
     "react-spring": "^8.0.27"
   },
   "peerDependencies": {
+    "@visx/react-spring": "^1.5.0",
+    "react-spring": "^8.0.27",
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",

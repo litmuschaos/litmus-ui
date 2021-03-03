@@ -3,22 +3,20 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   title: {
     color: theme.palette.text.hint,
-    fontSize: "0.875rem",
+    fontSize: "1rem",
   },
   singleActionLink: {
     color: theme.palette.text.primary,
     paddingLeft: theme.spacing(2),
-    fontSize: "1rem",
+    fontSize: "1.1rem",
     fontWeight: 400,
   },
   listItems: {
-    height: "1.3rem",
-    margin: 0,
+    margin: theme.spacing(1.5, 0),
     padding: 0,
-    marginTop: theme.spacing(2),
     "& img": {
       height: "100%",
-      margin: "auto",
+      margin: "0.5rem",
       marginLeft: "0",
       color: theme.palette.highlight,
     },
@@ -30,4 +28,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default useStyles;
+export { useStyles };

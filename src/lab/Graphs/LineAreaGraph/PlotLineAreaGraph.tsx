@@ -18,7 +18,7 @@ import {
 import dayjs from "dayjs";
 import React from "react";
 import { DateValue, GraphMetric } from "./base";
-import { useStyles } from "./styles";
+import { useStyles } from "./plotLineAreaGraphStyles";
 
 // Accessors
 const getDateNum = (d: DateValue) =>
