@@ -10,6 +10,7 @@ const globals = {
   '@material-ui/core': 'MaterialUI',
   '@material-ui/lab': 'MaterialUILab',
   '@visx/visx': 'Visx',
+  '@visx/responsive': 'VisxResponsive',
 };
 
 export default {
