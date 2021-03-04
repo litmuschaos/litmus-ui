@@ -1,4 +1,4 @@
-import { ParentSize } from "@visx/responsive";
+import { ParentSize } from "@visx/visx";
 import React from "react";
 import { LineAreaGraphProps } from "./base";
 import { FilteredLineAreaGraph } from "./FilteredLineAreaGraph";
