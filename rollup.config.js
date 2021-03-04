@@ -9,8 +9,7 @@ const globals = {
   'react-dom': 'ReactDOM',
   '@material-ui/core': 'MaterialUI',
   '@material-ui/lab': 'MaterialUILab',
-  '@visx/visx': 'Visx',
-  '@visx/responsive': 'VisxResponsive',
+  '@visx/visx': 'Visx'
 };
 
 export default {

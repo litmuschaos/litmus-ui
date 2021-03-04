@@ -1,7 +1,6 @@
+import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
 import { ProgressBar } from "../ProgressBar";
-import { screen } from "@testing-library/dom";
 
 afterEach(cleanup);
 jest.useFakeTimers();

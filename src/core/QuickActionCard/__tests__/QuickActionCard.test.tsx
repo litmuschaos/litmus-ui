@@ -1,5 +1,4 @@
-import { screen } from "@testing-library/dom";
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
 import { LitmusThemeProvider } from "../../..";
 import { QuickActionCard } from "../QuickActionCard";
