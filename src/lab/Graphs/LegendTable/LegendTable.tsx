@@ -8,23 +8,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { LegendData } from "./base";
+import { LegendTableProps } from "./base";
 import { useStyles } from "./style";
 
-export type LegendProps = {
-  data?: Array<LegendData>;
-  heading?: Array<string>;
-  width?: number;
-  height?: number;
-};
-
-const LegendTable: React.FC<LegendProps> = ({
-  data,
-  heading,
-  width = 400,
-  height = 200,
-}) => {
-  const classes = useStyles({ width, height });
+const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
+  const classes = useStyles();
   return (
     <TableContainer className={classes.root}>
       <Table aria-label="simple table" cellPadding="0.2">
@@ -53,26 +41,21 @@ const LegendTable: React.FC<LegendProps> = ({
                     (index === 0 && (
                       <TableCell
                         key={`${element}-${Math.random() * 100} `}
-                        className={classes.tableCell}
+                        className={`${classes.tableCell} ${classes.tableFont} ${classes.tableLabel}`}
                       >
-                        <hr color={row.baseColor} className={classes.hr} />
-                        <Typography
-                          className={`${classes.tableLabel} ${classes.tableFont}`}
-                        >
-                          {element}
-                        </Typography>
+                        <div
+                          className={classes.hr}
+                          style={{ background: row.baseColor }}
+                        />
+                        <Typography>{element}</Typography>
                       </TableCell>
                     )) ||
                     (index !== 0 && (
                       <TableCell
                         key={`${element}-${Math.random() * 100} `}
-                        className={classes.tableCell}
+                        className={`${classes.tableCell} ${classes.tableFont} ${classes.tableData}`}
                       >
-                        <Typography
-                          className={`${classes.tableData} ${classes.tableFont}`}
-                        >
-                          {element}
-                        </Typography>
+                        <Typography>{element}</Typography>
                       </TableCell>
                     ))
                 )}
@@ -83,4 +66,5 @@ const LegendTable: React.FC<LegendProps> = ({
     </TableContainer>
   );
 };
+
 export { LegendTable };

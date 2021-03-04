@@ -2,20 +2,29 @@ import { storiesOf } from "@storybook/react";
 import React from "react";
 import { ThemedBackground } from "../../../utils/storybook";
 import { LineAreaGraph } from "./LineAreaGraph";
-import { seriestest1, seriestest2, seriestest3 } from "./testData";
+import { closedSeriesData, eventSeriesData, openSeriesData } from "./testData";
+
 storiesOf("Graphs/Area", module).add("Litmus Portal", () => (
   <ThemedBackground platform="litmus-portal">
-    <LineAreaGraph
-      width={600}
-      height={400}
-      legendTableHeight={150}
-      closedSeries={seriestest1}
-      openSeries={seriestest2}
-      eventSeries={seriestest3}
-      showPoints
-      showTips
-      unit="%"
-      yLabel="Chaos"
-    />
+    <div
+      style={{
+        width: "30rem",
+        height: "25rem",
+      }}
+    >
+      <LineAreaGraph
+        legendTableHeight={80}
+        closedSeries={closedSeriesData}
+        openSeries={openSeriesData}
+        eventSeries={eventSeriesData}
+        showPoints
+        showLegendTable
+        showTips
+        unit="%"
+        yLabel="Chaos"
+        yLabelOffset={30}
+        margin={{ left: 50, right: 20, top: 20, bottom: 10 }}
+      />
+    </div>
   </ThemedBackground>
 ));

@@ -1,4 +1,5 @@
 import { makeStyles, Theme } from "@material-ui/core";
+
 interface StyleProps {
   width: number;
   height: number;
@@ -6,6 +7,12 @@ interface StyleProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
+  radialChartRoot: (props: StyleProps) => ({
+    width: props.width,
+    height: props.height,
+    position: "relative",
+    transition: "0.5s",
+  }),
   rectBase: {
     fill: theme.palette.background.paper,
   },
@@ -41,10 +48,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.text.hint,
   },
 
-  centerDataContainer: (props: StyleProps) => ({
-    top: props.circleOrient === 1 ? props.height : props.height / 2 + 20,
-    left: props.width / 2,
+  centerDataContainer: {
     position: "absolute",
-  }),
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
 }));
 export { useStyles };
