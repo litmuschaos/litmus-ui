@@ -6,7 +6,7 @@ orbs:
 jobs:
   lint:
     docker:
-      - image: circleci/node:10.13.0
+      - image: circleci/node:10.14.2
     steps:
       - checkout
       - run: yarn install --production=false
@@ -15,7 +15,7 @@ jobs:
           command: yarn lint
   build:
     docker:
-      - image: circleci/node:10.13.0
+      - image: circleci/node:10.14.2
     steps:
       - checkout
       - run: yarn install
@@ -24,7 +24,7 @@ jobs:
           command: yarn build
   test:
     docker:
-      - image: circleci/node:10.13.0
+      - image: circleci/node:10.14.2
     steps:
       - checkout
       - run: yarn install
