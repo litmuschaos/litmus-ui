@@ -1,7 +1,7 @@
 {
   "name": "litmus-ui",
   "license": "Apache-2.0",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": false,
   "description": "Component Library for LitmusChaos",
   "author": "LitmusChaos Authors",
@@ -68,14 +68,9 @@
   "peerDependencies": {
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@visx/react-spring": "^1.5.0",
-    "d3-array": "^2.8.0",
-    "dayjs": "^1.10.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^5.2.0",
-    "react-spring": "^8.0.27"
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
