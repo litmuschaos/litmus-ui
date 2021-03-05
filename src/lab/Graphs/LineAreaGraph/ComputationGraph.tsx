@@ -533,6 +533,7 @@ const ComputationGraph: React.FC<GraphProps> = ({
       style={{
         width,
         height: height + legendTableHeight,
+        position: "relative",
       }}
     >
       <svg width={width} height={height}>
@@ -599,28 +600,31 @@ const ComputationGraph: React.FC<GraphProps> = ({
               className={classes.tooltipLine}
             />
           )}
-          {showTips && tooltipData && toolTipPointLength >= 1 && (
-            <g>
-              <circle
-                cx={dateScale(getDateNum(tooltipData[0].data))}
-                cy={valueScale(getValueNum(tooltipData[0].data))}
-                r={5}
-                fill={palette.graph.toolTip}
-                fillOpacity={1}
-                stroke={palette.text.primary}
-                strokeOpacity={1}
-                strokeWidth={2}
-                pointerEvents="none"
-              />
-            </g>
-          )}
+          {showTips &&
+            tooltipData &&
+            toolTipPointLength >= 1 &&
+            tooltipData[0] && (
+              <g>
+                <circle
+                  cx={dateScale(getDateNum(tooltipData[0].data))}
+                  cy={valueScale(getValueNum(tooltipData[0].data))}
+                  r={5}
+                  fill={palette.graph.toolTip}
+                  fillOpacity={1}
+                  stroke={palette.text.primary}
+                  strokeOpacity={1}
+                  strokeWidth={2}
+                  pointerEvents="none"
+                />
+              </g>
+            )}
         </PlotLineAreaGraph>
       </svg>
-      {tooltipData && tooltipData[0] && (
+      {tooltipData && showTips && tooltipData[0] && (
         <div>
           <Tooltip
-            top={height}
-            left={tooltipLeft}
+            top={yMax}
+            left={tooltipLeft - margin.left}
             className={classes.tooltipDateStyles}
           >
             <div
@@ -632,7 +636,7 @@ const ComputationGraph: React.FC<GraphProps> = ({
             </div>
           </Tooltip>
           <Tooltip
-            top={tooltipTop + margin.top}
+            top={tooltipTop}
             left={tooltipLeft + margin.left}
             className={classes.tooltipMetric}
           >

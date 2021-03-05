@@ -46,7 +46,7 @@ const intToString = (value: number, unit: string) => {
   numValue = shortValue.toString();
 
   if (shortValue % 1 !== 0) {
-    numValue = shortValue.toFixed(1);
+    numValue = shortValue.toFixed(2);
   }
   return `${numValue}${suffixes[suffixNum]} ${unit}`;
 };
@@ -113,7 +113,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
     lineHeight: "12px",
   };
   const axisLeftTickLabelProps = {
-    dy: "0.5em",
+    dy: "0.3rem",
+    dx: "-0.3rem",
     fontFamily: "Ubuntu",
     fontWeight: 400,
     fontSize: "10px",

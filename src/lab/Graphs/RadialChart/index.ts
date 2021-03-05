@@ -1,2 +1,2 @@
-export { RadialChartMetric } from "./base";
+export type { RadialChartMetric } from "./base";
 export * from "./RadialChart";

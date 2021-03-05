@@ -1,2 +1,2 @@
-export { LegendData } from "./base";
+export type { LegendData } from "./base";
 export * from "./LegendTable";

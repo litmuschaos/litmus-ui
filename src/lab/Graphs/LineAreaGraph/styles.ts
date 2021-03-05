@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     pointerEvents: "none",
   },
   tooltipMetric: {
+    zIndex: 3,
     marginTop: "1rem",
     marginLeft: "3rem",
     padding: "0.5rem",
