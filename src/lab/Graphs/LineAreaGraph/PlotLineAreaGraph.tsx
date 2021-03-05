@@ -113,7 +113,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
     lineHeight: "12px",
   };
   const axisLeftTickLabelProps = {
-    dy: "0.5em",
+    dy: "0.3rem",
+    dx: "-0.3rem",
     fontFamily: "Ubuntu",
     fontWeight: 400,
     fontSize: "10px",
