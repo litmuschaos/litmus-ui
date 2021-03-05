@@ -46,7 +46,7 @@ const intToString = (value: number, unit: string) => {
   numValue = shortValue.toString();
 
   if (shortValue % 1 !== 0) {
-    numValue = shortValue.toFixed(1);
+    numValue = shortValue.toFixed(2);
   }
   return `${numValue}${suffixes[suffixNum]} ${unit}`;
 };
