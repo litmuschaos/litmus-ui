@@ -6,7 +6,7 @@ import { Modal } from "../Modal";
 describe("Modal Component", () => {
   it("Renders", () => {
     const { findByTitle } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <Modal open={true} onClose={() => console.log("clicked")}>
           <>Modal</>
         </Modal>

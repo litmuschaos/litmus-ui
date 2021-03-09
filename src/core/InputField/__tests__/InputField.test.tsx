@@ -9,7 +9,7 @@ jest.useFakeTimers();
 describe("InputField component", () => {
   it("Renders", () => {
     render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <InputField
           label="Text Input"
           variant="primary"

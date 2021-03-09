@@ -6,7 +6,7 @@ import { LightPills } from "../LightPills";
 storiesOf("Pills/Light Pills", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal" row>
+    <ThemedBackground row>
       <LightPills variant="success" label="Success" />
       <LightPills variant="warning" label="Warning" />
       <LightPills variant="danger" label="Danger" />

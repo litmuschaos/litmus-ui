@@ -6,7 +6,7 @@ import { Search } from "./Search";
 storiesOf("Search", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal">
+    <ThemedBackground>
       <Search placeholder="Search" onChange={(e) => e.target.value} />
     </ThemedBackground>
   ));

@@ -6,7 +6,7 @@ import { Subtitle } from "../Subtitle";
 describe("Text Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <Subtitle>Subtitle Text</Subtitle>
       </LitmusThemeProvider>
     );

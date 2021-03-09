@@ -6,7 +6,7 @@ import { Paragraph } from "../../Paragraph";
 describe("Text Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <Paragraph>Paragraph Text</Paragraph>
       </LitmusThemeProvider>
     );

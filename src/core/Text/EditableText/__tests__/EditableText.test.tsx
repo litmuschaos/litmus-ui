@@ -9,7 +9,7 @@ jest.useFakeTimers();
 describe("EditableText component", () => {
   it("Renders", () => {
     render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <EditableText
           value={"test value"}
           label="Text Input"

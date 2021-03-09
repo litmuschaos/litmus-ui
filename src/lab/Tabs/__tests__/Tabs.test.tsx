@@ -9,7 +9,7 @@ jest.useFakeTimers();
 describe("Tabs", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <Tabs
           value={"1"}
           onChange={() => {

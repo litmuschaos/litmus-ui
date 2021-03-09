@@ -6,7 +6,7 @@ import { Header } from "./Header";
 storiesOf("Text/HeaderText", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal" row>
+    <ThemedBackground row>
       <Header>Header Text Primary</Header>
       <Header variant="bold">Header Text Bold</Header>
       <Header variant="small">Header Text Small</Header>

@@ -6,7 +6,7 @@ import { Tabs } from "./Tabs";
 storiesOf("Tabs", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal">
+    <ThemedBackground>
       <Tabs
         value="0"
         onChange={() => {

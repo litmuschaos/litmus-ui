@@ -6,7 +6,7 @@ import { ButtonOutlined } from "../../ButtonOutlined";
 describe("Button Outlined Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <ButtonOutlined onClick={() => {}}>Button Outlined</ButtonOutlined>
       </LitmusThemeProvider>
     );

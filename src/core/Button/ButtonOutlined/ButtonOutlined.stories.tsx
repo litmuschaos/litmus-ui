@@ -6,7 +6,7 @@ import { ButtonOutlined } from "../ButtonOutlined";
 storiesOf("Button/Button Outlined", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal" row>
+    <ThemedBackground row>
       <ButtonOutlined onClick={() => console.log("clicked")}>
         Button Outlined
       </ButtonOutlined>

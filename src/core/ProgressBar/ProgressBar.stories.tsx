@@ -8,7 +8,7 @@ storiesOf("ProgressBar", module)
   // Litmus Portal
 
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal">
+    <ThemedBackground>
       <ProgressBar
         value={80}
         label="Success"
