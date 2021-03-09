@@ -10,7 +10,7 @@ jest.useFakeTimers();
 describe("Radio Button Component", () => {
   it("Renders", () => {
     render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <RadioButton>Target cluster</RadioButton>
       </LitmusThemeProvider>
     );
@@ -40,7 +40,7 @@ describe("when clicked", () => {
     const testFunction = jest.fn((value) => value);
     testFunction(1);
     const { getByTestId } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <RadioGroup
           data-testid="radiogroup"
           onChange={testFunction}

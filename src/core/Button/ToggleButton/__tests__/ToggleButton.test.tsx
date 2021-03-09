@@ -6,7 +6,7 @@ import { ToggleButton } from "../ToggleButton";
 describe("Toggle Button Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <ToggleButton isToggled={true} onClick={() => {}}>
           Toggle Button
         </ToggleButton>

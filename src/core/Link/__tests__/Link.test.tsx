@@ -7,7 +7,7 @@ import { Link } from "../Link";
 describe("Link component", () => {
   it("Renders", () => {
     const { getByRole } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <Router>
           <Link disabled={false} to="/home">
             Link

@@ -6,7 +6,7 @@ import { Pills } from "../BasicPills";
 describe("Basic Pills Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <Pills variant="default" label="Basic Pill" />
       </LitmusThemeProvider>
     );
