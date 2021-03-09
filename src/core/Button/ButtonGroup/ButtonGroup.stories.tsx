@@ -6,7 +6,7 @@ import { ButtonGroup } from "./ButtonGroup";
 storiesOf("Button/ButtonGroup", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal" row>
+    <ThemedBackground row>
       <ButtonGroup variant="default" />
       <ButtonGroup variant="success" />
       <ButtonGroup variant="error" />

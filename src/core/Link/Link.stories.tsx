@@ -7,7 +7,7 @@ import { Link } from "../Link";
 storiesOf("Link", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal">
+    <ThemedBackground>
       <Router>
         <Link disabled={false} target="_blank" to="/home">
           Link

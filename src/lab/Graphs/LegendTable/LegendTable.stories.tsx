@@ -4,7 +4,7 @@ import { ThemedBackground } from "../../../utils/storybook";
 import { LegendTable } from "./LegendTable";
 import { LegendTableTestData1 } from "./testData";
 storiesOf("Graphs/LegendTable", module).add("Litmus Portal", () => (
-  <ThemedBackground platform="litmus-portal">
+  <ThemedBackground>
     <div
       style={{
         width: "30rem",

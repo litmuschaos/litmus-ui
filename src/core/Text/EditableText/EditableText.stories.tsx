@@ -6,7 +6,7 @@ import { EditableText } from "./EditableText";
 storiesOf("text/EditableText", module).add("Litmus Portal", () => {
   const [valueText, setValueText] = useState("Hello World");
   return (
-    <ThemedBackground platform="litmus-portal">
+    <ThemedBackground>
       <div style={{ width: "80vw" }}>
         <EditableText
           label="Normal text field"

@@ -18,7 +18,7 @@ const cardContainer = (content: string) => (
 storiesOf("Card", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal" row>
+    <ThemedBackground row>
       <LitmusCard width="15rem" height="20rem" borderColor="#5B44BA" glow>
         {cardContainer("Card With Glow")}
       </LitmusCard>

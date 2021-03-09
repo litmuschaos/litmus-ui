@@ -8,7 +8,7 @@ storiesOf("Button/Toggle Button", module)
   .add("Litmus Portal", () => {
     const [open, setOpen] = useState(false);
     return (
-      <ThemedBackground platform="litmus-portal" row>
+      <ThemedBackground row>
         <ToggleButton isToggled={open} onClick={() => setOpen(!open)}>
           Toggle Button
         </ToggleButton>

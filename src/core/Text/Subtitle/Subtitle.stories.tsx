@@ -6,7 +6,7 @@ import { Subtitle } from "./Subtitle";
 storiesOf("Text/SubtitleText", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal" row>
+    <ThemedBackground row>
       <Subtitle>Subtitle Text Primary</Subtitle>
       <Subtitle color={"green"}>Subtitle Text Colored</Subtitle>
       <Subtitle variant="bold">Subtitle Text Bold</Subtitle>

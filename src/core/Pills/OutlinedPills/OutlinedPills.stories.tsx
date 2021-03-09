@@ -6,7 +6,7 @@ import { OutlinedPills } from "../../Pills";
 storiesOf("Pills/Outlined Pills", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal">
+    <ThemedBackground>
       <OutlinedPills label="Outlined Pill" />
     </ThemedBackground>
   ));

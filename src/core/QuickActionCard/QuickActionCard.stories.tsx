@@ -5,7 +5,7 @@ import { QuickActionCard } from "./QuickActionCard";
 import { quickActionTestData } from "./testData";
 
 storiesOf("QuickAction", module).add("Litmus Portal", () => (
-  <ThemedBackground platform="litmus-portal" row>
+  <ThemedBackground row>
     <QuickActionCard
       quickActions={quickActionTestData}
       title={"Quick Actions"}
