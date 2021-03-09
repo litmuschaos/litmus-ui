@@ -14,4 +14,14 @@ storiesOf("Link", module)
         </Link>
       </Router>
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure">
+      <Router>
+        <Link disabled={false} target="_blank" to="/home">
+          Link
+        </Link>
+      </Router>
+    </ThemedBackground>
   ));

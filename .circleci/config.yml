@@ -4,6 +4,12 @@ orbs:
 
 # Defining Jobs
 jobs:
+  unusedDependency:
+    docker:
+      - image: cimg/node:15.10.0
+    steps:
+      - checkout
+      - run: npx depcheck
   lint:
     docker:
       - image: cimg/node:15.10.0
@@ -37,6 +43,7 @@ jobs:
 workflows:
   lint_build_and_test:
     jobs:
+      - unusedDependency
       - lint
       - build
       - test:

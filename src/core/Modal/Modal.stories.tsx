@@ -34,4 +34,34 @@ storiesOf("Modal/Base Modal", module)
         </Modal>
       </ThemedBackground>
     );
+  })
+  // Wipro IAssure
+  .add("Wipro IAssure", () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <ThemedBackground platform="wipro-iAssure">
+        <ButtonFilled onClick={() => setOpen(true)}>Open Modal</ButtonFilled>
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          disableBackdropClick
+          disableEscapeKeyDown
+          modalActions={
+            <ButtonOutlined onClick={() => setOpen(false)}>
+              &#x2715;
+            </ButtonOutlined>
+          }
+        >
+          <div
+            style={{
+              padding: "2.5rem",
+              fontSize: "2rem",
+              marginBottom: "15rem",
+            }}
+          >
+            Modal
+          </div>
+        </Modal>
+      </ThemedBackground>
+    );
   });

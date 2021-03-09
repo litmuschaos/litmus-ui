@@ -6,9 +6,18 @@ import { ProgressBar } from "./ProgressBar";
 
 storiesOf("ProgressBar", module)
   // Litmus Portal
-
   .add("Litmus Portal", () => (
     <ThemedBackground platform="litmus-portal">
+      <ProgressBar
+        value={80}
+        label="Success"
+        color={useTheme().palette.success.main}
+      />
+    </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure">
       <ProgressBar
         value={80}
         label="Success"

@@ -15,4 +15,16 @@ storiesOf("Button/Toggle Button", module)
         {open ? <p>Toggled</p> : <p>Not toggled</p>}
       </ThemedBackground>
     );
+  })
+  // Wipro IAssure
+  .add("Wipro IAssure", () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <ThemedBackground platform="wipro-iAssure" row>
+        <ToggleButton isToggled={open} onClick={() => setOpen(!open)}>
+          Toggle Button
+        </ToggleButton>
+        {open ? <p>Toggled</p> : <p>Not toggled</p>}
+      </ThemedBackground>
+    );
   });

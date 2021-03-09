@@ -12,4 +12,13 @@ storiesOf("Text/HeaderText", module)
       <Header variant="small">Header Text Small</Header>
       <Header color={"green"}>Header Text Colored</Header>
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure" row>
+      <Header>Header Text Primary</Header>
+      <Header variant="bold">Header Text Bold</Header>
+      <Header variant="small">Header Text Small</Header>
+      <Header color={"green"}>Header Text Colored</Header>
+    </ThemedBackground>
   ));

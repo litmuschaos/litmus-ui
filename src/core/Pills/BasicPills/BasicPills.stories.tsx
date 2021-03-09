@@ -9,4 +9,10 @@ storiesOf("Pills/Basic Pills", module)
     <ThemedBackground platform="litmus-portal">
       <Pills variant="default" label="Basic Pill" />
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure">
+      <Pills variant="default" label="Basic Pill" />
+    </ThemedBackground>
   ));

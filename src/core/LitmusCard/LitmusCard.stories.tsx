@@ -26,4 +26,15 @@ storiesOf("Card", module)
         {cardContainer("Card Without Glow")}
       </LitmusCard>
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure" row>
+      <LitmusCard width="15rem" height="20rem" borderColor="#5B44BA" glow>
+        {cardContainer("Card With Glow")}
+      </LitmusCard>
+      <LitmusCard width="15rem" height="20rem" borderColor="#5B44BA">
+        {cardContainer("Card Without Glow")}
+      </LitmusCard>
+    </ThemedBackground>
   ));

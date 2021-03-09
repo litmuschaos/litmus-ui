@@ -12,4 +12,13 @@ storiesOf("Text/ParagraphText", module)
       <Paragraph variant="small">Paragraph Text Small</Paragraph>
       <Paragraph variant="bold">Paragraph Text Bold</Paragraph>
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure" row>
+      <Paragraph>Paragraph Text Primary</Paragraph>
+      <Paragraph color={"green"}>Paragraph Text Colored</Paragraph>
+      <Paragraph variant="small">Paragraph Text Small</Paragraph>
+      <Paragraph variant="bold">Paragraph Text Bold</Paragraph>
+    </ThemedBackground>
   ));

@@ -9,4 +9,10 @@ storiesOf("Pills/Outlined Pills", module)
     <ThemedBackground platform="litmus-portal">
       <OutlinedPills label="Outlined Pill" />
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure">
+      <OutlinedPills label="Outlined Pill" />
+    </ThemedBackground>
   ));

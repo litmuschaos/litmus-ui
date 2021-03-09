@@ -16,4 +16,17 @@ storiesOf("Tabs", module)
         content={["Workflow Content", "Hubs Content"]}
       ></Tabs>
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure">
+      <Tabs
+        value="0"
+        onChange={() => {
+          console.log(true);
+        }}
+        label={["Workflow", "Hubs"]}
+        content={["Workflow Content", "Hubs Content"]}
+      ></Tabs>
+    </ThemedBackground>
   ));

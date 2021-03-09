@@ -11,4 +11,12 @@ storiesOf("Button/ButtonGroup", module)
       <ButtonGroup variant="success" />
       <ButtonGroup variant="error" />
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure" row>
+      <ButtonGroup variant="default" />
+      <ButtonGroup variant="success" />
+      <ButtonGroup variant="error" />
+    </ThemedBackground>
   ));

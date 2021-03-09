@@ -67,9 +67,11 @@ declare module "@material-ui/core/styles/createPalette" {
         yellow: string;
         darkYellow: string;
         orange: string;
+        green: string;
         lightGreen: string;
         lightBlue: string;
         darkBlue: string;
+        grey: string;
       };
       area: {
         violet: string;
@@ -82,6 +84,7 @@ declare module "@material-ui/core/styles/createPalette" {
         lightGreen: string;
         lightBlue: string;
         darkBlue: string;
+        grey: string;
       };
     };
     modal: {
@@ -146,9 +149,11 @@ declare module "@material-ui/core/styles/createPalette" {
         yellow: string;
         darkYellow: string;
         orange: string;
+        green?: string;
         lightGreen: string;
         lightBlue: string;
         darkBlue: string;
+        grey?: string;
       };
       area: {
         violet: string;
@@ -161,6 +166,7 @@ declare module "@material-ui/core/styles/createPalette" {
         lightGreen: string;
         lightBlue: string;
         darkBlue: string;
+        grey?: string;
       };
     };
     modal?: {

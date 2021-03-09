@@ -9,4 +9,10 @@ storiesOf("Search", module)
     <ThemedBackground platform="litmus-portal">
       <Search placeholder="Search" onChange={(e) => e.target.value} />
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure">
+      <Search placeholder="Search" onChange={(e) => e.target.value} />
+    </ThemedBackground>
   ));

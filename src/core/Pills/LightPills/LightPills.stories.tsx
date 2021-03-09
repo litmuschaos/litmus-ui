@@ -11,4 +11,12 @@ storiesOf("Pills/Light Pills", module)
       <LightPills variant="warning" label="Warning" />
       <LightPills variant="danger" label="Danger" />
     </ThemedBackground>
+  ))
+  // Wipro IAssure
+  .add("Wipro IAssure", () => (
+    <ThemedBackground platform="wipro-iAssure" row>
+      <LightPills variant="success" label="Success" />
+      <LightPills variant="warning" label="Warning" />
+      <LightPills variant="danger" label="Danger" />
+    </ThemedBackground>
   ));
