@@ -44,6 +44,9 @@ export interface LineAreaGraphProps {
   // Show individual points of the line and area under the curve graph
   showPoints?: boolean;
 
+  // Show the individual start and end markers for the event series
+  showEventMarkers?: boolean;
+
   // Grid line for the graph
   showGrid?: boolean;
 

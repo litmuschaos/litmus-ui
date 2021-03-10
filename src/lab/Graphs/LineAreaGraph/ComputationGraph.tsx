@@ -10,7 +10,7 @@ import {
   Tooltip,
   useTooltip,
 } from "@visx/visx";
-import { bisector, extent, max } from "d3-array";
+import { bisector, extent, max, min } from "d3-array";
 import dayjs from "dayjs";
 import React, { useCallback, useMemo, useState } from "react";
 import { LegendData } from "../LegendTable/base";
@@ -203,13 +203,28 @@ const ComputationGraph: React.FC<GraphProps> = ({
       }),
     [xMax, filteredClosedSeries, filteredOpenSeries, filteredEventSeries]
   );
-
   const valueScale = useMemo(
     () =>
       scaleLinear<number>({
         range: [yMax, 0],
         domain: [
-          0,
+          min(
+            (filteredClosedSeries
+              ? filteredClosedSeries
+                  .map((linedata) => linedata.data)
+                  .reduce((rec, d) => rec.concat(d), [])
+              : [{ date: NaN, value: NaN }]
+            )
+              .concat(
+                filteredOpenSeries
+                  ? filteredOpenSeries
+                      .map((linedata) => linedata.data)
+                      .reduce((rec, d) => rec.concat(d), [])
+                  : [{ date: NaN, value: NaN }]
+              )
+              .concat([{ date: new Date().getTime(), value: 0 }]),
+            getValueNum
+          ) || 0,
           max(
             (filteredClosedSeries
               ? filteredClosedSeries
