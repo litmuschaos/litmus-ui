@@ -17,7 +17,7 @@ storiesOf("Graphs/Area", module).add("Litmus Portal", () => (
         closedSeries={closedSeriesData}
         openSeries={openSeriesData}
         eventSeries={eventSeriesData}
-        showPoints
+        showPoints={false}
         showLegendTable
         showEventMarkers
         showTips
