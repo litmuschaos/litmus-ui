@@ -2,8 +2,8 @@ import { makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   grid: {
-    stroke: theme.palette.disabledBackground,
-    strokeOpacity: 0.2,
+    stroke: theme.palette.border.main,
+    strokeOpacity: 1,
   },
 }));
 
