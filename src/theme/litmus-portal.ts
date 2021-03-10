@@ -1,4 +1,5 @@
 import { createTheme } from "./base";
+
 const litmusPortalTheme = createTheme({
   palette: {
     primary: {
