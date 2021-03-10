@@ -19,6 +19,7 @@ storiesOf("Graphs/Area", module).add("Litmus Portal", () => (
         eventSeries={eventSeriesData}
         showPoints
         showLegendTable
+        showEventMarkers
         showTips
         unit="%"
         yLabel="Chaos"
