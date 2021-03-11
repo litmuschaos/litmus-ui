@@ -9,7 +9,7 @@ const litmusPortalTheme = createTheme({
     },
     secondary: {
       main: "#109B67",
-      light: "#858CDD",
+      light: "#109B6799",
       dark: "#128359",
     },
     graph: {
@@ -20,30 +20,30 @@ const litmusPortalTheme = createTheme({
       toolTip: "#5252F6",
       legendTableHeading: "#0098DD",
       radialChartPassed: "#0098DD",
-      line: {
-        violet: "#A93DDB",
-        violetLight: "#A05195",
-        brightPink: "#D45087",
-        darkPink: "#CC556A",
-        yellow: "#FFA600",
-        darkYellow: "#DFA73E",
-        orange: "#F6793E",
-        lightGreen: "#6DA966",
-        lightBlue: "#51C9DA",
-        darkBlue: "#2F4B7C",
-      },
-      area: {
-        violet: "#A93DDB73",
-        violetLight: "#A0519573",
-        brightPink: "#A4508773",
-        darkPink: "#CC556A73",
-        yellow: " #FFA60073",
-        darkYellow: "#DFA73E73",
-        orange: "#F6793E73",
-        lightGreen: "#6DA96673",
-        lightBlue: "#51C9DA73",
-        darkBlue: "#2F4B7C73",
-      },
+      line: [
+        "#A93DDB",
+        "#A05195",
+        "#D45087",
+        "#CC556A",
+        "#FFA600",
+        "#DFA73E",
+        "#F6793E",
+        "#6DA966",
+        "#51C9DA",
+        "#2F4B7C",
+      ],
+      area: [
+        "#A93DDB73",
+        "#A0519573",
+        "#A4508773",
+        "#CC556A73",
+        " #FFA60073",
+        "#DFA73E73",
+        "#F6793E73",
+        "#6DA96673",
+        "#51C9DA73",
+        "#2F4B7C73",
+      ],
     },
     success: {
       main: "#109B67",
@@ -57,21 +57,21 @@ const litmusPortalTheme = createTheme({
     },
     warning: {
       light: "#F6B92B20",
-      main: "#F6B92B",
+      main: "#DBA017",
       dark: "#402C01",
     },
     background: {
-      default: "#FAFBFD",
+      default: "#F5F6F8",
       paper: "#FFFFFF",
     },
-    sidebarMenu: "#FAFBFD",
+    sidebarMenu: "#F5F6F8",
     loginBackground: "#FFFFFF",
-    disabledBackground: "#E6E6E6",
+    disabledBackground: "#D9D9D9",
     text: {
-      primary: "#101217",
+      primary: "#000000CC",
       secondary: "#FFFFFF",
-      disabled: "#777777",
-      hint: "#777777",
+      disabled: "#00000061",
+      hint: "#00000099",
     },
     highlight: "#5B44BA",
     horizontalStepper: {
@@ -80,7 +80,7 @@ const litmusPortalTheme = createTheme({
       pending: "#B9B9B9",
     },
     border: {
-      main: "#B9B9B9",
+      main: "#BBBBBB",
       success: "#109B67",
       error: "#CA2C2C",
     },
@@ -88,16 +88,16 @@ const litmusPortalTheme = createTheme({
       "linear-gradient(90.43deg, #5B44BA 0.35%, #858CDD 51.03%, #109B67 99.64%)",
     status: {
       running: {
-        text: "#F6FB92B",
-        background: "#F6FB92B20",
+        text: "#5252F6",
+        background: "#5252F620",
       },
       completed: {
         text: "#109B67",
         background: "#109B6720",
       },
       pending: {
-        text: "#B9B9B9",
-        background: "#B9B9B920",
+        text: "#BBBBBB",
+        background: "#BBBBBB20",
       },
       failed: {
         text: "#CA2C2C",
@@ -111,5 +111,4 @@ const litmusPortalTheme = createTheme({
     },
   },
 });
-
 export { litmusPortalTheme };
