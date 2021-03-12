@@ -24,6 +24,12 @@ module.exports = {
     "prettier/@typescript-eslint",
     "plugin:mdx/recommended",
   ],
+  overrides: [
+    {
+      files: ["*.mdx"],
+      extends: ["plugin:mdx/recommended", "plugin:mdx/overrides"],
+    },
+  ],
   rules: {
     "no-undef": rules.ON,
     "@typescript-eslint/explicit-function-return-type": rules.OFF,
