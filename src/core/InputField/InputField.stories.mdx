@@ -1,0 +1,50 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { InputField } from "../InputField";
+
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta
+  title="Core/Button/InputField"
+  component={InputField}
+  argTypes={{
+    variant: {
+      control: {
+        type: "radio",
+        options: {
+          primary: "primary",
+          success: "success",
+          error: "error",
+        },
+      },
+    },
+  }}
+/>
+
+# InputField
+
+`Buttons` allow users to take actions, and make choices, with a single tap.
+`InputField` is a button with solid background.
+
+## Default variant:
+
+<Canvas>
+  <Story
+    name="Primary"
+    args={{ variant: "primary", label: "Normal text field" }}
+  >
+    {(args) => <InputField {...args} />}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<Canvas>
+  <Story name="Success" args={{ variant: "success", label: "Success" }}>
+    {(args) => <InputField {...args} />}
+  </Story>
+  <Story name="Error" args={{ variant: "error", label: "Error" }}>
+    {(args) => <InputField {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={InputField} />
