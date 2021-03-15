@@ -1,0 +1,50 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { ButtonGroup } from ".";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta
+  title="Core/Button/ButtonGroup"
+  component={ButtonGroup}
+  argTypes={{
+    variant: {
+      control: {
+        type: "radio",
+        options: {
+          default: "default",
+          error: "error",
+          success: "success",
+        },
+        defaultValue: "default",
+      },
+    },
+    onClick: { action: "clicked" },
+  }}
+/>
+
+# ButtonGroup
+
+export const Template = (args) => <ButtonGroup {...args} />;
+
+`Buttons` allow users to take actions, and make choices, with a single tap.
+`ButtonGroup` is a button with solid background.
+
+## Default variant:
+
+<Canvas>
+  <Story name="Default" args={{ variant: "default" }}>
+    {(args) => <ButtonGroup {...args} />}
+  </Story>
+</Canvas>
+
+## Other variants for ButtonGroup:
+
+<Canvas>
+  <Story name="Error" args={{ variant: "error" }}>
+    {(args) => <ButtonGroup {...args} />}
+  </Story>
+  <Story name="Success" args={{ variant: "success" }}>
+    {(args) => <ButtonGroup {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={ButtonGroup} />
