@@ -37,15 +37,15 @@ const eventSeriesData1: DateValue[] = [
   { date: 6000, value: 0 },
   { date: 7000, value: 0 },
 ];
-// const eventSeriesData2: DateValue[] = [
-//   { date: 3000, value: 1 },
-//   { date: 4000, value: 1 },
-//   { date: 5000, value: 0 },
-//   { date: 6000, value: 0 },
-//   { date: 7000, value: 1 },
-//   { date: 8000, value: 1 },
-//   { date: 9000, value: 0 },
-// ];
+const eventSeriesData2: DateValue[] = [
+  { date: 3000, value: 1 },
+  { date: 4000, value: 1 },
+  { date: 5000, value: 0 },
+  { date: 6000, value: 0 },
+  { date: 7000, value: 1 },
+  { date: 8000, value: 1 },
+  { date: 9000, value: 0 },
+];
 const openSeriesData: Array<GraphMetric> = [
   {
     metricName: "teal",
@@ -63,6 +63,11 @@ const eventSeriesData: Array<GraphMetric> = [
       "chaos-pod-delete-chaos-pod-delete-chaos-pod-delete-chaos-pod-delete",
     data: eventSeriesData1,
     baseColor: "red",
+  },
+  {
+    metricName: "chaos-network-pod",
+    data: eventSeriesData2,
+    baseColor: "yellow",
   },
 ];
 

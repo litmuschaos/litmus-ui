@@ -132,7 +132,6 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   };
 
   if (width < 10) return null;
-  console.log(yScale.domain()[0]);
   return (
     <Group left={left || margin?.left} top={top || margin?.top}>
       {showGrid && (
