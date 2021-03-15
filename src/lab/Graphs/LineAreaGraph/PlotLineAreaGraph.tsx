@@ -18,7 +18,6 @@ import {
 import dayjs from "dayjs";
 import React from "react";
 import { DateValue, GraphMetric } from "./base";
-import { useStyles } from "./plotLineAreaGraphStyles";
 
 // Accessors
 const getDateNum = (d: DateValue) =>
@@ -103,7 +102,6 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   yLabelOffset = 10,
   showEventMarkers = true,
 }) => {
-  const classes = useStyles();
   const { palette } = useTheme();
   const axisBottomTickLabelProps = {
     dy: "0.3rem",
@@ -134,16 +132,24 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   };
 
   if (width < 10) return null;
-
+  console.log(yScale.domain()[0]);
   return (
     <Group left={left || margin?.left} top={top || margin?.top}>
       {showGrid && (
         <Group>
-          <GridRows scale={yScale} width={xMax} className={classes.grid} />
+          <GridRows
+            scale={yScale}
+            width={xMax}
+            strokeOpacity={0.5}
+            strokeWidth={0.5}
+            stroke={palette.border.main}
+          />
           <GridColumns
             scale={xScale}
             height={height}
-            className={classes.grid}
+            strokeOpacity={0.5}
+            strokeWidth={0.5}
+            stroke={palette.border.main}
           />
         </Group>
       )}
@@ -239,7 +245,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               }}
               yScale={yScale}
               fill={linedata.baseColor}
-              fillOpacity={0.1}
+              fillOpacity={0.15}
               curve={curveStepAfter}
             />
 
@@ -258,7 +264,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                         strokeWidth={5}
                         center={{
                           x: xScale(getDateNum(d)) ?? 0,
-                          y: yScale(0) ?? 0,
+                          y: yScale(yScale.domain()[0]) ?? 0,
                         }}
                         fill={linedata.baseColor}
                         pointerEvents="none"
@@ -272,7 +278,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                           y: yMax,
                         }}
                         stroke={linedata.baseColor}
-                        strokeWidth={0.5}
+                        strokeWidth={0.7}
                       />
                     </g>
                   )}
