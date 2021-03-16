@@ -1,0 +1,52 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { Paragraph } from "../Paragraph";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+import { ButtonFilled, ButtonOutlined } from "../../Button/ButtonFilled";
+import { useState } from "react";
+
+<Meta
+  title="Core/Text/Paragraph"
+  component={Paragraph}
+  argTypes={{
+    variant: {
+      control: {
+        type: "radio",
+        options: {
+          bold: "bold",
+          small: "small",
+          default: "primary",
+        },
+        defaultValue: "primary",
+      },
+    },
+  }}
+/>
+
+## Paragraph
+
+`Buttons` allow users to take actions, and make choices, with a single tap.
+`Paragraph` is a button with solid background.
+
+## Default variant:
+
+<Canvas>
+  <Story name="Default" args={{}}>
+    {(args) => <Paragraph {...args}>Paragraph Text Primary</Paragraph>}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<Canvas>
+  <Story name="Bold" args={{ variant: "bold" }}>
+    {(args) => <Paragraph {...args}>Paragraph Text Primary </Paragraph>}
+  </Story>
+  <Story name="Small" args={{ variant: "small" }}>
+    {(args) => <Paragraph {...args}>Paragraph Text Primary </Paragraph>}
+  </Story>
+  <Story name="Green" args={{ color: "green" }}>
+    {(args) => <Paragraph {...args}>Paragraph Text Primary </Paragraph>}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Paragraph} />

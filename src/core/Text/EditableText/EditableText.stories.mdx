@@ -1,0 +1,62 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { EditableText } from "../EditableText";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+import { ButtonFilled, ButtonOutlined } from "../../Button/ButtonFilled";
+import { useState } from "react";
+
+<Meta title="Core/Text/EditableText" component={EditableText} />
+
+## EditableText
+
+`Buttons` allow users to take actions, and make choices, with a single tap.
+`EditableText` is a button with solid background.
+
+## Default variant:
+
+<Canvas>
+  <Story name="Primary">
+    {() => {
+      const [valueText, setValueText] = useState("Hello World");
+      return (
+        <>
+          <EditableText
+            label="Normal text field"
+            value={valueText}
+            onChange={(e) => setValueText(e.target.value)}
+            fullWidth
+          />
+          <br />
+          <EditableText
+            label="Normal text field"
+            value={valueText}
+            multiline
+            onChange={(e) => setValueText(e.target.value)}
+            fullWidth
+          />
+          <br />
+          <EditableText
+            label="Normal text field"
+            value={valueText}
+            variant="error"
+            multiline
+            onChange={(e) => setValueText(e.target.value)}
+            fullWidth
+          />
+          <br />
+          <EditableText
+            label="Normal text field"
+            value={valueText}
+            disabled
+            multiline
+            onChange={(e) => setValueText(e.target.value)}
+            fullWidth
+          />
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<ArgsTable of={EditableText} />

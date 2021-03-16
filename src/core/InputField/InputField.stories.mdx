@@ -4,7 +4,7 @@ import { InputField } from "../InputField";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
 
 <Meta
-  title="Core/Button/InputField"
+  title="Core/InputField"
   component={InputField}
   argTypes={{
     variant: {
@@ -20,7 +20,7 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
   }}
 />
 
-# InputField
+## InputField
 
 `Buttons` allow users to take actions, and make choices, with a single tap.
 `InputField` is a button with solid background.
@@ -30,7 +30,11 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
 <Canvas>
   <Story
     name="Primary"
-    args={{ variant: "primary", label: "Normal text field" }}
+    args={{
+      variant: "primary",
+      label: "Normal text field",
+      onChange: (e) => e.target.value,
+    }}
   >
     {(args) => <InputField {...args} />}
   </Story>

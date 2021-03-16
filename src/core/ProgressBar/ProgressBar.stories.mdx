@@ -1,0 +1,22 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { ProgressBar } from "../ProgressBar";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta title="Core/ProgressBar" component={ProgressBar} />
+
+## ProgressBar
+
+`Buttons` allow users to take actions, and make choices, with a single tap.
+`ProgressBar` is a button with solid background.
+
+## Default variant:
+
+<Canvas>
+  <Story name="Default" args={{ value: 80, label: "Success", color: "red" }}>
+    {(args) => <ProgressBar {...args} />}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<ArgsTable of={ProgressBar} />

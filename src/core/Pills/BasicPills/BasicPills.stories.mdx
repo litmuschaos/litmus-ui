@@ -1,0 +1,29 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { Pills } from "../BasicPills";
+
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta title="Core/BasicPills" component={Pills} />
+
+## BasicPills
+
+`Buttons` allow users to take actions, and make choices, with a single tap.
+`BasicPills` is a button with solid background.
+
+## Default variant:
+
+<Canvas>
+  <Story name="Default" args={{ label: "Basic Pill" }}>
+    {(args) => <Pills {...args} />}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<Canvas>
+  <Story name="Selected" args={{ variant: "selected", label: "Basic Pill" }}>
+    {(args) => <Pills {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Pills} />

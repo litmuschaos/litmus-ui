@@ -1,0 +1,35 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { RadioButton } from "../RadioButton";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import { useState } from "react";
+import { ButtonFilled } from "../Button/ButtonFilled";
+
+<Meta title="Core/RadioButton" />
+
+## =RadioButton
+
+`Buttons` allow users to take actions, and make choices, with a single tap.
+`RadioButton` is a button with solid background.
+
+## Default variant:
+
+<!-- {/\* <Canvas>
+
+  <Story name="Primary">
+    {() => {
+
+      const [open, setOpen] = useState(0);
+      return (
+        <>
+          <ButtonFilled onClick={() => setOpen(1)}>{open}</ButtonFilled>
+        </>
+      );
+    }}
+
+  </Story>
+</Canvas> */} -->
+
+## Other variants:
+
+<ArgsTable of={RadioButton} />
