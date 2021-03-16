@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }),
   rectBase: {
     fill: theme.palette.background.paper,
+    // fill: "black",
   },
 
   radialFont: {
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   centerDataContainer: {
     position: "absolute",
     top: "50%",
-    left: "50%",
+    left: "25%",
     transform: "translate(-50%, -50%)",
   },
 }));

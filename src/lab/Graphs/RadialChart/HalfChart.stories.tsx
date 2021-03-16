@@ -1,13 +1,13 @@
 import { storiesOf } from "@storybook/react";
 import React from "react";
 import { ThemedBackground } from "../../../utils/storybook";
-import { RadialChart } from "./RadialChart";
+import { HalfChart } from "./HalfChart";
 import { testRadialChartData } from "./testData";
 
-storiesOf("Graphs/RadialChart", module).add("Litmus Portal", () => (
+storiesOf("Graphs/HalfChart", module).add("Litmus Portal", () => (
   <ThemedBackground platform="litmus-portal">
-    <div style={{ height: "20rem", width: "40rem" }}>
-      <RadialChart
+    <div style={{ height: "20rem", width: "20rem" }}>
+      <HalfChart
         radialData={testRadialChartData}
         semiCircle={false}
         heading="heading"
