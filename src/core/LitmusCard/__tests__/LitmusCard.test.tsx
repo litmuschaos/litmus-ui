@@ -6,7 +6,7 @@ import { LitmusCard } from "../LitmusCard";
 describe("Button Filled Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <LitmusCard width="15rem" height="20rem" borderColor="#5B44BA" glow>
           Card With Glow
         </LitmusCard>

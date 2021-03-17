@@ -1,8 +1,7 @@
 import { useTheme } from "@material-ui/core";
 import { Arc, Group, ParentSize } from "@visx/visx";
 import React, { useState } from "react";
-import { LegendTable } from "../LegendTable";
-import { LegendData } from "../LegendTable/base";
+import { LegendData, LegendTable } from "../LegendTable";
 import {
   RadialChartChildProps,
   RadialChartMetric,

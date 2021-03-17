@@ -8,8 +8,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { LegendTableProps } from "./base";
+import { LegendTableBaseProps } from "./base";
 import { useStyles } from "./style";
+
+export interface LegendData {
+  data: Array<string>;
+  baseColor?: string;
+}
+
+export type LegendTableProps = LegendTableBaseProps<LegendData>;
 
 const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
   const classes = useStyles();

@@ -7,7 +7,7 @@ storiesOf("Button/Button Filled", module)
   // Litmus Portal
   .add("Litmus Portal", () => {
     return (
-      <ThemedBackground platform="litmus-portal" row>
+      <ThemedBackground row>
         <ButtonFilled variant="default" onClick={() => console.log("clicked")}>
           Button Filled Default
         </ButtonFilled>

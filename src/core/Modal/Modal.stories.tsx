@@ -9,7 +9,7 @@ storiesOf("Modal/Base Modal", module)
   .add("Litmus Portal", () => {
     const [open, setOpen] = useState(false);
     return (
-      <ThemedBackground platform="litmus-portal">
+      <ThemedBackground>
         <ButtonFilled onClick={() => setOpen(true)}>Open Modal</ButtonFilled>
         <Modal
           open={open}

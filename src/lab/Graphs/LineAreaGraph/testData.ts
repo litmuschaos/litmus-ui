@@ -16,8 +16,8 @@ const closedSeriesData1: DateValue[] = [
   { date: 3000, value: 55 },
   { date: 4000, value: 60 },
   { date: 5000, value: 20 },
-  { date: 6000, value: 14 },
-  { date: 7000, value: 60 },
+  { date: 6000, value: -14 },
+  { date: 7000, value: -60 },
   { date: 8000, value: 10 },
 ];
 const closedSeriesData2: DateValue[] = [
@@ -43,7 +43,7 @@ const eventSeriesData2: DateValue[] = [
   { date: 5000, value: 0 },
   { date: 6000, value: 1 },
   { date: 7000, value: 1 },
-  { date: 8000, value: 0 },
+  { date: 8000, value: 1 },
   { date: 9000, value: 0 },
 ];
 const openSeriesData: Array<GraphMetric> = [

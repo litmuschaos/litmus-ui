@@ -6,7 +6,7 @@ import { LightPills } from "../LightPills";
 describe("Light Pills Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <LightPills variant="success" label="Success" />
       </LitmusThemeProvider>
     );

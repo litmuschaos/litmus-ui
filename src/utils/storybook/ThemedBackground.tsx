@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const ThemedBackground: React.FC<ThemedBackgroundProps> = ({
-  platform,
+  theme,
   children,
   row,
 }) => {
@@ -28,7 +28,7 @@ const ThemedBackground: React.FC<ThemedBackgroundProps> = ({
   const classes = useStyles(props);
 
   return (
-    <LitmusThemeProvider platform={platform}>
+    <LitmusThemeProvider theme={theme}>
       <Wrapper>
         <div className={classes.root}>
           {children &&

@@ -5,7 +5,7 @@ import { LineAreaGraph } from "./LineAreaGraph";
 import { closedSeriesData, eventSeriesData, openSeriesData } from "./testData";
 
 storiesOf("Graphs/Area", module).add("Litmus Portal", () => (
-  <ThemedBackground platform="litmus-portal">
+  <ThemedBackground>
     <div
       style={{
         width: "30rem",
@@ -19,6 +19,7 @@ storiesOf("Graphs/Area", module).add("Litmus Portal", () => (
         eventSeries={eventSeriesData}
         showPoints
         showLegendTable
+        showEventMarkers
         showTips
         unit="%"
         yLabel="Chaos"

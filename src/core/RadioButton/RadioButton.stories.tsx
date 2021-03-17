@@ -14,7 +14,7 @@ storiesOf("RadioButton", module)
     };
 
     return (
-      <ThemedBackground platform="litmus-portal">
+      <ThemedBackground>
         <h2>Radio Buttons with Radio Group</h2>
         <RadioGroup
           name="cluster options"

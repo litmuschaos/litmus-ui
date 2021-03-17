@@ -6,7 +6,7 @@ import { InputField } from "./InputField";
 storiesOf("InputField", module)
   // Litmus Portal
   .add("Litmus Portal", () => (
-    <ThemedBackground platform="litmus-portal" row>
+    <ThemedBackground row>
       <div style={{ display: "grid", gridGap: "20px" }}>
         <InputField
           label="Normal text field"

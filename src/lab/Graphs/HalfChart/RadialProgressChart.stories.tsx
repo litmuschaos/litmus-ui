@@ -5,7 +5,7 @@ import { RadialChart } from "./RadialProgressChart";
 import { testRadialChartData } from "./testData";
 
 storiesOf("Graphs/RadialProgressChart", module).add("Litmus Portal", () => (
-  <ThemedBackground platform="litmus-portal">
+  <ThemedBackground>
     <div style={{ height: "10rem", width: "20rem" }}>
       <RadialChart
         radialData={testRadialChartData}

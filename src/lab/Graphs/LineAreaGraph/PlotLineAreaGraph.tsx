@@ -18,7 +18,6 @@ import {
 import dayjs from "dayjs";
 import React from "react";
 import { DateValue, GraphMetric } from "./base";
-import { useStyles } from "./plotLineAreaGraphStyles";
 
 // Accessors
 const getDateNum = (d: DateValue) =>
@@ -76,6 +75,7 @@ interface AreaChartProps {
   unit?: string;
   xAxistimeFormat?: string;
   yLabelOffset?: number;
+  showEventMarkers?: boolean;
 }
 
 const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
@@ -100,8 +100,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   xAxistimeFormat,
   yLabel,
   yLabelOffset = 10,
+  showEventMarkers = true,
 }) => {
-  const classes = useStyles();
   const { palette } = useTheme();
   const axisBottomTickLabelProps = {
     dy: "0.3rem",
@@ -132,16 +132,23 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   };
 
   if (width < 10) return null;
-
   return (
     <Group left={left || margin?.left} top={top || margin?.top}>
       {showGrid && (
         <Group>
-          <GridRows scale={yScale} width={xMax} className={classes.grid} />
+          <GridRows
+            scale={yScale}
+            width={xMax}
+            strokeOpacity={0.5}
+            strokeWidth={0.5}
+            stroke={palette.border.main}
+          />
           <GridColumns
             scale={xScale}
             height={height}
-            className={classes.grid}
+            strokeOpacity={0.5}
+            strokeWidth={0.5}
+            stroke={palette.border.main}
           />
         </Group>
       )}
@@ -224,14 +231,6 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
         eventSeries.length > 0 &&
         eventSeries.map((linedata) => (
           <Group key={`${linedata.metricName}-eventSeries`}>
-            <LinearGradient
-              id={`${linedata.metricName}-linearGragient-eventSeries`}
-              from={linedata.baseColor}
-              to={linedata.baseColor}
-              fromOpacity={0.1}
-              toOpacity={0.1}
-            />
-
             <AreaClosed<DateValue>
               key={`${linedata.metricName}-eventSeries`}
               data={linedata.data}
@@ -244,11 +243,12 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                 }
               }}
               yScale={yScale}
-              fill={`url(#${linedata.metricName}-linearGragient-eventSeries)`}
+              fill={linedata.baseColor}
+              fillOpacity={0.15}
               curve={curveStepAfter}
             />
 
-            {showPoints &&
+            {showEventMarkers &&
               linedata.data.map((d) => (
                 <g
                   key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}`}
@@ -263,7 +263,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                         strokeWidth={5}
                         center={{
                           x: xScale(getDateNum(d)) ?? 0,
-                          y: yScale(0) ?? 0,
+                          y: yScale(yScale.domain()[0]) ?? 0,
                         }}
                         fill={linedata.baseColor}
                         pointerEvents="none"
@@ -277,7 +277,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                           y: yMax,
                         }}
                         stroke={linedata.baseColor}
-                        strokeWidth={0.5}
+                        strokeWidth={0.7}
                       />
                     </g>
                   )}

@@ -3,23 +3,14 @@ import * as React from "react";
 import { litmusPortalTheme } from "./litmus-portal";
 
 export interface LitmusThemeProviderProps {
-  platform: "litmus-portal";
-}
-
-function getTheme(themeLabel: string): Theme {
-  switch (themeLabel) {
-    case "litmus-portal":
-      return litmusPortalTheme;
-    default:
-      return litmusPortalTheme;
-  }
+  theme?: Theme;
 }
 
 const LitmusThemeProvider: React.FC<LitmusThemeProviderProps> = ({
-  platform,
+  theme,
   children,
 }) => {
-  const platformTheme = getTheme(platform);
+  const platformTheme = theme ?? litmusPortalTheme;
   return (
     <ThemeProvider theme={platformTheme}>
       <CssBaseline />

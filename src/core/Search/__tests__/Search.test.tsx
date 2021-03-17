@@ -9,7 +9,7 @@ jest.useFakeTimers();
 describe("Search Component", () => {
   it("Renders", () => {
     render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <Search data-testid="search" placeholder="search" />
       </LitmusThemeProvider>
     );
