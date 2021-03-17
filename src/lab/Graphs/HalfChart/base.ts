@@ -3,19 +3,18 @@ export interface RadialChartMetric {
   label: string;
   baseColor?: string;
 }
-export type LegendTableOrientation = "bottom" | "right" | undefined;
 
 export interface RadialChartProps {
-  legendTableHeight?: number;
   arcWidth?: number;
   semiCircle?: boolean;
-  showLegend?: boolean;
-  radialData: RadialChartMetric[];
+  radialData: RadialChartMetric;
   showCenterHeading?: boolean;
   heading?: string;
   circleExpandOnHover?: number;
-  alignLegendTable?: LegendTableOrientation;
   className?: string;
+  unit?: string;
+  imageSrc?: string;
+  imageAlt?: string;
 }
 export interface RadialChartChildProps extends RadialChartProps {
   width: number;

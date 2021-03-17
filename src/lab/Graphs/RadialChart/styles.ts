@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   }),
   rectBase: {
     fill: theme.palette.background.paper,
-    alignItems: "center",
   },
 
   radialFont: {

@@ -6,14 +6,14 @@ import { testRadialChartData } from "./testData";
 
 storiesOf("Graphs/RadialChart", module).add("Litmus Portal", () => (
   <ThemedBackground platform="litmus-portal">
-    <div style={{ height: "10rem", width: "20rem" }}>
+    <div style={{ height: "20rem", width: "30rem" }}>
       <RadialChart
         radialData={testRadialChartData}
-        semiCircle
+        semiCircle={false}
         heading="heading"
         legendTableHeight={100}
-        alignLegendTable={"bottom"}
-        showCenterHeading={false}
+        alignLegendTable={"right"}
+        showCenterHeading
       />
     </div>
   </ThemedBackground>
