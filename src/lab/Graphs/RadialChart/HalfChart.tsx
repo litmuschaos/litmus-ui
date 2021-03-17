@@ -14,7 +14,7 @@ const RadialChartChild = ({
   width,
   height,
   radialData,
-  centerSize = 20,
+  arcWidth = 20,
   semiCircle = false,
   legendTableHeight = 150,
   showLegend = true,
@@ -29,15 +29,15 @@ const RadialChartChild = ({
   const [currentHovered, setcurrentHovered] = useState<string>("");
 
   const circleOrient = semiCircle ? 1 : 2;
-  const classes = useStyles({ width, height, circleOrient });
   const scalerArc: number = circleOrient * Math.PI;
   const startAngle: number = -(Math.PI / 2);
   let currentAngle: number = startAngle;
   const outerRadius =
     (circleOrient === 1 ? Math.max(width, height) : Math.min(width, height)) *
       0.5 -
-    centerSize;
-  const innerRadius = outerRadius - centerSize;
+    arcWidth;
+  const innerRadius = outerRadius - arcWidth;
+  const classes = useStyles({ width, height, circleOrient, innerRadius });
 
   const total = radialData
     ? radialData.reduce(
