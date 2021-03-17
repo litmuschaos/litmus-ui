@@ -109,4 +109,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export { useStyles };
+const usePlotLineAreaGraphStyles = makeStyles((theme: Theme) => ({
+  grid: {
+    stroke: theme.palette.disabledBackground,
+    strokeOpacity: 0.2,
+  },
+}));
+
+export { useStyles, usePlotLineAreaGraphStyles };
