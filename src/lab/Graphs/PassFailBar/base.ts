@@ -1,13 +1,8 @@
-export interface RadialChartMetric {
-  value: number;
-}
-
-export interface RadialChartProps {
-  barWidth?: number;
-  radialData: RadialChartMetric;
+export interface PassFailBarProps {
+  passValue: number;
   className?: string;
 }
-export interface RadialChartChildProps extends RadialChartProps {
+export interface PassFailBarChildProps extends PassFailBarProps {
   width: number;
   height: number;
 }

@@ -1,22 +1,20 @@
 import { Typography } from "@material-ui/core";
 import { ParentSize } from "@visx/visx";
 import React from "react";
-import { RadialChartChildProps, RadialChartProps } from "./base";
+import { PassFailBarChildProps, PassFailBarProps } from "./base";
 import { useStyles } from "./styles";
 
-const RadialChartChild = ({
+const PassFailBarChild = ({
   width,
   height,
-  radialData,
-  barWidth,
+  passValue,
   className,
-}: RadialChartChildProps) => {
+}: PassFailBarChildProps) => {
   const classes = useStyles({
     width,
     height,
-    barWidth,
-    pass: `${radialData?.value ?? 0}%`,
-    fail: `${100 - radialData?.value ?? 0}%`,
+    pass: `${passValue ?? 0}%`,
+    fail: `${100 - passValue ?? 0}%`,
   });
 
   return width < 10 ? null : (
@@ -34,29 +32,28 @@ const RadialChartChild = ({
         </div>
       </div>
       <div className={classes.textValue}>
-        <Typography
-          variant="h6"
-          className={classes.colorPass}
-        >{`${radialData.value}%`}</Typography>
+        <Typography variant="h6" className={classes.colorPass}>
+          {`${passValue ?? 0}%`}
+        </Typography>
 
         <Typography variant="h6" className={classes.colorFail}>
-          {`${100 - radialData?.value ?? 0}%`}
+          {`${100 - passValue ?? 0}%`}
         </Typography>
       </div>
     </div>
   );
 };
-const RadialChart: React.FC<RadialChartProps> = ({ ...rest }) => {
+const PassFailBar: React.FC<PassFailBarProps> = ({ ...rest }) => {
   return (
     <ParentSize>
       {({ width, height }) =>
         width > 0 &&
         height > 0 && (
-          <RadialChartChild width={width} height={height} {...rest} />
+          <PassFailBarChild width={width} height={height} {...rest} />
         )
       }
     </ParentSize>
   );
 };
 
-export { RadialChart };
+export { PassFailBar };

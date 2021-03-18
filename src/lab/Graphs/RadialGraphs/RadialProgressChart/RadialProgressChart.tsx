@@ -1,7 +1,6 @@
 import { useTheme } from "@material-ui/core";
 import { Arc, Group, ParentSize } from "@visx/visx";
 import React, { useState } from "react";
-import { LegendData } from "../../LegendTable";
 import { RadialChartMetric } from "../base";
 import { RadialChartChildProps, RadialChartProps } from "./base";
 import { useStyles } from "./styles";
@@ -16,12 +15,11 @@ const RadialProgressChartChild = ({
   circleExpandOnHover = 5,
   unit,
   imageSrc,
-  imageAlt = "i",
+  imageAlt = "icon",
   className,
 }: RadialChartChildProps) => {
   const { palette } = useTheme();
 
-  let legenddata: Array<LegendData> = [{ data: [] }];
   let centerValue = "0";
   const centerText = heading ?? "";
   const [currentHovered, setcurrentHovered] = useState<string>("");
@@ -65,8 +63,6 @@ const RadialProgressChartChild = ({
       centerValue = radialData.value.toString();
     }
   }
-
-  legenddata = legenddata.splice(0);
 
   return width < 10 ? null : (
     <div className={`${classes.radialChartRoot} ${className}`}>
