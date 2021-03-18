@@ -1,21 +1,20 @@
 import { storiesOf } from "@storybook/react";
 import React from "react";
 import { ThemedBackground } from "../../../utils/storybook";
-import { RadialChart } from "./RadialChart";
+import { RadialChart } from "./RadialProgressChart";
 import { testRadialChartData } from "./testData";
 
-storiesOf("Graphs/RadialGraphs/RadialChart", module).add(
+storiesOf("Graphs/RadialGraphs/RadialProgressChart", module).add(
   "Litmus Portal",
   () => (
     <ThemedBackground>
-      <div style={{ height: "20rem", width: "20rem" }}>
+      <div style={{ height: "10rem", width: "20rem" }}>
         <RadialChart
           radialData={testRadialChartData}
-          semiCircle={false}
-          heading="heading"
-          legendTableHeight={100}
-          alignLegendTable={"right"}
+          semiCircle
+          heading="Based on test results"
           showCenterHeading
+          unit={"%"}
         />
       </div>
     </ThemedBackground>
