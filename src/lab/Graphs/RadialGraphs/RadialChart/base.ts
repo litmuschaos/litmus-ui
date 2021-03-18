@@ -1,8 +1,5 @@
-export interface RadialChartMetric {
-  value: number;
-  label: string;
-  baseColor?: string;
-}
+import { RadialChartMetric } from "../base";
+
 export type LegendTableOrientation = "bottom" | "right" | undefined;
 
 export interface RadialChartProps {

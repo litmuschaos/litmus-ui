@@ -1,8 +1,4 @@
-export interface RadialChartMetric {
-  value: number;
-  label: string;
-  baseColor?: string;
-}
+import { RadialChartMetric } from "../base";
 
 export interface RadialChartProps {
   arcWidth?: number;

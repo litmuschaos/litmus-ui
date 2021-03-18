@@ -1,12 +1,9 @@
 import { useTheme } from "@material-ui/core";
 import { Arc, Group, ParentSize } from "@visx/visx";
 import React, { useState } from "react";
-import { LegendData } from "../LegendTable";
-import {
-  RadialChartChildProps,
-  RadialChartMetric,
-  RadialChartProps,
-} from "./base";
+import { LegendData, LegendTable } from "../../LegendTable";
+import { RadialChartMetric } from "../base";
+import { RadialChartChildProps, RadialChartProps } from "./base";
 import { useStyles } from "./styles";
 
 const RadialChartChild = ({
@@ -15,21 +12,24 @@ const RadialChartChild = ({
   radialData,
   arcWidth = 20,
   semiCircle = false,
+  legendTableHeight = 150,
+  showLegend = true,
   heading,
   circleExpandOnHover = 5,
-  unit,
-  imageSrc,
-  imageAlt = "i",
+  alignLegendTable = "bottom",
+  showCenterHeading = true,
   className,
 }: RadialChartChildProps) => {
   const { palette } = useTheme();
 
   let legenddata: Array<LegendData> = [{ data: [] }];
-  let centerValue = "0";
-  const centerText = heading ?? "";
+  const [centerValue, setcenterValue] = useState<string>("0");
+  const [centerText, setCenterText] = useState<string>(heading ?? "");
   const [currentHovered, setcurrentHovered] = useState<string>("");
-  const radialFigurWidth = width;
+  const radialFigurWidth = alignLegendTable === "bottom" ? width : width / 2;
   const circleOrient = semiCircle ? 1 : 2;
+
+  const scalerArc: number = circleOrient * Math.PI;
   const startAngle: number = -(Math.PI / 2);
   let currentAngle: number = startAngle;
   const outerRadius =
@@ -43,34 +43,41 @@ const RadialChartChild = ({
     width,
     height,
     circleOrient,
+    alignLegendTable,
+    legendTableHeight,
     innerRadius,
   });
-  const total: number = radialData.value ? 100 : NaN;
-  const scalerArc: number = circleOrient * Math.PI;
-
+  const total = radialData
+    ? radialData.reduce(
+        (previousValue, currentValue) => previousValue + currentValue.value,
+        0
+      )
+    : NaN;
   const radialArc: RadialChartMetric[] = radialData
-    ? [
-        {
-          value: (total ? radialData.value / total : 0) * scalerArc,
-          label: radialData.label,
-          baseColor: radialData.baseColor,
-        },
-        {
-          value: (total ? (total - radialData.value) / total : 0) * scalerArc,
-          label: "rest",
-          baseColor: palette.disabledBackground,
-        },
-      ]
+    ? radialData.map((elem) => {
+        return {
+          value: (total ? elem.value / total : 0) * scalerArc,
+          label: elem.label,
+          baseColor: elem.baseColor,
+        };
+      })
     : [{ value: NaN, label: "" }];
-
   if (centerValue === "0" && total > 0) {
-    {
-      centerValue = radialData.value.toString();
-    }
+    setcenterValue(total.toString());
+    showCenterHeading ? setCenterText(heading ?? "") : null;
   }
 
   legenddata = legenddata.splice(0);
 
+  if (radialData) {
+    radialData.map((element, index) => {
+      if (element.value !== undefined)
+        legenddata[index] = {
+          data: [element.label, element.value.toString()],
+          baseColor: element.baseColor,
+        };
+    });
+  }
   return width < 10 ? null : (
     <div className={`${classes.radialChartRoot} ${className}`}>
       <div className={classes.figureWithLegendTable}>
@@ -82,7 +89,13 @@ const RadialChartChild = ({
           />
 
           <Group
-            top={circleOrient === 1 ? height : height / 2}
+            top={
+              circleOrient === 1
+                ? alignLegendTable === "right"
+                  ? height / 2 + innerRadius
+                  : height
+                : height / 2
+            }
             left={radialFigurWidth / 2}
           >
             {total > 0 &&
@@ -106,11 +119,16 @@ const RadialChartChild = ({
                     startAngle={currentAngle}
                     endAngle={(currentAngle += elem.value)}
                     onMouseEnter={(e) => {
+                      setcenterValue(radialData[i].value.toString());
+                      showCenterHeading ? setCenterText(`${elem.label}`) : null;
                       setcurrentHovered(
                         e.currentTarget.getAttribute("id")?.toString() ?? ""
                       );
                     }}
                     onMouseLeave={() => {
+                      setcenterValue(total.toString());
+                      showCenterHeading ? setCenterText(`${heading}`) : null;
+
                       setcurrentHovered("");
                     }}
                     opacity={
@@ -139,18 +157,25 @@ const RadialChartChild = ({
             )}
           </Group>
         </svg>
+        {showLegend && (
+          <div className={classes.legendTableArea}>
+            <div className={classes.legendTableChild}>
+              <LegendTable data={legenddata} />
+            </div>
+          </div>
+        )}
       </div>
-      <div className={classes.centerIcon}>
-        <img src={imageSrc} alt={imageAlt} />
-      </div>
+
       <div className={classes.centerDataContainer}>
         <p className={`${classes.centerValue} ${classes.centerDataFont}`}>
-          {centerValue + " " + unit}
+          {centerValue}
         </p>
 
-        <p className={`${classes.centerText} ${classes.centerDataFont}`}>
-          {centerText}
-        </p>
+        {showCenterHeading && (
+          <p className={`${classes.centerText} ${classes.centerDataFont}`}>
+            {centerText}
+          </p>
+        )}
       </div>
     </div>
   );

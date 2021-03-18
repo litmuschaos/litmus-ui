@@ -1,4 +1,4 @@
-import { RadialChartMetric } from "./base";
+import { RadialChartMetric } from "../base";
 
 const testRadialChartData: RadialChartMetric[] = [
   { value: 60, label: "pass", baseColor: "#00CC9A" },

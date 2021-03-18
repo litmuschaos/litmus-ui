@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import React from "react";
-import { ThemedBackground } from "../../../utils/storybook";
+import { ThemedBackground } from "../../../../utils/storybook";
 import { RadialChart } from "./RadialChart";
 import { testRadialChartData } from "./testData";
 

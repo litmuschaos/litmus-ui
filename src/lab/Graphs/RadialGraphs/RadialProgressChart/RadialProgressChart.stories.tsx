@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import React from "react";
-import { ThemedBackground } from "../../../utils/storybook";
-import { RadialChart } from "./RadialProgressChart";
+import { ThemedBackground } from "../../../../utils/storybook";
+import { RadialProgressChart } from "./RadialProgressChart";
 import { testRadialChartData } from "./testData";
 
 storiesOf("Graphs/RadialGraphs/RadialProgressChart", module).add(
@@ -9,7 +9,7 @@ storiesOf("Graphs/RadialGraphs/RadialProgressChart", module).add(
   () => (
     <ThemedBackground>
       <div style={{ height: "10rem", width: "20rem" }}>
-        <RadialChart
+        <RadialProgressChart
           radialData={testRadialChartData}
           semiCircle
           heading="Based on test results"
