@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 500,
   },
 
-  hr: {
+  legendMarker: {
     width: "1rem",
     height: "0.2rem",
     marginTop: "0.3rem",

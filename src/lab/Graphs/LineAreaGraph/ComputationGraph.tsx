@@ -661,7 +661,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 <div className={classes.tooltipData}>
                   <div className={classes.tooltipLabel}>
                     <div
-                      className={classes.hr}
+                      className={classes.legendMarker}
                       style={{ background: linedata.baseColor }}
                     />
                     <span>{`${linedata.metricName}`}</span>

@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignContent: "flex-start",
     color: theme.palette.text.primary,
   },
-  hr: {
+  legendMarker: {
     width: "1rem",
     height: "0.2rem",
     alignSelf: "baseline",

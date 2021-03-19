@@ -1,37 +1,18 @@
 import { useTheme } from "@material-ui/core";
 import { Arc, Group, ParentSize } from "@visx/visx";
 import React from "react";
-import { RadialChartMetric } from "../base";
+import { RadialChartMetric, RadialGraphProps } from "../base";
 import { useStyles } from "./styles";
 
-export interface RadialProgressChartProps {
-  // Thickness of the arc in the RadialProgressChart
-  arcWidth?: number;
-
-  // Boolean for drawing the RadialProgressChart as a cirle or semi-circle
-  semiCircle?: boolean;
-
+export interface RadialProgressChartProps extends RadialGraphProps {
   // Object of RadialChartMetric data for plotting the chart
   radialData: RadialChartMetric;
-
-  // Boolean for enabling/disabling the center heading
-  showCenterHeading?: boolean;
-
-  // For passing the main heading which appears when the user is
-  // not hovering on any specific radial arc
-  heading?: string;
-
-  // A unit string for the type of value being passed
-  unit?: string;
 
   // Url for the image/icon source
   imageSrc?: string;
 
   // Alternate text for image/icon
   imageAlt?: string;
-
-  // Optional class for overriding the styles
-  className?: string;
 }
 export interface RadialProgressChartChildProps
   extends RadialProgressChartProps {
@@ -55,7 +36,6 @@ const RadialProgressChartChild = ({
   className,
 }: RadialProgressChartChildProps) => {
   const { palette } = useTheme();
-
   let centerValue = "0";
   const centerText = heading ?? "";
   const radialFigurWidth = width;

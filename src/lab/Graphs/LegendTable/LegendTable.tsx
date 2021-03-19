@@ -51,7 +51,7 @@ const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
                         className={`${classes.tableCell} ${classes.tableFont} ${classes.tableLabel}`}
                       >
                         <div
-                          className={classes.hr}
+                          className={classes.legendMarker}
                           style={{ background: row.baseColor }}
                         />
                         <Typography>{element}</Typography>

@@ -19,11 +19,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "center",
   },
 
-  radialFont: {
-    textAlign: "left",
-    fontStyle: "normal",
-    fontFamily: "Ubuntu",
-  },
   centerDataFont: (props: StyleProps) => ({
     width: props.width,
     fontStyle: "normal",

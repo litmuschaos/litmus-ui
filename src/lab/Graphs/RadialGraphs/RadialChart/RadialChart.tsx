@@ -2,20 +2,14 @@ import { useTheme } from "@material-ui/core";
 import { Arc, Group, ParentSize } from "@visx/visx";
 import React, { useState } from "react";
 import { LegendData, LegendTable } from "../../LegendTable";
-import { RadialChartMetric } from "../base";
+import { RadialChartMetric, RadialGraphProps } from "../base";
 import { useStyles } from "./styles";
 
 export type LegendTableOrientation = "bottom" | "right" | undefined;
 
-export interface RadialChartProps {
+export interface RadialChartProps extends RadialGraphProps {
   // Height of the Legent Table as number
   legendTableHeight?: number;
-
-  // Thickness of the arc in the Radial Chart
-  arcWidth?: number;
-
-  // Boolean for drawing the Radial Chart as a cirle or semi-circle
-  semiCircle?: boolean;
 
   // Boolean for enabling/disabling the corresponding Legend Table
   showLegend?: boolean;
@@ -26,18 +20,11 @@ export interface RadialChartProps {
   // Boolean for enabling/disabling the center heading
   showCenterHeading?: boolean;
 
-  // For passing the main heading which appears when the user is
-  // not hovering on any specific radial arc
-  heading?: string;
-
   // Increase in the size of the radial arcs on hover
   circleExpandOnHover?: number;
 
   // For the orientation of the LegendTable either "right" or "bottom"
   alignLegendTable?: LegendTableOrientation;
-
-  // Optional class for overriding the styles
-  className?: string;
 }
 export interface RadialChartChildProps extends RadialChartProps {
   // Width of the parent component automatically calcuated by the child
@@ -59,11 +46,12 @@ const RadialChartChild = ({
   circleExpandOnHover = 5,
   alignLegendTable = "bottom",
   showCenterHeading = true,
+  unit = "",
   className,
 }: RadialChartChildProps) => {
   const { palette } = useTheme();
 
-  let legenddata: Array<LegendData> = [{ data: [] }];
+  let legendData: Array<LegendData> = [{ data: [] }];
   const [centerValue, setcenterValue] = useState<string>("0");
   const [centerText, setCenterText] = useState<string>(heading ?? "");
   const [currentHovered, setcurrentHovered] = useState<string>("");
@@ -112,12 +100,12 @@ const RadialChartChild = ({
     showCenterHeading ? setCenterText(heading ?? "") : null;
   }
 
-  legenddata = legenddata.splice(0);
+  legendData = legendData.splice(0);
 
   if (radialData) {
     radialData.map((element, index) => {
       if (element.value !== undefined)
-        legenddata[index] = {
+        legendData[index] = {
           data: [element.label ?? "", element.value.toString()],
           baseColor: element.baseColor,
         };
@@ -199,7 +187,7 @@ const RadialChartChild = ({
         {showLegend && (
           <div className={classes.legendTableArea}>
             <div className={classes.legendTableChild}>
-              <LegendTable data={legenddata} />
+              <LegendTable data={legendData} />
             </div>
           </div>
         )}
@@ -207,7 +195,7 @@ const RadialChartChild = ({
 
       <div className={classes.centerDataContainer}>
         <p className={`${classes.centerValue} ${classes.centerDataFont}`}>
-          {centerValue}
+          {`${centerValue} ${unit}`}
         </p>
 
         {showCenterHeading && (

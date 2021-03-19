@@ -13,7 +13,6 @@ storiesOf("Graphs/RadialGraphs/RadialProgressChart", module).add(
           radialData={testRadialChartData}
           semiCircle
           heading="Based on test results"
-          showCenterHeading
           unit={"%"}
         />
       </div>
