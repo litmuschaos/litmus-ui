@@ -75,7 +75,9 @@ const RadialChartChild = ({
   let currentAngle: number = startAngle;
   const outerRadius =
     (circleOrient === 1
-      ? Math.max(radialFigurWidth, height)
+      ? semiCircle
+        ? Math.min(radialFigurWidth, height)
+        : Math.max(radialFigurWidth, height)
       : Math.min(radialFigurWidth, height)) *
       0.5 -
     arcWidth;

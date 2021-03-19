@@ -8,10 +8,10 @@ storiesOf("Graphs/RadialGraphs/RadialChart", module).add(
   "Litmus Portal",
   () => (
     <ThemedBackground>
-      <div style={{ height: "20rem", width: "20rem" }}>
+      <div style={{ height: "12rem", width: "30rem" }}>
         <RadialChart
           radialData={testRadialChartData}
-          semiCircle={false}
+          semiCircle
           heading="heading"
           legendTableHeight={100}
           alignLegendTable={"right"}

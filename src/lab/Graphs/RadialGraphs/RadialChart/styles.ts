@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       props.circleOrient === 1
         ? props.alignLegendTable === "right"
           ? props.height / 2 + props.innerRadius - 10
-          : props.innerRadius
+          : props.height - 20
         : "50%",
     left: props.alignLegendTable === "bottom" ? "50%" : "25%",
     transform: "translate(-50%, -50%)",
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       props.alignLegendTable === "bottom"
         ? props.legendTableHeight
         : props.height,
-    alignItems: "center",
+    alignItems: props.circleOrient === 1 ? "center" : "center",
   }),
 
   legendTableChild: (props: StyleProps) => ({
