@@ -77,7 +77,7 @@ const RadialChartChild = ({
     (circleOrient === 1
       ? semiCircle
         ? Math.min(radialFigurWidth, height)
-        : Math.max(radialFigurWidth, height)
+        : Math.min(radialFigurWidth, height)
       : Math.min(radialFigurWidth, height)) *
       0.5 -
     arcWidth;
@@ -89,6 +89,8 @@ const RadialChartChild = ({
     alignLegendTable,
     legendTableHeight,
     innerRadius,
+    outerRadius,
+    arcWidth,
   });
   const total = radialData
     ? radialData.reduce(
@@ -124,21 +126,15 @@ const RadialChartChild = ({
   return width < 10 ? null : (
     <div className={`${classes.radialChartRoot} ${className}`}>
       <div className={classes.figureWithLegendTable}>
-        <svg width={radialFigurWidth} height={height}>
+        <svg width={radialFigurWidth} height={outerRadius * 2}>
           <rect
             width={radialFigurWidth}
-            height={height}
+            height={outerRadius * 2}
             className={classes.rectBase}
           />
 
           <Group
-            top={
-              circleOrient === 1
-                ? alignLegendTable === "right"
-                  ? height / 2 + innerRadius
-                  : height
-                : height / 2
-            }
+            top={circleOrient === 1 ? innerRadius * 2 : outerRadius}
             left={radialFigurWidth / 2}
           >
             {total > 0 &&

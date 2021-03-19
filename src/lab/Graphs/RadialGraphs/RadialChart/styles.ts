@@ -8,6 +8,8 @@ interface StyleProps {
   alignLegendTable?: LegendTableOrientation;
   legendTableHeight?: number;
   innerRadius: number;
+  outerRadius: number;
+  arcWidth: number;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -56,10 +58,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: "absolute",
     top:
       props.circleOrient === 1
-        ? props.alignLegendTable === "right"
-          ? props.height / 2 + props.innerRadius - 10
-          : props.height - 20
-        : "50%",
+        ? props.innerRadius * 2
+        : props.innerRadius + props.arcWidth,
     left: props.alignLegendTable === "bottom" ? "50%" : "25%",
     transform: "translate(-50%, -50%)",
   }),
@@ -70,13 +70,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     height:
       props.alignLegendTable === "bottom"
         ? props.legendTableHeight
-        : props.height,
-    alignItems: props.circleOrient === 1 ? "center" : "center",
+        : props.outerRadius * 2,
+    alignItems:
+      props.circleOrient === 1
+        ? props.alignLegendTable === "right"
+          ? "flex-end"
+          : "center"
+        : "center",
   }),
 
   legendTableChild: (props: StyleProps) => ({
     width: "inherit",
     height: props.legendTableHeight,
+    transform:
+      props.circleOrient === 1
+        ? props.alignLegendTable === "right"
+          ? "translate(0,-25%)"
+          : "unset"
+        : "unset",
   }),
 
   figureWithLegendTable: (props: StyleProps) => ({
