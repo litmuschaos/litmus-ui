@@ -3,6 +3,7 @@ import { Link } from "../Link";
 import { linkTo } from "@storybook/addon-links";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
 import StoryRouter from "storybook-react-router";
+import { BrowserRouter } from "react-router-dom";
 
 <Meta title="Core/Link" component={Link} />
 
@@ -18,9 +19,15 @@ import StoryRouter from "storybook-react-router";
     name="Disabled"
     args={{
       disabled: false,
+      target: "_blank",
+      to: "/home",
     }}
   >
-    {(args) => <Link {...args} />}
+    {(args) => (
+      <BrowserRouter>
+        <Link {...args}> Link </Link>
+      </BrowserRouter>
+    )}
   </Story>
 </Canvas>
 
