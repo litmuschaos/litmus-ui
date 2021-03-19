@@ -16,7 +16,7 @@ storiesOf("Graphs/RadialGraphs/RadialChart", module).add(
           semiCircle={false}
           heading="heading"
           legendTableHeight={100}
-          alignLegendTable={"right"}
+          alignLegendTable={"bottom"}
           showCenterHeading
         />
       </div>
