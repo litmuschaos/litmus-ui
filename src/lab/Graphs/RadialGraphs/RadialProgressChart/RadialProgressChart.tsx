@@ -1,9 +1,46 @@
 import { useTheme } from "@material-ui/core";
 import { Arc, Group, ParentSize } from "@visx/visx";
-import React, { useState } from "react";
+import React from "react";
 import { RadialChartMetric } from "../base";
-import { RadialChartChildProps, RadialChartProps } from "./base";
 import { useStyles } from "./styles";
+
+export interface RadialProgressChartProps {
+  // Thickness of the arc in the RadialProgressChart
+  arcWidth?: number;
+
+  // Boolean for drawing the RadialProgressChart as a cirle or semi-circle
+  semiCircle?: boolean;
+
+  // Object of RadialChartMetric data for plotting the chart
+  radialData: RadialChartMetric;
+
+  // Boolean for enabling/disabling the center heading
+  showCenterHeading?: boolean;
+
+  // For passing the main heading which appears when the user is
+  // not hovering on any specific radial arc
+  heading?: string;
+
+  // A unit string for the type of value being passed
+  unit?: string;
+
+  // Url for the image/icon source
+  imageSrc?: string;
+
+  // Alternate text for image/icon
+  imageAlt?: string;
+
+  // Optional class for overriding the styles
+  className?: string;
+}
+export interface RadialProgressChartChildProps
+  extends RadialProgressChartProps {
+  // Width of the parent component automatically calcuated by the child
+  width: number;
+
+  // Height of the parent component automatically calcuated by the child
+  height: number;
+}
 
 const RadialProgressChartChild = ({
   width,
@@ -12,17 +49,15 @@ const RadialProgressChartChild = ({
   arcWidth = 20,
   semiCircle = false,
   heading,
-  circleExpandOnHover = 5,
   unit,
   imageSrc,
   imageAlt = "icon",
   className,
-}: RadialChartChildProps) => {
+}: RadialProgressChartChildProps) => {
   const { palette } = useTheme();
 
   let centerValue = "0";
   const centerText = heading ?? "";
-  const [currentHovered, setcurrentHovered] = useState<string>("");
   const radialFigurWidth = width;
   const circleOrient = semiCircle ? 1 : 2;
   const startAngle: number = -(Math.PI / 2);
@@ -47,16 +82,14 @@ const RadialProgressChartChild = ({
     ? [
         {
           value: (total ? radialData.value / total : 0) * scalerArc,
-          label: radialData.label,
           baseColor: radialData.baseColor,
         },
         {
           value: (total ? (total - radialData.value) / total : 0) * scalerArc,
-          label: "rest",
           baseColor: palette.disabledBackground,
         },
       ]
-    : [{ value: NaN, label: "" }];
+    : [{ value: NaN }];
 
   if (centerValue === "0" && total > 0) {
     {
@@ -83,36 +116,13 @@ const RadialProgressChartChild = ({
               radialArc.map((elem, i) => (
                 <g key={`${elem.label}-arc-group`}>
                   <Arc
-                    id={`${elem.label}-arc`}
                     data={elem.value}
-                    innerRadius={
-                      currentHovered === `${elem.label}-arc`
-                        ? innerRadius - circleExpandOnHover
-                        : innerRadius
-                    }
-                    outerRadius={
-                      currentHovered === `${elem.label}-arc`
-                        ? outerRadius + circleExpandOnHover
-                        : outerRadius
-                    }
+                    innerRadius={innerRadius}
+                    outerRadius={outerRadius}
                     fill={elem.baseColor}
                     startAngle={currentAngle}
                     endAngle={(currentAngle += elem.value)}
-                    onMouseEnter={(e) => {
-                      setcurrentHovered(
-                        e.currentTarget.getAttribute("id")?.toString() ?? ""
-                      );
-                    }}
-                    onMouseLeave={() => {
-                      setcurrentHovered("");
-                    }}
-                    opacity={
-                      currentHovered === ""
-                        ? 1
-                        : currentHovered === `${elem.label}-arc`
-                        ? 1
-                        : 0.7
-                    }
+                    opacity={1}
                   />
                 </g>
               ))}
@@ -148,7 +158,9 @@ const RadialProgressChartChild = ({
     </div>
   );
 };
-const RadialProgressChart: React.FC<RadialChartProps> = ({ ...rest }) => {
+const RadialProgressChart: React.FC<RadialProgressChartProps> = ({
+  ...rest
+}) => {
   return (
     <ParentSize>
       {({ width, height }) =>

@@ -65,9 +65,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 
   hr: {
-    width: "0.6rem",
-    height: "0.15rem",
-    position: "fixed",
+    width: "1rem",
+    height: "0.2rem",
+    marginTop: "0.3rem",
+    position: "absolute",
   },
   tooltipLine: {
     stroke: theme.palette.graph.toolTip,
@@ -93,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     padding: "0.2rem",
     "& span": {
-      paddingLeft: "1rem",
+      paddingLeft: "1.5rem",
       maxWidth: "20rem",
       lineHeight: "1rem",
     },
@@ -103,6 +104,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tooltipLabel: {
     display: "flex",
+    position: "relative",
   },
   tooltipValue: {
     paddingLeft: "0.2rem",

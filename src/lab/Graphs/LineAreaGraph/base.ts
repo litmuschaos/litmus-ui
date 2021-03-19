@@ -74,7 +74,8 @@ export interface LineAreaGraphProps<T> {
   // ToolTip date's format
   toolTiptimeFormat?: string;
 }
-export interface GraphProps extends LineAreaGraphProps<Array<GraphMetric>> {
+export interface LineAreaGraphChildProps
+  extends LineAreaGraphProps<Array<GraphMetric>> {
   // Width of the LineAreaGraph
   width?: number;
 

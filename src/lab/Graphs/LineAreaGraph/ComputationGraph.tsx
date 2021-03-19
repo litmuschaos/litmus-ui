@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import React, { useCallback, useMemo, useState } from "react";
 import { LegendData } from "../LegendTable";
 import { LegendTable } from "../LegendTable/LegendTable";
-import { DateValue, GraphProps, ToolTip } from "./base";
+import { DateValue, LineAreaGraphChildProps, ToolTip } from "./base";
 import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
 import { useStyles } from "./styles";
 
@@ -69,7 +69,7 @@ const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
 const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipDateValue>;
 
-const ComputationGraph: React.FC<GraphProps> = ({
+const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
   closedSeries,
   openSeries,
@@ -660,7 +660,10 @@ const ComputationGraph: React.FC<GraphProps> = ({
               <div key={`tooltipName-value- ${linedata.metricName}`}>
                 <div className={classes.tooltipData}>
                   <div className={classes.tooltipLabel}>
-                    <hr color={linedata.baseColor} className={classes.hr} />
+                    <div
+                      className={classes.hr}
+                      style={{ background: linedata.baseColor }}
+                    />
                     <span>{`${linedata.metricName}`}</span>
                   </div>
                   <div className={classes.tooltipValue}>

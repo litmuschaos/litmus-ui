@@ -1,44 +1,51 @@
 import { Typography } from "@material-ui/core";
 import { ParentSize } from "@visx/visx";
 import React from "react";
-import { PassFailBarChildProps, PassFailBarProps } from "./base";
 import { useStyles } from "./styles";
+
+export interface PassFailBarProps {
+  // Pass percentage value as number
+  passPercentage: number;
+
+  // Optional className for overriding the styles
+  className?: string;
+}
+export interface PassFailBarChildProps extends PassFailBarProps {
+  // Width of the parent component automatically calcuated by the child
+  width: number;
+
+  // Height of the parent component automatically calcuated by the child
+  height: number;
+}
 
 const PassFailBarChild = ({
   width,
   height,
-  passValue,
+  passPercentage,
   className,
 }: PassFailBarChildProps) => {
   const classes = useStyles({
     width,
     height,
-    pass: `${passValue ?? 0}%`,
-    fail: `${100 - passValue ?? 0}%`,
+    pass: `${passPercentage ?? 0}%`,
+    fail: `${100 - passPercentage ?? 0}%`,
   });
 
   return width < 10 ? null : (
-    <div className={`${classes.radialChartRoot} ${className}`}>
-      <div style={{ display: "flex" }}>
-        <div className={classes.pass}>
-          <div className={`${classes.symbol} ${classes.colorPass}`}>
-            &#10003;
-          </div>
-        </div>
-        <div className={classes.fail}>
-          <div className={`${classes.symbol} ${classes.colorFail}`}>
-            &#10005;
-          </div>
-        </div>
+    <div className={`${classes.passFailRoot} ${className}`}>
+      <div className={classes.barAndText}>
+        <div className={`${classes.singleBar} ${classes.passBar} `} />
+        <Typography
+          variant="h6"
+          className={`${classes.passText} ${classes.text}`}
+        >{`${passPercentage ?? 0}%`}</Typography>
       </div>
-      <div className={classes.textValue}>
-        <Typography variant="h6" className={classes.colorPass}>
-          {`${passValue ?? 0}%`}
-        </Typography>
-
-        <Typography variant="h6" className={classes.colorFail}>
-          {`${100 - passValue ?? 0}%`}
-        </Typography>
+      <div style={{ display: "flex" }}>
+        <div className={`${classes.singleBar} ${classes.failBar} `} />
+        <Typography
+          variant="h6"
+          className={`${classes.failText} ${classes.text}`}
+        >{`${100 - passPercentage ?? 0}%`}</Typography>
       </div>
     </div>
   );

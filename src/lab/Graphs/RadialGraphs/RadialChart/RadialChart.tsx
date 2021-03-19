@@ -3,8 +3,49 @@ import { Arc, Group, ParentSize } from "@visx/visx";
 import React, { useState } from "react";
 import { LegendData, LegendTable } from "../../LegendTable";
 import { RadialChartMetric } from "../base";
-import { RadialChartChildProps, RadialChartProps } from "./base";
 import { useStyles } from "./styles";
+
+export type LegendTableOrientation = "bottom" | "right" | undefined;
+
+export interface RadialChartProps {
+  // Height of the Legent Table as number
+  legendTableHeight?: number;
+
+  // Thickness of the arc in the Radial Chart
+  arcWidth?: number;
+
+  // Boolean for drawing the Radial Chart as a cirle or semi-circle
+  semiCircle?: boolean;
+
+  // Boolean for enabling/disabling the corresponding Legend Table
+  showLegend?: boolean;
+
+  // Array of object of RadialChartMetric data for plotting the chart
+  radialData: RadialChartMetric[];
+
+  // Boolean for enabling/disabling the center heading
+  showCenterHeading?: boolean;
+
+  // For passing the main heading which appears when the user is
+  // not hovering on any specific radial arc
+  heading?: string;
+
+  // Increase in the size of the radial arcs on hover
+  circleExpandOnHover?: number;
+
+  // For the orientation of the LegendTable either "right" or "bottom"
+  alignLegendTable?: LegendTableOrientation;
+
+  // Optional class for overriding the styles
+  className?: string;
+}
+export interface RadialChartChildProps extends RadialChartProps {
+  // Width of the parent component automatically calcuated by the child
+  width: number;
+
+  // Height of the parent component automatically calcuated by the child
+  height: number;
+}
 
 const RadialChartChild = ({
   width,
@@ -73,7 +114,7 @@ const RadialChartChild = ({
     radialData.map((element, index) => {
       if (element.value !== undefined)
         legenddata[index] = {
-          data: [element.label, element.value.toString()],
+          data: [element.label ?? "", element.value.toString()],
           baseColor: element.baseColor,
         };
     });

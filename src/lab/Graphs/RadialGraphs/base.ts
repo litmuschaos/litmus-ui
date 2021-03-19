@@ -1,5 +1,5 @@
 export interface RadialChartMetric {
   value: number;
-  label: string;
+  label?: string;
   baseColor?: string;
 }

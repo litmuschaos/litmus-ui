@@ -1,5 +1,5 @@
 import { makeStyles, Theme } from "@material-ui/core";
-import { LegendTableOrientation } from "./base";
+import { LegendTableOrientation } from "./RadialChart";
 
 interface StyleProps {
   width: number;

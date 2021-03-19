@@ -21,6 +21,7 @@ storiesOf("Modal/Base Modal", module)
               &#x2715;
             </ButtonOutlined>
           }
+          height={"30%"}
         >
           <div
             style={{
@@ -29,7 +30,8 @@ storiesOf("Modal/Base Modal", module)
               marginBottom: "15rem",
             }}
           >
-            Modal
+            Modalsdlkfjldksjfldklsjfldjfljsdfljfdflkdjfdkfjlksdjf
+            dfkdfdfdfdfdfdfdfdf
           </div>
         </Modal>
       </ThemedBackground>
