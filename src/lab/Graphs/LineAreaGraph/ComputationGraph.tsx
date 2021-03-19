@@ -10,16 +10,17 @@ import {
   Tooltip,
   useTooltip,
 } from "@visx/visx";
-import { bisector, extent, max } from "d3-array";
+import { bisector, extent, max, min } from "d3-array";
 import dayjs from "dayjs";
 import React, { useCallback, useMemo, useState } from "react";
-import { LegendData } from "../LegendTable/base";
+import { LegendData } from "../LegendTable";
 import { LegendTable } from "../LegendTable/LegendTable";
-import { DateValue, GraphProps, ToolTipInterface } from "./base";
+import { DateValue, LineAreaGraphChildProps, ToolTip } from "./base";
 import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
 import { useStyles } from "./styles";
 
-type TooltipData = Array<ToolTipInterface>;
+type ToolTipDateValue = ToolTip<DateValue>;
+type TooltipData = Array<ToolTipDateValue>;
 let dd1: DateValue;
 let dd0: DateValue;
 let i: number;
@@ -61,14 +62,14 @@ const getValueStr = (d: DateValue) => {
 // Bisectors
 const bisectDate = bisector<DateValue, Date>((d) => new Date(getDateNum(d)))
   .left;
-const bisectorValue = bisector<ToolTipInterface, number>((d) =>
+const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
   getValueNum(d.data)
 ).left;
 
 const chartSeparation = 10;
-let legenTablePointerData: Array<ToolTipInterface>;
+let legenTablePointerData: Array<ToolTipDateValue>;
 
-const ComputationGraph: React.FC<GraphProps> = ({
+const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
   closedSeries,
   openSeries,
@@ -203,13 +204,28 @@ const ComputationGraph: React.FC<GraphProps> = ({
       }),
     [xMax, filteredClosedSeries, filteredOpenSeries, filteredEventSeries]
   );
-
   const valueScale = useMemo(
     () =>
       scaleLinear<number>({
         range: [yMax, 0],
         domain: [
-          0,
+          min(
+            (filteredClosedSeries
+              ? filteredClosedSeries
+                  .map((linedata) => linedata.data)
+                  .reduce((rec, d) => rec.concat(d), [])
+              : [{ date: NaN, value: NaN }]
+            )
+              .concat(
+                filteredOpenSeries
+                  ? filteredOpenSeries
+                      .map((linedata) => linedata.data)
+                      .reduce((rec, d) => rec.concat(d), [])
+                  : [{ date: NaN, value: NaN }]
+              )
+              .concat([{ date: new Date().getTime(), value: 0 }]),
+            getValueNum
+          ) || 0,
           max(
             (filteredClosedSeries
               ? filteredClosedSeries
@@ -257,7 +273,7 @@ const ComputationGraph: React.FC<GraphProps> = ({
     (
       event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>
     ) => {
-      let pointerDataSelection: ToolTipInterface[] = [
+      let pointerDataSelection: ToolTipDateValue[] = [
         { metricName: "", data: dd0, baseColor: "" },
       ];
       if (showTips) {
@@ -342,8 +358,8 @@ const ComputationGraph: React.FC<GraphProps> = ({
         let closestValue: number | undefined;
 
         index0 = bisectorValue(pointerDataSelection, y0);
-        const dd00: ToolTipInterface = pointerDataSelection[index0];
-        const dd11: ToolTipInterface = pointerDataSelection[index0 - 1];
+        const dd00: ToolTipDateValue = pointerDataSelection[index0];
+        const dd11: ToolTipDateValue = pointerDataSelection[index0 - 1];
         if (dd11 && dd00) {
           closestValue =
             Math.abs(y0.valueOf() - getValueNum(dd00.data)) >
@@ -360,7 +376,7 @@ const ComputationGraph: React.FC<GraphProps> = ({
         );
 
         toolTipPointLength = pointerDataSelection.length;
-        const eventToolTip: Array<ToolTipInterface> = [];
+        const eventToolTip: Array<ToolTipDateValue> = [];
         if (eventSeries) {
           for (j = 0; j < eventSeries.length; j++) {
             indexer = bisectDate(eventSeries[j].data, x0, 1);
@@ -644,7 +660,10 @@ const ComputationGraph: React.FC<GraphProps> = ({
               <div key={`tooltipName-value- ${linedata.metricName}`}>
                 <div className={classes.tooltipData}>
                   <div className={classes.tooltipLabel}>
-                    <hr color={linedata.baseColor} className={classes.hr} />
+                    <div
+                      className={classes.legendMarker}
+                      style={{ background: linedata.baseColor }}
+                    />
                     <span>{`${linedata.metricName}`}</span>
                   </div>
                   <div className={classes.tooltipValue}>

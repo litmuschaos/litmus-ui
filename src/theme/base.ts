@@ -59,30 +59,8 @@ declare module "@material-ui/core/styles/createPalette" {
       toolTip: string;
       legendTableHeading: string;
       radialChartPassed: string;
-      line: {
-        violet: string;
-        violetLight: string;
-        brightPink: string;
-        darkPink: string;
-        yellow: string;
-        darkYellow: string;
-        orange: string;
-        lightGreen: string;
-        lightBlue: string;
-        darkBlue: string;
-      };
-      area: {
-        violet: string;
-        violetLight: string;
-        brightPink: string;
-        darkPink: string;
-        yellow: string;
-        darkYellow: string;
-        orange: string;
-        lightGreen: string;
-        lightBlue: string;
-        darkBlue: string;
-      };
+      line: string[];
+      area: string[];
     };
     modal: {
       background: string;
@@ -138,30 +116,8 @@ declare module "@material-ui/core/styles/createPalette" {
       toolTip: string;
       legendTableHeading: string;
       radialChartPassed: string;
-      line: {
-        violet: string;
-        violetLight: string;
-        brightPink: string;
-        darkPink: string;
-        yellow: string;
-        darkYellow: string;
-        orange: string;
-        lightGreen: string;
-        lightBlue: string;
-        darkBlue: string;
-      };
-      area: {
-        violet: string;
-        violetLight: string;
-        brightPink: string;
-        darkPink: string;
-        yellow: string;
-        darkYellow: string;
-        orange: string;
-        lightGreen: string;
-        lightBlue: string;
-        darkBlue: string;
-      };
+      line: string[];
+      area: string[];
     };
     modal?: {
       background: string;

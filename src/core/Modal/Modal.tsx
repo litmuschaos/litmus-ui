@@ -5,6 +5,7 @@ import { useStyles } from "./styles";
 
 interface ModalProps extends ModalBaseProps {
   width?: string;
+  height?: string;
   onClose: () => void;
   modalActions?: React.ReactNode;
 }
@@ -12,13 +13,14 @@ interface ModalProps extends ModalBaseProps {
 const Modal: React.FC<ModalProps> = ({
   children,
   width,
+  height,
   open,
   onClose,
   className,
   modalActions,
   ...rest
 }) => {
-  const classes = useStyles({ width });
+  const classes = useStyles({ width, height });
 
   return (
     <MuiModal

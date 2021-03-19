@@ -15,25 +15,25 @@ export interface GraphMetric {
   baseColor?: string;
 }
 
-export interface ToolTipInterface {
+export interface ToolTip<T> {
   // Name of the metric
   metricName: string;
 
   // Date stamp and corresponding value
-  data: DateValue;
+  data: T;
   // Color of the metric in the ToolTip legends
   baseColor?: string;
 }
 
-export interface LineAreaGraphProps {
+export interface LineAreaGraphProps<T> {
   // Area under the curve graph:
-  closedSeries?: Array<GraphMetric>;
+  closedSeries?: T;
 
   // Line Graph:
-  openSeries?: Array<GraphMetric>;
+  openSeries?: T;
 
   // Overlay events with y-height as yMax
-  eventSeries?: Array<GraphMetric>;
+  eventSeries?: T;
 
   // Y-axis units
   unit?: string;
@@ -43,6 +43,9 @@ export interface LineAreaGraphProps {
 
   // Show individual points of the line and area under the curve graph
   showPoints?: boolean;
+
+  // Show the individual start and end markers for the event series
+  showEventMarkers?: boolean;
 
   // Grid line for the graph
   showGrid?: boolean;
@@ -71,7 +74,8 @@ export interface LineAreaGraphProps {
   // ToolTip date's format
   toolTiptimeFormat?: string;
 }
-export interface GraphProps extends LineAreaGraphProps {
+export interface LineAreaGraphChildProps
+  extends LineAreaGraphProps<Array<GraphMetric>> {
   // Width of the LineAreaGraph
   width?: number;
 
