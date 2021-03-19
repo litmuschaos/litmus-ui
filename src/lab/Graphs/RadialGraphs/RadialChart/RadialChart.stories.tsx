@@ -9,6 +9,8 @@ storiesOf("Graphs/RadialGraphs/RadialChart", module).add(
   () => (
     <ThemedBackground>
       <div style={{ height: "15rem", width: "30rem" }}>
+        {/* For aligning the LegendTable right an aspect 
+        ratio of 1:2 , height:width is most suitable */}
         <RadialChart
           radialData={testRadialChartData}
           semiCircle={false}
