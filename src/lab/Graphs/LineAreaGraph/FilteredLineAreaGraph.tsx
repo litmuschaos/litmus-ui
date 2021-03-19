@@ -1,5 +1,5 @@
 import React from "react";
-import { GraphMetric, GraphProps } from "./base";
+import { GraphMetric, LineAreaGraphChildProps } from "./base";
 import { ComputationGraph } from "./ComputationGraph";
 
 // filterUndefinedData performs type checking and
@@ -20,7 +20,7 @@ const filterUndefinedData = (
         )
     : data;
 
-const FilteredLineAreaGraph: React.FC<GraphProps> = ({
+const FilteredLineAreaGraph: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
   closedSeries,
   openSeries,

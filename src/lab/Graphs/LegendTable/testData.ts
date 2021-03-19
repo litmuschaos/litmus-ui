@@ -1,4 +1,4 @@
-import { LegendData } from "./base";
+import { LegendData } from "./LegendTable";
 
 const LegendTableTestData1: LegendData[] = [
   { data: ["ip:172.12.192.222", "10"], baseColor: "red" },

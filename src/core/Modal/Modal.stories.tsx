@@ -21,6 +21,7 @@ storiesOf("Modal/Base Modal", module)
               &#x2715;
             </ButtonOutlined>
           }
+          height={"30%"}
         >
           <div
             style={{

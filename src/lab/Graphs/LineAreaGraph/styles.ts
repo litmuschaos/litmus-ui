@@ -64,10 +64,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 500,
   },
 
-  hr: {
-    width: "0.6rem",
-    height: "0.15rem",
-    position: "fixed",
+  legendMarker: {
+    width: "1rem",
+    height: "0.2rem",
+    marginTop: "0.3rem",
+    position: "absolute",
   },
   tooltipLine: {
     stroke: theme.palette.graph.toolTip,
@@ -93,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     padding: "0.2rem",
     "& span": {
-      paddingLeft: "1rem",
+      paddingLeft: "1.5rem",
       maxWidth: "20rem",
       lineHeight: "1rem",
     },
@@ -103,10 +104,18 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tooltipLabel: {
     display: "flex",
+    position: "relative",
   },
   tooltipValue: {
     paddingLeft: "0.2rem",
   },
 }));
 
-export { useStyles };
+const usePlotLineAreaGraphStyles = makeStyles((theme: Theme) => ({
+  grid: {
+    stroke: theme.palette.disabledBackground,
+    strokeOpacity: 0.2,
+  },
+}));
+
+export { useStyles, usePlotLineAreaGraphStyles };
