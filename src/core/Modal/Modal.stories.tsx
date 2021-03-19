@@ -30,8 +30,7 @@ storiesOf("Modal/Base Modal", module)
               marginBottom: "15rem",
             }}
           >
-            Modalsdlkfjldksjfldklsjfldjfljsdfljfdflkdjfdkfjlksdjf
-            dfkdfdfdfdfdfdfdfdf
+            Modal
           </div>
         </Modal>
       </ThemedBackground>
