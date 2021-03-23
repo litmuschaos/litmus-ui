@@ -640,12 +640,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         <div>
           <Tooltip
             top={yMax}
-            left={tooltipLeft - margin.left}
+            left={tooltipLeft}
             className={classes.tooltipDateStyles}
           >
-            <div
-              className={`${classes.tooltipData} ${classes.tooltipBottomDate}`}
-            >
+            <div className={`${classes.tooltipBottomDate}`}>
               <span>{` ${dayjs(
                 new Date(getDateNum(tooltipData[0].data))
               ).format(toolTiptimeFormat)}`}</span>
