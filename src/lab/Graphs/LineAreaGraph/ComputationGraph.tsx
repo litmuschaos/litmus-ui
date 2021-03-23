@@ -408,6 +408,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 // Selection of the sub-data for the
                 // interleaving Table from the eventSeries
                 // on which the user is hovering
+                interleavingData[k] = {
+                  data: [eventSeries[j].metricName],
+                  baseColor: eventSeries[j].baseColor,
+                };
+                k++;
                 eventSeries[j].subData?.map((elem) => {
                   interleavingData[k] = {
                     data: [elem.subDataName, elem.value],
@@ -437,6 +442,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 // Selection of the sub-data for the
                 // interleaving Table from the eventSeries
                 // on which the user is hovering
+                interleavingData[k] = {
+                  data: [eventSeries[j].metricName],
+                  baseColor: eventSeries[j].baseColor,
+                };
+                k++;
                 eventSeries[j].subData?.map((elem) => {
                   interleavingData[k] = {
                     data: [elem.subDataName, elem.value],
