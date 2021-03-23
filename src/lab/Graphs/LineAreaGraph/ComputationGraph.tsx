@@ -68,7 +68,9 @@ const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
 
 const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipDateValue>;
-let interleavingData: Array<LegendData> = [{ data: [], baseColor: "" }];
+let interleavingData: Array<LegendData> = [
+  { data: ["--", "--"], baseColor: "" },
+];
 
 const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
@@ -460,8 +462,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         }
 
         pointerDataSelection = pointerDataSelection.slice(0, i);
-        interleavingData = interleavingData.slice(0, k);
 
+        interleavingData = interleavingData.slice(0, k);
+        if (interleavingData.length === 0) {
+          interleavingData[0] = { data: ["--", "--"] };
+        }
         console.log("insterleaving-sub-dat", interleavingData);
       }
       if (width < 10) return null;
@@ -719,11 +724,19 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         </div>
       )}
       {showLegendTable && (
-        <div style={{ width, height: legendTableHeight }}>
-          <LegendTable
-            data={legenddata}
-            heading={["Metric Name", "Avg", "Curr"]}
-          />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ width: width * 0.58, height: legendTableHeight }}>
+            <LegendTable
+              data={legenddata}
+              heading={["Metric Name", "Avg", "Curr"]}
+            />
+          </div>
+          <div style={{ width: width * 0.39, height: legendTableHeight }}>
+            <LegendTable
+              data={interleavingData}
+              heading={["Interleaving Data", "Value"]}
+            />
+          </div>
         </div>
       )}
     </div>

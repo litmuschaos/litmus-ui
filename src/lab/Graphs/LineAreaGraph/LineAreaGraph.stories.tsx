@@ -8,12 +8,12 @@ storiesOf("Graphs/Area", module).add("Litmus Portal", () => (
   <ThemedBackground>
     <div
       style={{
-        width: "30rem",
+        width: "60rem",
         height: "25rem",
       }}
     >
       <LineAreaGraph
-        legendTableHeight={80}
+        legendTableHeight={150}
         closedSeries={closedSeriesData}
         openSeries={openSeriesData}
         eventSeries={eventSeriesData}
