@@ -50,10 +50,12 @@ const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
                         key={`${element}-${Math.random() * 100} `}
                         className={`${classes.tableCell} ${classes.tableFont} ${classes.tableLabel}`}
                       >
-                        <div
-                          className={classes.legendMarker}
-                          style={{ background: row.baseColor }}
-                        />
+                        {row.baseColor && (
+                          <div
+                            className={classes.legendMarker}
+                            style={{ background: row.baseColor }}
+                          />
+                        )}
                         <Typography>{element}</Typography>
                       </TableCell>
                     )) ||

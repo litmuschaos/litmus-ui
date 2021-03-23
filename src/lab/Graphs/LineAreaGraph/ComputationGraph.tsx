@@ -68,6 +68,7 @@ const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
 
 const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipDateValue>;
+let interleavingData: Array<LegendData> = [{ data: [], baseColor: "" }];
 
 const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
@@ -98,6 +99,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [dataRender, setAutoRender] = useState(true);
 
   let legenddata: Array<LegendData> = [{ data: [], baseColor: "" }];
+
   const closedSeriesCount = filteredClosedSeries
     ? filteredClosedSeries.length
     : 0;
@@ -153,6 +155,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           .map((linedata, i) => ({
             metricName: filteredEventSeries[i].metricName,
             data: linedata,
+            subData: filteredEventSeries[i].subData,
             baseColor: filteredEventSeries[i].baseColor,
           }));
 
@@ -377,12 +380,13 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
         toolTipPointLength = pointerDataSelection.length;
         const eventToolTip: Array<ToolTipDateValue> = [];
+        interleavingData = interleavingData.splice(0);
+        let k = 0;
         if (eventSeries) {
           for (j = 0; j < eventSeries.length; j++) {
             indexer = bisectDate(eventSeries[j].data, x0, 1);
             dd0 = eventSeries[j].data[indexer - 1];
             dd1 = eventSeries[j].data[indexer];
-
             if (
               dd1 &&
               (toolTipPointLength - 1 < 0 ||
@@ -396,9 +400,21 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               };
               legenTablePointerData[j + legenTablePointerData.length] =
                 eventToolTip[j];
+
               if (dd1.value !== "False") {
                 pointerDataSelection[i] = eventToolTip[j];
                 i++;
+
+                // Selection of the sub-data for the
+                // interleaving Table from the eventSeries
+                // on which the user is hovering
+                eventSeries[j].subData?.map((elem) => {
+                  interleavingData[k] = {
+                    data: [elem.subDataName, elem.value],
+                    // baseColor: eventSeries[j].baseColor,
+                  };
+                  k++;
+                });
               }
             } else if (
               dd0 &&
@@ -417,12 +433,26 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               if (dd0.value !== "False") {
                 pointerDataSelection[i] = eventToolTip[j];
                 i++;
+
+                // Selection of the sub-data for the
+                // interleaving Table from the eventSeries
+                // on which the user is hovering
+                eventSeries[j].subData?.map((elem) => {
+                  interleavingData[k] = {
+                    data: [elem.subDataName, elem.value],
+                    // baseColor: eventSeries[j].baseColor,
+                  };
+                  k++;
+                });
               }
             }
           }
         }
 
         pointerDataSelection = pointerDataSelection.slice(0, i);
+        interleavingData = interleavingData.slice(0, k);
+
+        console.log("insterleaving-sub-dat", interleavingData);
       }
       if (width < 10) return null;
 
@@ -455,6 +485,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   // legendData
   if (showLegendTable) {
     legenddata = legenddata.splice(0);
+
     if (filteredEventSeries) {
       filteredEventSeries.map((linedata, index) => {
         const pointerElement = legenTablePointerData
@@ -470,11 +501,12 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
         const avg = "--";
 
-        if (linedata.data !== undefined)
+        if (linedata.data !== undefined) {
           legenddata[index] = {
             data: [linedata.metricName, avg, curr],
             baseColor: linedata.baseColor,
           };
+        }
       });
     }
     if (filteredClosedSeries) {
@@ -543,6 +575,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     setfilteredOpenSeries(openSeries);
     setfilteredEventSeries(eventSeries);
   }
+
   return (
     <div
       onMouseLeave={() => hideTooltip()}
@@ -675,14 +708,14 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           </Tooltip>
         </div>
       )}
-      <div style={{ width, height: legendTableHeight }}>
-        {showLegendTable && (
+      {showLegendTable && (
+        <div style={{ width, height: legendTableHeight }}>
           <LegendTable
             data={legenddata}
             heading={["Metric Name", "Avg", "Curr"]}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
