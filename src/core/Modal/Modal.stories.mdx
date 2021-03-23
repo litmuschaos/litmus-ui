@@ -16,11 +16,32 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
 <Canvas>
   <Story name="Primary">
     {() => {
-      const [open, setOpen] = useState(0);
+      const [open, setOpen] = useState(false);
       return (
-        <>
-          <ButtonFilled onClick={() => setOpen(1)}>{open}</ButtonFilled>
-        </>
+        <div>
+          <ButtonFilled onClick={() => setOpen(true)}>Open Modal</ButtonFilled>
+          <Modal
+            open={open}
+            onClose={() => setOpen(false)}
+            disableBackdropClick
+            disableEscapeKeyDown
+            modalActions={
+              <ButtonOutlined onClick={() => setOpen(false)}>
+                &#x2715;
+              </ButtonOutlined>
+            }
+          >
+            <div
+              style={{
+                padding: "2.5rem",
+                fontSize: "2rem",
+                marginBottom: "15rem",
+              }}
+            >
+              Modal
+            </div>
+          </Modal>
+        </div>
       );
     }}
   </Story>

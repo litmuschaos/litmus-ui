@@ -1,9 +1,9 @@
 import { RadialChartMetric } from "../base";
 
-const testRadialChartData: RadialChartMetric = {
+const testRadialProgressChartData: RadialChartMetric = {
   value: 60,
   label: "pass",
   baseColor: "#5B44BA",
 };
 
-export { testRadialChartData };
+export { testRadialProgressChartData };

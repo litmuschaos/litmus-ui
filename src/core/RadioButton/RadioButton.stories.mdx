@@ -1,34 +1,76 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import RadioGroup from "@material-ui/core/RadioGroup";
 import { RadioButton } from "../RadioButton";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import { useState } from "react";
 import { ButtonFilled } from "../Button/ButtonFilled";
 
 <Meta title="Core/RadioButton" />
 
-## =RadioButton
+## RadioButton
 
 `Buttons` allow users to take actions, and make choices, with a single tap.
 `RadioButton` is a button with solid background.
 
 ## Default variant:
 
-<!-- {/\* <Canvas>
-
+<Canvas>
   <Story name="Primary">
     {() => {
-
-      const [open, setOpen] = useState(0);
+      const [open, setOpen] = useState(false);
+      const [selected, setSelected] = useState("A");
+      const handleChange = (event) => {
+        setSelected(event.target.value);
+      };
       return (
-        <>
-          <ButtonFilled onClick={() => setOpen(1)}>{open}</ButtonFilled>
-        </>
+        <div>
+          <h2>Radio Buttons with Radio Group</h2>
+          <RadioGroup
+            name="cluster options"
+            value={selected}
+            onChange={handleChange}
+            row
+          >
+            <RadioButton value="A" onChange={handleChange}>
+              Cluster A
+            </RadioButton>
+            <RadioButton value="B" onChange={handleChange}>
+              Cluster B
+            </RadioButton>
+            <RadioButton value="C" onChange={handleChange}>
+              Cluster C
+            </RadioButton>
+            <RadioButton disabled={true} checked={false}>
+              Target cluster
+            </RadioButton>
+          </RadioGroup>
+          <h2>Radio Buttons without Radio Group</h2>
+          <RadioButton
+            checked={selected === "A"}
+            value="A"
+            onChange={handleChange}
+          >
+            Cluster A
+          </RadioButton>
+          <RadioButton
+            checked={selected === "B"}
+            value="B"
+            onChange={handleChange}
+          >
+            Cluster B
+          </RadioButton>
+          <RadioButton
+            checked={selected === "C"}
+            value="C"
+            onChange={handleChange}
+          >
+            Cluster C
+          </RadioButton>
+        </div>
       );
     }}
-
   </Story>
-</Canvas> */} -->
+</Canvas>
 
 ## Other variants:
 
