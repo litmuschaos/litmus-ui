@@ -61,10 +61,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       props.circleOrient === 1
         ? props.height -
           props.innerRadius +
-          (props.arcWidth * props.width) / 130
+          (props.arcWidth * props.width) / 140
         : props.height / 2 -
           props.innerRadius +
-          (props.arcWidth * props.width) / 130,
+          (props.arcWidth * props.width) / 140,
     transform: "translate(-50%, -50%)",
     position: "absolute",
     height: props.iconSize,

@@ -8,10 +8,12 @@ storiesOf("Graphs/RadialGraphs/RadialProgressChart", module).add(
   "Litmus Portal",
   () => (
     <ThemedBackground>
-      <div style={{ height: "30rem", width: "30rem" }}>
+      <div style={{ height: "10rem", width: "20rem" }}>
+        {/* Parent with height:width of around 1:2 is most suitable for 
+        semiCirle */}
         <RadialProgressChart
           radialData={testRadialChartData}
-          iconSize={"4rem"}
+          iconSize={"2rem"}
           semiCircle
           heading="Based on test results"
           unit={"%"}
