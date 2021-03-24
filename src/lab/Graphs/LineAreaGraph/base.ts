@@ -66,8 +66,8 @@ export interface LineAreaGraphProps<T> {
   // Legend Table below the graph
   showLegendTable?: boolean;
 
-  // SubData Table for the Events below the grapha
-  showSubDataTableForEvents?: boolean;
+  // Event Table for the Event Series and its sub-data
+  showEventTable?: boolean;
 
   // Legend Table height
   legendTableHeight?: number;
