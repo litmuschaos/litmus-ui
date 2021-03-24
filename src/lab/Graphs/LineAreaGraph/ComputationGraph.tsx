@@ -68,7 +68,7 @@ const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
 
 const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipDateValue>;
-let interleavingData: Array<LegendData> = [
+let subDataEventSeries: Array<LegendData> = [
   { data: ["--", "--"], baseColor: "" },
 ];
 
@@ -79,7 +79,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   eventSeries,
   showTips = true,
   showLegendTable = true,
-  showEventTableWithLegendTable = false,
+  showSubDataTableForEvents = false,
   widthPercentageEventTable = 40,
   marginLeftEventTable = 50,
   width = 200,
@@ -103,7 +103,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     widthPercentageEventTable,
     marginLeftEventTable,
     showLegendTable,
-    showEventTableWithLegendTable,
+    showSubDataTableForEvents,
   });
   const [filteredClosedSeries, setFilteredSeries] = useState(closedSeries);
   const [filteredOpenSeries, setfilteredOpenSeries] = useState(openSeries);
@@ -393,7 +393,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
         toolTipPointLength = pointerDataSelection.length;
         const eventToolTip: Array<ToolTipDateValue> = [];
-        interleavingData = interleavingData.splice(0);
+        subDataEventSeries = subDataEventSeries.splice(0);
         let k = 0;
         if (eventSeries) {
           for (j = 0; j < eventSeries.length; j++) {
@@ -419,15 +419,15 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 i++;
 
                 // Selection of the sub-data for the
-                // interleaving Table from the eventSeries
+                // subData Table from the eventSeries
                 // on which the user is hovering
-                interleavingData[k] = {
+                subDataEventSeries[k] = {
                   data: [eventSeries[j].metricName],
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
                 eventSeries[j].subData?.map((elem) => {
-                  interleavingData[k] = {
+                  subDataEventSeries[k] = {
                     data: [elem.subDataName, elem.value],
                   };
                   k++;
@@ -452,15 +452,15 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 i++;
 
                 // Selection of the sub-data for the
-                // interleaving Table from the eventSeries
+                // subData Table from the eventSeries
                 // on which the user is hovering
-                interleavingData[k] = {
+                subDataEventSeries[k] = {
                   data: [eventSeries[j].metricName],
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
                 eventSeries[j].subData?.map((elem) => {
-                  interleavingData[k] = {
+                  subDataEventSeries[k] = {
                     data: [elem.subDataName, elem.value],
                   };
                   k++;
@@ -471,10 +471,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         }
 
         pointerDataSelection = pointerDataSelection.slice(0, i);
-        interleavingData = interleavingData.slice(0, k);
-        // Passing hyphen if interleaving data is empty
-        if (interleavingData.length === 0) {
-          interleavingData[0] = { data: ["--", "--"] };
+        subDataEventSeries = subDataEventSeries.slice(0, k);
+        // Passing hyphen if subDataEventSeries data is empty
+        if (subDataEventSeries.length === 0) {
+          subDataEventSeries[0] = { data: ["--", "--"] };
         }
       }
       if (width < 10) return null;
@@ -729,7 +729,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           </Tooltip>
         </div>
       )}
-      {showLegendTable && showEventTableWithLegendTable && (
+      {showLegendTable && showSubDataTableForEvents && (
         <div className={classes.wrapperParentLegendAndEventTable}>
           <div className={classes.wrapperLegendTable}>
             <LegendTable
@@ -737,15 +737,15 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               heading={["Metric Name", "Avg", "Curr"]}
             />
           </div>
-          <div className={classes.wrapperEventTable}>
+          <div className={classes.wrapperSubDataTableForEvents}>
             <LegendTable
-              data={interleavingData}
+              data={subDataEventSeries}
               heading={["Chaos Metric Info", "Value"]}
             />
           </div>
         </div>
       )}
-      {showLegendTable && !showEventTableWithLegendTable && (
+      {showLegendTable && !showSubDataTableForEvents && (
         <div className={classes.wrapperLegendTable}>
           <LegendTable
             data={legenddata}

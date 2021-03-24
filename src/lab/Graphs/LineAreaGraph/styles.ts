@@ -7,7 +7,7 @@ interface StyleProps {
   widthPercentageEventTable: number;
   marginLeftEventTable: number;
   showLegendTable: boolean;
-  showEventTableWithLegendTable: boolean;
+  showSubDataTableForEvents: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -122,15 +122,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   wrapperLegendTable: (props: StyleProps) => ({
     width:
-      props.showEventTableWithLegendTable && props.showLegendTable
+      props.showSubDataTableForEvents && props.showLegendTable
         ? props.width * (1 - props.widthPercentageEventTable / 100) -
           props.marginLeftEventTable
         : props.width,
     height: props.legendTableHeight,
   }),
-  wrapperEventTable: (props: StyleProps) => ({
+  wrapperSubDataTableForEvents: (props: StyleProps) => ({
     width:
-      props.showEventTableWithLegendTable && props.showLegendTable
+      props.showSubDataTableForEvents && props.showLegendTable
         ? props.width * (props.widthPercentageEventTable / 100)
         : 0,
     height: props.legendTableHeight,
