@@ -48,7 +48,9 @@ const RadialProgressChartChild = ({
   let currentAngle: number = startAngle;
   const outerRadius =
     (circleOrient === 1
-      ? radialFigurWidth
+      ? radialFigurWidth <= height * 2
+        ? radialFigurWidth
+        : height * 2
       : Math.min(radialFigurWidth, height)) *
       0.5 -
     arcWidth;
@@ -59,6 +61,7 @@ const RadialProgressChartChild = ({
     circleOrient,
     arcWidth,
     innerRadius,
+    outerRadius,
     iconSize,
   });
   const total: number = radialData.value ? 100 : NaN;

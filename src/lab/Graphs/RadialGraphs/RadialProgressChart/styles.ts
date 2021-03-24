@@ -6,6 +6,7 @@ interface StyleProps {
   circleOrient?: number;
   arcWidth: number;
   innerRadius: number;
+  outerRadius: number;
   iconSize: string;
 }
 
@@ -61,10 +62,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       props.circleOrient === 1
         ? props.height -
           props.innerRadius +
-          (props.arcWidth * props.width) / 140
+          (props.arcWidth * props.outerRadius * 2) / 130
         : props.height / 2 -
           props.innerRadius +
-          (props.arcWidth * props.width) / 140,
+          (props.arcWidth * props.outerRadius * 2) / 130,
     transform: "translate(-50%, -50%)",
     position: "absolute",
     height: props.iconSize,
