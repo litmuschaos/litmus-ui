@@ -4,7 +4,9 @@ interface StyleProps {
   width: number;
   height: number;
   circleOrient?: number;
+  arcWidth: number;
   innerRadius: number;
+  iconSize: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -55,15 +57,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   centerIcon: (props: StyleProps) => ({
     left: "50%",
-    bottom: props.circleOrient === 1 ? "45%" : "75%",
+    top:
+      props.circleOrient === 1
+        ? props.height -
+          props.innerRadius +
+          (props.arcWidth * props.width) / 130
+        : props.height / 2 -
+          props.innerRadius +
+          (props.arcWidth * props.width) / 130,
     transform: "translate(-50%, -50%)",
-    position: "relative",
-    height: "3rem",
-    width: "3rem",
-    borderRadius: "3rem",
+    position: "absolute",
+    height: props.iconSize,
+    width: props.iconSize,
+    borderRadius: props.iconSize,
     background: theme.palette.highlight,
     "& img": {
-      position: "relative",
+      position: "absolute",
       left: "50%",
       top: "50%",
       transform: "translate(-50%, -50%)",

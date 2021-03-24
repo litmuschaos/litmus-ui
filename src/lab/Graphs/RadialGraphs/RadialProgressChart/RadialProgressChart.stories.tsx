@@ -8,9 +8,10 @@ storiesOf("Graphs/RadialGraphs/RadialProgressChart", module).add(
   "Litmus Portal",
   () => (
     <ThemedBackground>
-      <div style={{ height: "10rem", width: "20rem" }}>
+      <div style={{ height: "30rem", width: "30rem" }}>
         <RadialProgressChart
           radialData={testRadialChartData}
+          iconSize={"4rem"}
           semiCircle
           heading="Based on test results"
           unit={"%"}
