@@ -17,10 +17,12 @@ storiesOf("Graphs/Area", module).add("Litmus Portal", () => (
         closedSeries={closedSeriesData}
         openSeries={openSeriesData}
         eventSeries={eventSeriesData}
+        showEventTableWithLegendTable
         showPoints
         showLegendTable
         showEventMarkers
         showTips
+        marginLeftEventTable={10}
         unit="%"
         yLabel="Chaos"
         yLabelOffset={30}

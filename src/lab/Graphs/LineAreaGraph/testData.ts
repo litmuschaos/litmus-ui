@@ -65,6 +65,8 @@ const eventSeriesData: Array<EventMetric> = [
     subData: [
       { subDataName: "subData-0-1", value: "0-1" },
       { subDataName: "subData-0-2", value: "0-2" },
+      { subDataName: "subData-0-3", value: "0-3" },
+      { subDataName: "subData-0-4", value: "0-4" },
     ],
     baseColor: "red",
   },

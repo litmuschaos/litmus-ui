@@ -1,8 +1,13 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
 interface StyleProps {
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
+  legendTableHeight: number;
+  widthPercentageEventTable: number;
+  marginLeftEventTable: number;
+  showLegendTable: boolean;
+  showEventTableWithLegendTable: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -101,6 +106,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tooltipBottomDate: {
     color: theme.palette.text.secondary,
+    padding: "0.2rem",
   },
   tooltipLabel: {
     display: "flex",
@@ -109,6 +115,26 @@ const useStyles = makeStyles((theme: Theme) => ({
   tooltipValue: {
     paddingLeft: "0.2rem",
   },
+
+  wrapperParentLegendAndEventTable: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  wrapperLegendTable: (props: StyleProps) => ({
+    width:
+      props.showEventTableWithLegendTable && props.showLegendTable
+        ? props.width * (1 - props.widthPercentageEventTable / 100) -
+          props.marginLeftEventTable
+        : props.width,
+    height: props.legendTableHeight,
+  }),
+  wrapperEventTable: (props: StyleProps) => ({
+    width:
+      props.showEventTableWithLegendTable && props.showLegendTable
+        ? props.width * (props.widthPercentageEventTable / 100)
+        : 0,
+    height: props.legendTableHeight,
+  }),
 }));
 
 const usePlotLineAreaGraphStyles = makeStyles((theme: Theme) => ({

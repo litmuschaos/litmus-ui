@@ -67,10 +67,17 @@ export interface LineAreaGraphProps<T> {
   showLegendTable?: boolean;
 
   // Interleaving Table below the graph
-  showInterleavingTableWithLegendTable?: boolean;
+  showEventTableWithLegendTable?: boolean;
 
   // Legend Table height
   legendTableHeight?: number;
+
+  // Width percentage of the Event Table when both Legend Table and Event Table are
+  // aligned side by side
+  widthPercentageEventTable?: number;
+
+  // Margin left of Event Table i.e. gap between Event Table and Legend Table
+  marginLeftEventTable?: number;
 
   // Margins for the LineAreaGraph
   margin?: { top: number; right: number; bottom: number; left: number };

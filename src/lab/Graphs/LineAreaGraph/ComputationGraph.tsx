@@ -79,6 +79,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   eventSeries,
   showTips = true,
   showLegendTable = true,
+  showEventTableWithLegendTable = false,
+  widthPercentageEventTable = 40,
+  marginLeftEventTable = 50,
   width = 200,
   height = 200,
   margin = {
@@ -93,7 +96,15 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   ...rest
 }) => {
   const { palette } = useTheme();
-  const classes = useStyles({ width, height });
+  const classes = useStyles({
+    width,
+    height,
+    legendTableHeight,
+    widthPercentageEventTable,
+    marginLeftEventTable,
+    showLegendTable,
+    showEventTableWithLegendTable,
+  });
   const [filteredClosedSeries, setFilteredSeries] = useState(closedSeries);
   const [filteredOpenSeries, setfilteredOpenSeries] = useState(openSeries);
   const [filteredEventSeries, setfilteredEventSeries] = useState(eventSeries);
@@ -418,7 +429,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 eventSeries[j].subData?.map((elem) => {
                   interleavingData[k] = {
                     data: [elem.subDataName, elem.value],
-                    // baseColor: eventSeries[j].baseColor,
                   };
                   k++;
                 });
@@ -452,7 +462,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 eventSeries[j].subData?.map((elem) => {
                   interleavingData[k] = {
                     data: [elem.subDataName, elem.value],
-                    // baseColor: eventSeries[j].baseColor,
                   };
                   k++;
                 });
@@ -462,12 +471,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         }
 
         pointerDataSelection = pointerDataSelection.slice(0, i);
-
         interleavingData = interleavingData.slice(0, k);
+        // Passing hyphen if interleaving data is empty
         if (interleavingData.length === 0) {
           interleavingData[0] = { data: ["--", "--"] };
         }
-        console.log("insterleaving-sub-dat", interleavingData);
       }
       if (width < 10) return null;
 
@@ -691,9 +699,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             left={tooltipLeft - margin.left}
             className={classes.tooltipDateStyles}
           >
-            <div
-              className={`${classes.tooltipData} ${classes.tooltipBottomDate}`}
-            >
+            <div className={`${classes.tooltipBottomDate}`}>
               <span>{` ${dayjs(
                 new Date(getDateNum(tooltipData[0].data))
               ).format(toolTiptimeFormat)}`}</span>
@@ -723,20 +729,28 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           </Tooltip>
         </div>
       )}
-      {showLegendTable && (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ width: width * 0.58, height: legendTableHeight }}>
+      {showLegendTable && showEventTableWithLegendTable && (
+        <div className={classes.wrapperParentLegendAndEventTable}>
+          <div className={classes.wrapperLegendTable}>
             <LegendTable
               data={legenddata}
               heading={["Metric Name", "Avg", "Curr"]}
             />
           </div>
-          <div style={{ width: width * 0.39, height: legendTableHeight }}>
+          <div className={classes.wrapperEventTable}>
             <LegendTable
               data={interleavingData}
-              heading={["Interleaving Data", "Value"]}
+              heading={["Chaos Metric Info", "Value"]}
             />
           </div>
+        </div>
+      )}
+      {showLegendTable && !showEventTableWithLegendTable && (
+        <div className={classes.wrapperLegendTable}>
+          <LegendTable
+            data={legenddata}
+            heading={["Metric Name", "Avg", "Curr"]}
+          />
         </div>
       )}
     </div>
