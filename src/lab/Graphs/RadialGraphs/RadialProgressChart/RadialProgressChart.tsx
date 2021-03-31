@@ -63,9 +63,9 @@ const RadialProgressChartChild = ({
     width,
     height,
     circleOrient,
+    arcWidth,
     innerRadius,
     outerRadius,
-    arcWidth,
     iconTop,
     iconSize,
   });
@@ -76,10 +76,12 @@ const RadialProgressChartChild = ({
     ? [
         {
           value: (total ? radialData.value / total : 0) * scalerArc,
+          label: radialData.label,
           baseColor: radialData.baseColor,
         },
         {
           value: (total ? (total - radialData.value) / total : 0) * scalerArc,
+          label: "rest",
           baseColor: palette.disabledBackground,
         },
       ]

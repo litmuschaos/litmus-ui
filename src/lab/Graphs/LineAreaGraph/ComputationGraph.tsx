@@ -68,6 +68,7 @@ const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
 
 const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipDateValue>;
+let eventTableData: Array<LegendData> = [{ data: ["--", "--"], baseColor: "" }];
 
 const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
@@ -76,6 +77,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   eventSeries,
   showTips = true,
   showLegendTable = true,
+  showEventTable = false,
+  widthPercentageEventTable = 40,
+  marginLeftEventTable = 50,
   width = 200,
   height = 200,
   margin = {
@@ -90,7 +94,15 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   ...rest
 }) => {
   const { palette } = useTheme();
-  const classes = useStyles({ width, height });
+  const classes = useStyles({
+    width,
+    height,
+    legendTableHeight,
+    widthPercentageEventTable,
+    marginLeftEventTable,
+    showLegendTable,
+    showEventTable,
+  });
   const [filteredClosedSeries, setFilteredSeries] = useState(closedSeries);
   const [filteredOpenSeries, setfilteredOpenSeries] = useState(openSeries);
   const [filteredEventSeries, setfilteredEventSeries] = useState(eventSeries);
@@ -98,6 +110,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [dataRender, setAutoRender] = useState(true);
 
   let legenddata: Array<LegendData> = [{ data: [], baseColor: "" }];
+
   const closedSeriesCount = filteredClosedSeries
     ? filteredClosedSeries.length
     : 0;
@@ -153,6 +166,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           .map((linedata, i) => ({
             metricName: filteredEventSeries[i].metricName,
             data: linedata,
+            subData: filteredEventSeries[i].subData,
             baseColor: filteredEventSeries[i].baseColor,
           }));
 
@@ -377,12 +391,13 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
         toolTipPointLength = pointerDataSelection.length;
         const eventToolTip: Array<ToolTipDateValue> = [];
+        eventTableData = eventTableData.splice(0);
+        let k = 0;
         if (eventSeries) {
           for (j = 0; j < eventSeries.length; j++) {
             indexer = bisectDate(eventSeries[j].data, x0, 1);
             dd0 = eventSeries[j].data[indexer - 1];
             dd1 = eventSeries[j].data[indexer];
-
             if (
               dd1 &&
               (toolTipPointLength - 1 < 0 ||
@@ -396,9 +411,25 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               };
               legenTablePointerData[j + legenTablePointerData.length] =
                 eventToolTip[j];
+
               if (dd1.value !== "False") {
                 pointerDataSelection[i] = eventToolTip[j];
                 i++;
+
+                // Selection of the sub-data for the
+                // subData Table from the eventSeries
+                // on which the user is hovering
+                eventTableData[k] = {
+                  data: [eventSeries[j].metricName],
+                  baseColor: eventSeries[j].baseColor,
+                };
+                k++;
+                eventSeries[j].subData?.map(
+                  (elem) =>
+                    (eventTableData[k++] = {
+                      data: [elem.subDataName, elem.value],
+                    })
+                );
               }
             } else if (
               dd0 &&
@@ -417,12 +448,32 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               if (dd0.value !== "False") {
                 pointerDataSelection[i] = eventToolTip[j];
                 i++;
+
+                // Selection of the sub-data for the
+                // subData Table from the eventSeries
+                // on which the user is hovering
+                eventTableData[k] = {
+                  data: [eventSeries[j].metricName],
+                  baseColor: eventSeries[j].baseColor,
+                };
+                k++;
+                eventSeries[j].subData?.map(
+                  (elem) =>
+                    (eventTableData[k++] = {
+                      data: [elem.subDataName, elem.value],
+                    })
+                );
               }
             }
           }
         }
 
         pointerDataSelection = pointerDataSelection.slice(0, i);
+        eventTableData = eventTableData.slice(0, k);
+        // Passing hyphen if eventTableData data is empty
+        if (eventTableData.length === 0) {
+          eventTableData[0] = { data: ["--", "--"] };
+        }
       }
       if (width < 10) return null;
 
@@ -455,6 +506,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   // legendData
   if (showLegendTable) {
     legenddata = legenddata.splice(0);
+
     if (filteredEventSeries) {
       filteredEventSeries.map((linedata, index) => {
         const pointerElement = legenTablePointerData
@@ -470,11 +522,12 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
         const avg = "--";
 
-        if (linedata.data !== undefined)
+        if (linedata.data !== undefined) {
           legenddata[index] = {
             data: [linedata.metricName, avg, curr],
             baseColor: linedata.baseColor,
           };
+        }
       });
     }
     if (filteredClosedSeries) {
@@ -543,6 +596,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     setfilteredOpenSeries(openSeries);
     setfilteredEventSeries(eventSeries);
   }
+
   return (
     <div
       onMouseLeave={() => hideTooltip()}
@@ -673,14 +727,30 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           </Tooltip>
         </div>
       )}
-      <div style={{ width, height: legendTableHeight }}>
-        {showLegendTable && (
+      {showLegendTable && showEventTable && (
+        <div className={classes.wrapperParentLegendAndEventTable}>
+          <div className={classes.wrapperLegendTable}>
+            <LegendTable
+              data={legenddata}
+              heading={["Metric Name", "Avg", "Curr"]}
+            />
+          </div>
+          <div className={classes.wrapperSubDataTableForEvents}>
+            <LegendTable
+              data={eventTableData}
+              heading={["Chaos Metric Info", "Value"]}
+            />
+          </div>
+        </div>
+      )}
+      {showLegendTable && !showEventTable && (
+        <div className={classes.wrapperLegendTable}>
           <LegendTable
             data={legenddata}
             heading={["Metric Name", "Avg", "Curr"]}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

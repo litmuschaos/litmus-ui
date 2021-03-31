@@ -14,6 +14,19 @@ export interface GraphMetric {
   // Color of the metric in the graph and legends
   baseColor?: string;
 }
+export interface EventMetric extends GraphMetric {
+  // Name of the GraphMetric
+  metricName: string;
+
+  // Array of {date and value}
+  data: Array<DateValue>;
+
+  // Sub-data describing the specific event
+  subData?: Array<{ subDataName: string; value: string }>;
+
+  // Color of the metric in the graph and legends
+  baseColor?: string;
+}
 
 export interface ToolTip<T> {
   // Name of the metric
@@ -33,7 +46,7 @@ export interface LineAreaGraphProps<T> {
   openSeries?: T;
 
   // Overlay events with y-height as yMax
-  eventSeries?: T;
+  eventSeries?: Array<EventMetric>;
 
   // Y-axis units
   unit?: string;
@@ -53,8 +66,18 @@ export interface LineAreaGraphProps<T> {
   // Legend Table below the graph
   showLegendTable?: boolean;
 
+  // Event Table for the Event Series and its sub-data
+  showEventTable?: boolean;
+
   // Legend Table height
   legendTableHeight?: number;
+
+  // Width percentage of the Event Table when both Legend Table and Event Table are
+  // aligned side by side
+  widthPercentageEventTable?: number;
+
+  // Margin left of Event Table i.e. gap between Event Table and Legend Table
+  marginLeftEventTable?: number;
 
   // Margins for the LineAreaGraph
   margin?: { top: number; right: number; bottom: number; left: number };

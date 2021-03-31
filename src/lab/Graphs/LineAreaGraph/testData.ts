@@ -1,4 +1,5 @@
 import { DateValue, GraphMetric } from "../../Graphs/LineAreaGraph";
+import { EventMetric } from "./base";
 
 const openSeriesData1: DateValue[] = [
   { date: 1000, value: 20 },
@@ -32,15 +33,15 @@ const closedSeriesData2: DateValue[] = [
 ];
 const eventSeriesData1: DateValue[] = [
   { date: 3000, value: 1 },
-  { date: 4000, value: 0 },
-  { date: 5000, value: 0 },
-  { date: 6000, value: 0 },
+  { date: 4000, value: 1 },
+  { date: 5000, value: 1 },
+  { date: 6000, value: 1 },
   { date: 7000, value: 0 },
 ];
 const eventSeriesData2: DateValue[] = [
   { date: 3000, value: 0 },
   { date: 4000, value: 0 },
-  { date: 5000, value: 0 },
+  { date: 5000, value: 1 },
   { date: 6000, value: 1 },
   { date: 7000, value: 1 },
   { date: 8000, value: 1 },
@@ -57,17 +58,26 @@ const closedSeriesData: Array<GraphMetric> = [
   { metricName: "orange", data: closedSeriesData1, baseColor: "orange" },
   { metricName: "pink", data: closedSeriesData2, baseColor: "pink" },
 ];
-const eventSeriesData: Array<GraphMetric> = [
+const eventSeriesData: Array<EventMetric> = [
   {
-    metricName:
-      "chaos-pod-delete-chaos-pod-delete-chaos-pod-delete-chaos-pod-delete",
+    metricName: "chaos-pod-delete-",
     data: eventSeriesData1,
+    subData: [
+      { subDataName: "subData-0-1", value: "0-1" },
+      { subDataName: "subData-0-2", value: "0-2" },
+      { subDataName: "subData-0-3", value: "0-3" },
+      { subDataName: "subData-0-4", value: "0-4" },
+    ],
     baseColor: "red",
   },
   {
     metricName: "chaos-network-pod",
     data: eventSeriesData2,
-    baseColor: "yellow",
+    subData: [
+      { subDataName: "subData-1-1", value: "1-1" },
+      { subDataName: "subData-1-2", value: "1-2" },
+    ],
+    baseColor: "blue",
   },
 ];
 
