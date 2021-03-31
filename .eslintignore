@@ -1,4 +1,4 @@
 **/node_modules/
 **/__tests__/
-**/*.stories.tsx
+**/*.stories.mdx
 **/coverage/

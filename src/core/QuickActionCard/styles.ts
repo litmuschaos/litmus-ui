@@ -8,11 +8,11 @@ const useStyles = makeStyles((theme) => ({
   singleActionLink: {
     color: theme.palette.text.primary,
     paddingLeft: theme.spacing(2),
-    fontSize: "1.1rem",
+    fontSize: "0.75rem",
     fontWeight: 400,
   },
   listItems: {
-    margin: theme.spacing(1.5, 0),
+    margin: theme.spacing(0.5, 0),
     padding: 0,
     "& img": {
       height: "100%",

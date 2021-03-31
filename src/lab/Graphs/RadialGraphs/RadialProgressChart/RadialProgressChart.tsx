@@ -8,6 +8,12 @@ export interface RadialProgressChartProps extends RadialGraphProps {
   // Object of RadialChartMetric data for plotting the chart
   radialData: RadialChartMetric;
 
+  // Size of the icon
+  iconSize?: string;
+
+  // Top for the center icon
+  iconTop?: string;
+
   // Url for the image/icon source
   imageSrc?: string;
 
@@ -27,8 +33,10 @@ const RadialProgressChartChild = ({
   width,
   height,
   radialData,
+  iconTop,
   arcWidth = 20,
   semiCircle = false,
+  iconSize = "3rem",
   heading,
   unit,
   imageSrc,
@@ -44,7 +52,9 @@ const RadialProgressChartChild = ({
   let currentAngle: number = startAngle;
   const outerRadius =
     (circleOrient === 1
-      ? Math.max(radialFigurWidth, height)
+      ? radialFigurWidth <= height * 2
+        ? radialFigurWidth
+        : height * 2
       : Math.min(radialFigurWidth, height)) *
       0.5 -
     arcWidth;
@@ -54,6 +64,10 @@ const RadialProgressChartChild = ({
     height,
     circleOrient,
     innerRadius,
+    outerRadius,
+    arcWidth,
+    iconTop,
+    iconSize,
   });
   const total: number = radialData.value ? 100 : NaN;
   const scalerArc: number = circleOrient * Math.PI;
@@ -93,7 +107,7 @@ const RadialProgressChartChild = ({
           >
             {total > 0 &&
               radialArc &&
-              radialArc.map((elem, i) => (
+              radialArc.map((elem) => (
                 <g key={`${elem.label}-arc-group`}>
                   <Arc
                     data={elem.value}
