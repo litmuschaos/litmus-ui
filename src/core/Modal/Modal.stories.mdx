@@ -14,17 +14,19 @@ lightboxes, or whatever else.
 ## Default variant:
 
 <Canvas>
-  <Story name="Primary">
-    {() => {
+  <Story
+    name="Default"
+    args={{ disableEscapeKeyDown: true, disableBackdropClick: true }}
+  >
+    {(args) => {
       const [open, setOpen] = useState(false);
       return (
         <div>
           <ButtonFilled onClick={() => setOpen(true)}>Open Modal</ButtonFilled>
           <Modal
+            {...args}
             open={open}
             onClose={() => setOpen(false)}
-            disableBackdropClick
-            disableEscapeKeyDown
             modalActions={
               <ButtonOutlined onClick={() => setOpen(false)}>
                 &#x2715;

@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   singleActionLink: {
     color: theme.palette.text.primary,
     paddingLeft: theme.spacing(2),
-    fontSize: "0.75rem",
+    fontSize: "0.875rem",
     fontWeight: 400,
   },
   listItems: {

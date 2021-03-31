@@ -9,18 +9,12 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
 `PassFailBar` component is used to represent the pass and fail percentage with bars.
 
 <Canvas>
-  <Story
-    name="Default"
-    decorators={[
-      (Story) => (
-        <div style={{ width: "30rem", height: "7rem" }}>
-          <Story />
-        </div>
-      ),
-    ]}
-    args={{ passPercentage: 90 }}
-  >
-    {(args) => <PassFailBar {...args} />}
+  <Story name="Default" args={{ passPercentage: 90 }}>
+    {(args) => (
+      <div style={{ width: "30rem", height: "7rem" }}>
+        <PassFailBar {...args} />
+      </div>
+    )}
   </Story>
 </Canvas>
 
