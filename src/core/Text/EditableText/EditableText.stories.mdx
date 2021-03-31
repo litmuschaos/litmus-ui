@@ -12,49 +12,78 @@ import { useState } from "react";
 ## Default variant:
 
 <Canvas>
-  <Story name="Default">
-    {() => {
+  <Story name="Default" args={{ label: "Normal text field", fullWidth: true }}>
+    {(args) => {
       const [valueText, setValueText] = useState("Hello World");
       return (
-        <>
-          <EditableText
-            label="Normal text field"
-            value={valueText}
-            onChange={(e) => setValueText(e.target.value)}
-            fullWidth
-          />
-          <br />
-          <EditableText
-            label="Normal text field"
-            value={valueText}
-            multiline
-            onChange={(e) => setValueText(e.target.value)}
-            fullWidth
-          />
-          <br />
-          <EditableText
-            label="Normal text field"
-            value={valueText}
-            variant="error"
-            multiline
-            onChange={(e) => setValueText(e.target.value)}
-            fullWidth
-          />
-          <br />
-          <EditableText
-            label="Normal text field"
-            value={valueText}
-            disabled
-            multiline
-            onChange={(e) => setValueText(e.target.value)}
-            fullWidth
-          />
-        </>
+        <EditableText
+          {...args}
+          value={valueText}
+          onChange={(e) => setValueText(e.target.value)}
+        />
       );
     }}
   </Story>
 </Canvas>
 
 ## Other variants:
+
+<Canvas>
+  <Story
+    name="Multiline"
+    args={{ label: "Normal text field", multiline: true, fullWidth: true }}
+  >
+    {(args) => {
+      const [valueText, setValueText] = useState("Hello World");
+      return (
+        <EditableText
+          {...args}
+          value={valueText}
+          onChange={(e) => setValueText(e.target.value)}
+        />
+      );
+    }}
+  </Story>
+  <Story
+    name="Error"
+    args={{
+      label: "Normal text field",
+      multiline: true,
+      fullWidth: true,
+      variant: "error",
+    }}
+  >
+    {(args) => {
+      const [valueText, setValueText] = useState("Hello World");
+      return (
+        <EditableText
+          {...args}
+          value={valueText}
+          onChange={(e) => setValueText(e.target.value)}
+        />
+      );
+    }}
+  </Story>
+  <Story
+    name="Disabled"
+    args={{
+      label: "Normal text field",
+      multiline: true,
+      fullWidth: true,
+      disabled: true,
+    }}
+  >
+    {(args) => {
+      const [valueText, setValueText] = useState("Hello World");
+      return (
+        <EditableText
+          {...args}
+          value={valueText}
+          onChange={(e) => setValueText(e.target.value)}
+        />
+      );
+    }}
+  </Story>
+</Canvas>
 
 <ArgsTable of={EditableText} />

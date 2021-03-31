@@ -3,42 +3,71 @@ import { RadialChart } from "../RadialChart";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
 import { testRadialChartData } from "./testData";
 
-<Meta title="Lab/RadialChart" component={RadialChart} />
+<Meta title="Lab/RadialGraphs/RadialChart" component={RadialChart} />
 
 # RadialChart
 
 `RadialChart` component is used to represent the data as a Circle/SemiCircle graph.
 
+## Default
+
 <Canvas>
   <Story
+    name="Circle-1"
+    args={{
+      radialData: testRadialChartData,
+      heading: "heading",
+      legendTableHeight: 120,
+      showCenterHeading: true,
+    }}
+  >
+    {(args) => (
+      <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
+        <RadialChart {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Other Variants
+
+<Canvas>
+  <Story
+    name="Circle-2"
+    args={{
+      radialData: testRadialChartData,
+      semiCircle: false,
+      heading: "heading",
+      legendTableHeight: 100,
+      alignLegendTable: "right",
+      showCenterHeading: true,
+    }}
+  >
+    {(args) => (
+      <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
+        <RadialChart {...args} />
+      </div>
+    )}
+  </Story>
+  <Story
     name="SemiCircle-1"
-    decorators={[
-      (Story) => (
-        <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
-          <Story />
-        </div>
-      ),
-    ]}
     args={{
       radialData: testRadialChartData,
       semiCircle: true,
       heading: "heading",
-      legendTableHeight: 120,
+      legendTableHeight: 100,
       alignLegendTable: "bottom",
       showCenterHeading: true,
     }}
   >
-    {(args) => <RadialChart {...args} />}
+    {(args) => (
+      <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
+        <RadialChart {...args} />
+      </div>
+    )}
   </Story>
   <Story
     name="SemiCircle-2"
-    decorators={[
-      (Story) => (
-        <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
-          <Story />
-        </div>
-      ),
-    ]}
     args={{
       radialData: testRadialChartData,
       semiCircle: true,
@@ -48,47 +77,11 @@ import { testRadialChartData } from "./testData";
       showCenterHeading: true,
     }}
   >
-    {(args) => <RadialChart {...args} />}
-  </Story>
-  <Story
-    name="Circle-1"
-    decorators={[
-      (Story) => (
-        <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
-          <Story />
-        </div>
-      ),
-    ]}
-    args={{
-      radialData: testRadialChartData,
-      semiCircle: false,
-      heading: "heading",
-      legendTableHeight: 100,
-      alignLegendTable: "right",
-      showCenterHeading: true,
-    }}
-  >
-    {(args) => <RadialChart {...args} />}
-  </Story>
-  <Story
-    name="Circle-2"
-    decorators={[
-      (Story) => (
-        <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
-          <Story />
-        </div>
-      ),
-    ]}
-    args={{
-      radialData: testRadialChartData,
-      semiCircle: false,
-      heading: "heading",
-      legendTableHeight: 100,
-      alignLegendTable: "bottom",
-      showCenterHeading: true,
-    }}
-  >
-    {(args) => <RadialChart {...args} />}
+    {(args) => (
+      <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
+        <RadialChart {...args} />
+      </div>
+    )}
   </Story>
 </Canvas>
 
