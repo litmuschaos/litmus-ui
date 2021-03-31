@@ -424,12 +424,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
-                eventSeries[j].subData?.map(
-                  (elem) =>
-                    (eventTableData[k++] = {
-                      data: [elem.subDataName, elem.value],
-                    })
-                );
+                eventSeries[j].subData?.map((elem) => {
+                  eventTableData[k++] = {
+                    data: [elem.subDataName, elem.value],
+                  };
+                });
               }
             } else if (
               dd0 &&
@@ -457,12 +456,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
-                eventSeries[j].subData?.map(
-                  (elem) =>
-                    (eventTableData[k++] = {
-                      data: [elem.subDataName, elem.value],
-                    })
-                );
+                eventSeries[j].subData?.map((elem) => {
+                  eventTableData[k++] = {
+                    data: [elem.subDataName, elem.value],
+                  };
+                });
               }
             }
           }

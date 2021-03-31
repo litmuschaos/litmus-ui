@@ -107,7 +107,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     padding: "0.2rem",
     color: theme.palette.text.secondary,
-    padding: "0.2rem",
   },
   tooltipLabel: {
     display: "flex",

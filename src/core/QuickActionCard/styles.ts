@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
   listItems: {
     margin: theme.spacing(0.5, 0),
     padding: 0,
+    overflow: "hidden",
+    height: "1.5rem",
     "& img": {
       height: "100%",
       margin: "0.5rem",
