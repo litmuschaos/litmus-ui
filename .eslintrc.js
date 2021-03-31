@@ -55,6 +55,7 @@ module.exports = {
     "no-plusplus": rules.OFF,
     "multiline-ternary": rules.OFF,
     "no-useless-constructor": rules.OFF,
+    "mdx/no-unused-expressions": rules.OFF,
     "max-len": [
       "warn",
       {
