@@ -424,12 +424,13 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
-                eventSeries[j].subData?.map((elem) => {
-                  eventTableData[k] = {
-                    data: [elem.subDataName, elem.value],
-                  };
-                  k++;
-                });
+                if (eventSeries[j].subData) {
+                  eventSeries[j].subData?.forEach((elem) => {
+                    eventTableData[k++] = {
+                      data: [elem.subDataName, elem.value],
+                    };
+                  });
+                }
               }
             } else if (
               dd0 &&
@@ -457,12 +458,13 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
-                eventSeries[j].subData?.map((elem) => {
-                  eventTableData[k] = {
-                    data: [elem.subDataName, elem.value],
-                  };
-                  k++;
-                });
+                if (eventSeries[j].subData) {
+                  eventSeries[j].subData?.forEach((elem) => {
+                    eventTableData[k++] = {
+                      data: [elem.subDataName, elem.value],
+                    };
+                  });
+                }
               }
             }
           }
@@ -694,7 +696,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         <div>
           <Tooltip
             top={yMax}
-            left={tooltipLeft - margin.left}
+            left={tooltipLeft}
             className={classes.tooltipDateStyles}
           >
             <div className={`${classes.tooltipBottomDate}`}>

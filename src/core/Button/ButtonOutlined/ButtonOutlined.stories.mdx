@@ -1,0 +1,45 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { ButtonOutlined } from "../ButtonOutlined";
+
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta
+  title="Core/Button/ButtonOutlined"
+  component={ButtonOutlined}
+  argTypes={{
+    variant: {
+      control: {
+        type: "radio",
+        options: {
+          default: "default",
+          highlight: "highlight",
+        },
+        defaultValue: "default",
+      },
+    },
+    onClick: { action: "clicked" },
+  }}
+/>
+
+# ButtonOutlined
+
+`ButtonOutlined` are medium-emphasis buttons.
+They contain actions that are important, but aren’t the primary action in an app.
+
+## Default variant:
+
+<Canvas>
+  <Story name="default">
+    {(args) => <ButtonOutlined {...args}>Default Variant</ButtonOutlined>}
+  </Story>
+</Canvas>
+
+## Other variants for ButtonOutlined:
+
+<Canvas>
+  <Story name="highlight" args={{ variant: "highlight" }}>
+    {(args) => <ButtonOutlined {...args}>Highlight Variant</ButtonOutlined>}
+  </Story>
+</Canvas>
+
+<ArgsTable of={ButtonOutlined} />

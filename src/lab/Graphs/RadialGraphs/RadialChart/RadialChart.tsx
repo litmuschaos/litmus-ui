@@ -63,9 +63,9 @@ const RadialChartChild = ({
   let currentAngle: number = startAngle;
   const outerRadius =
     (circleOrient === 1
-      ? semiCircle
-        ? Math.min(radialFigurWidth, height)
-        : Math.min(radialFigurWidth, height)
+      ? radialFigurWidth <= height * 2
+        ? radialFigurWidth
+        : height * 2
       : Math.min(radialFigurWidth, height)) *
       0.5 -
     arcWidth;
@@ -97,9 +97,10 @@ const RadialChartChild = ({
     : [{ value: NaN, label: "" }];
   if (centerValue === "0" && total > 0) {
     setcenterValue(total.toString());
-    showCenterHeading ? setCenterText(heading ?? "") : null;
+    if (showCenterHeading) {
+      setCenterText(`${heading}`);
+    }
   }
-
   legendData = legendData.splice(0);
 
   if (radialData) {
@@ -147,15 +148,18 @@ const RadialChartChild = ({
                     endAngle={(currentAngle += elem.value)}
                     onMouseEnter={(e) => {
                       setcenterValue(radialData[i].value.toString());
-                      showCenterHeading ? setCenterText(`${elem.label}`) : null;
+                      if (showCenterHeading) {
+                        setCenterText(`${heading}`);
+                      }
                       setcurrentHovered(
                         e.currentTarget.getAttribute("id")?.toString() ?? ""
                       );
                     }}
                     onMouseLeave={() => {
                       setcenterValue(total.toString());
-                      showCenterHeading ? setCenterText(`${heading}`) : null;
-
+                      if (showCenterHeading) {
+                        setCenterText(`${heading}`);
+                      }
                       setcurrentHovered("");
                     }}
                     opacity={

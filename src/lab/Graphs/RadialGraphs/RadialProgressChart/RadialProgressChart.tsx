@@ -11,6 +11,9 @@ export interface RadialProgressChartProps extends RadialGraphProps {
   // Size of the icon
   iconSize?: string;
 
+  // Top for the center icon
+  iconTop?: string;
+
   // Url for the image/icon source
   imageSrc?: string;
 
@@ -30,11 +33,12 @@ const RadialProgressChartChild = ({
   width,
   height,
   radialData,
+  iconTop,
   arcWidth = 20,
   semiCircle = false,
+  iconSize = "3rem",
   heading,
   unit,
-  iconSize = "3rem",
   imageSrc,
   imageAlt = "icon",
   className,
@@ -62,6 +66,7 @@ const RadialProgressChartChild = ({
     arcWidth,
     innerRadius,
     outerRadius,
+    iconTop,
     iconSize,
   });
   const total: number = radialData.value ? 100 : NaN;
@@ -104,7 +109,7 @@ const RadialProgressChartChild = ({
           >
             {total > 0 &&
               radialArc &&
-              radialArc.map((elem, i) => (
+              radialArc.map((elem) => (
                 <g key={`${elem.label}-arc-group`}>
                   <Arc
                     data={elem.value}

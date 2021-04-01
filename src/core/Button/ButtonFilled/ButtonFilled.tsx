@@ -5,7 +5,7 @@ import { useStyles } from "./styles";
 
 type Variant = "default" | "error" | "success" | undefined;
 
-interface ButtonFilledProps extends ButtonBaseProps {
+export interface ButtonFilledProps extends ButtonBaseProps {
   variant?: Variant;
 }
 
