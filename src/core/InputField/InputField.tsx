@@ -9,12 +9,14 @@ type Variant = "primary" | "error" | "success" | undefined;
 interface InputProps extends BaseInputProps {
   variant?: Variant;
   width?: string;
+  filled?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
 }
 const InputField: React.FC<InputProps> = ({
   variant,
   width,
+  filled,
   startIcon,
   endIcon,
   disabled,
@@ -45,7 +47,7 @@ const InputField: React.FC<InputProps> = ({
   return (
     <TextField
       data-testid="inputField"
-      variant="outlined"
+      variant={filled ? "filled" : "outlined"}
       className={`${classes.root} ${className} ${
         disabled ? classes.disabled : getVariant(variant)
       }`}

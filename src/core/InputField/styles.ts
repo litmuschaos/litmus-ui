@@ -12,14 +12,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& label": {
       color: theme.palette.text.hint,
     },
-    background: theme.palette.background.paper,
+    "& .MuiInputBase-root": {
+      background: theme.palette.background.paper,
+    },
     "& fieldset": {
       borderColor: `${theme.palette.border.main} !important`,
     },
     "& .MuiSvgIcon-root": {
       color: theme.palette.text.hint,
     },
-    "& .MuiInputBase-input": {
+
+    "& input": {
+      background: theme.palette.background.paper,
       "&:focus, &:hover, &:active": {
         "&:-webkit-autofill": {
           WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
@@ -44,6 +48,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         borderColor: `${theme.palette.highlight} !important`,
       },
     },
+    "& .MuiInputBase-root:after": {
+      borderColor: `${theme.palette.border.main} !important`,
+    },
   },
   error: {
     background: theme.palette.background.paper,
@@ -61,6 +68,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     "& label": {
       color: ` ${theme.palette.success.main} !important`,
+    },
+    "& .MuiInputBase-root:after": {
+      borderColor: `${theme.palette.border.success} !important`,
     },
   },
 }));
