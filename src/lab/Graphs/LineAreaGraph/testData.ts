@@ -46,6 +46,11 @@ const eventSeriesData2: DateValue[] = [
   { date: 7000, value: 1 },
   { date: 8000, value: 1 },
   { date: 9000, value: 0 },
+  { date: 10000, value: 0 },
+  { date: 11000, value: 1 },
+  { date: 12000, value: 1 },
+  { date: 13000, value: 1 },
+  { date: 14000, value: 0 },
 ];
 const openSeriesData: Array<GraphMetric> = [
   {
@@ -63,10 +68,10 @@ const eventSeriesData: Array<EventMetric> = [
     metricName: "chaos-pod-delete-",
     data: eventSeriesData1,
     subData: [
-      { subDataName: "subData-0-1", value: "0-1" },
-      { subDataName: "subData-0-2", value: "0-2" },
-      { subDataName: "subData-0-3", value: "0-3" },
-      { subDataName: "subData-0-4", value: "0-4" },
+      { subDataName: "subData-0-1", value: "0-1", date: 3000 },
+      { subDataName: "subData-0-2", value: "0-2", date: 3000 },
+      { subDataName: "subData-0-3", value: "0-3", date: 3000 },
+      { subDataName: "subData-0-4", value: "0-4", date: 3000 },
     ],
     baseColor: "red",
   },
@@ -74,8 +79,8 @@ const eventSeriesData: Array<EventMetric> = [
     metricName: "chaos-network-pod",
     data: eventSeriesData2,
     subData: [
-      { subDataName: "subData-1-1", value: "1-1" },
-      { subDataName: "subData-1-2", value: "1-2" },
+      { subDataName: "subData-1-1", value: "1-1", date: 5000 },
+      { subDataName: "subData-1-2", value: "1-2", date: 5000 },
     ],
     baseColor: "blue",
   },

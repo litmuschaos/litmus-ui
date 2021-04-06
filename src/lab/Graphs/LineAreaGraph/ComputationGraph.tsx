@@ -393,6 +393,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         const eventToolTip: Array<ToolTipDateValue> = [];
         eventTableData = eventTableData.splice(0);
         let k = 0;
+        console.log("Pointer Data", pointerDataSelection);
         if (eventSeries) {
           for (j = 0; j < eventSeries.length; j++) {
             indexer = bisectDate(eventSeries[j].data, x0, 1);
@@ -400,9 +401,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             dd1 = eventSeries[j].data[indexer];
             if (
               dd1 &&
-              (toolTipPointLength - 1 < 0 ||
-                dd1.date ===
-                  pointerDataSelection[toolTipPointLength - 1].data.date)
+              ((toolTipPointLength === 0 && dd1.date >= x0.valueOf()) ||
+                (toolTipPointLength > 0 &&
+                  dd1.date ===
+                    pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
               eventToolTip[j] = {
                 metricName: eventSeries[j].metricName,
@@ -434,9 +436,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               }
             } else if (
               dd0 &&
-              (toolTipPointLength - 1 < 0 ||
-                dd0.date ===
-                  pointerDataSelection[toolTipPointLength - 1].data.date)
+              ((toolTipPointLength === 0 && dd0.date >= x0.valueOf()) ||
+                (toolTipPointLength > 0 &&
+                  dd0.date ===
+                    pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
               eventToolTip[j] = {
                 metricName: eventSeries[j].metricName,

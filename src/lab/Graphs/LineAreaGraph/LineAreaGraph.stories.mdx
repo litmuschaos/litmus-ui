@@ -14,20 +14,23 @@ in form of lines, area-closed under the graph and events.
   <Story
     name="Default"
     args={{
-      legendTableHeight: 80,
+      legendTableHeight: 120,
       closedSeries: closedSeriesData,
       openSeries: openSeriesData,
       eventSeries: eventSeriesData,
+      showEventTable: true,
       showPoints: true,
       showLegendTable: true,
       showTips: true,
       unit: "%",
       yLabel: "Chaos",
       yLabelOffset: 35,
+      marginLeftEventTable: 10,
+      widthPercentageEventTable: 50,
     }}
   >
     {(args) => (
-      <div style={{ width: "30rem", height: "25rem" }}>
+      <div style={{ width: "40rem", height: "25rem" }}>
         <LineAreaGraph {...args} />
       </div>
     )}

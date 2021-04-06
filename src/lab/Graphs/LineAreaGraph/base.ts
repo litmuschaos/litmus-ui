@@ -22,7 +22,7 @@ export interface EventMetric extends GraphMetric {
   data: Array<DateValue>;
 
   // Sub-data describing the specific event
-  subData?: Array<{ subDataName: string; value: string }>;
+  subData?: Array<{ subDataName: string; value: string; date: number }>;
 
   // Color of the metric in the graph and legends
   baseColor?: string;
