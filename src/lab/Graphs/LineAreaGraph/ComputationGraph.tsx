@@ -7,8 +7,9 @@ import {
   localPoint,
   scaleLinear,
   scaleTime,
-  Tooltip,
+  TooltipWithBounds,
   useTooltip,
+  useTooltipInPortal,
 } from "@visx/visx";
 import { bisector, extent, max, min } from "d3-array";
 import dayjs from "dayjs";
@@ -260,7 +261,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       }),
     [yMax, filteredClosedSeries, filteredOpenSeries]
   );
-
+  // Tooltip bounds detection
+  const { containerRef, containerBounds } = useTooltipInPortal({
+    scroll: true,
+    detectBounds: true,
+  });
   //  ToolTip Data
   const {
     showTooltip,
@@ -393,7 +398,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         const eventToolTip: Array<ToolTipDateValue> = [];
         eventTableData = eventTableData.splice(0);
         let k = 0;
-        console.log("Pointer Data", pointerDataSelection);
         if (eventSeries) {
           for (j = 0; j < eventSeries.length; j++) {
             indexer = bisectDate(eventSeries[j].data, x0, 1);
@@ -472,6 +476,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             }
           }
         }
+        console.log(pointerDataSelection);
 
         pointerDataSelection = pointerDataSelection.slice(0, i);
         eventTableData = eventTableData.slice(0, k);
@@ -485,9 +490,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       showTooltip({
         tooltipData: pointerDataSelection,
         tooltipLeft:
-          pointerDataSelection[0] && pointerDataSelection[0].data
+          (pointerDataSelection[0] && pointerDataSelection[0].data
             ? dateScale(getDateNum(pointerDataSelection[0].data))
-            : 0,
+            : dateScale(xMax)) - containerBounds.left,
         tooltipTop:
           pointerDataSelection[0] && pointerDataSelection[0].data
             ? valueScale(getValueNum(pointerDataSelection[0].data))
@@ -604,6 +609,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
   return (
     <div
+      ref={containerRef}
       onMouseLeave={() => hideTooltip()}
       style={{
         width,
@@ -697,7 +703,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       </svg>
       {tooltipData && showTips && tooltipData[0] && (
         <div>
-          <Tooltip
+          <TooltipWithBounds
             top={yMax}
             left={tooltipLeft}
             className={classes.tooltipDateStyles}
@@ -707,10 +713,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 new Date(getDateNum(tooltipData[0].data))
               ).format(toolTiptimeFormat)}`}</span>
             </div>
-          </Tooltip>
-          <Tooltip
+          </TooltipWithBounds>
+          <TooltipWithBounds
             top={tooltipTop}
-            left={tooltipLeft + margin.left}
+            left={tooltipLeft + 60}
             className={classes.tooltipMetric}
           >
             {tooltipData.map((linedata) => (
@@ -729,7 +735,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 </div>
               </div>
             ))}
-          </Tooltip>
+          </TooltipWithBounds>
         </div>
       )}
       {showLegendTable && showEventTable && (
