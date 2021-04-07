@@ -32,6 +32,7 @@ const closedSeriesData2: DateValue[] = [
   { date: 8000, value: 30 },
 ];
 const eventSeriesData1: DateValue[] = [
+  { date: 2000, value: 0 },
   { date: 3000, value: 1 },
   { date: 4000, value: 1 },
   { date: 5000, value: 1 },
@@ -39,6 +40,9 @@ const eventSeriesData1: DateValue[] = [
   { date: 7000, value: 0 },
 ];
 const eventSeriesData2: DateValue[] = [
+  { date: 0, value: 0 },
+  { date: 1000, value: 0 },
+  { date: 2000, value: 0 },
   { date: 3000, value: 0 },
   { date: 4000, value: 0 },
   { date: 5000, value: 1 },
@@ -98,6 +102,10 @@ const eventSeriesData: Array<EventMetric> = [
     subData: [
       { subDataName: "subData-1-1", value: "1-1", date: 5000 },
       { subDataName: "subData-1-2", value: "1-2", date: 5000 },
+      { subDataName: "subData-1-3", value: "1-3", date: 11000 },
+      { subDataName: "subData-1-4", value: "1-4", date: 11000 },
+      { subDataName: "subData-1-5", value: "1-5", date: 11000 },
+      { subDataName: "subData-1-6", value: "1-6", date: 11000 },
     ],
     baseColor: "blue",
   },

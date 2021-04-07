@@ -441,11 +441,38 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
+                let startSingleEvent = indexer;
+                let endSingleEvent = indexer;
+
+                while (
+                  (eventSeries[j].data[startSingleEvent].value === "True" ||
+                    eventSeries[j].data[startSingleEvent].value === "End") &&
+                  startSingleEvent > 0
+                ) {
+                  startSingleEvent--;
+                }
+                while (
+                  (eventSeries[j].data[endSingleEvent].value === "True" ||
+                    eventSeries[j].data[endSingleEvent].value === "Start") &&
+                  endSingleEvent < eventSeries[j].data.length
+                ) {
+                  endSingleEvent++;
+                }
+
+                console.log("d1 start:end", startSingleEvent, endSingleEvent);
+
                 if (eventSeries[j].subData) {
-                  eventSeries[j].subData?.forEach((elem) => {
-                    eventTableData[k++] = {
-                      data: [elem.subDataName, elem.value],
-                    };
+                  eventSeries[j].subData?.forEach((singleSubData) => {
+                    if (
+                      singleSubData.date >=
+                        eventSeries[j].data[startSingleEvent].date &&
+                      singleSubData.date <=
+                        eventSeries[j].data[endSingleEvent].date
+                    ) {
+                      eventTableData[k++] = {
+                        data: [singleSubData.subDataName, singleSubData.value],
+                      };
+                    }
                   });
                 }
               }
@@ -476,11 +503,37 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
+
+                let startSingleEvent = indexer;
+                let endSingleEvent = indexer;
+
+                while (
+                  (eventSeries[j].data[startSingleEvent].value === "True" ||
+                    eventSeries[j].data[startSingleEvent].value === "End") &&
+                  startSingleEvent > 0
+                ) {
+                  startSingleEvent--;
+                }
+                while (
+                  (eventSeries[j].data[endSingleEvent].value === "True" ||
+                    eventSeries[j].data[startSingleEvent].value === "Start") &&
+                  endSingleEvent < eventSeries[j].data.length
+                ) {
+                  endSingleEvent++;
+                }
+
                 if (eventSeries[j].subData) {
-                  eventSeries[j].subData?.forEach((elem) => {
-                    eventTableData[k++] = {
-                      data: [elem.subDataName, elem.value],
-                    };
+                  eventSeries[j].subData?.forEach((singleSubData) => {
+                    if (
+                      singleSubData.date >=
+                        eventSeries[j].data[startSingleEvent].date &&
+                      singleSubData.date <=
+                        eventSeries[j].data[endSingleEvent].date
+                    ) {
+                      eventTableData[k++] = {
+                        data: [singleSubData.subDataName, singleSubData.value],
+                      };
+                    }
                   });
                 }
               }
@@ -626,8 +679,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     setfilteredOpenSeries(openSeries);
     setfilteredEventSeries(eventSeries);
   }
-
-  console.log(containerBounds.left);
 
   return (
     <div
