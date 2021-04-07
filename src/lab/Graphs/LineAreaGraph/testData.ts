@@ -40,8 +40,6 @@ const eventSeriesData1: DateValue[] = [
   { date: 7000, value: 0 },
 ];
 const eventSeriesData2: DateValue[] = [
-  { date: 0, value: 0 },
-  { date: 1000, value: 0 },
   { date: 2000, value: 0 },
   { date: 3000, value: 0 },
   { date: 4000, value: 0 },
