@@ -7,6 +7,7 @@ import {
   localPoint,
   scaleLinear,
   scaleTime,
+  Tooltip,
   TooltipWithBounds,
   useTooltip,
   useTooltipInPortal,
@@ -270,7 +271,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const {
     showTooltip,
     hideTooltip,
-
     tooltipData,
     tooltipLeft = 0,
     tooltipTop = 0,
@@ -476,8 +476,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             }
           }
         }
-        console.log(pointerDataSelection);
-
         pointerDataSelection = pointerDataSelection.slice(0, i);
         eventTableData = eventTableData.slice(0, k);
         // Passing hyphen if eventTableData data is empty
@@ -492,13 +490,17 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         tooltipLeft:
           (pointerDataSelection[0] && pointerDataSelection[0].data
             ? dateScale(getDateNum(pointerDataSelection[0].data))
-            : dateScale(xMax)) - containerBounds.left,
+            : dateScale(xMax)) -
+          containerBounds.left +
+          margin.left -
+          margin.right,
         tooltipTop:
           pointerDataSelection[0] && pointerDataSelection[0].data
             ? valueScale(getValueNum(pointerDataSelection[0].data))
             : 0,
       });
     },
+
     [
       showTips,
       width,
@@ -607,6 +609,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     setfilteredEventSeries(eventSeries);
   }
 
+  console.log(containerBounds.left);
+
   return (
     <div
       ref={containerRef}
@@ -703,7 +707,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       </svg>
       {tooltipData && showTips && tooltipData[0] && (
         <div>
-          <TooltipWithBounds
+          <Tooltip
             top={yMax}
             left={tooltipLeft}
             className={classes.tooltipDateStyles}
@@ -713,10 +717,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 new Date(getDateNum(tooltipData[0].data))
               ).format(toolTiptimeFormat)}`}</span>
             </div>
-          </TooltipWithBounds>
+          </Tooltip>
           <TooltipWithBounds
             top={tooltipTop}
-            left={tooltipLeft + 60}
+            left={tooltipLeft}
             className={classes.tooltipMetric}
           >
             {tooltipData.map((linedata) => (

@@ -1,4 +1,5 @@
 import { makeStyles, Theme } from "@material-ui/core";
+import { defaultStyles } from "@visx/tooltip";
 
 interface StyleProps {
   width: number;
@@ -81,14 +82,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     pointerEvents: "none",
   },
   tooltipMetric: {
+    ...defaultStyles,
     zIndex: 3,
+    margin: "0.5rem",
     marginTop: "1rem",
-    marginLeft: "3rem",
-    padding: "0.5rem",
+    marginLeft: "3.2rem",
+    padding: "1rem",
     backgroundColor: `${theme.palette.cards.background} !important`,
   },
   tooltipDateStyles: {
+    ...defaultStyles,
     position: "relative",
+    transform: "translate(-25%,0%)",
     marginTop: "0.5rem",
     backgroundColor: `${theme.palette.graph.toolTip} !important`,
   },
@@ -105,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tooltipBottomDate: {
     justifyContent: "space-between",
-    padding: "0.2rem",
+    padding: "0.1rem",
     color: theme.palette.text.secondary,
   },
   tooltipLabel: {
