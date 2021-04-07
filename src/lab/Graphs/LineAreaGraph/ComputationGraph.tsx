@@ -278,6 +278,17 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     // initial tooltip state
     tooltipOpen: true,
   });
+
+  const {
+    showTooltip: showTooltipDate,
+    hideTooltip: hideTooltipDate,
+    tooltipData: tooltipDataDate,
+    tooltipLeft: tooltipLeftDate = 0,
+  } = useTooltip<TooltipData>({
+    // initial tooltip state
+    tooltipOpen: true,
+  });
+
   const getSum = (total: number, num: number | string) => {
     if (typeof num === "number") {
       return total + (num || 0);
@@ -484,20 +495,26 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         }
       }
       if (width < 10) return null;
-
+      const tooltipLeftValue =
+        (pointerDataSelection[0] && pointerDataSelection[0].data
+          ? dateScale(getDateNum(pointerDataSelection[0].data))
+          : dateScale(xMax)) -
+        containerBounds.left +
+        margin.left -
+        margin.right;
+      const tooltipTopValue =
+        pointerDataSelection[0] && pointerDataSelection[0].data
+          ? valueScale(getValueNum(pointerDataSelection[0].data))
+          : 0;
       showTooltip({
         tooltipData: pointerDataSelection,
-        tooltipLeft:
-          (pointerDataSelection[0] && pointerDataSelection[0].data
-            ? dateScale(getDateNum(pointerDataSelection[0].data))
-            : dateScale(xMax)) -
-          containerBounds.left +
-          margin.left -
-          margin.right,
-        tooltipTop:
-          pointerDataSelection[0] && pointerDataSelection[0].data
-            ? valueScale(getValueNum(pointerDataSelection[0].data))
-            : 0,
+        tooltipLeft: tooltipLeftValue,
+        tooltipTop: tooltipTopValue,
+      });
+      showTooltipDate({
+        tooltipData: pointerDataSelection,
+        tooltipLeft: tooltipLeftValue,
+        tooltipTop: tooltipTopValue,
       });
     },
 
@@ -505,6 +522,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       showTips,
       width,
       showTooltip,
+      showTooltipDate,
       dateScale,
       valueScale,
       margin.left,
@@ -613,15 +631,19 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
   return (
     <div
-      ref={containerRef}
-      onMouseLeave={() => hideTooltip()}
+      onMouseLeave={() => hideTooltipDate()}
       style={{
         width,
         height: height + legendTableHeight,
         position: "relative",
       }}
     >
-      <svg width={width} height={height}>
+      <svg
+        onMouseLeave={() => hideTooltip()}
+        ref={containerRef}
+        width={width}
+        height={height}
+      >
         <rect
           x={0}
           y={0}
@@ -677,11 +699,14 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               setAutoRender(true);
             }}
           />
-          {showTips && tooltipData && tooltipData[0] && (
+          {showTips && tooltipDataDate && tooltipDataDate[0] && (
             <Line
-              key={`${tooltipData[0].metricName}-toolTipLine`}
-              from={{ x: dateScale(getDateNum(tooltipData[0].data)), y: 0 }}
-              to={{ x: dateScale(getDateNum(tooltipData[0].data)), y: yMax }}
+              key={`${tooltipDataDate[0].metricName}-toolTipLine`}
+              from={{ x: dateScale(getDateNum(tooltipDataDate[0].data)), y: 0 }}
+              to={{
+                x: dateScale(getDateNum(tooltipDataDate[0].data)),
+                y: yMax,
+              }}
               className={classes.tooltipLine}
             />
           )}
@@ -705,41 +730,43 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             )}
         </PlotLineAreaGraph>
       </svg>
-      {tooltipData && showTips && tooltipData[0] && (
+      {tooltipDataDate && showTips && tooltipDataDate[0] && (
         <div>
           <Tooltip
             top={yMax}
-            left={tooltipLeft}
+            left={tooltipLeftDate}
             className={classes.tooltipDateStyles}
           >
             <div className={`${classes.tooltipBottomDate}`}>
               <span>{` ${dayjs(
-                new Date(getDateNum(tooltipData[0].data))
+                new Date(getDateNum(tooltipDataDate[0].data))
               ).format(toolTiptimeFormat)}`}</span>
             </div>
           </Tooltip>
-          <TooltipWithBounds
-            top={tooltipTop}
-            left={tooltipLeft}
-            className={classes.tooltipMetric}
-          >
-            {tooltipData.map((linedata) => (
-              <div key={`tooltipName-value- ${linedata.metricName}`}>
-                <div className={classes.tooltipData}>
-                  <div className={classes.tooltipLabel}>
-                    <div
-                      className={classes.legendMarker}
-                      style={{ background: linedata.baseColor }}
-                    />
-                    <span>{`${linedata.metricName}`}</span>
-                  </div>
-                  <div className={classes.tooltipValue}>
-                    <span>{`${getValueStr(linedata.data)}`}</span>
+          {tooltipData && showTips && tooltipData[0] && (
+            <TooltipWithBounds
+              top={tooltipTop}
+              left={tooltipLeft}
+              className={classes.tooltipMetric}
+            >
+              {tooltipData.map((linedata) => (
+                <div key={`tooltipName-value- ${linedata.metricName}`}>
+                  <div className={classes.tooltipData}>
+                    <div className={classes.tooltipLabel}>
+                      <div
+                        className={classes.legendMarker}
+                        style={{ background: linedata.baseColor }}
+                      />
+                      <span>{`${linedata.metricName}`}</span>
+                    </div>
+                    <div className={classes.tooltipValue}>
+                      <span>{`${getValueStr(linedata.data)}`}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </TooltipWithBounds>
+              ))}
+            </TooltipWithBounds>
+          )}
         </div>
       )}
       {showLegendTable && showEventTable && (

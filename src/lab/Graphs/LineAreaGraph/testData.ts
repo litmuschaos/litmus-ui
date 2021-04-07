@@ -58,9 +58,26 @@ const openSeriesData: Array<GraphMetric> = [
     data: openSeriesData1,
     baseColor: "teal",
   },
+  {
+    metricName: "teal-1",
+    data: openSeriesData1,
+    baseColor: "teal",
+  },
+  {
+    metricName: "teal-2",
+    data: openSeriesData1,
+    baseColor: "teal",
+  },
+  {
+    metricName: "teal-3",
+    data: openSeriesData1,
+    baseColor: "teal",
+  },
 ];
 const closedSeriesData: Array<GraphMetric> = [
-  { metricName: "orange", data: closedSeriesData1, baseColor: "orange" },
+  { metricName: "orange-1", data: closedSeriesData1, baseColor: "orange" },
+  { metricName: "orange-2", data: closedSeriesData1, baseColor: "orange" },
+  { metricName: "orange-3", data: closedSeriesData1, baseColor: "orange" },
   { metricName: "pink", data: closedSeriesData2, baseColor: "pink" },
 ];
 const eventSeriesData: Array<EventMetric> = [
