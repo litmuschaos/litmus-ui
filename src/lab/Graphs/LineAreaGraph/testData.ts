@@ -62,26 +62,9 @@ const openSeriesData: Array<GraphMetric> = [
     data: openSeriesData1,
     baseColor: "teal",
   },
-  {
-    metricName: "teal-1",
-    data: openSeriesData1,
-    baseColor: "teal",
-  },
-  {
-    metricName: "teal-2",
-    data: openSeriesData1,
-    baseColor: "teal",
-  },
-  {
-    metricName: "teal-3",
-    data: openSeriesData1,
-    baseColor: "teal",
-  },
 ];
 const closedSeriesData: Array<GraphMetric> = [
-  { metricName: "orange-1", data: closedSeriesData1, baseColor: "orange" },
-  { metricName: "orange-2", data: closedSeriesData1, baseColor: "orange" },
-  { metricName: "orange-3", data: closedSeriesData1, baseColor: "orange" },
+  { metricName: "orange", data: closedSeriesData1, baseColor: "orange" },
   { metricName: "pink", data: closedSeriesData2, baseColor: "pink" },
 ];
 const eventSeriesData: Array<EventMetric> = [
@@ -102,10 +85,10 @@ const eventSeriesData: Array<EventMetric> = [
     subData: [
       { subDataName: "subData-1-1", value: "1-1", date: 5000 },
       { subDataName: "subData-1-2", value: "1-2", date: 5000 },
-      { subDataName: "subData-1-3", value: "1-3", date: 11000 },
-      { subDataName: "subData-1-4", value: "1-4", date: 11000 },
-      { subDataName: "subData-1-5", value: "1-5", date: 11000 },
-      { subDataName: "subData-1-6", value: "1-6", date: 11000 },
+      { subDataName: "subData-2-1", value: "2-1", date: 11000 },
+      { subDataName: "subData-2-2", value: "2-2", date: 11000 },
+      { subDataName: "subData-2-3", value: "2-3", date: 11000 },
+      { subDataName: "subData-2-4", value: "2-4", date: 11000 },
     ],
     baseColor: "blue",
   },

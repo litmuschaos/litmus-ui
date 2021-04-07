@@ -441,6 +441,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
+                // For a singleEvent where the user is hovering,
+                // here we are trying to get to the start and end point
+                // of that event
                 let startSingleEvent = indexer;
                 let endSingleEvent = indexer;
 
@@ -459,10 +462,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   endSingleEvent++;
                 }
 
-                console.log("d1 start:end", startSingleEvent, endSingleEvent);
-
                 if (eventSeries[j].subData) {
                   eventSeries[j].subData?.forEach((singleSubData) => {
+                    // Checking if the timeStamp of the subData lands
+                    // within the start and end of singleEvent the user is hovering
                     if (
                       singleSubData.date >=
                         eventSeries[j].data[startSingleEvent].date &&
@@ -495,9 +498,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 pointerDataSelection[i] = eventToolTip[j];
                 i++;
 
-                // Selection of the sub-data for the
-                // subData Table from the eventSeries
-                // on which the user is hovering
                 eventTableData[k] = {
                   data: [eventSeries[j].metricName],
                   baseColor: eventSeries[j].baseColor,
