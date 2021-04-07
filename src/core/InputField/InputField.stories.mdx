@@ -31,6 +31,7 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
     name="Primary"
     args={{
       variant: "primary",
+      type: "text",
       label: "Normal text field",
       onChange: (e) => e.target.value,
     }}
@@ -46,6 +47,17 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
     {(args) => <InputField {...args} />}
   </Story>
   <Story name="Error" args={{ variant: "error", label: "Error" }}>
+    {(args) => <InputField {...args} />}
+  </Story>
+</Canvas>
+
+## Other HTML input types:
+
+<Canvas>
+  <Story name="Password" args={{ label: "Enter password", type: "password" }}>
+    {(args) => <InputField {...args} />}
+  </Story>
+  <Story name="Email" args={{ label: "Enter email", type: "email" }}>
     {(args) => <InputField {...args} />}
   </Story>
 </Canvas>
