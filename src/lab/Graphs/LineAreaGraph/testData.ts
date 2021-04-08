@@ -2,9 +2,6 @@ import { DateValue, GraphMetric } from "../../Graphs/LineAreaGraph";
 import { EventMetric } from "./base";
 
 const openSeriesData1: DateValue[] = [
-  { date: 1000, value: 20 },
-  { date: 2000, value: 30 },
-  { date: 3000, value: 35 },
   { date: 4000, value: 40 },
   { date: 5000, value: 50 },
   { date: 6000, value: 74 },
@@ -12,9 +9,6 @@ const openSeriesData1: DateValue[] = [
   { date: 8000, value: 10 },
 ];
 const closedSeriesData1: DateValue[] = [
-  { date: 1000, value: 40 },
-  { date: 2000, value: 10 },
-  { date: 3000, value: 55 },
   { date: 4000, value: 60 },
   { date: 5000, value: 20 },
   { date: 6000, value: -14 },
@@ -22,9 +16,6 @@ const closedSeriesData1: DateValue[] = [
   { date: 8000, value: 10 },
 ];
 const closedSeriesData2: DateValue[] = [
-  { date: 1000, value: 0 },
-  { date: 2000, value: 14 },
-  { date: 3000, value: 5 },
   { date: 4000, value: 30 },
   { date: 5000, value: 50 },
   { date: 6000, value: 54 },
@@ -40,6 +31,8 @@ const eventSeriesData1: DateValue[] = [
   { date: 7000, value: 0 },
 ];
 const eventSeriesData2: DateValue[] = [
+  { date: 0, value: 1 },
+  { date: 1000, value: 1 },
   { date: 2000, value: 0 },
   { date: 3000, value: 0 },
   { date: 4000, value: 0 },
