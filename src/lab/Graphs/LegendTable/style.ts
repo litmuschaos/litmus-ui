@@ -7,8 +7,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: "100%",
     backgroundColor: theme.palette.background.paper,
     overflowY: "auto",
-    boxShadow: `inset 0px -30px 20px -20px ${theme.palette.text.secondary}`,
-
     "&::-webkit-scrollbar": {
       width: "3px",
       height: "3px",
