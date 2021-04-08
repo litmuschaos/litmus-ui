@@ -386,131 +386,218 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             indexer = bisectDate(eventSeries[j].data, x0, 1);
             dd0 = eventSeries[j].data[indexer - 1];
             dd1 = eventSeries[j].data[indexer];
-            if (
-              dd1 &&
-              ((toolTipPointLength === 0 &&
-                x0.valueOf() - getDateNum(dd0).valueOf() >
-                  getDateNum(dd1).valueOf() - x0.valueOf()) ||
-                (toolTipPointLength > 0 &&
-                  dd1.date ===
-                    pointerDataSelection[toolTipPointLength - 1].data.date))
-            ) {
-              singleEventToolTip = {
-                metricName: eventSeries[j].metricName,
-                data: dd1,
-                baseColor: eventSeries[j].baseColor,
-              };
-              legenTablePointerData[
-                j + legenTablePointerData.length
-              ] = singleEventToolTip;
-
-              if (dd1.value !== "False") {
-                pointerDataSelection[i++] = singleEventToolTip;
-                // Selection of the sub-data for the
-                // subData Table from the eventSeries
-                // on which the user is hovering
-                eventTableData[k] = {
-                  data: [eventSeries[j].metricName],
-                  baseColor: eventSeries[j].baseColor,
-                };
-                k++;
-                // For a singleEvent where the user is hovering,
-                // here we are trying to get to the start and end point
-                // of that event
-                let startSingleEvent = indexer;
-                let endSingleEvent = indexer;
-
-                while (
-                  (eventSeries[j].data[startSingleEvent].value === "True" ||
-                    eventSeries[j].data[startSingleEvent].value === "End") &&
-                  startSingleEvent > 0
+            const adjacentDataPoint = [
+              eventSeries[j].data[indexer - 1],
+              eventSeries[j].data[indexer],
+            ];
+            adjacentDataPoint.forEach(
+              (singleDataPoint, indexSingleDataPoint) => {
+                if (
+                  singleDataPoint &&
+                  ((toolTipPointLength === 0 &&
+                    x0.valueOf() -
+                      getDateNum(
+                        indexSingleDataPoint === 0
+                          ? adjacentDataPoint[1]
+                          : adjacentDataPoint[1]
+                      ).valueOf() >
+                      getDateNum(singleDataPoint).valueOf() - x0.valueOf()) ||
+                    (toolTipPointLength > 0 &&
+                      singleDataPoint.date ===
+                        pointerDataSelection[toolTipPointLength - 1].data.date))
                 ) {
-                  startSingleEvent--;
-                }
-                while (
-                  (eventSeries[j].data[endSingleEvent].value === "True" ||
-                    eventSeries[j].data[endSingleEvent].value === "Start") &&
-                  endSingleEvent < eventSeries[j].data.length
-                ) {
-                  endSingleEvent++;
-                }
+                  singleEventToolTip = {
+                    metricName: eventSeries[j].metricName,
+                    data: singleDataPoint,
+                    baseColor: eventSeries[j].baseColor,
+                  };
+                  legenTablePointerData[
+                    j + legenTablePointerData.length
+                  ] = singleEventToolTip;
 
-                if (eventSeries[j].subData) {
-                  eventSeries[j].subData?.forEach((singleSubData) => {
-                    // Checking if the timeStamp of the subData lands
-                    // within the start and end of singleEvent the user is hovering
-                    if (
-                      singleSubData.date >=
-                        eventSeries[j].data[startSingleEvent].date &&
-                      singleSubData.date <=
-                        eventSeries[j].data[endSingleEvent].date
+                  if (singleDataPoint.value !== "False") {
+                    pointerDataSelection[i++] = singleEventToolTip;
+                    // Selection of the sub-data for the
+                    // subData Table from the eventSeries
+                    // on which the user is hovering
+                    eventTableData[k] = {
+                      data: [eventSeries[j].metricName],
+                      baseColor: eventSeries[j].baseColor,
+                    };
+                    k++;
+                    // For a singleEvent where the user is hovering,
+                    // here we are trying to get to the start and end point
+                    // of that event
+                    let startSingleEvent =
+                      indexer - (indexSingleDataPoint === 0 ? 1 : 0);
+                    let endSingleEvent =
+                      indexer - (indexSingleDataPoint === 0 ? 1 : 0);
+
+                    while (
+                      (eventSeries[j].data[startSingleEvent].value === "True" ||
+                        eventSeries[j].data[startSingleEvent].value ===
+                          "End") &&
+                      startSingleEvent > 0
                     ) {
-                      eventTableData[k++] = {
-                        data: [singleSubData.subDataName, singleSubData.value],
-                      };
+                      startSingleEvent--;
                     }
-                  });
+                    while (
+                      (eventSeries[j].data[endSingleEvent].value === "True" ||
+                        eventSeries[j].data[endSingleEvent].value ===
+                          "Start") &&
+                      endSingleEvent < eventSeries[j].data.length
+                    ) {
+                      endSingleEvent++;
+                    }
+
+                    if (eventSeries[j].subData) {
+                      eventSeries[j].subData?.forEach((singleSubData) => {
+                        // Checking if the timeStamp of the subData lands
+                        // within the start and end of singleEvent the user is hovering
+                        if (
+                          singleSubData.date >=
+                            eventSeries[j].data[startSingleEvent].date &&
+                          singleSubData.date <=
+                            eventSeries[j].data[endSingleEvent].date
+                        ) {
+                          eventTableData[k++] = {
+                            data: [
+                              singleSubData.subDataName,
+                              singleSubData.value,
+                            ],
+                          };
+                        }
+                      });
+                    }
+                  }
                 }
               }
-            } else if (
-              dd0 &&
-              ((toolTipPointLength === 0 &&
-                x0.valueOf() - getDateNum(dd0).valueOf() <
-                  getDateNum(dd1).valueOf() - x0.valueOf()) ||
-                (toolTipPointLength > 0 &&
-                  dd0.date ===
-                    pointerDataSelection[toolTipPointLength - 1].data.date))
-            ) {
-              singleEventToolTip = {
-                metricName: eventSeries[j].metricName,
-                data: dd0,
-                baseColor: eventSeries[j].baseColor,
-              };
-              legenTablePointerData[
-                j + legenTablePointerData.length
-              ] = singleEventToolTip;
+            );
+            // if (
+            //   dd1 &&
+            //   ((toolTipPointLength === 0 &&
+            //     x0.valueOf() - getDateNum(dd0).valueOf() >
+            //       getDateNum(dd1).valueOf() - x0.valueOf()) ||
+            //     (toolTipPointLength > 0 &&
+            //       dd1.date ===
+            //         pointerDataSelection[toolTipPointLength - 1].data.date))
+            // ) {
+            //   singleEventToolTip = {
+            //     metricName: eventSeries[j].metricName,
+            //     data: dd1,
+            //     baseColor: eventSeries[j].baseColor,
+            //   };
+            //   legenTablePointerData[
+            //     j + legenTablePointerData.length
+            //   ] = singleEventToolTip;
 
-              if (dd0.value !== "False") {
-                pointerDataSelection[i++] = singleEventToolTip;
-                eventTableData[k] = {
-                  data: [eventSeries[j].metricName],
-                  baseColor: eventSeries[j].baseColor,
-                };
-                k++;
-                let startSingleEvent = indexer - 1;
-                let endSingleEvent = indexer - 1;
+            //   if (dd1.value !== "False") {
+            //     pointerDataSelection[i++] = singleEventToolTip;
+            //     // Selection of the sub-data for the
+            //     // subData Table from the eventSeries
+            //     // on which the user is hovering
+            //     eventTableData[k] = {
+            //       data: [eventSeries[j].metricName],
+            //       baseColor: eventSeries[j].baseColor,
+            //     };
+            //     k++;
+            //     // For a singleEvent where the user is hovering,
+            //     // here we are trying to get to the start and end point
+            //     // of that event
+            //     let startSingleEvent = indexer;
+            //     let endSingleEvent = indexer;
 
-                while (
-                  (eventSeries[j].data[startSingleEvent].value === "True" ||
-                    eventSeries[j].data[startSingleEvent].value === "End") &&
-                  startSingleEvent > 0
-                ) {
-                  startSingleEvent--;
-                }
-                while (
-                  (eventSeries[j].data[endSingleEvent].value === "True" ||
-                    eventSeries[j].data[endSingleEvent].value === "Start") &&
-                  endSingleEvent < eventSeries[j].data.length
-                ) {
-                  endSingleEvent++;
-                }
+            //     while (
+            //       (eventSeries[j].data[startSingleEvent].value === "True" ||
+            //         eventSeries[j].data[startSingleEvent].value === "End") &&
+            //       startSingleEvent > 0
+            //     ) {
+            //       startSingleEvent--;
+            //     }
+            //     while (
+            //       (eventSeries[j].data[endSingleEvent].value === "True" ||
+            //         eventSeries[j].data[endSingleEvent].value === "Start") &&
+            //       endSingleEvent < eventSeries[j].data.length
+            //     ) {
+            //       endSingleEvent++;
+            //     }
 
-                if (eventSeries[j].subData) {
-                  eventSeries[j].subData?.forEach((singleSubData) => {
-                    if (
-                      singleSubData.date >=
-                        eventSeries[j].data[startSingleEvent].date &&
-                      singleSubData.date <=
-                        eventSeries[j].data[endSingleEvent].date
-                    ) {
-                      eventTableData[k++] = {
-                        data: [singleSubData.subDataName, singleSubData.value],
-                      };
-                    }
-                  });
-                }
-              }
-            }
+            //     if (eventSeries[j].subData) {
+            //       eventSeries[j].subData?.forEach((singleSubData) => {
+            //         // Checking if the timeStamp of the subData lands
+            //         // within the start and end of singleEvent the user is hovering
+            //         if (
+            //           singleSubData.date >=
+            //             eventSeries[j].data[startSingleEvent].date &&
+            //           singleSubData.date <=
+            //             eventSeries[j].data[endSingleEvent].date
+            //         ) {
+            //           eventTableData[k++] = {
+            //             data: [singleSubData.subDataName, singleSubData.value],
+            //           };
+            //         }
+            //       });
+            //     }
+            //   }
+            // } else if (
+            //   dd0 &&
+            //   ((toolTipPointLength === 0 &&
+            //     x0.valueOf() - getDateNum(dd0).valueOf() <
+            //       getDateNum(dd1).valueOf() - x0.valueOf()) ||
+            //     (toolTipPointLength > 0 &&
+            //       dd0.date ===
+            //         pointerDataSelection[toolTipPointLength - 1].data.date))
+            // ) {
+            //   singleEventToolTip = {
+            //     metricName: eventSeries[j].metricName,
+            //     data: dd0,
+            //     baseColor: eventSeries[j].baseColor,
+            //   };
+            //   legenTablePointerData[
+            //     j + legenTablePointerData.length
+            //   ] = singleEventToolTip;
+
+            //   if (dd0.value !== "False") {
+            //     pointerDataSelection[i++] = singleEventToolTip;
+            //     eventTableData[k] = {
+            //       data: [eventSeries[j].metricName],
+            //       baseColor: eventSeries[j].baseColor,
+            //     };
+            //     k++;
+            //     let startSingleEvent = indexer - 1;
+            //     let endSingleEvent = indexer - 1;
+
+            //     while (
+            //       (eventSeries[j].data[startSingleEvent].value === "True" ||
+            //         eventSeries[j].data[startSingleEvent].value === "End") &&
+            //       startSingleEvent > 0
+            //     ) {
+            //       startSingleEvent--;
+            //     }
+            //     while (
+            //       (eventSeries[j].data[endSingleEvent].value === "True" ||
+            //         eventSeries[j].data[endSingleEvent].value === "Start") &&
+            //       endSingleEvent < eventSeries[j].data.length
+            //     ) {
+            //       endSingleEvent++;
+            //     }
+
+            //     if (eventSeries[j].subData) {
+            //       eventSeries[j].subData?.forEach((singleSubData) => {
+            //         if (
+            //           singleSubData.date >=
+            //             eventSeries[j].data[startSingleEvent].date &&
+            //           singleSubData.date <=
+            //             eventSeries[j].data[endSingleEvent].date
+            //         ) {
+            //           eventTableData[k++] = {
+            //             data: [singleSubData.subDataName, singleSubData.value],
+            //           };
+            //         }
+            //       });
+            //     }
+            //   }
+            // }
           }
         }
         pointerDataSelection = pointerDataSelection.slice(0, i);
