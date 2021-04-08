@@ -105,3 +105,6 @@ export interface LineAreaGraphChildProps
   // Height of the LineAreaGraph excluding the legendTable
   height?: number;
 }
+
+export type ToolTipDateValue = ToolTip<DateValue>;
+export type TooltipData = Array<ToolTipDateValue>;

@@ -12,61 +12,33 @@ import {
   useTooltip,
   useTooltipInPortal,
 } from "@visx/visx";
-import { bisector, extent, max, min } from "d3-array";
+import { extent, max, min } from "d3-array";
 import dayjs from "dayjs";
 import React, { useCallback, useMemo, useState } from "react";
 import { LegendData } from "../LegendTable";
 import { LegendTable } from "../LegendTable/LegendTable";
-import { DateValue, LineAreaGraphChildProps, ToolTip } from "./base";
+import {
+  DateValue,
+  LineAreaGraphChildProps,
+  TooltipData,
+  ToolTipDateValue,
+} from "./base";
 import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
 import { useStyles } from "./styles";
+import {
+  bisectDate,
+  bisectorValue,
+  getDateNum,
+  getValueNum,
+  getValueStr,
+} from "./utils";
 
-type ToolTipDateValue = ToolTip<DateValue>;
-type TooltipData = Array<ToolTipDateValue>;
 let dd1: DateValue;
 let dd0: DateValue;
 let i: number;
 let j: number;
 let indexer: number;
 let toolTipPointLength: number;
-
-// Accessor functions
-const getDateNum = (d: DateValue) => {
-  if (d) {
-    if (typeof d.date === "number") {
-      return new Date(d.date);
-    } else return new Date(parseInt(d.date, 10));
-  } else {
-    return new Date(0);
-  }
-};
-
-const getValueNum = (d: DateValue) => {
-  if (d) {
-    if (typeof d.value === "number") {
-      return d.value;
-    } else return parseInt(d.value, 10);
-  } else {
-    return NaN;
-  }
-};
-
-const getValueStr = (d: DateValue) => {
-  if (d) {
-    if (typeof d.value === "number") {
-      return d.value.toFixed(2).toString();
-    } else return d.value;
-  } else {
-    return "";
-  }
-};
-
-// Bisectors
-const bisectDate = bisector<DateValue, Date>((d) => new Date(getDateNum(d)))
-  .left;
-const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
-  getValueNum(d.data)
-).left;
 
 const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipDateValue>;
