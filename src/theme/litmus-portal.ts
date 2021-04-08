@@ -64,7 +64,8 @@ const litmusPortalTheme = createTheme({
       default: "#F5F6F8",
       paper: "#FFFFFF",
     },
-    sidebarMenu: "linear-gradient(180deg, #5B44BA 0%, #493795 100%)",
+    sidebarMenu: "#F5F6F8",
+    header: "linear-gradient(269.82deg, #5B44BA 0.52%, #493795 99.07%)",
     loginBackground: "#FFFFFF",
     disabledBackground: "#D9D9D9",
     text: {
