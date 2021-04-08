@@ -289,49 +289,49 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           setMouseEnterGraph(true);
         }
         i = 0;
-        if (closedSeries) {
-          for (j = 0; j < closedSeries.length; j++) {
-            indexer = bisectDate(closedSeries[i].data, x0, 1);
-            dd0 = closedSeries[j].data[indexer - 1];
-            dd1 = closedSeries[j].data[indexer];
+        if (filteredClosedSeries) {
+          for (j = 0; j < filteredClosedSeries.length; j++) {
+            indexer = bisectDate(filteredClosedSeries[i].data, x0, 1);
+            dd0 = filteredClosedSeries[j].data[indexer - 1];
+            dd1 = filteredClosedSeries[j].data[indexer];
 
             if (dd1) {
               pointerDataSelection[i] =
                 x0.valueOf() - getDateNum(dd0).valueOf() >
                 getDateNum(dd1).valueOf() - x0.valueOf()
                   ? {
-                      metricName: closedSeries[i].metricName,
+                      metricName: filteredClosedSeries[i].metricName,
                       data: dd1,
-                      baseColor: closedSeries[i].baseColor,
+                      baseColor: filteredClosedSeries[i].baseColor,
                     }
                   : {
-                      metricName: closedSeries[i].metricName,
+                      metricName: filteredClosedSeries[i].metricName,
                       data: dd0,
-                      baseColor: closedSeries[i].baseColor,
+                      baseColor: filteredClosedSeries[i].baseColor,
                     };
               i++;
             }
           }
         }
-        if (openSeries) {
-          for (j = 0; j < openSeries.length; j++) {
-            indexer = bisectDate(openSeries[j].data, x0, 1);
-            dd0 = openSeries[j].data[indexer - 1];
-            dd1 = openSeries[j].data[indexer];
+        if (filteredOpenSeries) {
+          for (j = 0; j < filteredOpenSeries.length; j++) {
+            indexer = bisectDate(filteredOpenSeries[j].data, x0, 1);
+            dd0 = filteredOpenSeries[j].data[indexer - 1];
+            dd1 = filteredOpenSeries[j].data[indexer];
 
             if (dd1) {
               pointerDataSelection[i] =
                 x0.valueOf() - getDateNum(dd0).valueOf() >
                 getDateNum(dd1).valueOf() - x0.valueOf()
                   ? {
-                      metricName: openSeries[j].metricName,
+                      metricName: filteredOpenSeries[j].metricName,
                       data: dd1,
-                      baseColor: openSeries[j].baseColor,
+                      baseColor: filteredOpenSeries[j].baseColor,
                     }
                   : {
-                      metricName: openSeries[j].metricName,
+                      metricName: filteredOpenSeries[j].metricName,
                       data: dd0,
-                      baseColor: openSeries[j].baseColor,
+                      baseColor: filteredOpenSeries[j].baseColor,
                     };
               i++;
             }
@@ -381,223 +381,180 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         let singleEventToolTip: ToolTipDateValue;
         eventTableData = eventTableData.splice(0);
         let k = 0;
-        if (eventSeries) {
-          for (j = 0; j < eventSeries.length; j++) {
-            indexer = bisectDate(eventSeries[j].data, x0, 1);
-            dd0 = eventSeries[j].data[indexer - 1];
-            dd1 = eventSeries[j].data[indexer];
-            const adjacentDataPoint = [
-              eventSeries[j].data[indexer - 1],
-              eventSeries[j].data[indexer],
-            ];
-            adjacentDataPoint.forEach(
-              (singleDataPoint, indexSingleDataPoint) => {
-                if (
-                  singleDataPoint &&
-                  ((toolTipPointLength === 0 &&
-                    x0.valueOf() -
-                      getDateNum(
-                        indexSingleDataPoint === 0
-                          ? adjacentDataPoint[1]
-                          : adjacentDataPoint[1]
-                      ).valueOf() >
-                      getDateNum(singleDataPoint).valueOf() - x0.valueOf()) ||
-                    (toolTipPointLength > 0 &&
-                      singleDataPoint.date ===
-                        pointerDataSelection[toolTipPointLength - 1].data.date))
+        let trimPreviousToopTipData = 0;
+
+        if (filteredEventSeries) {
+          for (j = 0; j < filteredEventSeries.length; j++) {
+            indexer = bisectDate(filteredEventSeries[j].data, x0, 1);
+            dd0 = filteredEventSeries[j].data[indexer - 1];
+            dd1 = filteredEventSeries[j].data[indexer];
+            if (dd1) {
+              if (
+                toolTipPointLength > 0 &&
+                trimPreviousToopTipData === 0 &&
+                Math.abs(x0.valueOf() - getDateNum(dd1).valueOf()) <
+                  Math.abs(
+                    getDateNum(
+                      pointerDataSelection[toolTipPointLength - 1].data
+                    ).valueOf() - x0.valueOf()
+                  )
+              ) {
+                i = 0;
+                toolTipPointLength = 0;
+                trimPreviousToopTipData = 1;
+                pointerDataSelection.slice(0, 0);
+              }
+            } else if (dd0) {
+              if (
+                toolTipPointLength > 0 &&
+                trimPreviousToopTipData === 0 &&
+                Math.abs(x0.valueOf() - getDateNum(dd0).valueOf()) <
+                  Math.abs(
+                    getDateNum(
+                      pointerDataSelection[toolTipPointLength - 1].data
+                    ).valueOf() - x0.valueOf()
+                  )
+              ) {
+                i = 0;
+                toolTipPointLength = 0;
+                trimPreviousToopTipData = 1;
+                pointerDataSelection.slice(0, 0);
+              }
+            }
+
+            if (
+              dd1 &&
+              ((toolTipPointLength === 0 &&
+                x0.valueOf() - getDateNum(dd0).valueOf() >
+                  getDateNum(dd1).valueOf() - x0.valueOf()) ||
+                (toolTipPointLength > 0 &&
+                  dd1.date ===
+                    pointerDataSelection[toolTipPointLength - 1].data.date))
+            ) {
+              singleEventToolTip = {
+                metricName: filteredEventSeries[j].metricName,
+                data: dd1,
+                baseColor: filteredEventSeries[j].baseColor,
+              };
+              legenTablePointerData[
+                j + legenTablePointerData.length
+              ] = singleEventToolTip;
+
+              if (dd1.value !== "False") {
+                pointerDataSelection[i++] = singleEventToolTip;
+                // Selection of the sub-data for the
+                // subData Table from the filteredEventSeries
+                // on which the user is hovering
+                eventTableData[k] = {
+                  data: [filteredEventSeries[j].metricName],
+                  baseColor: filteredEventSeries[j].baseColor,
+                };
+                k++;
+                // For a singleEvent where the user is hovering,
+                // here we are trying to get to the start and end point
+                // of that event
+                let startSingleEvent = indexer;
+                let endSingleEvent = indexer;
+
+                while (
+                  (filteredEventSeries[j].data[startSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[startSingleEvent].value ===
+                      "End") &&
+                  startSingleEvent > 0
                 ) {
-                  singleEventToolTip = {
-                    metricName: eventSeries[j].metricName,
-                    data: singleDataPoint,
-                    baseColor: eventSeries[j].baseColor,
-                  };
-                  legenTablePointerData[
-                    j + legenTablePointerData.length
-                  ] = singleEventToolTip;
+                  startSingleEvent--;
+                }
+                while (
+                  (filteredEventSeries[j].data[endSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[endSingleEvent].value ===
+                      "Start") &&
+                  endSingleEvent < filteredEventSeries[j].data.length
+                ) {
+                  endSingleEvent++;
+                }
 
-                  if (singleDataPoint.value !== "False") {
-                    pointerDataSelection[i++] = singleEventToolTip;
-                    // Selection of the sub-data for the
-                    // subData Table from the eventSeries
-                    // on which the user is hovering
-                    eventTableData[k] = {
-                      data: [eventSeries[j].metricName],
-                      baseColor: eventSeries[j].baseColor,
-                    };
-                    k++;
-                    // For a singleEvent where the user is hovering,
-                    // here we are trying to get to the start and end point
-                    // of that event
-                    let startSingleEvent =
-                      indexer - (indexSingleDataPoint === 0 ? 1 : 0);
-                    let endSingleEvent =
-                      indexer - (indexSingleDataPoint === 0 ? 1 : 0);
-
-                    while (
-                      (eventSeries[j].data[startSingleEvent].value === "True" ||
-                        eventSeries[j].data[startSingleEvent].value ===
-                          "End") &&
-                      startSingleEvent > 0
+                if (filteredEventSeries[j].subData) {
+                  filteredEventSeries[j].subData?.forEach((singleSubData) => {
+                    // Checking if the timeStamp of the subData lands
+                    // within the start and end of singleEvent the user is hovering
+                    if (
+                      singleSubData.date >=
+                        filteredEventSeries[j].data[startSingleEvent].date &&
+                      singleSubData.date <=
+                        filteredEventSeries[j].data[endSingleEvent].date
                     ) {
-                      startSingleEvent--;
+                      eventTableData[k++] = {
+                        data: [singleSubData.subDataName, singleSubData.value],
+                      };
                     }
-                    while (
-                      (eventSeries[j].data[endSingleEvent].value === "True" ||
-                        eventSeries[j].data[endSingleEvent].value ===
-                          "Start") &&
-                      endSingleEvent < eventSeries[j].data.length
-                    ) {
-                      endSingleEvent++;
-                    }
-
-                    if (eventSeries[j].subData) {
-                      eventSeries[j].subData?.forEach((singleSubData) => {
-                        // Checking if the timeStamp of the subData lands
-                        // within the start and end of singleEvent the user is hovering
-                        if (
-                          singleSubData.date >=
-                            eventSeries[j].data[startSingleEvent].date &&
-                          singleSubData.date <=
-                            eventSeries[j].data[endSingleEvent].date
-                        ) {
-                          eventTableData[k++] = {
-                            data: [
-                              singleSubData.subDataName,
-                              singleSubData.value,
-                            ],
-                          };
-                        }
-                      });
-                    }
-                  }
+                  });
                 }
               }
-            );
-            // if (
-            //   dd1 &&
-            //   ((toolTipPointLength === 0 &&
-            //     x0.valueOf() - getDateNum(dd0).valueOf() >
-            //       getDateNum(dd1).valueOf() - x0.valueOf()) ||
-            //     (toolTipPointLength > 0 &&
-            //       dd1.date ===
-            //         pointerDataSelection[toolTipPointLength - 1].data.date))
-            // ) {
-            //   singleEventToolTip = {
-            //     metricName: eventSeries[j].metricName,
-            //     data: dd1,
-            //     baseColor: eventSeries[j].baseColor,
-            //   };
-            //   legenTablePointerData[
-            //     j + legenTablePointerData.length
-            //   ] = singleEventToolTip;
+            } else if (
+              dd0 &&
+              ((toolTipPointLength === 0 &&
+                x0.valueOf() - getDateNum(dd0).valueOf() <
+                  getDateNum(dd1).valueOf() - x0.valueOf()) ||
+                (toolTipPointLength > 0 &&
+                  dd0.date ===
+                    pointerDataSelection[toolTipPointLength - 1].data.date))
+            ) {
+              singleEventToolTip = {
+                metricName: filteredEventSeries[j].metricName,
+                data: dd0,
+                baseColor: filteredEventSeries[j].baseColor,
+              };
+              legenTablePointerData[
+                j + legenTablePointerData.length
+              ] = singleEventToolTip;
 
-            //   if (dd1.value !== "False") {
-            //     pointerDataSelection[i++] = singleEventToolTip;
-            //     // Selection of the sub-data for the
-            //     // subData Table from the eventSeries
-            //     // on which the user is hovering
-            //     eventTableData[k] = {
-            //       data: [eventSeries[j].metricName],
-            //       baseColor: eventSeries[j].baseColor,
-            //     };
-            //     k++;
-            //     // For a singleEvent where the user is hovering,
-            //     // here we are trying to get to the start and end point
-            //     // of that event
-            //     let startSingleEvent = indexer;
-            //     let endSingleEvent = indexer;
+              if (dd0.value !== "False") {
+                pointerDataSelection[i++] = singleEventToolTip;
+                eventTableData[k] = {
+                  data: [filteredEventSeries[j].metricName],
+                  baseColor: filteredEventSeries[j].baseColor,
+                };
+                k++;
+                let startSingleEvent = indexer - 1;
+                let endSingleEvent = indexer - 1;
 
-            //     while (
-            //       (eventSeries[j].data[startSingleEvent].value === "True" ||
-            //         eventSeries[j].data[startSingleEvent].value === "End") &&
-            //       startSingleEvent > 0
-            //     ) {
-            //       startSingleEvent--;
-            //     }
-            //     while (
-            //       (eventSeries[j].data[endSingleEvent].value === "True" ||
-            //         eventSeries[j].data[endSingleEvent].value === "Start") &&
-            //       endSingleEvent < eventSeries[j].data.length
-            //     ) {
-            //       endSingleEvent++;
-            //     }
+                while (
+                  (filteredEventSeries[j].data[startSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[startSingleEvent].value ===
+                      "End") &&
+                  startSingleEvent > 0
+                ) {
+                  startSingleEvent--;
+                }
+                while (
+                  (filteredEventSeries[j].data[endSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[endSingleEvent].value ===
+                      "Start") &&
+                  endSingleEvent < filteredEventSeries[j].data.length
+                ) {
+                  endSingleEvent++;
+                }
 
-            //     if (eventSeries[j].subData) {
-            //       eventSeries[j].subData?.forEach((singleSubData) => {
-            //         // Checking if the timeStamp of the subData lands
-            //         // within the start and end of singleEvent the user is hovering
-            //         if (
-            //           singleSubData.date >=
-            //             eventSeries[j].data[startSingleEvent].date &&
-            //           singleSubData.date <=
-            //             eventSeries[j].data[endSingleEvent].date
-            //         ) {
-            //           eventTableData[k++] = {
-            //             data: [singleSubData.subDataName, singleSubData.value],
-            //           };
-            //         }
-            //       });
-            //     }
-            //   }
-            // } else if (
-            //   dd0 &&
-            //   ((toolTipPointLength === 0 &&
-            //     x0.valueOf() - getDateNum(dd0).valueOf() <
-            //       getDateNum(dd1).valueOf() - x0.valueOf()) ||
-            //     (toolTipPointLength > 0 &&
-            //       dd0.date ===
-            //         pointerDataSelection[toolTipPointLength - 1].data.date))
-            // ) {
-            //   singleEventToolTip = {
-            //     metricName: eventSeries[j].metricName,
-            //     data: dd0,
-            //     baseColor: eventSeries[j].baseColor,
-            //   };
-            //   legenTablePointerData[
-            //     j + legenTablePointerData.length
-            //   ] = singleEventToolTip;
-
-            //   if (dd0.value !== "False") {
-            //     pointerDataSelection[i++] = singleEventToolTip;
-            //     eventTableData[k] = {
-            //       data: [eventSeries[j].metricName],
-            //       baseColor: eventSeries[j].baseColor,
-            //     };
-            //     k++;
-            //     let startSingleEvent = indexer - 1;
-            //     let endSingleEvent = indexer - 1;
-
-            //     while (
-            //       (eventSeries[j].data[startSingleEvent].value === "True" ||
-            //         eventSeries[j].data[startSingleEvent].value === "End") &&
-            //       startSingleEvent > 0
-            //     ) {
-            //       startSingleEvent--;
-            //     }
-            //     while (
-            //       (eventSeries[j].data[endSingleEvent].value === "True" ||
-            //         eventSeries[j].data[endSingleEvent].value === "Start") &&
-            //       endSingleEvent < eventSeries[j].data.length
-            //     ) {
-            //       endSingleEvent++;
-            //     }
-
-            //     if (eventSeries[j].subData) {
-            //       eventSeries[j].subData?.forEach((singleSubData) => {
-            //         if (
-            //           singleSubData.date >=
-            //             eventSeries[j].data[startSingleEvent].date &&
-            //           singleSubData.date <=
-            //             eventSeries[j].data[endSingleEvent].date
-            //         ) {
-            //           eventTableData[k++] = {
-            //             data: [singleSubData.subDataName, singleSubData.value],
-            //           };
-            //         }
-            //       });
-            //     }
-            //   }
-            // }
+                if (filteredEventSeries[j].subData) {
+                  filteredEventSeries[j].subData?.forEach((singleSubData) => {
+                    if (
+                      singleSubData.date >=
+                        filteredEventSeries[j].data[startSingleEvent].date &&
+                      singleSubData.date <=
+                        filteredEventSeries[j].data[endSingleEvent].date
+                    ) {
+                      eventTableData[k++] = {
+                        data: [singleSubData.subDataName, singleSubData.value],
+                      };
+                    }
+                  });
+                }
+              }
+            }
           }
         }
         pointerDataSelection = pointerDataSelection.slice(0, i);
@@ -635,6 +592,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     },
 
     [
+      filteredClosedSeries,
+      filteredOpenSeries,
+      filteredEventSeries,
       showTips,
       width,
       showTooltip,
@@ -643,10 +603,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       valueScale,
       margin.left,
       margin.top,
+      margin.right,
       firstMouseEnterGraph,
-      closedSeries,
-      openSeries,
-      eventSeries,
+      xMax,
+      containerBounds.left,
     ]
   );
   // legendData
