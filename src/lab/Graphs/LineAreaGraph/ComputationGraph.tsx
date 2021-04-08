@@ -8,63 +8,37 @@ import {
   scaleLinear,
   scaleTime,
   Tooltip,
+  TooltipWithBounds,
   useTooltip,
+  useTooltipInPortal,
 } from "@visx/visx";
-import { bisector, extent, max, min } from "d3-array";
+import { extent, max, min } from "d3-array";
 import dayjs from "dayjs";
 import React, { useCallback, useMemo, useState } from "react";
 import { LegendData } from "../LegendTable";
 import { LegendTable } from "../LegendTable/LegendTable";
-import { DateValue, LineAreaGraphChildProps, ToolTip } from "./base";
+import {
+  DateValue,
+  LineAreaGraphChildProps,
+  TooltipData,
+  ToolTipDateValue,
+} from "./base";
 import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
 import { useStyles } from "./styles";
+import {
+  bisectDate,
+  bisectorValue,
+  getDateNum,
+  getValueNum,
+  getValueStr,
+} from "./utils";
 
-type ToolTipDateValue = ToolTip<DateValue>;
-type TooltipData = Array<ToolTipDateValue>;
 let dd1: DateValue;
 let dd0: DateValue;
 let i: number;
 let j: number;
 let indexer: number;
 let toolTipPointLength: number;
-
-// Accessor functions
-const getDateNum = (d: DateValue) => {
-  if (d) {
-    if (typeof d.date === "number") {
-      return new Date(d.date);
-    } else return new Date(parseInt(d.date, 10));
-  } else {
-    return new Date(0);
-  }
-};
-
-const getValueNum = (d: DateValue) => {
-  if (d) {
-    if (typeof d.value === "number") {
-      return d.value;
-    } else return parseInt(d.value, 10);
-  } else {
-    return NaN;
-  }
-};
-
-const getValueStr = (d: DateValue) => {
-  if (d) {
-    if (typeof d.value === "number") {
-      return d.value.toFixed(2).toString();
-    } else return d.value;
-  } else {
-    return "";
-  }
-};
-
-// Bisectors
-const bisectDate = bisector<DateValue, Date>((d) => new Date(getDateNum(d)))
-  .left;
-const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
-  getValueNum(d.data)
-).left;
 
 const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipDateValue>;
@@ -260,12 +234,15 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       }),
     [yMax, filteredClosedSeries, filteredOpenSeries]
   );
-
+  // Tooltip bounds detection
+  const { containerRef, containerBounds } = useTooltipInPortal({
+    scroll: true,
+    detectBounds: true,
+  });
   //  ToolTip Data
   const {
     showTooltip,
     hideTooltip,
-
     tooltipData,
     tooltipLeft = 0,
     tooltipTop = 0,
@@ -273,6 +250,17 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     // initial tooltip state
     tooltipOpen: true,
   });
+
+  const {
+    showTooltip: showTooltipDate,
+    hideTooltip: hideTooltipDate,
+    tooltipData: tooltipDataDate,
+    tooltipLeft: tooltipLeftDate = 0,
+  } = useTooltip<TooltipData>({
+    // initial tooltip state
+    tooltipOpen: true,
+  });
+
   const getSum = (total: number, num: number | string) => {
     if (typeof num === "number") {
       return total + (num || 0);
@@ -288,7 +276,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>
     ) => {
       let pointerDataSelection: ToolTipDateValue[] = [
-        { metricName: "", data: dd0, baseColor: "" },
+        { metricName: "", data: { date: NaN, value: NaN }, baseColor: "" },
       ];
       if (showTips) {
         let { x, y } = localPoint(event) || { x: 0, y: 0 };
@@ -390,7 +378,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         );
 
         toolTipPointLength = pointerDataSelection.length;
-        const eventToolTip: Array<ToolTipDateValue> = [];
+        let singleEventToolTip: ToolTipDateValue;
         eventTableData = eventTableData.splice(0);
         let k = 0;
         if (eventSeries) {
@@ -400,22 +388,24 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             dd1 = eventSeries[j].data[indexer];
             if (
               dd1 &&
-              (toolTipPointLength - 1 < 0 ||
-                dd1.date ===
-                  pointerDataSelection[toolTipPointLength - 1].data.date)
+              ((toolTipPointLength === 0 &&
+                x0.valueOf() - getDateNum(dd0).valueOf() >
+                  getDateNum(dd1).valueOf() - x0.valueOf()) ||
+                (toolTipPointLength > 0 &&
+                  dd1.date ===
+                    pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
-              eventToolTip[j] = {
+              singleEventToolTip = {
                 metricName: eventSeries[j].metricName,
                 data: dd1,
                 baseColor: eventSeries[j].baseColor,
               };
-              legenTablePointerData[j + legenTablePointerData.length] =
-                eventToolTip[j];
+              legenTablePointerData[
+                j + legenTablePointerData.length
+              ] = singleEventToolTip;
 
               if (dd1.value !== "False") {
-                pointerDataSelection[i] = eventToolTip[j];
-                i++;
-
+                pointerDataSelection[i++] = singleEventToolTip;
                 // Selection of the sub-data for the
                 // subData Table from the eventSeries
                 // on which the user is hovering
@@ -424,53 +414,108 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
+                // For a singleEvent where the user is hovering,
+                // here we are trying to get to the start and end point
+                // of that event
+                let startSingleEvent = indexer;
+                let endSingleEvent = indexer;
+
+                while (
+                  (eventSeries[j].data[startSingleEvent].value === "True" ||
+                    eventSeries[j].data[startSingleEvent].value === "End") &&
+                  startSingleEvent > 0
+                ) {
+                  startSingleEvent--;
+                }
+                while (
+                  (eventSeries[j].data[endSingleEvent].value === "True" ||
+                    eventSeries[j].data[endSingleEvent].value === "Start") &&
+                  endSingleEvent < eventSeries[j].data.length
+                ) {
+                  endSingleEvent++;
+                }
+
                 if (eventSeries[j].subData) {
-                  eventSeries[j].subData?.forEach((elem) => {
-                    eventTableData[k++] = {
-                      data: [elem.subDataName, elem.value],
-                    };
+                  eventSeries[j].subData?.forEach((singleSubData) => {
+                    // Checking if the timeStamp of the subData lands
+                    // within the start and end of singleEvent the user is hovering
+                    if (
+                      singleSubData.date >=
+                        eventSeries[j].data[startSingleEvent].date &&
+                      singleSubData.date <=
+                        eventSeries[j].data[endSingleEvent].date
+                    ) {
+                      eventTableData[k++] = {
+                        data: [singleSubData.subDataName, singleSubData.value],
+                      };
+                    }
                   });
                 }
               }
             } else if (
               dd0 &&
-              (toolTipPointLength - 1 < 0 ||
-                dd0.date ===
-                  pointerDataSelection[toolTipPointLength - 1].data.date)
+              ((toolTipPointLength === 0 &&
+                x0.valueOf() - getDateNum(dd0).valueOf() <
+                  getDateNum(dd1).valueOf() - x0.valueOf()) ||
+                (toolTipPointLength > 0 &&
+                  dd0.date ===
+                    pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
-              eventToolTip[j] = {
+              singleEventToolTip = {
                 metricName: eventSeries[j].metricName,
                 data: dd0,
                 baseColor: eventSeries[j].baseColor,
               };
-              legenTablePointerData[j + legenTablePointerData.length] =
-                eventToolTip[j];
+              legenTablePointerData[
+                j + legenTablePointerData.length
+              ] = singleEventToolTip;
 
               if (dd0.value !== "False") {
-                pointerDataSelection[i] = eventToolTip[j];
-                i++;
-
-                // Selection of the sub-data for the
-                // subData Table from the eventSeries
-                // on which the user is hovering
+                pointerDataSelection[i++] = singleEventToolTip;
                 eventTableData[k] = {
                   data: [eventSeries[j].metricName],
                   baseColor: eventSeries[j].baseColor,
                 };
                 k++;
+                let startSingleEvent = indexer - 1;
+                let endSingleEvent = indexer - 1;
+
+                while (
+                  (eventSeries[j].data[startSingleEvent].value === "True" ||
+                    eventSeries[j].data[startSingleEvent].value === "End") &&
+                  startSingleEvent > 0
+                ) {
+                  startSingleEvent--;
+                }
+                while (
+                  (eventSeries[j].data[endSingleEvent].value === "True" ||
+                    eventSeries[j].data[endSingleEvent].value === "Start") &&
+                  endSingleEvent < eventSeries[j].data.length
+                ) {
+                  endSingleEvent++;
+                }
+
                 if (eventSeries[j].subData) {
-                  eventSeries[j].subData?.forEach((elem) => {
-                    eventTableData[k++] = {
-                      data: [elem.subDataName, elem.value],
-                    };
+                  eventSeries[j].subData?.forEach((singleSubData) => {
+                    if (
+                      singleSubData.date >=
+                        eventSeries[j].data[startSingleEvent].date &&
+                      singleSubData.date <=
+                        eventSeries[j].data[endSingleEvent].date
+                    ) {
+                      eventTableData[k++] = {
+                        data: [singleSubData.subDataName, singleSubData.value],
+                      };
+                    }
                   });
                 }
               }
             }
           }
         }
-
         pointerDataSelection = pointerDataSelection.slice(0, i);
+
+        i = 0;
         eventTableData = eventTableData.slice(0, k);
         // Passing hyphen if eventTableData data is empty
         if (eventTableData.length === 0) {
@@ -478,23 +523,35 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         }
       }
       if (width < 10) return null;
+      const tooltipLeftValue =
+        (pointerDataSelection[0] && pointerDataSelection[0].data
+          ? dateScale(getDateNum(pointerDataSelection[0].data))
+          : dateScale(xMax)) -
+        containerBounds.left +
+        margin.left -
+        margin.right;
+      const tooltipTopValue =
+        pointerDataSelection[0] && pointerDataSelection[0].data
+          ? valueScale(getValueNum(pointerDataSelection[0].data))
+          : 0;
 
       showTooltip({
         tooltipData: pointerDataSelection,
-        tooltipLeft:
-          pointerDataSelection[0] && pointerDataSelection[0].data
-            ? dateScale(getDateNum(pointerDataSelection[0].data))
-            : 0,
-        tooltipTop:
-          pointerDataSelection[0] && pointerDataSelection[0].data
-            ? valueScale(getValueNum(pointerDataSelection[0].data))
-            : 0,
+        tooltipLeft: tooltipLeftValue,
+        tooltipTop: tooltipTopValue,
+      });
+      showTooltipDate({
+        tooltipData: pointerDataSelection,
+        tooltipLeft: tooltipLeftValue,
+        tooltipTop: tooltipTopValue,
       });
     },
+
     [
       showTips,
       width,
       showTooltip,
+      showTooltipDate,
       dateScale,
       valueScale,
       margin.left,
@@ -601,14 +658,19 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
   return (
     <div
-      onMouseLeave={() => hideTooltip()}
+      onMouseLeave={() => hideTooltipDate()}
       style={{
         width,
         height: height + legendTableHeight,
         position: "relative",
       }}
     >
-      <svg width={width} height={height}>
+      <svg
+        onMouseLeave={() => hideTooltip()}
+        ref={containerRef}
+        width={width}
+        height={height}
+      >
         <rect
           x={0}
           y={0}
@@ -664,11 +726,14 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               setAutoRender(true);
             }}
           />
-          {showTips && tooltipData && tooltipData[0] && (
+          {showTips && tooltipDataDate && tooltipDataDate[0] && (
             <Line
-              key={`${tooltipData[0].metricName}-toolTipLine`}
-              from={{ x: dateScale(getDateNum(tooltipData[0].data)), y: 0 }}
-              to={{ x: dateScale(getDateNum(tooltipData[0].data)), y: yMax }}
+              key={`${tooltipDataDate[0].metricName}-toolTipLine`}
+              from={{ x: dateScale(getDateNum(tooltipDataDate[0].data)), y: 0 }}
+              to={{
+                x: dateScale(getDateNum(tooltipDataDate[0].data)),
+                y: yMax,
+              }}
               className={classes.tooltipLine}
             />
           )}
@@ -692,43 +757,44 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             )}
         </PlotLineAreaGraph>
       </svg>
+      {tooltipDataDate && showTips && tooltipDataDate[0] && (
+        <Tooltip
+          top={yMax}
+          left={tooltipLeftDate}
+          className={classes.tooltipDateStyles}
+        >
+          <div className={`${classes.tooltipBottomDate}`}>
+            <span>{` ${dayjs(
+              new Date(getDateNum(tooltipDataDate[0].data))
+            ).format(toolTiptimeFormat)}`}</span>
+          </div>
+        </Tooltip>
+      )}
       {tooltipData && showTips && tooltipData[0] && (
-        <div>
-          <Tooltip
-            top={yMax}
-            left={tooltipLeft}
-            className={classes.tooltipDateStyles}
-          >
-            <div className={`${classes.tooltipBottomDate}`}>
-              <span>{` ${dayjs(
-                new Date(getDateNum(tooltipData[0].data))
-              ).format(toolTiptimeFormat)}`}</span>
-            </div>
-          </Tooltip>
-          <Tooltip
-            top={tooltipTop}
-            left={tooltipLeft + margin.left}
-            className={classes.tooltipMetric}
-          >
-            {tooltipData.map((linedata) => (
-              <div key={`tooltipName-value- ${linedata.metricName}`}>
-                <div className={classes.tooltipData}>
-                  <div className={classes.tooltipLabel}>
-                    <div
-                      className={classes.legendMarker}
-                      style={{ background: linedata.baseColor }}
-                    />
-                    <span>{`${linedata.metricName}`}</span>
-                  </div>
-                  <div className={classes.tooltipValue}>
-                    <span>{`${getValueStr(linedata.data)}`}</span>
-                  </div>
+        <TooltipWithBounds
+          top={tooltipTop}
+          left={tooltipLeft}
+          className={classes.tooltipMetric}
+        >
+          {tooltipData.map((linedata) => (
+            <div key={`tooltipName-value- ${linedata.metricName}`}>
+              <div className={classes.tooltipData}>
+                <div className={classes.tooltipLabel}>
+                  <div
+                    className={classes.legendMarker}
+                    style={{ background: linedata.baseColor }}
+                  />
+                  <span>{`${linedata.metricName}`}</span>
+                </div>
+                <div className={classes.tooltipValue}>
+                  <span>{`${getValueStr(linedata.data)}`}</span>
                 </div>
               </div>
-            ))}
-          </Tooltip>
-        </div>
+            </div>
+          ))}
+        </TooltipWithBounds>
       )}
+
       {showLegendTable && showEventTable && (
         <div className={classes.wrapperParentLegendAndEventTable}>
           <div className={classes.wrapperLegendTable}>
