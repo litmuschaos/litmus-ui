@@ -23,6 +23,7 @@ const closedSeriesData2: DateValue[] = [
   { date: 8000, value: 30 },
 ];
 const eventSeriesData1: DateValue[] = [
+  { date: 1000, value: 0 },
   { date: 2000, value: 0 },
   { date: 3000, value: 1 },
   { date: 4000, value: 1 },

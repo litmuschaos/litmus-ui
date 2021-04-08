@@ -504,13 +504,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
               if (dd0.value !== "False") {
                 pointerDataSelection[i++] = singleEventToolTip;
-
                 eventTableData[k] = {
                   data: [filteredEventSeries[j].metricName],
                   baseColor: filteredEventSeries[j].baseColor,
                 };
                 k++;
-
                 let startSingleEvent = indexer - 1;
                 let endSingleEvent = indexer - 1;
 
