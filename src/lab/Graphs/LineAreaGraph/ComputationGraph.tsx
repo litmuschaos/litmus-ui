@@ -808,7 +808,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               : classes.tooltipMetricRight
           }`}
         >
-          {console.log("nahi chalega mein", tooltipRef)}
           {tooltipData.map((linedata, index) => (
             <div key={`tooltipName-value- ${linedata.metricName}-${index}`}>
               <div className={classes.tooltipData}>
