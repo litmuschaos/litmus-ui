@@ -2,7 +2,7 @@ import { CssBaseline, Theme, ThemeProvider } from "@material-ui/core";
 import * as React from "react";
 import { litmusPortalTheme } from "./litmus-portal";
 
-export interface LitmusThemeProviderProps {
+interface LitmusThemeProviderProps {
   theme?: Theme;
 }
 

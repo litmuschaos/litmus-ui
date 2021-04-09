@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { createMuiTheme, ThemeOptions } from "@material-ui/core";
 
-// Agument the Theme interface
+// Augment the Theme interface
 declare module "@material-ui/core/styles/createMuiTheme" {
   export interface Theme {}
 
@@ -9,7 +9,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
   export interface ThemeOptions {}
 }
 
-// Augument the Palette interface
+// Augment the Palette interface
 declare module "@material-ui/core/styles/createPalette" {
   export interface Palette {
     // Base Theme Palette
