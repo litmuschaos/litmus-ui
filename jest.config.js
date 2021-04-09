@@ -1,18 +1,19 @@
 module.exports = {
-  preset: 'ts-jest/presets/js-with-ts',
+  preset: "ts-jest/presets/js-with-ts",
   transform: {
-    '^.+\\.(css|scss|sass)$': '<rootDir>/mocks/styleMock.js',
+    "^.+\\.(css|scss|sass)$": "<rootDir>/mocks/styleMock.js",
+    "^.+\\.svg$": "<rootDir>/mocks/svgTransform.js",
   },
   testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
-    '<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/index.ts',
+    "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+    "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}",
+    "!<rootDir>/src/**/index.ts",
   ],
-  coveragePathIgnorePatterns: ['/node_modules/', 'dist/', '<rootDir>/src/lab/'],
+  coveragePathIgnorePatterns: ["/node_modules/", "dist/", "<rootDir>/src/lab/"],
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.{js,ts,tsx,jsx}',
-    '!<rootDir>/src/**/*.stories.*',
-    '!<rootDir>/src/**/index.ts',
+    "<rootDir>/src/**/*.{js,ts,tsx,jsx}",
+    "!<rootDir>/src/**/*.stories.*",
+    "!<rootDir>/src/**/index.ts",
   ],
   coverageThreshold: {
     global: {

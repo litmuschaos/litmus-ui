@@ -5,7 +5,7 @@ export interface QuickActionCardProps {
   text: string;
 }
 
-interface QuickActionCardPropsArray {
+export interface QuickActionCardPropsArray {
   className?: string;
   quickActions: QuickActionCardProps[];
   title?: string;
