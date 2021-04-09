@@ -154,8 +154,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
       )}
       {closedSeries &&
         closedSeries.length > 0 &&
-        closedSeries.map((linedata: GraphMetric) => (
-          <Group key={`${linedata.metricName}-group`}>
+        closedSeries.map((linedata: GraphMetric, index) => (
+          <Group key={`closedSeriesGroup-${linedata.metricName}-${index}`}>
             <LinearGradient
               id={`${linedata.metricName}-${linedata.baseColor}-linearGragient`}
               from={linedata.baseColor}
@@ -165,7 +165,6 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
             />
 
             <AreaClosed<DateValue>
-              key={`${linedata.metricName}-area`}
               data={linedata.data}
               x={(d) => xScale(getDateNum(d)) || 0}
               y={(d) => yScale(getValueNum(d)) || 0}
@@ -177,9 +176,9 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
             />
 
             {showPoints &&
-              linedata.data.map((d) => (
+              linedata.data.map((d, index) => (
                 <g
-                  key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}`}
+                  key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}-${index}`}
                 >
                   <circle
                     cx={xScale(getDateNum(d))}
@@ -229,10 +228,9 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
 
       {eventSeries &&
         eventSeries.length > 0 &&
-        eventSeries.map((linedata) => (
-          <Group key={`${linedata.metricName}-eventSeries`}>
+        eventSeries.map((linedata, index) => (
+          <Group key={`eventSeriesGroupt-${linedata.metricName}-${index}`}>
             <AreaClosed<DateValue>
-              key={`${linedata.metricName}-eventSeries`}
               data={linedata.data}
               x={(d) => xScale(getDateNum(d)) || 0}
               y={(d) => {
@@ -249,9 +247,9 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
             />
 
             {showEventMarkers &&
-              linedata.data.map((d) => (
+              linedata.data.map((d, index) => (
                 <g
-                  key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}`}
+                  key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}-${index}`}
                 >
                   {(getValueStr(d) === "Start" || getValueStr(d) === "End") && (
                     <g>
@@ -289,7 +287,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
       {openSeries &&
         openSeries.length > 0 &&
         openSeries.map((openLineData, j) => (
-          <g key={`${openLineData.metricName}-group-open`}>
+          <g key={`openSeriesGroup-${openLineData.metricName}-${j}`}>
             <MarkerCircle
               id={`${j}-circle`}
               fill={openLineData.baseColor}

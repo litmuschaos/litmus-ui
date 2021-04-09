@@ -33,6 +33,15 @@ const getValueStr = (d: DateValue) => {
   }
 };
 
+// For reducer
+const getSum = (total: number, num: number | string) => {
+  if (typeof num === "number") {
+    return total + (num || 0);
+  } else {
+    return total + (parseInt(num, 10) || 0);
+  }
+};
+
 // Bisectors
 const bisectDate = bisector<DateValue, Date>((d) => new Date(getDateNum(d)))
   .left;
@@ -40,4 +49,11 @@ const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
   getValueNum(d.data)
 ).left;
 
-export { getDateNum, getValueNum, getValueStr, bisectDate, bisectorValue };
+export {
+  getDateNum,
+  getValueNum,
+  getValueStr,
+  getSum,
+  bisectDate,
+  bisectorValue,
+};

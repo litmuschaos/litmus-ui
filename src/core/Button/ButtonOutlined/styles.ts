@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(1.5, 2),
     textTransform: "none",
     background: "transparent",
-    fontSize: "0.75rem",
+    fontSize: "1rem",
     borderColor: theme.palette.highlight,
     "&:disabled": {
       borderColor: theme.palette.disabledBackground,

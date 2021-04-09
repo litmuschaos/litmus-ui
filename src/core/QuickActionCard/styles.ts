@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     height: "1.5rem",
     "& img": {
-      height: "100%",
+      height: "1rem",
       margin: "0.5rem",
       marginLeft: "0",
       color: theme.palette.highlight,

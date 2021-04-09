@@ -84,17 +84,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   tooltipMetric: {
     ...defaultStyles,
     zIndex: 3,
-    margin: "0.5rem",
     marginTop: "1rem",
-    marginLeft: "3.2rem",
     padding: "1rem",
     backgroundColor: `${theme.palette.cards.background} !important`,
   },
+  tooltipMetricLeft: {
+    transform: "translate(-70%,0)",
+  },
+  tooltipMetricRight: {
+    transform: "translate(50%,0)",
+  },
   tooltipDateStyles: {
-    ...defaultStyles,
-    position: "relative",
-    transform: "translate(-25%,0%)",
+    marginLeft: "3.5rem",
     marginTop: "0.5rem",
+    transform: "translate(-50%,0%)",
     backgroundColor: `${theme.palette.graph.toolTip} !important`,
   },
   tooltipData: {

@@ -14,6 +14,7 @@ declare module "@material-ui/core/styles/createPalette" {
   export interface Palette {
     // Base Theme Palette
     sidebarMenu: string;
+    header: string;
     loginBackground: string;
     disabledBackground: string;
     highlight: string;
@@ -71,6 +72,7 @@ declare module "@material-ui/core/styles/createPalette" {
   export interface PaletteOptions {
     // Base Theme Palette options
     sidebarMenu?: string;
+    header?: string;
     loginBackground?: string;
     disabledBackground?: string;
     highlight?: string;
@@ -141,7 +143,7 @@ function createTheme(themeOptions?: ThemeOptions) {
     },
     typography: {
       fontSize: 12,
-      fontFamily: "Ubuntu",
+      fontFamily: ["Inter", "sand-serif"].join(","),
     },
     ...themeOptions,
   });

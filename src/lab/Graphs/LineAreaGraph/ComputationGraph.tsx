@@ -8,9 +8,7 @@ import {
   scaleLinear,
   scaleTime,
   Tooltip,
-  TooltipWithBounds,
   useTooltip,
-  useTooltipInPortal,
 } from "@visx/visx";
 import { extent, max, min } from "d3-array";
 import dayjs from "dayjs";
@@ -29,6 +27,7 @@ import {
   bisectDate,
   bisectorValue,
   getDateNum,
+  getSum,
   getValueNum,
   getValueStr,
 } from "./utils";
@@ -82,7 +81,25 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [filteredEventSeries, setfilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
+  //  ToolTip Data
+  const {
+    showTooltip,
+    hideTooltip,
+    tooltipData,
+    tooltipLeft = 0,
+    tooltipTop = 0,
+  } = useTooltip<TooltipData>({
+    tooltipOpen: true,
+  });
 
+  const {
+    showTooltip: showTooltipDate,
+    hideTooltip: hideTooltipDate,
+    tooltipData: tooltipDataDate,
+    tooltipLeft: tooltipLeftDate = 0,
+  } = useTooltip<TooltipData>({
+    tooltipOpen: true,
+  });
   let legenddata: Array<LegendData> = [{ data: [], baseColor: "" }];
 
   const closedSeriesCount = filteredClosedSeries
@@ -96,6 +113,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       if (!domain) return;
       setAutoRender(false);
       const { x0, x1 } = domain;
+      hideTooltip();
+      hideTooltipDate();
       if (filteredClosedSeries) {
         const seriesCopy = filteredClosedSeries
           .map((lineData) =>
@@ -228,46 +247,12 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 : [{ date: NaN, value: NaN }]
             ),
             getValueNum
-          ) || 0,
+          ) || 1,
         ],
         nice: true,
       }),
     [yMax, filteredClosedSeries, filteredOpenSeries]
   );
-  // Tooltip bounds detection
-  const { containerRef, containerBounds } = useTooltipInPortal({
-    scroll: true,
-    detectBounds: true,
-  });
-  //  ToolTip Data
-  const {
-    showTooltip,
-    hideTooltip,
-    tooltipData,
-    tooltipLeft = 0,
-    tooltipTop = 0,
-  } = useTooltip<TooltipData>({
-    // initial tooltip state
-    tooltipOpen: true,
-  });
-
-  const {
-    showTooltip: showTooltipDate,
-    hideTooltip: hideTooltipDate,
-    tooltipData: tooltipDataDate,
-    tooltipLeft: tooltipLeftDate = 0,
-  } = useTooltip<TooltipData>({
-    // initial tooltip state
-    tooltipOpen: true,
-  });
-
-  const getSum = (total: number, num: number | string) => {
-    if (typeof num === "number") {
-      return total + (num || 0);
-    } else {
-      return total + (parseInt(num, 10) || 0);
-    }
-  };
 
   // tooltip handler
 
@@ -289,49 +274,49 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           setMouseEnterGraph(true);
         }
         i = 0;
-        if (closedSeries) {
-          for (j = 0; j < closedSeries.length; j++) {
-            indexer = bisectDate(closedSeries[i].data, x0, 1);
-            dd0 = closedSeries[j].data[indexer - 1];
-            dd1 = closedSeries[j].data[indexer];
+        if (filteredClosedSeries) {
+          for (j = 0; j < filteredClosedSeries.length; j++) {
+            indexer = bisectDate(filteredClosedSeries[i].data, x0, 1);
+            dd0 = filteredClosedSeries[j].data[indexer - 1];
+            dd1 = filteredClosedSeries[j].data[indexer];
 
             if (dd1) {
               pointerDataSelection[i] =
                 x0.valueOf() - getDateNum(dd0).valueOf() >
                 getDateNum(dd1).valueOf() - x0.valueOf()
                   ? {
-                      metricName: closedSeries[i].metricName,
+                      metricName: filteredClosedSeries[i].metricName,
                       data: dd1,
-                      baseColor: closedSeries[i].baseColor,
+                      baseColor: filteredClosedSeries[i].baseColor,
                     }
                   : {
-                      metricName: closedSeries[i].metricName,
+                      metricName: filteredClosedSeries[i].metricName,
                       data: dd0,
-                      baseColor: closedSeries[i].baseColor,
+                      baseColor: filteredClosedSeries[i].baseColor,
                     };
               i++;
             }
           }
         }
-        if (openSeries) {
-          for (j = 0; j < openSeries.length; j++) {
-            indexer = bisectDate(openSeries[j].data, x0, 1);
-            dd0 = openSeries[j].data[indexer - 1];
-            dd1 = openSeries[j].data[indexer];
+        if (filteredOpenSeries) {
+          for (j = 0; j < filteredOpenSeries.length; j++) {
+            indexer = bisectDate(filteredOpenSeries[j].data, x0, 1);
+            dd0 = filteredOpenSeries[j].data[indexer - 1];
+            dd1 = filteredOpenSeries[j].data[indexer];
 
             if (dd1) {
               pointerDataSelection[i] =
                 x0.valueOf() - getDateNum(dd0).valueOf() >
                 getDateNum(dd1).valueOf() - x0.valueOf()
                   ? {
-                      metricName: openSeries[j].metricName,
+                      metricName: filteredOpenSeries[j].metricName,
                       data: dd1,
-                      baseColor: openSeries[j].baseColor,
+                      baseColor: filteredOpenSeries[j].baseColor,
                     }
                   : {
-                      metricName: openSeries[j].metricName,
+                      metricName: filteredOpenSeries[j].metricName,
                       data: dd0,
-                      baseColor: openSeries[j].baseColor,
+                      baseColor: filteredOpenSeries[j].baseColor,
                     };
               i++;
             }
@@ -381,11 +366,45 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         let singleEventToolTip: ToolTipDateValue;
         eventTableData = eventTableData.splice(0);
         let k = 0;
-        if (eventSeries) {
-          for (j = 0; j < eventSeries.length; j++) {
-            indexer = bisectDate(eventSeries[j].data, x0, 1);
-            dd0 = eventSeries[j].data[indexer - 1];
-            dd1 = eventSeries[j].data[indexer];
+        let trimPreviousToopTipData = 0;
+
+        if (filteredEventSeries) {
+          for (j = 0; j < filteredEventSeries.length; j++) {
+            indexer = bisectDate(filteredEventSeries[j].data, x0, 1);
+            dd0 = filteredEventSeries[j].data[indexer - 1];
+            dd1 = filteredEventSeries[j].data[indexer];
+            if (
+              dd1 &&
+              toolTipPointLength > 0 &&
+              trimPreviousToopTipData === 0 &&
+              Math.abs(x0.valueOf() - getDateNum(dd1).valueOf()) <
+                Math.abs(
+                  getDateNum(
+                    pointerDataSelection[toolTipPointLength - 1].data
+                  ).valueOf() - x0.valueOf()
+                )
+            ) {
+              i = 0;
+              toolTipPointLength = 0;
+              trimPreviousToopTipData = 1;
+              pointerDataSelection.slice(0, 0);
+            } else if (
+              dd0 &&
+              toolTipPointLength > 0 &&
+              trimPreviousToopTipData === 0 &&
+              Math.abs(x0.valueOf() - getDateNum(dd0).valueOf()) <
+                Math.abs(
+                  getDateNum(
+                    pointerDataSelection[toolTipPointLength - 1].data
+                  ).valueOf() - x0.valueOf()
+                )
+            ) {
+              i = 0;
+              toolTipPointLength = 0;
+              trimPreviousToopTipData = 1;
+              pointerDataSelection.slice(0, 0);
+            }
+
             if (
               dd1 &&
               ((toolTipPointLength === 0 &&
@@ -396,9 +415,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                     pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
               singleEventToolTip = {
-                metricName: eventSeries[j].metricName,
+                metricName: filteredEventSeries[j].metricName,
                 data: dd1,
-                baseColor: eventSeries[j].baseColor,
+                baseColor: filteredEventSeries[j].baseColor,
               };
               legenTablePointerData[
                 j + legenTablePointerData.length
@@ -407,11 +426,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               if (dd1.value !== "False") {
                 pointerDataSelection[i++] = singleEventToolTip;
                 // Selection of the sub-data for the
-                // subData Table from the eventSeries
+                // subData Table from the filteredEventSeries
                 // on which the user is hovering
                 eventTableData[k] = {
-                  data: [eventSeries[j].metricName],
-                  baseColor: eventSeries[j].baseColor,
+                  data: [filteredEventSeries[j].metricName],
+                  baseColor: filteredEventSeries[j].baseColor,
                 };
                 k++;
                 // For a singleEvent where the user is hovering,
@@ -421,29 +440,34 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 let endSingleEvent = indexer;
 
                 while (
-                  (eventSeries[j].data[startSingleEvent].value === "True" ||
-                    eventSeries[j].data[startSingleEvent].value === "End") &&
-                  startSingleEvent > 0
+                  startSingleEvent > 0 &&
+                  (filteredEventSeries[j].data[startSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[startSingleEvent].value ===
+                      "End")
                 ) {
                   startSingleEvent--;
                 }
                 while (
-                  (eventSeries[j].data[endSingleEvent].value === "True" ||
-                    eventSeries[j].data[endSingleEvent].value === "Start") &&
-                  endSingleEvent < eventSeries[j].data.length
+                  endSingleEvent < filteredEventSeries[j].data.length - 1 &&
+                  (filteredEventSeries[j].data[endSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[endSingleEvent].value ===
+                      "Start")
                 ) {
                   endSingleEvent++;
                 }
 
-                if (eventSeries[j].subData) {
-                  eventSeries[j].subData?.forEach((singleSubData) => {
+                if (filteredEventSeries[j].subData) {
+                  filteredEventSeries[j].subData?.forEach((singleSubData) => {
                     // Checking if the timeStamp of the subData lands
                     // within the start and end of singleEvent the user is hovering
                     if (
+                      singleSubData &&
                       singleSubData.date >=
-                        eventSeries[j].data[startSingleEvent].date &&
+                        filteredEventSeries[j].data[startSingleEvent].date &&
                       singleSubData.date <=
-                        eventSeries[j].data[endSingleEvent].date
+                        filteredEventSeries[j].data[endSingleEvent].date
                     ) {
                       eventTableData[k++] = {
                         data: [singleSubData.subDataName, singleSubData.value],
@@ -462,9 +486,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                     pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
               singleEventToolTip = {
-                metricName: eventSeries[j].metricName,
+                metricName: filteredEventSeries[j].metricName,
                 data: dd0,
-                baseColor: eventSeries[j].baseColor,
+                baseColor: filteredEventSeries[j].baseColor,
               };
               legenTablePointerData[
                 j + legenTablePointerData.length
@@ -473,35 +497,40 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               if (dd0.value !== "False") {
                 pointerDataSelection[i++] = singleEventToolTip;
                 eventTableData[k] = {
-                  data: [eventSeries[j].metricName],
-                  baseColor: eventSeries[j].baseColor,
+                  data: [filteredEventSeries[j].metricName],
+                  baseColor: filteredEventSeries[j].baseColor,
                 };
                 k++;
                 let startSingleEvent = indexer - 1;
                 let endSingleEvent = indexer - 1;
 
                 while (
-                  (eventSeries[j].data[startSingleEvent].value === "True" ||
-                    eventSeries[j].data[startSingleEvent].value === "End") &&
-                  startSingleEvent > 0
+                  startSingleEvent > 0 &&
+                  (filteredEventSeries[j].data[startSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[startSingleEvent].value ===
+                      "End")
                 ) {
                   startSingleEvent--;
                 }
                 while (
-                  (eventSeries[j].data[endSingleEvent].value === "True" ||
-                    eventSeries[j].data[endSingleEvent].value === "Start") &&
-                  endSingleEvent < eventSeries[j].data.length
+                  endSingleEvent < filteredEventSeries[j].data.length - 1 &&
+                  (filteredEventSeries[j].data[endSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[endSingleEvent].value ===
+                      "Start")
                 ) {
                   endSingleEvent++;
                 }
 
-                if (eventSeries[j].subData) {
-                  eventSeries[j].subData?.forEach((singleSubData) => {
+                if (filteredEventSeries[j].subData) {
+                  filteredEventSeries[j].subData?.forEach((singleSubData) => {
                     if (
+                      singleSubData &&
                       singleSubData.date >=
-                        eventSeries[j].data[startSingleEvent].date &&
+                        filteredEventSeries[j].data[startSingleEvent].date &&
                       singleSubData.date <=
-                        eventSeries[j].data[endSingleEvent].date
+                        filteredEventSeries[j].data[endSingleEvent].date
                     ) {
                       eventTableData[k++] = {
                         data: [singleSubData.subDataName, singleSubData.value],
@@ -524,12 +553,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       }
       if (width < 10) return null;
       const tooltipLeftValue =
-        (pointerDataSelection[0] && pointerDataSelection[0].data
+        pointerDataSelection[0] && pointerDataSelection[0].data
           ? dateScale(getDateNum(pointerDataSelection[0].data))
-          : dateScale(xMax)) -
-        containerBounds.left +
-        margin.left -
-        margin.right;
+          : dateScale(xMax);
       const tooltipTopValue =
         pointerDataSelection[0] && pointerDataSelection[0].data
           ? valueScale(getValueNum(pointerDataSelection[0].data))
@@ -548,6 +574,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     },
 
     [
+      filteredClosedSeries,
+      filteredOpenSeries,
+      filteredEventSeries,
       showTips,
       width,
       showTooltip,
@@ -556,10 +585,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       valueScale,
       margin.left,
       margin.top,
+      margin.right,
       firstMouseEnterGraph,
-      closedSeries,
-      openSeries,
-      eventSeries,
+      xMax,
     ]
   );
   // legendData
@@ -655,7 +683,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     setfilteredOpenSeries(openSeries);
     setfilteredEventSeries(eventSeries);
   }
-
   return (
     <div
       onMouseLeave={() => hideTooltipDate()}
@@ -665,12 +692,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         position: "relative",
       }}
     >
-      <svg
-        onMouseLeave={() => hideTooltip()}
-        ref={containerRef}
-        width={width}
-        height={height}
-      >
+      <svg onMouseLeave={() => hideTooltip()} width={width} height={height}>
         <rect
           x={0}
           y={0}
@@ -724,6 +746,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               setfilteredOpenSeries(openSeries);
               setfilteredEventSeries(eventSeries);
               setAutoRender(true);
+              hideTooltip();
+              hideTooltipDate();
             }}
           />
           {showTips && tooltipDataDate && tooltipDataDate[0] && (
@@ -771,13 +795,19 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         </Tooltip>
       )}
       {tooltipData && showTips && tooltipData[0] && (
-        <TooltipWithBounds
+        <Tooltip
           top={tooltipTop}
           left={tooltipLeft}
-          className={classes.tooltipMetric}
+          // Hardcoded value for tooltip
+          // will be removed later
+          className={`${classes.tooltipMetric} ${
+            width - margin.left - margin.right - tooltipLeft < 160
+              ? classes.tooltipMetricLeft
+              : classes.tooltipMetricRight
+          }`}
         >
-          {tooltipData.map((linedata) => (
-            <div key={`tooltipName-value- ${linedata.metricName}`}>
+          {tooltipData.map((linedata, index) => (
+            <div key={`tooltipName-value- ${linedata.metricName}-${index}`}>
               <div className={classes.tooltipData}>
                 <div className={classes.tooltipLabel}>
                   <div
@@ -792,7 +822,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               </div>
             </div>
           ))}
-        </TooltipWithBounds>
+        </Tooltip>
       )}
 
       {showLegendTable && showEventTable && (
