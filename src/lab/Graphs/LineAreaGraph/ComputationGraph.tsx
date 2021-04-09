@@ -12,7 +12,7 @@ import {
 } from "@visx/visx";
 import { extent, max, min } from "d3-array";
 import dayjs from "dayjs";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { LegendData } from "../LegendTable";
 import { LegendTable } from "../LegendTable/LegendTable";
 import {
@@ -81,7 +81,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [filteredEventSeries, setfilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
-  const tooltipRef = useRef(null);
   //  ToolTip Data
   const {
     showTooltip,
@@ -797,7 +796,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       )}
       {tooltipData && showTips && tooltipData[0] && (
         <Tooltip
-          ref={tooltipRef}
           top={tooltipTop}
           left={tooltipLeft}
           // Hardcoded value for tooltip
