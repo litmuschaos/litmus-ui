@@ -166,7 +166,13 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         setfilteredEventSeries(seriesCopy);
       }
     },
-    [filteredClosedSeries, filteredOpenSeries, filteredEventSeries]
+    [
+      filteredClosedSeries,
+      filteredOpenSeries,
+      filteredEventSeries,
+      hideTooltip,
+      hideTooltipDate,
+    ]
   );
 
   const innerHeight = height - margin.top - margin.bottom;
@@ -585,7 +591,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       valueScale,
       margin.left,
       margin.top,
-      margin.right,
       firstMouseEnterGraph,
       xMax,
     ]

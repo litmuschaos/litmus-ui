@@ -20,8 +20,7 @@ export interface RadialProgressChartProps extends RadialGraphProps {
   // Alternate text for image/icon
   imageAlt?: string;
 }
-export interface RadialProgressChartChildProps
-  extends RadialProgressChartProps {
+interface RadialProgressChartChildProps extends RadialProgressChartProps {
   // Width of the parent component automatically calcuated by the child
   width: number;
 

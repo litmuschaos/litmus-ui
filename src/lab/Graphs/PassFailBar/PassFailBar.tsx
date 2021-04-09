@@ -10,7 +10,7 @@ export interface PassFailBarProps {
   // Optional className for overriding the styles
   className?: string;
 }
-export interface PassFailBarChildProps extends PassFailBarProps {
+interface PassFailBarChildProps extends PassFailBarProps {
   // Width of the parent component automatically calcuated by the child
   width: number;
 

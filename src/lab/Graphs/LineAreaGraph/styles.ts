@@ -1,5 +1,4 @@
 import { makeStyles, Theme } from "@material-ui/core";
-import { defaultStyles } from "@visx/tooltip";
 
 interface StyleProps {
   width: number;
@@ -82,7 +81,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     pointerEvents: "none",
   },
   tooltipMetric: {
-    ...defaultStyles,
     zIndex: 3,
     marginTop: "1rem",
     padding: "1rem",

@@ -34,6 +34,7 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
       type: "text",
       label: "Normal text field",
       onChange: (e) => e.target.value,
+      disabled: false,
     }}
   >
     {(args) => <InputField {...args} />}

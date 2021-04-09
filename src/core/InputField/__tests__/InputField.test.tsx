@@ -15,7 +15,7 @@ describe("InputField component", () => {
           variant="primary"
           type="text"
           disabled={false}
-          onChange={() => console.log("change")}
+          onChange={() => {}}
         />
       </LitmusThemeProvider>
     );

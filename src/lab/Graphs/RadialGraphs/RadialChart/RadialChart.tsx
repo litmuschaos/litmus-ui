@@ -26,7 +26,7 @@ export interface RadialChartProps extends RadialGraphProps {
   // For the orientation of the LegendTable either "right" or "bottom"
   alignLegendTable?: LegendTableOrientation;
 }
-export interface RadialChartChildProps extends RadialChartProps {
+interface RadialChartChildProps extends RadialChartProps {
   // Width of the parent component automatically calcuated by the child
   width: number;
 

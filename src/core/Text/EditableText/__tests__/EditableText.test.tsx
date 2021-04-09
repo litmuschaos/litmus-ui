@@ -27,7 +27,7 @@ describe("EditableText component", () => {
     // Checking initial value of Typography <p> tag
     expect(textValue.textContent).toBe("test value");
 
-    // Cilcking to change it to edit mode
+    // Clicking to change it to edit mode
     fireEvent.click(editBtn);
     const saveBtn = screen.getByTestId("save-btn");
 
