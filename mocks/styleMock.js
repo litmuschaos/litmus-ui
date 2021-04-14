@@ -1,5 +1,3 @@
-module.exports = {
-  process() {
-    return '';
-  },
-};
+export function process() {
+  return "";
+}

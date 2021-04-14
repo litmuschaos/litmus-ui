@@ -1,2 +1,2 @@
-export { DateValue, GraphMetric } from "./base";
+export type { DateValue, EventMetric, GraphMetric } from "./base";
 export * from "./LineAreaGraph";

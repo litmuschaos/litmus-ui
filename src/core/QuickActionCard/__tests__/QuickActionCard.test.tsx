@@ -10,7 +10,7 @@ jest.useFakeTimers();
 describe("QuickActionCard", () => {
   it("Renders", () => {
     render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <QuickActionCard
           quickActions={quickActionTestData}
           title={"Quick Actions"}

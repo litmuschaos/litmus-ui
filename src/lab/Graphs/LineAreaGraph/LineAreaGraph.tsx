@@ -1,9 +1,9 @@
 import { ParentSize } from "@visx/visx";
 import React from "react";
-import { LineAreaGraphProps } from "./base";
+import { GraphMetric, LineAreaGraphProps } from "./base";
 import { FilteredLineAreaGraph } from "./FilteredLineAreaGraph";
 
-const LineAreaGraph: React.FC<LineAreaGraphProps> = ({
+const LineAreaGraph: React.FC<LineAreaGraphProps<Array<GraphMetric>>> = ({
   legendTableHeight = 100,
   showLegendTable = true,
   ...rest

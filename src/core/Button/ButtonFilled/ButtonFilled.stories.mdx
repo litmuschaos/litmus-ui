@@ -1,0 +1,48 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { ButtonFilled } from ".";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta
+  title="Core/Button/ButtonFilled"
+  component={ButtonFilled}
+  argTypes={{
+    variant: {
+      control: {
+        type: "radio",
+        options: {
+          default: "default",
+          error: "error",
+          success: "success",
+        },
+        defaultValue: "default",
+      },
+    },
+    onClick: { action: "clicked" },
+  }}
+/>
+
+# ButtonFilled
+
+`Buttons` allow users to take actions, and make choices, with a single tap.
+`ButtonFilled` is a button with solid background.
+
+## Default variant:
+
+<Canvas>
+  <Story name="Default" args={{}}>
+    {(args) => <ButtonFilled {...args}>Default Variant</ButtonFilled>}
+  </Story>
+</Canvas>
+
+## Other variants for ButtonFilled:
+
+<Canvas>
+  <Story name="Error" args={{ variant: "error" }}>
+    {(args) => <ButtonFilled {...args}>Error Variant</ButtonFilled>}
+  </Story>
+  <Story name="Success" args={{ variant: "success" }}>
+    {(args) => <ButtonFilled {...args}>Success Variant</ButtonFilled>}
+  </Story>
+</Canvas>
+
+<ArgsTable of={ButtonFilled} />

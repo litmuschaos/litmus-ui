@@ -1,6 +1,8 @@
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
+// @ts-expect-error
+import SuccessIcon from "../../assets/checkIcon.svg";
 import { BaseInputProps } from "./base";
 import { useStyles } from "./styles";
 
@@ -9,12 +11,14 @@ type Variant = "primary" | "error" | "success" | undefined;
 interface InputProps extends BaseInputProps {
   variant?: Variant;
   width?: string;
+  filled?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
 }
 const InputField: React.FC<InputProps> = ({
   variant,
   width,
+  filled,
   startIcon,
   endIcon,
   disabled,
@@ -45,10 +49,10 @@ const InputField: React.FC<InputProps> = ({
   return (
     <TextField
       data-testid="inputField"
-      variant="outlined"
+      variant={filled ? "filled" : "outlined"}
       className={`${classes.root} ${className} ${
         disabled ? classes.disabled : getVariant(variant)
-      }`}
+      } ${filled ? classes.filled : ""}`}
       type={type !== "password" ? type : showPassword ? "text" : "password"}
       error={variant === "error"}
       disabled={disabled}
@@ -63,6 +67,10 @@ const InputField: React.FC<InputProps> = ({
               >
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </IconButton>
+            </InputAdornment>
+          ) : variant === "success" ? (
+            <InputAdornment position="end">
+              <img src={SuccessIcon} alt="white check mark" />
             </InputAdornment>
           ) : (
             endIcon && (

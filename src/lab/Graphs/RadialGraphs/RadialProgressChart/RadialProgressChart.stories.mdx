@@ -1,0 +1,62 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { RadialProgressChart } from "../RadialProgressChart";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+import { testRadialProgressChartData } from "./testData";
+
+<Meta
+  title="Lab/RadialGraphs/RadialProgressChart"
+  component={RadialProgressChart}
+/>
+
+# RadialProgressChart
+
+`RadialProgressChart` component inform users about the
+status of ongoing processes in form of a Cirle/SemiCircle
+Graph .
+
+Parent with height:width of around 1:2 is most suitable for semiCirle
+
+## Default:
+
+<Canvas>
+  <Story
+    name="Circle"
+    args={{
+      radialData: testRadialProgressChartData,
+      heading: "Based on test results",
+      iconSize: "1.5rem",
+      iconTop: "4rem",
+      unit: "%",
+    }}
+  >
+    {(args) => (
+      <div style={{ width: "16rem", height: "16rem" }}>
+        <RadialProgressChart {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Other Variants:
+
+<Canvas>
+  <Story
+    name="SemiCircle"
+    args={{
+      radialData: testRadialProgressChartData,
+      semiCircle: true,
+      heading: "Based on test results",
+      iconSize: "1rem",
+      iconTop: "4rem",
+      unit: "%",
+    }}
+  >
+    {(args) => (
+      <div style={{ width: "15rem", height: "7rem" }}>
+        <RadialProgressChart {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+<ArgsTable of={RadialProgressChart} />

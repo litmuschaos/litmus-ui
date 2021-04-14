@@ -9,13 +9,13 @@ jest.useFakeTimers();
 describe("InputField component", () => {
   it("Renders", () => {
     render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <InputField
           label="Text Input"
           variant="primary"
           type="text"
           disabled={false}
-          onChange={() => console.log("change")}
+          onChange={() => {}}
         />
       </LitmusThemeProvider>
     );

@@ -1,0 +1,25 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { QuickActionCard } from "../QuickActionCard";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+import { quickActionTestData } from "./testData";
+
+<Meta title="Core/QuickActionCard" component={QuickActionCard} />
+
+# QuickActionCard
+
+`QuickActionCard` component provides links to the most frequent actions on that page.
+
+## Default variant:
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{ quickActions: quickActionTestData, title: "Quick Actions" }}
+  >
+    {(args) => <QuickActionCard {...args} />}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<ArgsTable of={QuickActionCard} />

@@ -12,14 +12,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& label": {
       color: theme.palette.text.hint,
     },
-    background: theme.palette.background.paper,
+    "& .MuiInputBase-root": {
+      background: theme.palette.background.paper,
+    },
     "& fieldset": {
-      borderColor: `${theme.palette.border.main} !important`,
+      borderColor: `${theme.palette.border.main}`,
     },
     "& .MuiSvgIcon-root": {
       color: theme.palette.text.hint,
     },
-    "& .MuiInputBase-input": {
+
+    "& input": {
+      background: theme.palette.background.paper,
       "&:focus, &:hover, &:active": {
         "&:-webkit-autofill": {
           WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
@@ -32,35 +36,58 @@ const useStyles = makeStyles((theme: Theme) => ({
       },
     },
   },
+
+  // Styles for disabled input field
   disabled: {
     color: theme.palette.text.disabled,
     "& label": {
       color: `${theme.palette.border.main} !important`,
     },
   },
+
+  // Styles for filled input component
+  filled: {
+    "& .MuiFilledInput-root": {
+      border: `1px solid ${theme.palette.border.main}`,
+      borderRadius: 4,
+    },
+    "& input": {
+      borderRadius: 4,
+      paddingBottom: 8,
+    },
+    "& .MuiInputBase-root:before, .MuiInputBase-root:after": {
+      border: "none",
+    },
+    "& label": {
+      transform: "translate(14px, 20px) scale(1)",
+    },
+  },
+
+  // Primary/Default variant
   primary: {
-    "&:hover": {
+    "&:hover, &:active": {
       "& fieldset": {
-        borderColor: `${theme.palette.highlight} !important`,
+        borderColor: `${theme.palette.highlight}`,
       },
     },
   },
+
+  // Error variant
   error: {
     background: theme.palette.background.paper,
-    "& fieldset": {
+    "& fieldset, .MuiFilledInput-root": {
       borderColor: `${theme.palette.border.error} !important`,
     },
-    "& label": {
-      color: `${theme.palette.error.main} !important`,
-    },
   },
+
+  // Success variant
   success: {
     background: theme.palette.background.paper,
-    "& fieldset": {
+    "& fieldset, .MuiFilledInput-root": {
       borderColor: `${theme.palette.border.success} !important`,
     },
     "& label": {
-      color: ` ${theme.palette.success.main} !important`,
+      color: `${theme.palette.success.main} !important`,
     },
   },
 }));

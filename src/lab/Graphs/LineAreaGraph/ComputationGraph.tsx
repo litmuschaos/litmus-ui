@@ -10,16 +10,28 @@ import {
   Tooltip,
   useTooltip,
 } from "@visx/visx";
-import { bisector, extent, max } from "d3-array";
+import { extent, max, min } from "d3-array";
 import dayjs from "dayjs";
 import React, { useCallback, useMemo, useState } from "react";
-import { LegendData } from "../LegendTable/base";
+import { LegendData } from "../LegendTable";
 import { LegendTable } from "../LegendTable/LegendTable";
-import { DateValue, GraphProps, ToolTipInterface } from "./base";
+import {
+  DateValue,
+  LineAreaGraphChildProps,
+  TooltipData,
+  ToolTipDateValue,
+} from "./base";
 import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
 import { useStyles } from "./styles";
+import {
+  bisectDate,
+  bisectorValue,
+  getDateNum,
+  getSum,
+  getValueNum,
+  getValueStr,
+} from "./utils";
 
-type TooltipData = Array<ToolTipInterface>;
 let dd1: DateValue;
 let dd0: DateValue;
 let i: number;
@@ -27,54 +39,20 @@ let j: number;
 let indexer: number;
 let toolTipPointLength: number;
 
-// Accessor functions
-const getDateNum = (d: DateValue) => {
-  if (d) {
-    if (typeof d.date === "number") {
-      return new Date(d.date);
-    } else return new Date(parseInt(d.date, 10));
-  } else {
-    return new Date(0);
-  }
-};
-
-const getValueNum = (d: DateValue) => {
-  if (d) {
-    if (typeof d.value === "number") {
-      return d.value;
-    } else return parseInt(d.value, 10);
-  } else {
-    return NaN;
-  }
-};
-
-const getValueStr = (d: DateValue) => {
-  if (d) {
-    if (typeof d.value === "number") {
-      return d.value.toFixed(2).toString();
-    } else return d.value;
-  } else {
-    return "";
-  }
-};
-
-// Bisectors
-const bisectDate = bisector<DateValue, Date>((d) => new Date(getDateNum(d)))
-  .left;
-const bisectorValue = bisector<ToolTipInterface, number>((d) =>
-  getValueNum(d.data)
-).left;
-
 const chartSeparation = 10;
-let legenTablePointerData: Array<ToolTipInterface>;
+let legenTablePointerData: Array<ToolTipDateValue>;
+let eventTableData: Array<LegendData> = [{ data: ["--", "--"], baseColor: "" }];
 
-const ComputationGraph: React.FC<GraphProps> = ({
+const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
   closedSeries,
   openSeries,
   eventSeries,
   showTips = true,
   showLegendTable = true,
+  showEventTable = false,
+  widthPercentageEventTable = 40,
+  marginLeftEventTable = 50,
   width = 200,
   height = 200,
   margin = {
@@ -89,14 +67,41 @@ const ComputationGraph: React.FC<GraphProps> = ({
   ...rest
 }) => {
   const { palette } = useTheme();
-  const classes = useStyles({ width, height });
+  const classes = useStyles({
+    width,
+    height,
+    legendTableHeight,
+    widthPercentageEventTable,
+    marginLeftEventTable,
+    showLegendTable,
+    showEventTable,
+  });
   const [filteredClosedSeries, setFilteredSeries] = useState(closedSeries);
   const [filteredOpenSeries, setfilteredOpenSeries] = useState(openSeries);
   const [filteredEventSeries, setfilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
+  //  ToolTip Data
+  const {
+    showTooltip,
+    hideTooltip,
+    tooltipData,
+    tooltipLeft = 0,
+    tooltipTop = 0,
+  } = useTooltip<TooltipData>({
+    tooltipOpen: true,
+  });
 
+  const {
+    showTooltip: showTooltipDate,
+    hideTooltip: hideTooltipDate,
+    tooltipData: tooltipDataDate,
+    tooltipLeft: tooltipLeftDate = 0,
+  } = useTooltip<TooltipData>({
+    tooltipOpen: true,
+  });
   let legenddata: Array<LegendData> = [{ data: [], baseColor: "" }];
+
   const closedSeriesCount = filteredClosedSeries
     ? filteredClosedSeries.length
     : 0;
@@ -108,6 +113,8 @@ const ComputationGraph: React.FC<GraphProps> = ({
       if (!domain) return;
       setAutoRender(false);
       const { x0, x1 } = domain;
+      hideTooltip();
+      hideTooltipDate();
       if (filteredClosedSeries) {
         const seriesCopy = filteredClosedSeries
           .map((lineData) =>
@@ -152,13 +159,20 @@ const ComputationGraph: React.FC<GraphProps> = ({
           .map((linedata, i) => ({
             metricName: filteredEventSeries[i].metricName,
             data: linedata,
+            subData: filteredEventSeries[i].subData,
             baseColor: filteredEventSeries[i].baseColor,
           }));
 
         setfilteredEventSeries(seriesCopy);
       }
     },
-    [filteredClosedSeries, filteredOpenSeries, filteredEventSeries]
+    [
+      filteredClosedSeries,
+      filteredOpenSeries,
+      filteredEventSeries,
+      hideTooltip,
+      hideTooltipDate,
+    ]
   );
 
   const innerHeight = height - margin.top - margin.bottom;
@@ -203,13 +217,28 @@ const ComputationGraph: React.FC<GraphProps> = ({
       }),
     [xMax, filteredClosedSeries, filteredOpenSeries, filteredEventSeries]
   );
-
   const valueScale = useMemo(
     () =>
       scaleLinear<number>({
         range: [yMax, 0],
         domain: [
-          0,
+          min(
+            (filteredClosedSeries
+              ? filteredClosedSeries
+                  .map((linedata) => linedata.data)
+                  .reduce((rec, d) => rec.concat(d), [])
+              : [{ date: NaN, value: NaN }]
+            )
+              .concat(
+                filteredOpenSeries
+                  ? filteredOpenSeries
+                      .map((linedata) => linedata.data)
+                      .reduce((rec, d) => rec.concat(d), [])
+                  : [{ date: NaN, value: NaN }]
+              )
+              .concat([{ date: new Date().getTime(), value: 0 }]),
+            getValueNum
+          ) || 0,
           max(
             (filteredClosedSeries
               ? filteredClosedSeries
@@ -224,32 +253,12 @@ const ComputationGraph: React.FC<GraphProps> = ({
                 : [{ date: NaN, value: NaN }]
             ),
             getValueNum
-          ) || 0,
+          ) || 1,
         ],
         nice: true,
       }),
     [yMax, filteredClosedSeries, filteredOpenSeries]
   );
-
-  //  ToolTip Data
-  const {
-    showTooltip,
-    hideTooltip,
-
-    tooltipData,
-    tooltipLeft = 0,
-    tooltipTop = 0,
-  } = useTooltip<TooltipData>({
-    // initial tooltip state
-    tooltipOpen: true,
-  });
-  const getSum = (total: number, num: number | string) => {
-    if (typeof num === "number") {
-      return total + (num || 0);
-    } else {
-      return total + (parseInt(num, 10) || 0);
-    }
-  };
 
   // tooltip handler
 
@@ -257,8 +266,8 @@ const ComputationGraph: React.FC<GraphProps> = ({
     (
       event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>
     ) => {
-      let pointerDataSelection: ToolTipInterface[] = [
-        { metricName: "", data: dd0, baseColor: "" },
+      let pointerDataSelection: ToolTipDateValue[] = [
+        { metricName: "", data: { date: NaN, value: NaN }, baseColor: "" },
       ];
       if (showTips) {
         let { x, y } = localPoint(event) || { x: 0, y: 0 };
@@ -271,49 +280,49 @@ const ComputationGraph: React.FC<GraphProps> = ({
           setMouseEnterGraph(true);
         }
         i = 0;
-        if (closedSeries) {
-          for (j = 0; j < closedSeries.length; j++) {
-            indexer = bisectDate(closedSeries[i].data, x0, 1);
-            dd0 = closedSeries[j].data[indexer - 1];
-            dd1 = closedSeries[j].data[indexer];
+        if (filteredClosedSeries) {
+          for (j = 0; j < filteredClosedSeries.length; j++) {
+            indexer = bisectDate(filteredClosedSeries[i].data, x0, 1);
+            dd0 = filteredClosedSeries[j].data[indexer - 1];
+            dd1 = filteredClosedSeries[j].data[indexer];
 
             if (dd1) {
               pointerDataSelection[i] =
                 x0.valueOf() - getDateNum(dd0).valueOf() >
                 getDateNum(dd1).valueOf() - x0.valueOf()
                   ? {
-                      metricName: closedSeries[i].metricName,
+                      metricName: filteredClosedSeries[i].metricName,
                       data: dd1,
-                      baseColor: closedSeries[i].baseColor,
+                      baseColor: filteredClosedSeries[i].baseColor,
                     }
                   : {
-                      metricName: closedSeries[i].metricName,
+                      metricName: filteredClosedSeries[i].metricName,
                       data: dd0,
-                      baseColor: closedSeries[i].baseColor,
+                      baseColor: filteredClosedSeries[i].baseColor,
                     };
               i++;
             }
           }
         }
-        if (openSeries) {
-          for (j = 0; j < openSeries.length; j++) {
-            indexer = bisectDate(openSeries[j].data, x0, 1);
-            dd0 = openSeries[j].data[indexer - 1];
-            dd1 = openSeries[j].data[indexer];
+        if (filteredOpenSeries) {
+          for (j = 0; j < filteredOpenSeries.length; j++) {
+            indexer = bisectDate(filteredOpenSeries[j].data, x0, 1);
+            dd0 = filteredOpenSeries[j].data[indexer - 1];
+            dd1 = filteredOpenSeries[j].data[indexer];
 
             if (dd1) {
               pointerDataSelection[i] =
                 x0.valueOf() - getDateNum(dd0).valueOf() >
                 getDateNum(dd1).valueOf() - x0.valueOf()
                   ? {
-                      metricName: openSeries[j].metricName,
+                      metricName: filteredOpenSeries[j].metricName,
                       data: dd1,
-                      baseColor: openSeries[j].baseColor,
+                      baseColor: filteredOpenSeries[j].baseColor,
                     }
                   : {
-                      metricName: openSeries[j].metricName,
+                      metricName: filteredOpenSeries[j].metricName,
                       data: dd0,
-                      baseColor: openSeries[j].baseColor,
+                      baseColor: filteredOpenSeries[j].baseColor,
                     };
               i++;
             }
@@ -342,8 +351,8 @@ const ComputationGraph: React.FC<GraphProps> = ({
         let closestValue: number | undefined;
 
         index0 = bisectorValue(pointerDataSelection, y0);
-        const dd00: ToolTipInterface = pointerDataSelection[index0];
-        const dd11: ToolTipInterface = pointerDataSelection[index0 - 1];
+        const dd00: ToolTipDateValue = pointerDataSelection[index0];
+        const dd11: ToolTipDateValue = pointerDataSelection[index0 - 1];
         if (dd11 && dd00) {
           closestValue =
             Math.abs(y0.valueOf() - getValueNum(dd00.data)) >
@@ -360,85 +369,236 @@ const ComputationGraph: React.FC<GraphProps> = ({
         );
 
         toolTipPointLength = pointerDataSelection.length;
-        const eventToolTip: Array<ToolTipInterface> = [];
-        if (eventSeries) {
-          for (j = 0; j < eventSeries.length; j++) {
-            indexer = bisectDate(eventSeries[j].data, x0, 1);
-            dd0 = eventSeries[j].data[indexer - 1];
-            dd1 = eventSeries[j].data[indexer];
+        let singleEventToolTip: ToolTipDateValue;
+        eventTableData = eventTableData.splice(0);
+        let k = 0;
+        let trimPreviousToopTipData = 0;
+
+        if (filteredEventSeries) {
+          for (j = 0; j < filteredEventSeries.length; j++) {
+            indexer = bisectDate(filteredEventSeries[j].data, x0, 1);
+            dd0 = filteredEventSeries[j].data[indexer - 1];
+            dd1 = filteredEventSeries[j].data[indexer];
+            if (
+              dd1 &&
+              toolTipPointLength > 0 &&
+              trimPreviousToopTipData === 0 &&
+              Math.abs(x0.valueOf() - getDateNum(dd1).valueOf()) <
+                Math.abs(
+                  getDateNum(
+                    pointerDataSelection[toolTipPointLength - 1].data
+                  ).valueOf() - x0.valueOf()
+                )
+            ) {
+              i = 0;
+              toolTipPointLength = 0;
+              trimPreviousToopTipData = 1;
+              pointerDataSelection.slice(0, 0);
+            } else if (
+              dd0 &&
+              toolTipPointLength > 0 &&
+              trimPreviousToopTipData === 0 &&
+              Math.abs(x0.valueOf() - getDateNum(dd0).valueOf()) <
+                Math.abs(
+                  getDateNum(
+                    pointerDataSelection[toolTipPointLength - 1].data
+                  ).valueOf() - x0.valueOf()
+                )
+            ) {
+              i = 0;
+              toolTipPointLength = 0;
+              trimPreviousToopTipData = 1;
+              pointerDataSelection.slice(0, 0);
+            }
 
             if (
               dd1 &&
-              (toolTipPointLength - 1 < 0 ||
-                dd1.date ===
-                  pointerDataSelection[toolTipPointLength - 1].data.date)
+              ((toolTipPointLength === 0 &&
+                x0.valueOf() - getDateNum(dd0).valueOf() >
+                  getDateNum(dd1).valueOf() - x0.valueOf()) ||
+                (toolTipPointLength > 0 &&
+                  dd1.date ===
+                    pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
-              eventToolTip[j] = {
-                metricName: eventSeries[j].metricName,
+              singleEventToolTip = {
+                metricName: filteredEventSeries[j].metricName,
                 data: dd1,
-                baseColor: eventSeries[j].baseColor,
+                baseColor: filteredEventSeries[j].baseColor,
               };
-              legenTablePointerData[j + legenTablePointerData.length] =
-                eventToolTip[j];
+              legenTablePointerData[
+                j + legenTablePointerData.length
+              ] = singleEventToolTip;
+
               if (dd1.value !== "False") {
-                pointerDataSelection[i] = eventToolTip[j];
-                i++;
+                pointerDataSelection[i++] = singleEventToolTip;
+                // Selection of the sub-data for the
+                // subData Table from the filteredEventSeries
+                // on which the user is hovering
+                eventTableData[k] = {
+                  data: [filteredEventSeries[j].metricName],
+                  baseColor: filteredEventSeries[j].baseColor,
+                };
+                k++;
+                // For a singleEvent where the user is hovering,
+                // here we are trying to get to the start and end point
+                // of that event
+                let startSingleEvent = indexer;
+                let endSingleEvent = indexer;
+
+                while (
+                  startSingleEvent > 0 &&
+                  (filteredEventSeries[j].data[startSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[startSingleEvent].value ===
+                      "End")
+                ) {
+                  startSingleEvent--;
+                }
+                while (
+                  endSingleEvent < filteredEventSeries[j].data.length - 1 &&
+                  (filteredEventSeries[j].data[endSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[endSingleEvent].value ===
+                      "Start")
+                ) {
+                  endSingleEvent++;
+                }
+
+                if (filteredEventSeries[j].subData) {
+                  filteredEventSeries[j].subData?.forEach((singleSubData) => {
+                    // Checking if the timeStamp of the subData lands
+                    // within the start and end of singleEvent the user is hovering
+                    if (
+                      singleSubData &&
+                      singleSubData.date >=
+                        filteredEventSeries[j].data[startSingleEvent].date &&
+                      singleSubData.date <=
+                        filteredEventSeries[j].data[endSingleEvent].date
+                    ) {
+                      eventTableData[k++] = {
+                        data: [singleSubData.subDataName, singleSubData.value],
+                      };
+                    }
+                  });
+                }
               }
             } else if (
               dd0 &&
-              (toolTipPointLength - 1 < 0 ||
-                dd0.date ===
-                  pointerDataSelection[toolTipPointLength - 1].data.date)
+              ((toolTipPointLength === 0 &&
+                x0.valueOf() - getDateNum(dd0).valueOf() <
+                  getDateNum(dd1).valueOf() - x0.valueOf()) ||
+                (toolTipPointLength > 0 &&
+                  dd0.date ===
+                    pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
-              eventToolTip[j] = {
-                metricName: eventSeries[j].metricName,
+              singleEventToolTip = {
+                metricName: filteredEventSeries[j].metricName,
                 data: dd0,
-                baseColor: eventSeries[j].baseColor,
+                baseColor: filteredEventSeries[j].baseColor,
               };
-              legenTablePointerData[j + legenTablePointerData.length] =
-                eventToolTip[j];
+              legenTablePointerData[
+                j + legenTablePointerData.length
+              ] = singleEventToolTip;
 
               if (dd0.value !== "False") {
-                pointerDataSelection[i] = eventToolTip[j];
-                i++;
+                pointerDataSelection[i++] = singleEventToolTip;
+                eventTableData[k] = {
+                  data: [filteredEventSeries[j].metricName],
+                  baseColor: filteredEventSeries[j].baseColor,
+                };
+                k++;
+                let startSingleEvent = indexer - 1;
+                let endSingleEvent = indexer - 1;
+
+                while (
+                  startSingleEvent > 0 &&
+                  (filteredEventSeries[j].data[startSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[startSingleEvent].value ===
+                      "End")
+                ) {
+                  startSingleEvent--;
+                }
+                while (
+                  endSingleEvent < filteredEventSeries[j].data.length - 1 &&
+                  (filteredEventSeries[j].data[endSingleEvent].value ===
+                    "True" ||
+                    filteredEventSeries[j].data[endSingleEvent].value ===
+                      "Start")
+                ) {
+                  endSingleEvent++;
+                }
+
+                if (filteredEventSeries[j].subData) {
+                  filteredEventSeries[j].subData?.forEach((singleSubData) => {
+                    if (
+                      singleSubData &&
+                      singleSubData.date >=
+                        filteredEventSeries[j].data[startSingleEvent].date &&
+                      singleSubData.date <=
+                        filteredEventSeries[j].data[endSingleEvent].date
+                    ) {
+                      eventTableData[k++] = {
+                        data: [singleSubData.subDataName, singleSubData.value],
+                      };
+                    }
+                  });
+                }
               }
             }
           }
         }
-
         pointerDataSelection = pointerDataSelection.slice(0, i);
+
+        i = 0;
+        eventTableData = eventTableData.slice(0, k);
+        // Passing hyphen if eventTableData data is empty
+        if (eventTableData.length === 0) {
+          eventTableData[0] = { data: ["--", "--"] };
+        }
       }
       if (width < 10) return null;
+      const tooltipLeftValue =
+        pointerDataSelection[0] && pointerDataSelection[0].data
+          ? dateScale(getDateNum(pointerDataSelection[0].data))
+          : dateScale(xMax);
+      const tooltipTopValue =
+        pointerDataSelection[0] && pointerDataSelection[0].data
+          ? valueScale(getValueNum(pointerDataSelection[0].data))
+          : 0;
 
       showTooltip({
         tooltipData: pointerDataSelection,
-        tooltipLeft:
-          pointerDataSelection[0] && pointerDataSelection[0].data
-            ? dateScale(getDateNum(pointerDataSelection[0].data))
-            : 0,
-        tooltipTop:
-          pointerDataSelection[0] && pointerDataSelection[0].data
-            ? valueScale(getValueNum(pointerDataSelection[0].data))
-            : 0,
+        tooltipLeft: tooltipLeftValue,
+        tooltipTop: tooltipTopValue,
+      });
+      showTooltipDate({
+        tooltipData: pointerDataSelection,
+        tooltipLeft: tooltipLeftValue,
+        tooltipTop: tooltipTopValue,
       });
     },
+
     [
+      filteredClosedSeries,
+      filteredOpenSeries,
+      filteredEventSeries,
       showTips,
       width,
       showTooltip,
+      showTooltipDate,
       dateScale,
       valueScale,
       margin.left,
       margin.top,
       firstMouseEnterGraph,
-      closedSeries,
-      openSeries,
-      eventSeries,
+      xMax,
     ]
   );
   // legendData
   if (showLegendTable) {
     legenddata = legenddata.splice(0);
+
     if (filteredEventSeries) {
       filteredEventSeries.map((linedata, index) => {
         const pointerElement = legenTablePointerData
@@ -454,11 +614,12 @@ const ComputationGraph: React.FC<GraphProps> = ({
 
         const avg = "--";
 
-        if (linedata.data !== undefined)
+        if (linedata.data !== undefined) {
           legenddata[index] = {
             data: [linedata.metricName, avg, curr],
             baseColor: linedata.baseColor,
           };
+        }
       });
     }
     if (filteredClosedSeries) {
@@ -529,13 +690,14 @@ const ComputationGraph: React.FC<GraphProps> = ({
   }
   return (
     <div
-      onMouseLeave={() => hideTooltip()}
+      onMouseLeave={() => hideTooltipDate()}
       style={{
         width,
         height: height + legendTableHeight,
+        position: "relative",
       }}
     >
-      <svg width={width} height={height}>
+      <svg onMouseLeave={() => hideTooltip()} width={width} height={height}>
         <rect
           x={0}
           y={0}
@@ -589,77 +751,109 @@ const ComputationGraph: React.FC<GraphProps> = ({
               setfilteredOpenSeries(openSeries);
               setfilteredEventSeries(eventSeries);
               setAutoRender(true);
+              hideTooltip();
+              hideTooltipDate();
             }}
           />
-          {showTips && tooltipData && tooltipData[0] && (
+          {showTips && tooltipDataDate && tooltipDataDate[0] && (
             <Line
-              key={`${tooltipData[0].metricName}-toolTipLine`}
-              from={{ x: dateScale(getDateNum(tooltipData[0].data)), y: 0 }}
-              to={{ x: dateScale(getDateNum(tooltipData[0].data)), y: yMax }}
+              key={`${tooltipDataDate[0].metricName}-toolTipLine`}
+              from={{ x: dateScale(getDateNum(tooltipDataDate[0].data)), y: 0 }}
+              to={{
+                x: dateScale(getDateNum(tooltipDataDate[0].data)),
+                y: yMax,
+              }}
               className={classes.tooltipLine}
             />
           )}
-          {showTips && tooltipData && toolTipPointLength >= 1 && (
-            <g>
-              <circle
-                cx={dateScale(getDateNum(tooltipData[0].data))}
-                cy={valueScale(getValueNum(tooltipData[0].data))}
-                r={5}
-                fill={palette.graph.toolTip}
-                fillOpacity={1}
-                stroke={palette.text.primary}
-                strokeOpacity={1}
-                strokeWidth={2}
-                pointerEvents="none"
-              />
-            </g>
-          )}
+          {showTips &&
+            tooltipData &&
+            toolTipPointLength >= 1 &&
+            tooltipData[0] && (
+              <g>
+                <circle
+                  cx={dateScale(getDateNum(tooltipData[0].data))}
+                  cy={valueScale(getValueNum(tooltipData[0].data))}
+                  r={5}
+                  fill={palette.graph.toolTip}
+                  fillOpacity={1}
+                  stroke={palette.text.primary}
+                  strokeOpacity={1}
+                  strokeWidth={2}
+                  pointerEvents="none"
+                />
+              </g>
+            )}
         </PlotLineAreaGraph>
       </svg>
-      {tooltipData && tooltipData[0] && (
-        <div>
-          <Tooltip
-            top={height}
-            left={tooltipLeft}
-            className={classes.tooltipDateStyles}
-          >
-            <div
-              className={`${classes.tooltipData} ${classes.tooltipBottomDate}`}
-            >
-              <span>{` ${dayjs(
-                new Date(getDateNum(tooltipData[0].data))
-              ).format(toolTiptimeFormat)}`}</span>
-            </div>
-          </Tooltip>
-          <Tooltip
-            top={tooltipTop + margin.top}
-            left={tooltipLeft + margin.left}
-            className={classes.tooltipMetric}
-          >
-            {tooltipData.map((linedata) => (
-              <div key={`tooltipName-value- ${linedata.metricName}`}>
-                <div className={classes.tooltipData}>
-                  <div className={classes.tooltipLabel}>
-                    <hr color={linedata.baseColor} className={classes.hr} />
-                    <span>{`${linedata.metricName}`}</span>
-                  </div>
-                  <div className={classes.tooltipValue}>
-                    <span>{`${getValueStr(linedata.data)}`}</span>
-                  </div>
+      {tooltipDataDate && showTips && tooltipDataDate[0] && (
+        <Tooltip
+          top={yMax}
+          left={tooltipLeftDate}
+          className={classes.tooltipDateStyles}
+        >
+          <div className={`${classes.tooltipBottomDate}`}>
+            <span>{` ${dayjs(
+              new Date(getDateNum(tooltipDataDate[0].data))
+            ).format(toolTiptimeFormat)}`}</span>
+          </div>
+        </Tooltip>
+      )}
+      {tooltipData && showTips && tooltipData[0] && (
+        <Tooltip
+          top={tooltipTop}
+          left={tooltipLeft}
+          // Hardcoded value for tooltip
+          // will be removed later
+          className={`${classes.tooltipMetric} ${
+            width - margin.left - margin.right - tooltipLeft < 160
+              ? classes.tooltipMetricLeft
+              : classes.tooltipMetricRight
+          }`}
+        >
+          {tooltipData.map((linedata, index) => (
+            <div key={`tooltipName-value- ${linedata.metricName}-${index}`}>
+              <div className={classes.tooltipData}>
+                <div className={classes.tooltipLabel}>
+                  <div
+                    className={classes.legendMarker}
+                    style={{ background: linedata.baseColor }}
+                  />
+                  <span>{`${linedata.metricName}`}</span>
+                </div>
+                <div className={classes.tooltipValue}>
+                  <span>{`${getValueStr(linedata.data)}`}</span>
                 </div>
               </div>
-            ))}
-          </Tooltip>
+            </div>
+          ))}
+        </Tooltip>
+      )}
+
+      {showLegendTable && showEventTable && (
+        <div className={classes.wrapperParentLegendAndEventTable}>
+          <div className={classes.wrapperLegendTable}>
+            <LegendTable
+              data={legenddata}
+              heading={["Metric Name", "Avg", "Curr"]}
+            />
+          </div>
+          <div className={classes.wrapperSubDataTableForEvents}>
+            <LegendTable
+              data={eventTableData}
+              heading={["Chaos Metric Info", "Value"]}
+            />
+          </div>
         </div>
       )}
-      <div style={{ width, height: legendTableHeight }}>
-        {showLegendTable && (
+      {showLegendTable && !showEventTable && (
+        <div className={classes.wrapperLegendTable}>
           <LegendTable
             data={legenddata}
             heading={["Metric Name", "Avg", "Curr"]}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

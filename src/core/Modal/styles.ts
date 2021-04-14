@@ -2,6 +2,7 @@ import { makeStyles, Theme } from "@material-ui/core";
 
 interface StyleProps {
   width?: string;
+  height?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -12,8 +13,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   content: {
     position: "relative",
-    width: (props: StyleProps) => props.width || "80%",
-    maxHeight: "80%",
+    width: (props: StyleProps) => props.width ?? "80%",
+    height: (props: StyleProps) => props.height ?? "80%",
     margin: "5rem auto",
     color: theme.palette.text.primary,
     background: theme.palette.background.paper,

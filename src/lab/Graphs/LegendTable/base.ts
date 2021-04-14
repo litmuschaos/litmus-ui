@@ -1,9 +1,4 @@
-export interface LegendData {
-  data: Array<string>;
-  baseColor?: string;
-}
-
-export type LegendTableProps = {
-  data?: Array<LegendData>;
+export interface LegendTableBaseProps<T> {
+  data?: Array<T>;
   heading?: Array<string>;
-};
+}
