@@ -6,7 +6,7 @@ import { Header } from "../Header";
 describe("Text Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <Header>Header Text</Header>
       </LitmusThemeProvider>
     );

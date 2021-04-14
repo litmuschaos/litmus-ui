@@ -6,7 +6,7 @@ import { ButtonFilled } from "../ButtonFilled";
 describe("Button Filled Component", () => {
   it("Renders", () => {
     const { getByText } = render(
-      <LitmusThemeProvider platform="litmus-portal">
+      <LitmusThemeProvider>
         <ButtonFilled onClick={() => {}}>Button Filled</ButtonFilled>
       </LitmusThemeProvider>
     );

@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(1.5, 2),
     textTransform: "none",
     background: theme.palette.primary.main,
-    fontSize: "0.75rem",
+    fontSize: "1rem",
     color: theme.palette.text.secondary,
     "&:hover": {
       background: theme.palette.primary.main,

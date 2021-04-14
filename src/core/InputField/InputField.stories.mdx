@@ -1,0 +1,66 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { InputField } from "../InputField";
+
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta
+  title="Core/InputField"
+  component={InputField}
+  argTypes={{
+    variant: {
+      control: {
+        type: "radio",
+        options: {
+          primary: "primary",
+          success: "success",
+          error: "error",
+        },
+      },
+    },
+  }}
+/>
+
+## InputField
+
+`InputField` component is a complete form control including a label, input and help text.
+
+## Default variant:
+
+<Canvas>
+  <Story
+    name="Primary"
+    args={{
+      variant: "primary",
+      type: "text",
+      label: "Normal text field",
+      onChange: (e) => e.target.value,
+      disabled: false,
+    }}
+  >
+    {(args) => <InputField {...args} />}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<Canvas>
+  <Story name="Success" args={{ variant: "success", label: "Success" }}>
+    {(args) => <InputField {...args} />}
+  </Story>
+  <Story name="Error" args={{ variant: "error", label: "Error" }}>
+    {(args) => <InputField {...args} />}
+  </Story>
+</Canvas>
+
+## Other HTML input types:
+
+<Canvas>
+  <Story name="Password" args={{ label: "Enter password", type: "password" }}>
+    {(args) => <InputField {...args} />}
+  </Story>
+  <Story name="Email" args={{ label: "Enter email", type: "email" }}>
+    {(args) => <InputField {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={InputField} />

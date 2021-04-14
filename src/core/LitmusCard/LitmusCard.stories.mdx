@@ -1,0 +1,44 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { LitmusCard } from "../LitmusCard";
+
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta title="Core/LitmusCard" component={LitmusCard} />
+
+## LitmusCard
+
+`LitmusCard` component is a card with outer glow.
+
+## Default variant:
+
+<Canvas>
+  <Story
+    name="With Glow"
+    args={{
+      width: "15rem",
+      height: "20rem",
+      borderColor: "#5B44BA",
+      glow: true,
+    }}
+  >
+    {(args) => <LitmusCard {...args} />}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<Canvas>
+  <Story
+    name="Without Glow"
+    args={{
+      width: "15rem",
+      height: "20rem",
+      borderColor: "#5B44BA",
+      glow: false,
+    }}
+  >
+    {(args) => <LitmusCard {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={LitmusCard} />

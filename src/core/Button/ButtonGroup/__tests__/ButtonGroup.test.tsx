@@ -6,7 +6,7 @@ import { ButtonGroup } from "../ButtonGroup";
 describe("ButtonGroup Component", () => {
   it("Renders", () => {
     const { getByTestId } = render(
-      <LitmusThemeProvider platform="litmus-portal" data-testid="switch">
+      <LitmusThemeProvider data-testid="switch">
         <ButtonGroup variant="default" />
       </LitmusThemeProvider>
     );

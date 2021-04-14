@@ -7,7 +7,7 @@ import { useStyles } from "./styles";
 
 type Variant = "default" | "error" | "success" | undefined;
 
-interface ButtonGroupProps extends ButtonBaseProps {
+export interface ButtonGroupProps extends ButtonBaseProps {
   variant?: Variant;
 }
 

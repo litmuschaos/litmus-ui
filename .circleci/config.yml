@@ -4,9 +4,15 @@ orbs:
 
 # Defining Jobs
 jobs:
+  unusedDependency:
+    docker:
+      - image: cimg/node:15.10.0
+    steps:
+      - checkout
+      - run: npx depcheck
   lint:
     docker:
-      - image: circleci/node:10.13.0
+      - image: cimg/node:15.10.0
     steps:
       - checkout
       - run: yarn install --production=false
@@ -15,7 +21,7 @@ jobs:
           command: yarn lint
   build:
     docker:
-      - image: circleci/node:10.13.0
+      - image: cimg/node:15.10.0
     steps:
       - checkout
       - run: yarn install
@@ -24,19 +30,19 @@ jobs:
           command: yarn build
   test:
     docker:
-      - image: circleci/node:10.13.0
+      - image: cimg/node:15.10.0
     steps:
       - checkout
       - run: yarn install
       - run:
           name: Running Unit Tests
           command: yarn test
-
-
+          
 # Orchestrating our job run sequence
 workflows:
   lint_build_and_test:
     jobs:
+      - unusedDependency
       - lint
       - build
       - test:

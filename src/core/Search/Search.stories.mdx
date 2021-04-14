@@ -1,0 +1,24 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { Search } from "../Search";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta title="Core/Search" component={Search} />
+
+# Search
+
+`Search` component has been built upon the text field component.
+
+## Default variant:
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{ placeholder: "Search", onChange: (e) => e.target.value }}
+  >
+    {(args) => <Search {...args} />}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<ArgsTable of={Search} />

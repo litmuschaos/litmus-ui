@@ -8,8 +8,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { LegendTableProps } from "./base";
+import { LegendTableBaseProps } from "./base";
 import { useStyles } from "./style";
+
+export interface LegendData {
+  data: Array<string>;
+  baseColor?: string;
+}
+
+export type LegendTableProps = LegendTableBaseProps<LegendData>;
 
 const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
   const classes = useStyles();
@@ -43,10 +50,12 @@ const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
                         key={`${element}-${Math.random() * 100} `}
                         className={`${classes.tableCell} ${classes.tableFont} ${classes.tableLabel}`}
                       >
-                        <div
-                          className={classes.hr}
-                          style={{ background: row.baseColor }}
-                        />
+                        {row.baseColor && (
+                          <div
+                            className={classes.legendMarker}
+                            style={{ background: row.baseColor }}
+                          />
+                        )}
                         <Typography>{element}</Typography>
                       </TableCell>
                     )) ||

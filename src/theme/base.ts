@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { createMuiTheme, ThemeOptions } from "@material-ui/core";
 
-// Agument the Theme interface
+// Augment the Theme interface
 declare module "@material-ui/core/styles/createMuiTheme" {
   export interface Theme {}
 
@@ -9,11 +9,12 @@ declare module "@material-ui/core/styles/createMuiTheme" {
   export interface ThemeOptions {}
 }
 
-// Augument the Palette interface
+// Augment the Palette interface
 declare module "@material-ui/core/styles/createPalette" {
   export interface Palette {
     // Base Theme Palette
     sidebarMenu: string;
+    header: string;
     loginBackground: string;
     disabledBackground: string;
     highlight: string;
@@ -59,30 +60,8 @@ declare module "@material-ui/core/styles/createPalette" {
       toolTip: string;
       legendTableHeading: string;
       radialChartPassed: string;
-      line: {
-        violet: string;
-        violetLight: string;
-        brightPink: string;
-        darkPink: string;
-        yellow: string;
-        darkYellow: string;
-        orange: string;
-        lightGreen: string;
-        lightBlue: string;
-        darkBlue: string;
-      };
-      area: {
-        violet: string;
-        violetLight: string;
-        brightPink: string;
-        darkPink: string;
-        yellow: string;
-        darkYellow: string;
-        orange: string;
-        lightGreen: string;
-        lightBlue: string;
-        darkBlue: string;
-      };
+      line: string[];
+      area: string[];
     };
     modal: {
       background: string;
@@ -93,6 +72,7 @@ declare module "@material-ui/core/styles/createPalette" {
   export interface PaletteOptions {
     // Base Theme Palette options
     sidebarMenu?: string;
+    header?: string;
     loginBackground?: string;
     disabledBackground?: string;
     highlight?: string;
@@ -138,30 +118,8 @@ declare module "@material-ui/core/styles/createPalette" {
       toolTip: string;
       legendTableHeading: string;
       radialChartPassed: string;
-      line: {
-        violet: string;
-        violetLight: string;
-        brightPink: string;
-        darkPink: string;
-        yellow: string;
-        darkYellow: string;
-        orange: string;
-        lightGreen: string;
-        lightBlue: string;
-        darkBlue: string;
-      };
-      area: {
-        violet: string;
-        violetLight: string;
-        brightPink: string;
-        darkPink: string;
-        yellow: string;
-        darkYellow: string;
-        orange: string;
-        lightGreen: string;
-        lightBlue: string;
-        darkBlue: string;
-      };
+      line: string[];
+      area: string[];
     };
     modal?: {
       background: string;
@@ -185,7 +143,7 @@ function createTheme(themeOptions?: ThemeOptions) {
     },
     typography: {
       fontSize: 12,
-      fontFamily: "Ubuntu",
+      fontFamily: ["Inter", "sand-serif"].join(","),
     },
     ...themeOptions,
   });

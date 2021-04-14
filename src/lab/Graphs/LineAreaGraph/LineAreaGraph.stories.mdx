@@ -1,0 +1,40 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { LineAreaGraph } from "../LineAreaGraph";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+import { closedSeriesData, eventSeriesData, openSeriesData } from "./testData";
+
+<Meta title="Lab/LineAreaGraph" component={LineAreaGraph} />
+
+# LineAreaGraph
+
+`LineAreaGraph` component is used to represent data
+in form of lines, area-closed under the graph and events.
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      legendTableHeight: 120,
+      closedSeries: closedSeriesData,
+      openSeries: openSeriesData,
+      eventSeries: eventSeriesData,
+      showEventTable: true,
+      showPoints: true,
+      showLegendTable: true,
+      showTips: true,
+      unit: "%",
+      yLabel: "Chaos",
+      yLabelOffset: 35,
+      marginLeftEventTable: 10,
+      widthPercentageEventTable: 40,
+    }}
+  >
+    {(args) => (
+      <div style={{ width: "40rem", height: "25rem" }}>
+        <LineAreaGraph {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+<ArgsTable of={LineAreaGraph} />
