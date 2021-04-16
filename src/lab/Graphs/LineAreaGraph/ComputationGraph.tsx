@@ -357,18 +357,18 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           let closestValue: number | undefined;
 
           index0 = bisectorValue(pointerDataSelection, y0);
-          const dd00: ToolTipDateValue = pointerDataSelection[index0];
-          const dd11: ToolTipDateValue = pointerDataSelection[index0 - 1];
-          if (dd11 && dd00) {
+          dd0 = pointerDataSelection[index0].data;
+          dd1 = pointerDataSelection[index0 - 1].data;
+          if (dd1 && dd0) {
             closestValue =
-              Math.abs(y0.valueOf() - getValueNum(dd00.data)) >
-              Math.abs(y0.valueOf() - getValueNum(dd11.data))
-                ? getValueNum(dd11.data)
-                : getValueNum(dd00.data);
-          } else if (dd11 && !dd00) {
-            closestValue = getValueNum(dd11.data);
-          } else if (dd00 && !dd11) {
-            closestValue = getValueNum(dd00.data);
+              Math.abs(y0.valueOf() - getValueNum(dd0)) >
+              Math.abs(y0.valueOf() - getValueNum(dd1))
+                ? getValueNum(dd1)
+                : getValueNum(dd0);
+          } else if (dd1 && !dd0) {
+            closestValue = getValueNum(dd1);
+          } else if (dd0 && !dd1) {
+            closestValue = getValueNum(dd0);
           }
           pointerDataSelection = pointerDataSelection.filter(
             (lineData) => closestValue && lineData.data.value === closestValue
