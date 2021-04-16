@@ -54,6 +54,10 @@ export interface LineAreaGraphProps<T> {
   // Show Tooltip
   showTips?: boolean;
 
+  // Show multiToolTip, when true it shows all the data
+  // points along the Y-axix for the dateStamp where mouse is hovering
+  showMultiToolTip?: boolean;
+
   // Show individual points of the line and area under the curve graph
   showPoints?: boolean;
 
