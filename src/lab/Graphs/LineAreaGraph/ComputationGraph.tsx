@@ -48,6 +48,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   closedSeries,
   openSeries,
   eventSeries,
+  showMultiToolTip,
   showTips = true,
   showLegendTable = true,
   showEventTable = false,
@@ -81,6 +82,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [filteredEventSeries, setfilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
+  // Use for showing the tooltip when showMultiTooltip is disabled
+  const [mouseY, setMouseY] = useState(0);
+
   //  ToolTip Data
   const {
     showTooltip,
@@ -107,7 +111,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     : 0;
 
   const eventSeriesCount = filteredEventSeries ? filteredEventSeries.length : 0;
-
   const onBrushChange = useCallback(
     (domain: Bounds | null) => {
       if (!domain) return;
@@ -274,8 +277,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         x -= margin.left;
         y -= margin.top;
         const x0 = dateScale.invert(x);
+        if (showMultiToolTip) {
+          setMouseY(y);
+        }
         const y0 = valueScale.invert(y);
-
         if (firstMouseEnterGraph === false) {
           setMouseEnterGraph(true);
         }
@@ -347,27 +352,28 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           a.data.value > b.data.value ? 1 : -1
         );
 
-        let index0 = 0;
-        let closestValue: number | undefined;
+        if (!showMultiToolTip) {
+          let index0 = 0;
+          let closestValue: number | undefined;
 
-        index0 = bisectorValue(pointerDataSelection, y0);
-        const dd00: ToolTipDateValue = pointerDataSelection[index0];
-        const dd11: ToolTipDateValue = pointerDataSelection[index0 - 1];
-        if (dd11 && dd00) {
-          closestValue =
-            Math.abs(y0.valueOf() - getValueNum(dd00.data)) >
-            Math.abs(y0.valueOf() - getValueNum(dd11.data))
-              ? getValueNum(dd11.data)
-              : getValueNum(dd00.data);
-        } else if (dd11 && !dd00) {
-          closestValue = getValueNum(dd11.data);
-        } else if (dd00 && !dd11) {
-          closestValue = getValueNum(dd00.data);
+          index0 = bisectorValue(pointerDataSelection, y0);
+          dd0 = pointerDataSelection[index0].data;
+          dd1 = pointerDataSelection[index0 - 1].data;
+          if (dd1 && dd0) {
+            closestValue =
+              Math.abs(y0.valueOf() - getValueNum(dd0)) >
+              Math.abs(y0.valueOf() - getValueNum(dd1))
+                ? getValueNum(dd1)
+                : getValueNum(dd0);
+          } else if (dd1 && !dd0) {
+            closestValue = getValueNum(dd1);
+          } else if (dd0 && !dd1) {
+            closestValue = getValueNum(dd0);
+          }
+          pointerDataSelection = pointerDataSelection.filter(
+            (lineData) => closestValue && lineData.data.value === closestValue
+          );
         }
-        pointerDataSelection = pointerDataSelection.filter(
-          (lineData) => closestValue && lineData.data.value === closestValue
-        );
-
         toolTipPointLength = pointerDataSelection.length;
         let singleEventToolTip: ToolTipDateValue;
         eventTableData = eventTableData.splice(0);
@@ -580,19 +586,20 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     },
 
     [
+      showTips,
+      width,
+      dateScale,
+      xMax,
+      valueScale,
+      showTooltip,
+      showTooltipDate,
+      margin.left,
+      margin.top,
+      showMultiToolTip,
+      firstMouseEnterGraph,
       filteredClosedSeries,
       filteredOpenSeries,
       filteredEventSeries,
-      showTips,
-      width,
-      showTooltip,
-      showTooltipDate,
-      dateScale,
-      valueScale,
-      margin.left,
-      margin.top,
-      firstMouseEnterGraph,
-      xMax,
     ]
   );
   // legendData
@@ -767,6 +774,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             />
           )}
           {showTips &&
+            !showMultiToolTip &&
             tooltipData &&
             toolTipPointLength >= 1 &&
             tooltipData[0] && (
@@ -801,8 +809,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       )}
       {tooltipData && showTips && tooltipData[0] && (
         <Tooltip
-          top={tooltipTop}
           left={tooltipLeft}
+          top={showMultiToolTip ? mouseY : tooltipTop}
           // Hardcoded value for tooltip
           // will be removed later
           className={`${classes.tooltipMetric} ${
