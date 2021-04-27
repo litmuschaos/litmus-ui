@@ -4,6 +4,7 @@
 .vscode
 
 /dist/
+/storybook-static/
 node_modules
 .rpt2_cache
 .cache
