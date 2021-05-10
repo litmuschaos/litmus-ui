@@ -24,7 +24,7 @@ const AutoCompleteChip = () => {
   const checkedIcon = (
     <CheckBoxIcon fontSize="small" className={classes.checkbox} />
   );
-  const chipss = {
+  const chips = {
     variant: "outlined",
     size: "medium",
     // onMouseDown: (e: any) => {
@@ -42,10 +42,9 @@ const AutoCompleteChip = () => {
     <Autocomplete
       className={classes.root}
       multiple
-      id="checkboxes-tags-demo"
       options={top100Films}
       disableCloseOnSelect
-      ChipProps={chipss}
+      ChipProps={chips}
       onChange={(event, value) => setSelectedOptions(value)}
       getOptionLabel={(option) => option.title}
       renderOption={(option, { selected }) => (
@@ -55,14 +54,12 @@ const AutoCompleteChip = () => {
               icon={icon}
               checkedIcon={checkedIcon}
               className={classes.checkbox}
-              style={{ border: "red", marginRight: 8 }}
               checked={selected}
             />
             {option.title}
           </div>
         </React.Fragment>
       )}
-      style={{ width: 500 }}
       renderInput={(params) => (
         <TextField
           className={classes.textField}

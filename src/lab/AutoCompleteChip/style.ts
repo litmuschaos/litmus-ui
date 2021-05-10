@@ -3,8 +3,6 @@ import { makeStyles, Theme } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: "flex",
-    width: "100%",
-    height: "100%",
     backgroundColor: theme.palette.background.paper,
   },
   textField: {
@@ -15,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   checkbox: {
     color: theme.palette.primary.main,
+    marginRight: theme.spacing(2),
   },
   chip: {
     margin: theme.spacing(1, 1, 0, 0),
