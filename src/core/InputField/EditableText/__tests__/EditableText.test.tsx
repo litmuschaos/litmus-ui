@@ -25,7 +25,7 @@ beforeEach(() => {
   editButton = screen.getByTestId("edit-button");
 });
 
-test("Check initial value nad label", () => {
+test("Check initial value and label", () => {
   // Checking initial value of input field
   expect(input?.value).toBe("initial value");
 
