@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
   editButton: {
     padding: 0,
   },
+  errorText: {
+    fontSize: "0.7rem",
+    color: theme.palette.error.main,
+  },
 }));
 
 export { useStyles };

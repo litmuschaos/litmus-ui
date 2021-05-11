@@ -1,4 +1,4 @@
-import { IconButton, TextField } from "@material-ui/core";
+import { IconButton, TextField, Typography } from "@material-ui/core";
 import Edit from "@material-ui/icons/Edit";
 import React, { useRef, useState } from "react";
 import { EditableTextBaseProps } from "./base";
@@ -8,12 +8,14 @@ interface EditableTextProps extends EditableTextBaseProps {
   // default Value should not be empty string
   defaultValue: string;
   onSave: (value: string) => void;
+  helperText?: string;
 }
 
 const EditableText: React.FC<EditableTextProps> = ({
   className,
   defaultValue,
   onSave,
+  helperText,
   ...rest
 }) => {
   const [value, setValue] = useState<string>(
@@ -41,28 +43,31 @@ const EditableText: React.FC<EditableTextProps> = ({
   };
 
   return (
-    <TextField
-      data-testid="editable-text"
-      inputRef={inputRef}
-      className={`${classes.root} ${className}`}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      onFocus={handleFocus}
-      onBlur={handleSave}
-      InputProps={{
-        endAdornment: !editing && (
-          <IconButton
-            data-testid="edit-button"
-            className={classes.editButton}
-            aria-label="edit icon to edit the text"
-            onClick={() => inputRef.current?.focus()}
-          >
-            <Edit />
-          </IconButton>
-        ),
-      }}
-      {...rest}
-    />
+    <div>
+      <TextField
+        data-testid="editable-text"
+        inputRef={inputRef}
+        className={`${classes.root} ${className}`}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onFocus={handleFocus}
+        onBlur={handleSave}
+        InputProps={{
+          endAdornment: !editing && (
+            <IconButton
+              data-testid="edit-button"
+              className={classes.editButton}
+              aria-label="edit icon to edit the text"
+              onClick={() => inputRef.current?.focus()}
+            >
+              <Edit />
+            </IconButton>
+          ),
+        }}
+        {...rest}
+      />
+      <Typography className={classes.errorText}>{helperText}</Typography>
+    </div>
   );
 };
 export { EditableText };
