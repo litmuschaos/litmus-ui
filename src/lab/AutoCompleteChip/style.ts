@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& svg": {
       color: theme.palette.text.secondary,
     },
+    "& svg:hover": {
+      color: theme.palette.text.secondary,
+    },
   },
 }));
 

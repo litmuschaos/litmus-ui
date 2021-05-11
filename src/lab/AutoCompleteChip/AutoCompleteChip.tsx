@@ -5,24 +5,23 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React from "react";
-import SuccessIcon from "../../assets/crossIcon.svg";
+// import SuccessIcon from "../../assets/crossIcon.svg";
 import { useStyles } from "./style";
 
+export interface Option {
+  name: string;
+  [index: string]: any;
+}
+
+// TODO update interface after material-ui core updte
 export interface AutoCompleteChipProps {
   variant: "outlined" | "filled" | "standard" | undefined;
   label: string;
   placeholder: string;
   onChange: () => void;
   className?: string;
-  optionList: Array<{ title: string }>;
+  optionList: Array<Option>;
 }
-
-const ASuccess = () => {
-  return <img src={SuccessIcon} alt="white check mark" />;
-};
-const handleDelete = () => {
-  // console.log("You clicked the delete icon.", AutocompleteProps);
-};
 
 const AutoCompleteChip: React.FC<AutoCompleteChipProps> = ({
   variant = "outlined",
@@ -43,48 +42,40 @@ const AutoCompleteChip: React.FC<AutoCompleteChipProps> = ({
   const chips = {
     variant: "outlined",
     size: "medium",
-    // onMouseDown: (e: any) => {
-    //   console.log("h");
-    //   e.stopPropagation();
-    // },
-    // deleteIcon: <ASuccess />,
-    // onDelete: { handleDelete },
     className: classes.chip,
   };
   return (
-    <div className={className}>
-      <Autocomplete
-        className={classes.root}
-        multiple
-        options={optionList}
-        disableCloseOnSelect
-        ChipProps={chips}
-        onChange={onChange}
-        getOptionLabel={(option) => option.title}
-        renderOption={(option, { selected }) => (
-          <React.Fragment>
-            <div>
-              <Checkbox
-                icon={icon}
-                checkedIcon={checkedIcon}
-                className={classes.checkbox}
-                checked={selected}
-              />
-              {option.title}
-            </div>
-          </React.Fragment>
-        )}
-        renderInput={(params) => (
-          <TextField
-            className={classes.textField}
-            {...params}
-            variant={variant}
-            label={label}
-            placeholder={placeholder}
-          />
-        )}
-      />
-    </div>
+    <Autocomplete
+      className={`${classes.root} ${className}`}
+      multiple
+      options={optionList}
+      disableCloseOnSelect
+      ChipProps={chips}
+      onChange={onChange}
+      getOptionLabel={(option) => option.name}
+      renderOption={(option, { selected }) => (
+        <React.Fragment>
+          <div>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              className={classes.checkbox}
+              checked={selected}
+            />
+            {option.name}
+          </div>
+        </React.Fragment>
+      )}
+      renderInput={(params) => (
+        <TextField
+          className={classes.textField}
+          {...params}
+          variant={variant}
+          label={label}
+          placeholder={placeholder}
+        />
+      )}
+    />
   );
 };
 

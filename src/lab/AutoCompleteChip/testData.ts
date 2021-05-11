@@ -1,11 +1,11 @@
-const top100Films = [
-  { title: "The Shawshank Redemption" },
-  { title: "The Godfather" },
-  { title: "The Godfather: Part II" },
-  { title: "The Dark Knight" },
-  { title: "12 Angry Men" },
-  { title: "Schindler's List" },
-  { title: "Pulp Fiction" },
+const testData = [
+  { name: "The Shawshank Redemption", year: 1980, type: "movie" },
+  { name: "The Godfather", type: "movie" },
+  { name: "The Godfather: Part II" },
+  { name: "The Dark Knight" },
+  { name: "12 Angry Men" },
+  { name: "Schindler's List" },
+  { name: "Pulp Fiction" },
 ];
 
-export { top100Films };
+export { testData };

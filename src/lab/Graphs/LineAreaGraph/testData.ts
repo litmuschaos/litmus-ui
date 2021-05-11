@@ -2,18 +2,18 @@ import { DateValue, GraphMetric } from "../../Graphs/LineAreaGraph";
 import { EventMetric } from "./base";
 
 const openSeriesData1: DateValue[] = [
-  { date: 4000, value: 40 },
-  { date: 5000, value: 50 },
-  { date: 6000, value: 74 },
-  { date: 7000, value: 30 },
-  { date: 8000, value: 10 },
+  { date: 4000.0, value: 40 },
+  { date: 5000.0, value: 50 },
+  { date: 6000.0, value: 74 },
+  { date: 7000.0, value: 30 },
+  { date: 8000.0, value: 10 },
 ];
 const closedSeriesData1: DateValue[] = [
-  { date: 4000, value: 60 },
-  { date: 5000, value: 20 },
-  { date: 6000, value: -14 },
-  { date: 7000, value: -60 },
-  { date: 8000, value: 10 },
+  { date: 4000.0, value: 60 },
+  { date: 5000.0, value: 20 },
+  { date: 6000.0, value: -14 },
+  { date: 7000.0, value: -60 },
+  { date: 8000.0, value: 10 },
 ];
 const closedSeriesData2: DateValue[] = [
   { date: 4000, value: 30 },
@@ -33,21 +33,21 @@ const eventSeriesData1: DateValue[] = [
   { date: 8000, value: 0 },
 ];
 const eventSeriesData2: DateValue[] = [
-  { date: 0, value: 1 },
-  { date: 1000, value: 1 },
-  { date: 2000, value: 0 },
-  { date: 3000, value: 0 },
-  { date: 4000, value: 0 },
-  { date: 5000, value: 1 },
-  { date: 6000, value: 1 },
-  { date: 7000, value: 1 },
-  { date: 8000, value: 1 },
-  { date: 9000, value: 0 },
-  { date: 10000, value: 0 },
-  { date: 11000, value: 1 },
-  { date: 12000, value: 1 },
-  { date: 13000, value: 1 },
-  { date: 14000, value: 0 },
+  { date: 0.0, value: 1 },
+  { date: 1000.0, value: 1 },
+  { date: 2000.0, value: 0 },
+  { date: 3000.0, value: 0 },
+  { date: 4000.0, value: 0 },
+  { date: 5000.0, value: 1 },
+  { date: 6000.0, value: 1 },
+  { date: 7000.0, value: 1 },
+  { date: 8000.0, value: 1 },
+  { date: 9000.0, value: 0 },
+  { date: 10000.0, value: 0 },
+  { date: 11000.0, value: 1 },
+  { date: 12000.0, value: 1 },
+  { date: 13000.0, value: 1 },
+  { date: 14000.0, value: 0 },
 ];
 const openSeriesData: Array<GraphMetric> = [
   {
