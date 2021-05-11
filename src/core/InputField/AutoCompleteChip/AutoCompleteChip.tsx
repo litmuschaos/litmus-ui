@@ -1,35 +1,21 @@
-// import AutocompleteProps from "@material-ui/core/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import { Autocomplete } from "@material-ui/lab";
 import React from "react";
-// import SuccessIcon from "../../assets/crossIcon.svg";
+import { BaseAutocompleteChipInputProps } from "./base";
 import { useStyles } from "./style";
 
-export interface Option {
-  name: string;
-  [index: string]: any;
-}
-
-// TODO update interface after material-ui core updte
-export interface AutoCompleteChipProps {
-  variant: "outlined" | "filled" | "standard" | undefined;
-  label: string;
-  placeholder: string;
-  onChange: () => void;
-  className?: string;
-  optionList: Array<Option>;
-}
-
-const AutoCompleteChip: React.FC<AutoCompleteChipProps> = ({
+const AutoCompleteChip: React.FC<BaseAutocompleteChipInputProps> = ({
   variant = "outlined",
   label = "checkboxes",
   placeholder = "selections",
-  onChange,
-  optionList,
+  options = [],
   className,
+  multiple = true,
+  disableClearable = true,
+  ...rest
 }) => {
   const classes = useStyles();
 
@@ -46,12 +32,12 @@ const AutoCompleteChip: React.FC<AutoCompleteChipProps> = ({
   };
   return (
     <Autocomplete
+      data-testid="autoComplete"
       className={`${classes.root} ${className}`}
-      multiple
-      options={optionList}
-      disableCloseOnSelect
       ChipProps={chips}
-      onChange={onChange}
+      multiple={multiple}
+      disableClearable={disableClearable}
+      options={options}
       getOptionLabel={(option) => option.name}
       renderOption={(option, { selected }) => (
         <React.Fragment>
@@ -59,6 +45,7 @@ const AutoCompleteChip: React.FC<AutoCompleteChipProps> = ({
             <Checkbox
               icon={icon}
               checkedIcon={checkedIcon}
+              disableRipple
               className={classes.checkbox}
               checked={selected}
             />
@@ -68,6 +55,7 @@ const AutoCompleteChip: React.FC<AutoCompleteChipProps> = ({
       )}
       renderInput={(params) => (
         <TextField
+          data-testid="test-field"
           className={classes.textField}
           {...params}
           variant={variant}
@@ -75,6 +63,7 @@ const AutoCompleteChip: React.FC<AutoCompleteChipProps> = ({
           placeholder={placeholder}
         />
       )}
+      {...rest}
     />
   );
 };

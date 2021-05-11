@@ -3,7 +3,7 @@ import { AutoCompleteChip } from "./AutoCompleteChip";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
 import { testData } from "./testData";
 
-<Meta title="Lab/AutoCompleteChip" component={AutoCompleteChip} />
+<Meta title="Core/InputField/AutoCompleteChip" component={AutoCompleteChip} />
 
 # AutoCompleteChip
 
@@ -14,7 +14,11 @@ import { testData } from "./testData";
     name="Default"
     args={{
       onChange: (event, value) => console.log(value),
-      optionList: testData,
+      options: testData,
+      label: "label",
+      placeholder: "placeholder",
+      multiple: true,
+      disableCloseOnSelect: true,
     }}
   >
     {(args) => (

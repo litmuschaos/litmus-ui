@@ -1,4 +1,6 @@
-const testData = [
+import { Option } from "./base";
+
+const testData: Array<Option> = [
   { name: "The Shawshank Redemption", year: 1980, type: "movie" },
   { name: "The Godfather", type: "movie" },
   { name: "The Godfather: Part II" },
