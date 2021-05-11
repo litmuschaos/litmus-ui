@@ -66,7 +66,9 @@ const EditableText: React.FC<EditableTextProps> = ({
         }}
         {...rest}
       />
-      <Typography className={classes.errorText}>{helperText}</Typography>
+      {helperText && (
+        <Typography className={classes.errorText}>{helperText}</Typography>
+      )}
     </div>
   );
 };
