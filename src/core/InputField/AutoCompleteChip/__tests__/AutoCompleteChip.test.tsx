@@ -24,56 +24,28 @@ beforeEach(() => {
 
   // Get AutoCompleteChip component
   // component = screen.getByTestId("autoComplete");
-  input = screen.getByTestId("test-field");
-  // editButton = screen.getByTestId("edit-button");
 });
 
 test("Check initial value and label", () => {
-  // Checking initial value of input field
-  // expect(input?.value).toBe("initial value");
+  input = screen.getByTestId("test-field");
+  console.log("##########1", input);
 
-  // Checking value of label
-  // const inputField =compo("presentation");
-  // const inputField = input.querySelector("input");
+  const inputField = input.querySelector("input");
+  console.log("##########2", inputField);
+  if (inputField) {
+    // at this point, typescript knows that inputField cannot be null
+    // so it has HTMLElement type in the block
+    fireEvent.click(inputField);
+    // fireEvent.click(inputField);
+
+    // fireEvent.keyPress(inputField, { key: "A", code: "KeyA" });
+    // fireEvent.keyDown(inputField, { key: "B", code: "KeyA" });
+    // fireEvent.change(inputField, { target: { value: "2020-05-24" } });
+    fireEvent.change(inputField as Element, { target: { value: "the" } });
+    expect(inputField.value).toBe("the");
+
+    console.log("##########3 click fired");
+  }
   // fireEvent.click(inputField);
-  // console.log("********************\n", input);
-  // fireEvent.keyPress(input, { key: "t", charCode: 84 });
-  // expect(input).toHaveProperty("value", "t");
-  // expect(input).toHaveProperty("value", "test value");
-  // const openButton = screen.getByTitle("Open");
-  // console.log("********************\n", openButton);
-  const openButton = input.querySelector("button");
-  console.log("button**********", openButton);
-  fireEvent.click(openButton as HTMLElement);
-
-  const options = screen.getByRole("presentation");
-
-  // const inputField = input.querySelectorAll("input");
-
-  // console.log("**************test input", inputField);
-  console.log("optoin list**********", options);
+  // fireEvent.change(inputField, { target: { value: "a" } });
 });
-
-// test("Edit the text and check if it has value is saved correctly", () => {
-//   // Clicking to change it to edit mode
-//   fireEvent.click(editButton);
-
-//   // Change <input> value
-//   fireEvent.change(input as Element, { target: { value: "Hello World!" } });
-//   fireEvent.focusOut(component);
-
-//   // Check if the value is saved
-//   expect(input?.value).toBe("Hello World!");
-// });
-
-// test("Edit the text to make it empty and check if it has value is returned to the previous value", () => {
-//   // Clicking to change it to edit mode
-//   fireEvent.click(editButton);
-
-//   // Change <input> value
-//   fireEvent.change(input as Element, { target: { value: "" } });
-//   fireEvent.blur(input as Element);
-
-//   // Check if the value is saved
-//   expect(input?.value).toBe("initial value");
-// });
