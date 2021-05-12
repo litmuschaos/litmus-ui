@@ -32,7 +32,7 @@ const AutoCompleteChip: React.FC<BaseAutocompleteChipInputProps> = ({
   };
   return (
     <Autocomplete
-      data-testid="autoComplete"
+      data-testid="autocomplete"
       className={`${classes.root} ${className}`}
       ChipProps={chips}
       multiple={multiple}
@@ -55,7 +55,7 @@ const AutoCompleteChip: React.FC<BaseAutocompleteChipInputProps> = ({
       )}
       renderInput={(params) => (
         <TextField
-          data-testid="test-field"
+          data-testid="textfield"
           className={classes.textField}
           {...params}
           variant={variant}

@@ -4,18 +4,17 @@ import { LitmusThemeProvider } from "../../../../theme";
 import { AutoCompleteChip } from "../AutoCompleteChip";
 import { testData } from "../testData";
 
-// let component: HTMLElement;
-let input: HTMLElement;
-// let editButton: HTMLElement;
+let component: HTMLElement;
+let input: HTMLInputElement | null;
 
 beforeEach(() => {
   render(
     <LitmusThemeProvider>
       <AutoCompleteChip
-        onChange={(event: any, value: any) => console.log(value, event)}
+        onChange={() => {}}
         options={testData}
-        label="label"
-        placeholder="placeholder"
+        label="Tags"
+        placeholder="Select tags"
         multiple={true}
         disableCloseOnSelect={true}
       />
@@ -23,29 +22,65 @@ beforeEach(() => {
   );
 
   // Get AutoCompleteChip component
-  // component = screen.getByTestId("autoComplete");
+  component = screen.getByTestId("autocomplete");
+
+  // Get the input element
+  input = component.querySelector("input");
 });
 
-test("Check initial value and label", () => {
-  input = screen.getByTestId("test-field");
-  console.log("##########1", input);
+test("Check placeholder and label", () => {
+  // Check label
+  const label = component.querySelector("label");
+  expect(label?.innerHTML).toBe("Tags");
 
-  const inputField = input.querySelector("input");
-  console.log("##########2", inputField);
-  if (inputField) {
-    // at this point, typescript knows that inputField cannot be null
-    // so it has HTMLElement type in the block
-    fireEvent.click(inputField);
-    // fireEvent.click(inputField);
+  // Check placeholder
+  expect(input?.placeholder).toBe("Select tags");
+});
 
-    // fireEvent.keyPress(inputField, { key: "A", code: "KeyA" });
-    // fireEvent.keyDown(inputField, { key: "B", code: "KeyA" });
-    // fireEvent.change(inputField, { target: { value: "2020-05-24" } });
-    fireEvent.change(inputField as Element, { target: { value: "the" } });
-    expect(inputField.value).toBe("the");
+test("Enter value in input and select three item and delete two", () => {
+  // Click the input field and type some text
+  fireEvent.click(input as Element);
+  fireEvent.change(input as Element, { target: { value: "The" } });
 
-    console.log("##########3 click fired");
-  }
-  // fireEvent.click(inputField);
-  // fireEvent.change(inputField, { target: { value: "a" } });
+  // Check if the value is entered
+  expect(input?.value).toBe("The");
+
+  // Select three options
+  const options = [
+    "The Shawshank Redemption",
+    "The Godfather",
+    "The Dark Knight",
+  ];
+  options.forEach((opt) => {
+    const option = screen.getByText(opt);
+    fireEvent.click(option);
+  });
+
+  // Remove focus from input
+  fireEvent.blur(input as Element);
+
+  // Get the tags
+  let selectedTags = component.querySelectorAll(".MuiChip-outlined");
+
+  // Check if tags are selected
+  selectedTags.forEach((tag) => {
+    const tagText = tag.querySelector("span");
+    expect(options).toContain(tagText?.textContent);
+  });
+
+  // Close two tags
+  const tagsToClose = ["The Shawshank Redemption", "The Dark Knight"];
+
+  selectedTags.forEach((tag) => {
+    const tagText = tag.querySelector("span");
+    const closeButton = tag.querySelector("svg");
+
+    // Check if the tag is present in tagsToClose list
+    if (tagsToClose.includes(tagText?.textContent ?? ""))
+      fireEvent.click(closeButton as Element);
+  });
+
+  // Check if tags are deleted or not
+  selectedTags = component.querySelectorAll(".MuiChip-root");
+  expect(selectedTags).toHaveLength(1);
 });
