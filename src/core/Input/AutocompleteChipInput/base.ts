@@ -21,5 +21,5 @@ type BaseAutocompleteProps = Omit<
   "renderInput" | "renderOption"
 >;
 
-export type BaseAutocompleteChipInputProps = BaseAutocompleteProps &
+export type BaseAutocompleteChipInputInputProps = BaseAutocompleteProps &
   BaseTextFieldProps;

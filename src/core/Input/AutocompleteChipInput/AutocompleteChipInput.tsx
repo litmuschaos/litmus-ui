@@ -4,10 +4,10 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import { Autocomplete } from "@material-ui/lab";
 import React from "react";
-import { BaseAutocompleteChipInputProps } from "./base";
+import { BaseAutocompleteChipInputInputProps } from "./base";
 import { useStyles } from "./style";
 
-const AutoCompleteChip: React.FC<BaseAutocompleteChipInputProps> = ({
+const AutocompleteChipInput: React.FC<BaseAutocompleteChipInputInputProps> = ({
   variant = "outlined",
   label = "checkboxes",
   placeholder = "selections",
@@ -68,4 +68,4 @@ const AutoCompleteChip: React.FC<BaseAutocompleteChipInputProps> = ({
   );
 };
 
-export { AutoCompleteChip };
+export { AutocompleteChipInput };

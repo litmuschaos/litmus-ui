@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { LitmusThemeProvider } from "../../../../theme";
-import { AutoCompleteChip } from "../AutoCompleteChip";
+import { AutocompleteChipInput } from "../AutocompleteChipInput";
 import { testData } from "../testData";
 
 let component: HTMLElement;
@@ -10,7 +10,7 @@ let input: HTMLInputElement | null;
 beforeEach(() => {
   render(
     <LitmusThemeProvider>
-      <AutoCompleteChip
+      <AutocompleteChipInput
         onChange={() => {}}
         options={testData}
         label="Tags"
@@ -21,7 +21,7 @@ beforeEach(() => {
     </LitmusThemeProvider>
   );
 
-  // Get AutoCompleteChip component
+  // Get AutocompleteChipInput component
   component = screen.getByTestId("autocomplete");
 
   // Get the input element
