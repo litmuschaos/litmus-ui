@@ -20,7 +20,7 @@ beforeEach(() => {
 
   // Get EditableText component
   component = screen.getByTestId("editable-text");
-
+  // get the input and edit button
   input = component.querySelector("input");
   editButton = screen.getByTestId("edit-button");
 });
@@ -41,7 +41,7 @@ test("Edit the text and check if it has value is saved correctly", () => {
 
   // Change <input> value
   fireEvent.change(input as Element, { target: { value: "Hello World!" } });
-  fireEvent.focusOut(component);
+  fireEvent.blur(input as Element);
 
   // Check if the value is saved
   expect(input?.value).toBe("Hello World!");
