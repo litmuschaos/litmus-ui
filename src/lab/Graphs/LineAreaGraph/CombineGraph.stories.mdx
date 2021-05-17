@@ -1,0 +1,22 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { LineAreaGraph } from "../LineAreaGraph";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+import { closedSeriesData, eventSeriesData, openSeriesData } from "./testData";
+import { MultipleGraphs } from "./Combine.tsx";
+
+<Meta title="Lab/Combine" component={LineAreaGraph} />
+
+# LineAreaGraph
+
+`LineAreaGraph` component is used to represent data
+in form of lines, area-closed under the graph and events.
+
+<Canvas>
+  <Story name="Default">
+    <div style={{ width: "40rem", height: "25rem" }}>
+      <MultipleGraphs />
+    </div>
+  </Story>
+</Canvas>
+
+<ArgsTable of={LineAreaGraph} />

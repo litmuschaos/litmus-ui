@@ -37,6 +37,10 @@ export interface ToolTip<T> {
   // Color of the metric in the ToolTip legends
   baseColor?: string;
 }
+export interface CentralBrushPostitionProps {
+  start: { x: number | undefined };
+  end: { x: number | undefined };
+}
 
 export interface LineAreaGraphProps<T> {
   // Area under the curve graph:
@@ -100,6 +104,12 @@ export interface LineAreaGraphProps<T> {
 
   // ToolTip date's format
   toolTiptimeFormat?: string;
+
+  centralBrushPosition?: CentralBrushPostitionProps;
+
+  handleCentralBrushPosition?: (
+    newBrushPosition: CentralBrushPostitionProps
+  ) => any;
 }
 export interface LineAreaGraphChildProps
   extends LineAreaGraphProps<Array<GraphMetric>> {

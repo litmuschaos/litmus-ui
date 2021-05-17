@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   rectBase: {
     fill: theme.palette.background.paper,
   },
+  rectBase2: {
+    fill: "yellow",
+  },
   table: (props: StyleProps) => ({
     display: "flex",
     width: props.width,
