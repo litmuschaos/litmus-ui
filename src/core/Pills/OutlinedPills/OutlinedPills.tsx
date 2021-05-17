@@ -1,12 +1,8 @@
 import { Chip } from "@material-ui/core";
 import React from "react";
-// @ts-expect-error
 import FailedIcon from "../../../assets/statusFailed.svg";
-// @ts-expect-error
 import PendingIcon from "../../../assets/statusPending.svg";
-// @ts-expect-error
 import RunningIcon from "../../../assets/statusRunning.svg";
-// @ts-expect-error
 import SuccessIcon from "../../../assets/statusSuccess.svg";
 import { ChipBaseProps } from "../base";
 import { useStyles } from "./style";
