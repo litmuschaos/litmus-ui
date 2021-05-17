@@ -90,20 +90,16 @@ const litmusPortalTheme = createTheme({
       "linear-gradient(90.43deg, #5B44BA 0.35%, #858CDD 51.03%, #109B67 99.64%)",
     status: {
       running: {
-        text: "#5252F6",
-        background: "#5252F620",
+        text: "#3A97D4",
       },
       completed: {
-        text: "#109B67",
-        background: "#109B6720",
+        text: "#09825D",
       },
       pending: {
-        text: "#BBBBBB",
-        background: "#BBBBBB20",
+        text: "#949AB7",
       },
       failed: {
-        text: "#CA2C2C",
-        background: "#CA2C2C20",
+        text: "#ED474A",
       },
     },
     cards: {

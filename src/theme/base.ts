@@ -32,19 +32,15 @@ declare module "@material-ui/core/styles/createPalette" {
     status: {
       running: {
         text: string;
-        background: string;
       };
       completed: {
         text: string;
-        background: string;
       };
       pending: {
         text: string;
-        background: string;
       };
       failed: {
         text: string;
-        background: string;
       };
     };
     cards: {
@@ -90,19 +86,15 @@ declare module "@material-ui/core/styles/createPalette" {
     status?: {
       running: {
         text: string;
-        background: string;
       };
       completed: {
         text: string;
-        background: string;
       };
       pending: {
         text: string;
-        background: string;
       };
       failed: {
         text: string;
-        background: string;
       };
     };
     cards?: {

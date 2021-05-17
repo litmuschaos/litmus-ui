@@ -3,14 +3,14 @@ import React from "react";
 import { LitmusThemeProvider } from "../../../../theme";
 import { OutlinedPills } from "../../../Pills";
 
-describe("Basic Pills Component", () => {
-  it("Renders", () => {
+describe("Outlined Pills Component", () => {
+  it("Renders outlined pill of 'completed' variant", () => {
     const { getByText } = render(
       <LitmusThemeProvider>
-        <OutlinedPills label="Outlined Pill" />
+        <OutlinedPills label="Completed" variant="succeeded" />
       </LitmusThemeProvider>
     );
 
-    expect(getByText("Outlined Pill")).toBeTruthy();
+    expect(getByText("Completed")).toBeTruthy();
   });
 });
