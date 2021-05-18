@@ -102,6 +102,10 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   yLabelOffset = 10,
   showEventMarkers = true,
 }) => {
+  // console.log(
+  //   "🚀 ~ file: PlotLineAreaGraph.tsx ~ line 105 ~ closedSeries",
+  //   closedSeries
+  // );
   const { palette } = useTheme();
   const axisBottomTickLabelProps = {
     dy: "0.3rem",
