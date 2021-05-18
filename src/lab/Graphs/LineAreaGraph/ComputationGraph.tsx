@@ -1,4 +1,4 @@
-import { Slider, Typography, useTheme } from "@material-ui/core";
+import { Slider, Tooltip as TooltipMui, useTheme } from "@material-ui/core";
 import BaseBrush from "@visx/brush/lib/BaseBrush";
 import { Bounds } from "@visx/brush/lib/types";
 import {
@@ -13,6 +13,7 @@ import {
   useTooltip,
 } from "@visx/visx";
 import { extent, max, min } from "d3-array";
+import dayjs from "dayjs";
 import React, {
   useCallback,
   useEffect,
@@ -50,6 +51,25 @@ const chartSeparation = 10;
 let legenTablePointerData: Array<ToolTipDateValue>;
 let eventTableData: Array<LegendData> = [{ data: ["--", "--"], baseColor: "" }];
 
+interface Props {
+  children: React.ReactElement;
+  open: boolean;
+  value: number;
+}
+function ValueLabelComponent(props: Props) {
+  const { children, open, value } = props;
+
+  return (
+    <TooltipMui
+      open={open}
+      enterTouchDelay={0}
+      placement="top"
+      title={` ${dayjs(new Date(value)).format("MMM D,YYYY h:mm:ss a")}`}
+    >
+      {children}
+    </TooltipMui>
+  );
+}
 const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
   closedSeries,
@@ -86,6 +106,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     showLegendTable,
     showEventTable,
   });
+  const valueLabelFormat = (value: number) => {
+    return ` ${dayjs(new Date(value)).format(toolTiptimeFormat)}`;
+  };
+
   const [filteredClosedSeries, setFilteredClosedSeries] =
     useState(closedSeries);
   const [filteredOpenSeries, setFilteredOpenSeries] = useState(openSeries);
@@ -1212,10 +1236,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           marginRight: margin.right,
         }}
       >
-        <Typography id="range-slider" gutterBottom>
-          Temperature range
-        </Typography>
         <Slider
+          // marks
+          ValueLabelComponent={ValueLabelComponent}
           value={[
             centralBrushPosition?.start.x ??
               new Date(brushDateScale.domain()[0]).getTime(),
@@ -1231,11 +1254,27 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             new Date(brushDateScale.domain()[1]).getTime(),
           ]}
           onChange={handleChangeSlider}
+          // onChangeCommitted={handleChangeSlider}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
+          // getAriaValueText={valueLabelFormat}
+          // valueLabelFormat={valueLabelFormat}
           // getAriaValueText={(value: number) => `${value}-c`}
         />
       </div>
+      {tooltipDataDate && showTips && tooltipDataDate[0] && (
+        <Tooltip
+          top={yMax}
+          left={tooltipLeftDate}
+          className={classes.tooltipDateStyles}
+        >
+          <div className={`${classes.tooltipBottomDate}`}>
+            <span>{` ${dayjs(
+              new Date(getDateNum(tooltipDataDate[0].data))
+            ).format(toolTiptimeFormat)}`}</span>
+          </div>
+        </Tooltip>
+      )}
       {tooltipData && showTips && tooltipData[0] && (
         <Tooltip
           left={tooltipLeft}
