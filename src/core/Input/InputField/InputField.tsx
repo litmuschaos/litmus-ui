@@ -1,7 +1,6 @@
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
-// @ts-expect-error
 import SuccessIcon from "../../../assets/checkIcon.svg";
 import { BaseInputProps } from "./base";
 import { useStyles } from "./styles";
