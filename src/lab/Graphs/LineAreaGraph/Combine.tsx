@@ -13,7 +13,7 @@ const MultipleGraphs = () => {
   // console.log("brushPosition Stae", centralBrushPosition);
   return (
     <div>
-      <div style={{ width: "35rem", height: "20rem" }}>
+      <div style={{ width: "30rem", height: "18rem" }}>
         <LineAreaGraph
           centralBrushPosition={centralBrushPosition}
           handleCentralBrushPosition={(
@@ -35,7 +35,7 @@ const MultipleGraphs = () => {
           widthPercentageEventTable={40}
         />
       </div>
-      <div style={{ width: "35rem", height: "20rem" }}>
+      <div style={{ width: "30rem", height: "18rem", marginTop: "4rem" }}>
         <LineAreaGraph
           centralBrushPosition={centralBrushPosition}
           handleCentralBrushPosition={(
