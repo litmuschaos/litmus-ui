@@ -15,20 +15,20 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   failed: {
-    color: theme.palette.status.failed.text,
-    border: `0.025rem solid  ${theme.palette.status.failed.text}`,
+    color: theme.palette.status.failed,
+    border: `0.025rem solid  ${theme.palette.status.failed}`,
   },
   succeeded: {
-    color: theme.palette.status.completed.text,
-    border: `0.025rem solid  ${theme.palette.status.completed.text}`,
+    color: theme.palette.status.completed,
+    border: `0.025rem solid  ${theme.palette.status.completed}`,
   },
   pending: {
-    color: theme.palette.status.pending.text,
-    border: `0.025rem solid  ${theme.palette.status.pending.text}`,
+    color: theme.palette.status.pending,
+    border: `0.025rem solid  ${theme.palette.status.pending}`,
   },
   running: {
-    color: theme.palette.status.running.text,
-    border: `0.025rem solid  ${theme.palette.status.running.text}`,
+    color: theme.palette.status.running,
+    border: `0.025rem solid  ${theme.palette.status.running}`,
   },
 }));
 

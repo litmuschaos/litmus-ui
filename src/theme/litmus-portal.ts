@@ -89,18 +89,10 @@ const litmusPortalTheme = createTheme({
     progressBarGradient:
       "linear-gradient(90.43deg, #5B44BA 0.35%, #858CDD 51.03%, #109B67 99.64%)",
     status: {
-      running: {
-        text: "#3A97D4",
-      },
-      completed: {
-        text: "#09825D",
-      },
-      pending: {
-        text: "#949AB7",
-      },
-      failed: {
-        text: "#ED474A",
-      },
+      running: "#3A97D4",
+      completed: "#09825D",
+      pending: "#949AB7",
+      failed: "#ED474A",
     },
     cards: {
       header: "#EDF0F8",

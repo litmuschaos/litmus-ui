@@ -30,18 +30,10 @@ declare module "@material-ui/core/styles/createPalette" {
     };
     progressBarGradient: string;
     status: {
-      running: {
-        text: string;
-      };
-      completed: {
-        text: string;
-      };
-      pending: {
-        text: string;
-      };
-      failed: {
-        text: string;
-      };
+      running: string;
+      completed: string;
+      pending: string;
+      failed: string;
     };
     cards: {
       header: string;
@@ -84,18 +76,10 @@ declare module "@material-ui/core/styles/createPalette" {
     };
     progressBarGradient?: string;
     status?: {
-      running: {
-        text: string;
-      };
-      completed: {
-        text: string;
-      };
-      pending: {
-        text: string;
-      };
-      failed: {
-        text: string;
-      };
+      running: string;
+      completed: string;
+      pending: string;
+      failed: string;
     };
     cards?: {
       header: string;
