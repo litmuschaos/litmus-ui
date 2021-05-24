@@ -7,18 +7,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(1.5, 2),
     minWidth: "6.25rem",
     textTransform: "none",
-    background: "transparent",
     fontSize: "1rem",
-    borderColor: theme.palette.highlight,
     "&:disabled": {
       borderColor: theme.palette.disabledBackground,
       color: theme.palette.text.disabled,
     },
   },
 
-  // Button Outlined
+  // Text Button
   highlight: {
     color: theme.palette.highlight,
+  },
+  success: {
+    color: theme.palette.success.main,
+  },
+  error: {
+    color: theme.palette.error.main,
   },
 
   // Sizes

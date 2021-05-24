@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   // Global
   root: {
     height: "fit-content",
+    minWidth: "6.25rem",
     padding: theme.spacing(1.5, 2),
     textTransform: "none",
     background: theme.palette.primary.main,
@@ -51,6 +52,17 @@ const useStyles = makeStyles((theme: Theme) => ({
         0.14
       )},0px 2px 16px 1px ${fade(theme.palette.success.main, 0.12)}`,
     },
+  },
+
+  // Sizes
+  large: {
+    padding: theme.spacing(2, 4),
+  },
+  medium: {
+    padding: theme.spacing(1.5, 2.5),
+  },
+  small: {
+    padding: theme.spacing(1, 1.25),
   },
 }));
 
