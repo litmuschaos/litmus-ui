@@ -213,6 +213,20 @@ const CalendarHeatmap = ({
             {(heatmap) => {
               return heatmap.map((heatmapBins) =>
                 heatmapBins.map((bin) => {
+                  const selectedColor =
+                    currentHovered ===
+                    `heatmap-rect-id-${bin.row}-${bin.column}`
+                      ? bin &&
+                        bin?.count &&
+                        bin.count >= minValue &&
+                        bin.count <= maxValue
+                        ? colorRange[
+                            getColorIndex(bin.count, valueThreshold)
+                          ] ?? "lightGrey"
+                        : palette.graph.calendarHeatmap[10]
+                      : colorRange[
+                          getColorIndex(bin.count ?? 0, valueThreshold)
+                        ] ?? "lightGrey";
                   return (
                     bin &&
                     typeof bin.count === "number" &&
@@ -226,18 +240,7 @@ const CalendarHeatmap = ({
                         height={bin.height}
                         x={bin.x}
                         y={yMax - bin.y}
-                        fill={
-                          currentHovered ===
-                          `heatmap-rect-id-${bin.row}-${bin.column}`
-                            ? bin.count >= minValue && bin.count <= maxValue
-                              ? colorRange[
-                                  getColorIndex(bin.count, valueThreshold)
-                                ] ?? "lightGrey"
-                              : palette.graph.calendarHeatmap[10]
-                            : colorRange[
-                                getColorIndex(bin.count, valueThreshold)
-                              ] ?? "lightGrey"
-                        }
+                        fill={selectedColor}
                         filter={
                           currentHovered ===
                           `heatmap-rect-id-${bin.row}-${bin.column}`
@@ -262,22 +265,7 @@ const CalendarHeatmap = ({
                               e.currentTarget.getAttribute("id")?.toString() ??
                                 ""
                             );
-                            const selectedColor =
-                              currentHovered ===
-                              `heatmap-rect-id-${bin.row}-${bin.column}`
-                                ? bin.count &&
-                                  bin.count >= minValue &&
-                                  bin.count <= maxValue
-                                  ? colorRange[
-                                      getColorIndex(bin.count, valueThreshold)
-                                    ] ?? "lightGrey"
-                                  : palette.graph.calendarHeatmap[10]
-                                : colorRange[
-                                    getColorIndex(
-                                      bin?.count ?? 0,
-                                      valueThreshold
-                                    )
-                                  ] ?? "lightGrey";
+
                             setCurrentSelectedColor(selectedColor);
                           } else {
                             setCurrentSelectedColor("");
