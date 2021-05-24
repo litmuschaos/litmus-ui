@@ -9,8 +9,6 @@ import { useStyles } from "./styles";
 import { testData2 } from "./testData";
 import { getColorIndex } from "./utils";
 
-export const background = "white";
-
 const localBinData = testData2;
 
 function max<Datum>(data: Datum[], value: (d: Datum) => number): number {
@@ -114,11 +112,11 @@ const CalendarHeatmap = ({
   const axisLeftTickLabelProps = {
     dy: "0.3rem",
     dx: "-0.3rem",
-    fontFamily: "Ubuntu",
+    color: palette.text.primary,
     fontWeight: 400,
-    fontSize: "10px",
+    fontSize: "0.75rem",
+    lineHeight: "1.275rem",
     textAnchor: "end" as const,
-    lineHeight: "12px",
     fill: palette.text.hint,
   };
   const {
@@ -159,17 +157,27 @@ const CalendarHeatmap = ({
         <div
           style={{
             display: "flex",
-            color: "black",
             justifyContent: "space-around",
             width: width - separation,
             paddingLeft: margin.left,
             marginRight: margin.right,
-            background: background,
+            background: palette.background.paper,
           }}
         >
           {monthList &&
             monthList.map((month) => {
-              return <Typography>{month}</Typography>;
+              return (
+                <Typography
+                  style={{
+                    color: palette.text.primary,
+                    fontWeight: 400,
+                    fontSize: "0.75rem",
+                    lineHeight: "1.275rem",
+                  }}
+                >
+                  {month}
+                </Typography>
+              );
             })}
         </div>
       </Group>
@@ -180,14 +188,14 @@ const CalendarHeatmap = ({
           width={width}
           height={height - margin.bottom + 40}
           rx={0}
-          fill={background}
+          fill={palette.background.paper}
         />
         <Group top={margin.top} left={margin.left}>
           <AxisLeft
             hideAxisLine
             hideTicks
             scale={yScale}
-            numTicks={7}
+            numTicks={3}
             stroke={palette.text.primary}
             tickFormat={(num) => `${dayList[num.valueOf()]}`}
             tickLabelProps={() => axisLeftTickLabelProps}
@@ -205,7 +213,6 @@ const CalendarHeatmap = ({
             {(heatmap) => {
               return heatmap.map((heatmapBins) =>
                 heatmapBins.map((bin) => {
-                  // console.log(bin);
                   return (
                     bin &&
                     typeof bin.count === "number" &&

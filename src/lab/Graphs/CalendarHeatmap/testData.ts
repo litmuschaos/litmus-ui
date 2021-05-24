@@ -2,7 +2,6 @@ import { WeekData } from "./base";
 
 const testData2: Array<WeekData> = [
   {
-    // bin: 0,
     bins: [
       { value: -1 },
       { value: -1 },
@@ -14,7 +13,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 1,
     bins: [
       { value: 0, workflowCount: 10 },
       { value: 14, workflowCount: 10 },
@@ -26,7 +24,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 2,
     bins: [
       { value: NaN },
       { value: NaN },
@@ -38,7 +35,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 3,
     bins: [
       { value: NaN },
       { value: NaN },
@@ -50,7 +46,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 4,
     bins: [
       { value: 60 },
       { value: 70 },
@@ -62,7 +57,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 5,
     bins: [
       { value: 20 },
       { value: 20 },
@@ -74,7 +68,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 5,
     bins: [
       { value: 20 },
       { value: 20 },
@@ -86,7 +79,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 6,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -98,7 +90,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 7,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -110,7 +101,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 8,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -122,7 +112,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 9,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -134,7 +123,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 10,
     bins: [
       { value: NaN },
       { value: NaN },
@@ -146,7 +134,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 11,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -158,7 +145,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 12,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -170,7 +156,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 13,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -182,7 +167,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 14,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -194,7 +178,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 15,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -206,7 +189,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 16,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -218,7 +200,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 17,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -230,7 +211,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 18,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -242,7 +222,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 19,
     bins: [
       { value: 10 },
       { value: NaN },
@@ -254,7 +233,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 20,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -266,7 +244,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 21,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -278,7 +255,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 0,
     bins: [
       { value: 10 },
       { value: 10 },
@@ -290,7 +266,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 1,
     bins: [
       { value: 0 },
       { value: 14 },
@@ -302,7 +277,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 2,
     bins: [
       { value: 80 },
       { value: 90 },
@@ -314,7 +288,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 3,
     bins: [
       { value: 10 },
       { value: 20 },
@@ -326,7 +299,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 4,
     bins: [
       { value: 60 },
       { value: 70 },
@@ -338,7 +310,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 5,
     bins: [
       { value: 20 },
       { value: 20 },
@@ -350,7 +321,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 5,
     bins: [
       { value: 20 },
       { value: 20 },
@@ -362,7 +332,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 6,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -374,7 +343,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 7,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -386,7 +354,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 8,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -398,7 +365,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 9,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -410,7 +376,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 10,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -422,7 +387,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 11,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -434,7 +398,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 12,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -446,7 +409,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 13,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -458,7 +420,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 14,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -470,7 +431,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 15,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -482,7 +442,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 16,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -494,7 +453,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 17,
     bins: [
       { value: NaN },
       { value: NaN },
@@ -506,19 +464,17 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 18,
     bins: [
-      { value: 10 },
-      { value: 14 },
-      { value: 25 },
-      { value: 10 },
-      { value: 15 },
+      { value: NaN },
+      { value: NaN },
+      { value: NaN },
+      { value: NaN },
+      { value: NaN },
       { value: 25 },
       { value: 10 },
     ],
   },
   {
-    // bin: 19,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -530,7 +486,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 20,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -542,7 +497,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 21,
     bins: [
       { value: 10 },
       { value: 14 },
@@ -554,7 +508,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 0,
     bins: [
       { value: 10 },
       { value: 10 },
@@ -566,7 +519,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 1,
     bins: [
       { value: 0 },
       { value: 14 },
@@ -578,7 +530,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 2,
     bins: [
       { value: 80 },
       { value: 90 },
@@ -590,7 +541,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 3,
     bins: [
       { value: 10 },
       { value: 20 },
@@ -602,7 +552,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 3,
     bins: [
       { value: 0 },
       { value: 5 },
@@ -614,7 +563,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 3,
     bins: [
       { value: 35 },
       { value: 40 },
@@ -626,7 +574,6 @@ const testData2: Array<WeekData> = [
     ],
   },
   {
-    // bin: 3,
     bins: [
       { value: 70 },
       { value: 75 },
