@@ -17,6 +17,17 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
         defaultValue: "default",
       },
     },
+    size: {
+      control: {
+        type: "radio",
+        options: {
+          large: "large",
+          medium: "medium",
+          small: "small",
+        },
+        defaultValue: "medium",
+      },
+    },
     onClick: { action: "clicked" },
   }}
 />
