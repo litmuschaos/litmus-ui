@@ -1,2 +1,2 @@
-export type { DateValue, WeekData } from "./base";
+export type { WeekData } from "./base";
 export * from "./CalendarHeatmap";

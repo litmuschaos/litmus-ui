@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
 import { CalendarHeatmap } from "./CalendarHeatmap.tsx";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
+import { testData2 } from "./testData.ts";
 
 <Meta title="Lab/CalendarHeatmap" component={CalendarHeatmap} />
 
@@ -9,8 +10,26 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
 `CalendarHeatmap` component is a table used to represent data associated with graphs.
 
 <Canvas>
-  <Story name="Default">
-    <CalendarHeatmap />
+  <Story
+    name="Default"
+    args={{
+      calendarHeatmapMetric: testData2,
+      colorRange: [
+        "#FD6868",
+        "#FE9A9A",
+        "#FDB4B4",
+        "#EECC91",
+        "#E3AD4F",
+        "#E79F32",
+        "#9BE9A8",
+        "#40C463",
+        "#109B67",
+        "#E5E7F1",
+      ],
+      valueThreshold: [13, 26, 39, 49, 59, 69, 79, 89, 100],
+    }}
+  >
+    {(args) => <CalendarHeatmap {...args} />}
   </Story>
 </Canvas>
 

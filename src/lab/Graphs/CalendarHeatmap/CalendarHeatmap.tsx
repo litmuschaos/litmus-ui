@@ -6,42 +6,15 @@ import { AxisLeft, Tooltip, useTooltip } from "@visx/visx";
 import React, { useCallback } from "react";
 import { DayData, TooltipData, ToolTipDateValue, WeekData } from "./base";
 import { useStyles } from "./styles";
-import { testData2 } from "./testData";
-import { getColorIndex } from "./utils";
-
-const localBinData = testData2;
+import { dayList, getColorIndex, monthList } from "./utils";
 
 function max<Datum>(data: Datum[], value: (d: Datum) => number): number {
   return Math.max(...data.map(value));
 }
 
-const dayList = ["Sat", "Fri", "Thu", "Wed", "Tue", "Mon", "Sun"];
-const monthList = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
 // accessors
 const bins = (d: WeekData) => d.bins;
-const bucketSizeMax = max(localBinData, (d) => bins(d).length);
 
-// scales
-const xScale = scaleLinear<number>({
-  domain: [0, localBinData.length],
-});
-const yScale = scaleLinear<number>({
-  domain: [0, bucketSizeMax - 1],
-});
 export type CalendarHeatmapTooltipProps = {
   tooltipData: ToolTipDateValue;
 };
@@ -50,11 +23,11 @@ export type HeatmapProps = {
   height?: number;
   binWidth?: number;
   binHeight?: number;
-
+  calendarHeatmapMetric: Array<WeekData>;
   margin?: { top: number; right: number; bottom: number; left: number };
   valueThreshold: Array<number>;
   colorRange: Array<string>;
-  handleBinClick?: () => void;
+  handleBinClick?: (bin: any) => void;
   CalendarHeatmapTooltip: ({
     tooltipData,
   }: CalendarHeatmapTooltipProps) => JSX.Element;
@@ -62,24 +35,14 @@ export type HeatmapProps = {
 };
 
 const CalendarHeatmap = ({
-  width = 1100,
+  width = 1200,
   height = 140,
   binWidth = 17.9,
   binHeight = 17.9,
+  calendarHeatmapMetric,
   margin = { top: 10, left: 40, right: 10, bottom: 20 },
-  valueThreshold = [13, 26, 39, 49, 59, 69, 79, 89, 100],
-  colorRange = [
-    "#FD6868",
-    "#FE9A9A",
-    "#FDB4B4",
-    "#EECC91",
-    "#E3AD4F",
-    "#E79F32",
-    "#9BE9A8",
-    "#40C463",
-    "#109B67",
-    "#E5E7F1",
-  ],
+  valueThreshold = [],
+  colorRange = [],
   CalendarHeatmapTooltip = ({ tooltipData }: CalendarHeatmapTooltipProps) => {
     return (
       <div>
@@ -93,9 +56,18 @@ const CalendarHeatmap = ({
   separation = 0,
   handleBinClick,
 }: HeatmapProps) => {
-  const classes = useStyles();
+  const classes = useStyles({ width, height, separation, margin });
   const { palette } = useTheme();
 
+  const bucketSizeMax = max(calendarHeatmapMetric, (d) => bins(d).length);
+
+  // scales
+  const xScale = scaleLinear<number>({
+    domain: [0, calendarHeatmapMetric.length],
+  });
+  const yScale = scaleLinear<number>({
+    domain: [0, bucketSizeMax - 1],
+  });
   // bounds
   const size =
     width > margin.left + margin.right
@@ -107,8 +79,6 @@ const CalendarHeatmap = ({
   xScale.range([0, xMax]);
   yScale.range([yMax, 0]);
 
-  const filteredBinData = testData2;
-
   const axisLeftTickLabelProps = {
     dy: "0.3rem",
     dx: "-0.3rem",
@@ -119,6 +89,8 @@ const CalendarHeatmap = ({
     textAnchor: "end" as const,
     fill: palette.text.hint,
   };
+
+  // Tooltip variables
   const {
     showTooltip,
     hideTooltip,
@@ -154,26 +126,13 @@ const CalendarHeatmap = ({
   return width < 10 ? null : (
     <div>
       <Group top={margin.top} left={margin.left}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            width: width - separation,
-            paddingLeft: margin.left,
-            marginRight: margin.right,
-            background: palette.background.paper,
-          }}
-        >
+        <div className={classes.xAxis}>
           {monthList &&
             monthList.map((month) => {
               return (
                 <Typography
-                  style={{
-                    color: palette.text.primary,
-                    fontWeight: 400,
-                    fontSize: "0.75rem",
-                    lineHeight: "1.275rem",
-                  }}
+                  key={`${month}-heatmap`}
+                  className={classes.xAxisLabels}
                 >
                   {month}
                 </Typography>
@@ -202,7 +161,7 @@ const CalendarHeatmap = ({
           />
 
           <HeatmapRect
-            data={filteredBinData}
+            data={calendarHeatmapMetric}
             xScale={(d) => xScale(d) ?? 0}
             yScale={(d) => yScale(d) ?? 0}
             count={(bin: DayData) => bin.value}
@@ -226,10 +185,12 @@ const CalendarHeatmap = ({
                         x={bin.x}
                         y={yMax - bin.y}
                         fill={
-                          colorRange[getColorIndex(bin.count, valueThreshold)]
+                          colorRange[
+                            getColorIndex(bin.count, valueThreshold)
+                          ] ?? "llightGrey"
                         }
                         fillOpacity={1}
-                        onClick={handleBinClick}
+                        onClick={() => handleBinClick?.(bin)}
                         rx="4.95"
                       />
                     )
@@ -244,7 +205,7 @@ const CalendarHeatmap = ({
         <Tooltip
           top={tooltipTop - binHeight}
           left={tooltipLeft}
-          className={classes.tooltipDateStyles}
+          className={classes.tooltipStyles}
         >
           <CalendarHeatmapTooltip tooltipData={tooltipData} />
         </Tooltip>

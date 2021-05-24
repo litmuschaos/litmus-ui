@@ -1,53 +1,33 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
+interface StyleProps {
+  width: number;
+  height: number;
+  separation: number;
+  margin: { top: number; right: number; bottom: number; left: number };
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
-  tooltipLine: {
-    stroke: theme.palette.graph.toolTip,
-    strokeWidth: 4,
-    pointerEvents: "none",
-  },
-  tooltipMetric: {
-    zIndex: 3,
-    marginTop: "1rem",
-    padding: "1rem",
-    backgroundColor: `${theme.palette.cards.background} !important`,
-  },
-  tooltipMetricLeft: {
-    transform: "translate(-70%,0)",
-  },
-  tooltipMetricRight: {
-    transform: "translate(50%,0)",
-  },
-  tooltipDateStyles: {
+  tooltipStyles: {
     marginLeft: "3.5rem",
     marginTop: "0.5rem",
     transform: "translate(-50%,0)",
     backgroundColor: `${theme.palette.background.paper} !important`,
   },
-  tooltipData: {
-    display: "flex",
+  xAxisLabels: {
     color: theme.palette.text.primary,
-    justifyContent: "space-between",
-    padding: "0.2rem",
-    "& span": {
-      paddingLeft: "1.5rem",
-      maxWidth: "20rem",
-      lineHeight: "1rem",
-    },
+    fontWeight: 400,
+    fontSize: "0.75rem",
+    lineHeight: "1.275rem",
   },
-  tooltipBottomDate: {
+  xAxis: (props: StyleProps) => ({
     display: "flex",
-    justifyContent: "space-between",
-    padding: "0.1rem",
-    color: theme.palette.text.primary,
-  },
-  tooltipLabel: {
-    display: "flex",
-    position: "relative",
-  },
-  tooltipValue: {
-    paddingLeft: "0.2rem",
-  },
+    justifyContent: "space-around",
+    width: props.width - props.separation,
+    paddingLeft: props.margin.left,
+    marginRight: props.margin.right,
+    background: theme.palette.background.paper,
+  }),
 }));
 
 export { useStyles };
