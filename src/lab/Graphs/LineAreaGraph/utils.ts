@@ -43,8 +43,9 @@ const getSum = (total: number, num: number | string) => {
 };
 
 // Bisectors
-const bisectDate = bisector<DateValue, Date>((d) => new Date(getDateNum(d)))
-  .left;
+const bisectDate = bisector<DateValue, Date>(
+  (d) => new Date(getDateNum(d))
+).left;
 const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
   getValueNum(d.data)
 ).left;
