@@ -3,7 +3,7 @@ import { Group } from "@visx/group";
 import { HeatmapRect } from "@visx/heatmap";
 import { scaleLinear } from "@visx/scale";
 import { AxisLeft, Tooltip, useTooltip } from "@visx/visx";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { DayData, TooltipData, ToolTipDateValue, WeekData } from "./base";
 import { useStyles } from "./styles";
 import { dayList, getColorIndex, monthList } from "./utils";
@@ -35,7 +35,7 @@ export type HeatmapProps = {
 };
 
 const CalendarHeatmap = ({
-  width = 1200,
+  width = 1000,
   height = 140,
   binWidth = 17.9,
   binHeight = 17.9,
@@ -58,6 +58,10 @@ const CalendarHeatmap = ({
 }: HeatmapProps) => {
   const classes = useStyles({ width, height, separation, margin });
   const { palette } = useTheme();
+  const minValue = 0;
+  const maxValue = 100;
+  const [currentHovered, setcurrentHovered] = useState<string>("");
+  const [currentSelectedColor, setCurrentSelectedColor] = useState<string>("");
 
   const bucketSizeMax = max(calendarHeatmapMetric, (d) => bins(d).length);
 
@@ -121,8 +125,9 @@ const CalendarHeatmap = ({
       });
     },
 
-    [margin.left, margin.top, showTooltip]
+    [margin.left, margin.top, showTooltip, yMax]
   );
+  console.log("current color", currentSelectedColor);
   return width < 10 ? null : (
     <div>
       <Group top={margin.top} left={margin.left}>
@@ -159,7 +164,43 @@ const CalendarHeatmap = ({
             tickFormat={(num) => `${dayList[num.valueOf()]}`}
             tickLabelProps={() => axisLeftTickLabelProps}
           />
+          <defs>
+            <filter id="inset" x="-50%" y="-50%" width="200%" height="200%">
+              <feFlood
+                floodColor={currentSelectedColor ?? "red"}
+                result="outside-color"
+              />
+              <feMorphology in="SourceAlpha" operator="dilate" radius="1" />
+              <feComposite
+                in="outside-color"
+                operator="in"
+                result="outside-stroke"
+              />
 
+              <feFlood
+                floodColor={palette.background.paper}
+                result="inside-color"
+              />
+              <feComposite
+                in2="SourceAlpha"
+                operator="in"
+                result="inside-stroke"
+              />
+
+              <feMorphology in="SourceAlpha" radius="1.5" />
+              <feComposite
+                in="SourceGraphic"
+                operator="in"
+                result="fill-area"
+              />
+
+              <feMerge>
+                <feMergeNode in="outside-stroke" />
+                <feMergeNode in="inside-stroke" />
+                <feMergeNode in="fill-area" />
+              </feMerge>
+            </filter>
+          </defs>
           <HeatmapRect
             data={calendarHeatmapMetric}
             xScale={(d) => xScale(d) ?? 0}
@@ -180,18 +221,71 @@ const CalendarHeatmap = ({
                         onMouseEnter={(event) => handleTooltip(event, bin)}
                         onMouseLeave={() => hideTooltip()}
                         key={`heatmap-rect-${bin.row}-${bin.column}`}
+                        id={`heatmap-rect-id-${bin.row}-${bin.column}`}
                         width={bin.width}
                         height={bin.height}
                         x={bin.x}
                         y={yMax - bin.y}
                         fill={
-                          colorRange[
-                            getColorIndex(bin.count, valueThreshold)
-                          ] ?? "llightGrey"
+                          currentHovered ===
+                          `heatmap-rect-id-${bin.row}-${bin.column}`
+                            ? bin.count >= minValue && bin.count <= maxValue
+                              ? colorRange[
+                                  getColorIndex(bin.count, valueThreshold)
+                                ] ?? "lightGrey"
+                              : palette.graph.calendarHeatmap[10]
+                            : colorRange[
+                                getColorIndex(bin.count, valueThreshold)
+                              ] ?? "lightGrey"
                         }
-                        fillOpacity={1}
-                        onClick={() => handleBinClick?.(bin)}
-                        rx="4.95"
+                        filter={
+                          currentHovered ===
+                          `heatmap-rect-id-${bin.row}-${bin.column}`
+                            ? "url(#inset)"
+                            : ""
+                        }
+                        fillOpacity={
+                          currentHovered ===
+                          `heatmap-rect-id-${bin.row}-${bin.column}`
+                            ? 1
+                            : currentHovered === ""
+                            ? 1
+                            : 0.5
+                        }
+                        strokeWidth={4}
+                        onClick={(e) => {
+                          if (
+                            currentHovered !==
+                            `heatmap-rect-id-${bin.row}-${bin.column}`
+                          ) {
+                            setcurrentHovered(
+                              e.currentTarget.getAttribute("id")?.toString() ??
+                                ""
+                            );
+                            const selectedColor =
+                              currentHovered ===
+                              `heatmap-rect-id-${bin.row}-${bin.column}`
+                                ? bin.count &&
+                                  bin.count >= minValue &&
+                                  bin.count <= maxValue
+                                  ? colorRange[
+                                      getColorIndex(bin.count, valueThreshold)
+                                    ] ?? "lightGrey"
+                                  : palette.graph.calendarHeatmap[10]
+                                : colorRange[
+                                    getColorIndex(
+                                      bin?.count ?? 0,
+                                      valueThreshold
+                                    )
+                                  ] ?? "lightGrey";
+                            setCurrentSelectedColor(selectedColor);
+                          } else {
+                            setCurrentSelectedColor("");
+                            setcurrentHovered("");
+                          }
+                          handleBinClick?.(bin);
+                        }}
+                        rx={"4.95"}
                       />
                     )
                   );

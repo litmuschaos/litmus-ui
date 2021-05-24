@@ -55,6 +55,7 @@ const litmusPortalTheme = createTheme({
         "#40C463",
         "#109B67",
         "#E5E7F1",
+        "#BDC3DB",
       ],
     },
     success: {
