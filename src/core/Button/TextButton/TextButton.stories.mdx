@@ -1,0 +1,64 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { TextButton } from "../TextButton";
+
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta
+  title="Core/Button/TextButton"
+  component={TextButton}
+  argTypes={{
+    variant: {
+      control: {
+        type: "radio",
+        options: {
+          highlight: "highlight",
+          success: "success",
+          error: "error",
+        },
+        defaultValue: "highlight",
+      },
+    },
+    size: {
+      control: {
+        type: "radio",
+        options: {
+          large: "large",
+          medium: "medium",
+          small: "small",
+        },
+        defaultValue: "medium",
+      },
+    },
+    onClick: { action: "clicked" },
+  }}
+/>
+
+# TextButton
+
+`TextButton` Text buttons are typically used for less-pronounced actions, including those located:
+
+- In dialogs
+- In cards
+
+  In cards, text buttons help maintain an emphasis on card content.
+
+## Highlight variant for TextButton:
+
+<Canvas>
+  <Story name="Default" args={{ variant: "highlight", size: "large" }}>
+    {(args) => <TextButton {...args}>Highlight Variant</TextButton>}
+  </Story>
+</Canvas>
+
+## Other variants for TextButton:
+
+<Canvas>
+  <Story name="Success" args={{ variant: "success", size: "medium" }}>
+    {(args) => <TextButton {...args}>Success Variant</TextButton>}
+  </Story>
+  <Story name="Error" args={{ variant: "error", size: "small" }}>
+    {(args) => <TextButton {...args}>Error Variant</TextButton>}
+  </Story>
+</Canvas>
+
+<ArgsTable of={TextButton} />
