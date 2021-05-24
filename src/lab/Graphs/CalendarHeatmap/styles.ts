@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   tooltipDateStyles: {
     marginLeft: "3.5rem",
     marginTop: "0.5rem",
-    transform: "translate(-50%,0%)",
+    transform: "translate(-50%,0)",
     backgroundColor: `${theme.palette.background.paper} !important`,
   },
   tooltipData: {

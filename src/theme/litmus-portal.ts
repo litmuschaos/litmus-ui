@@ -44,6 +44,18 @@ const litmusPortalTheme = createTheme({
         "#51C9DA73",
         "#2F4B7C73",
       ],
+      calendarHeatmap: [
+        "#FD6868",
+        "#FE9A9A",
+        "#FDB4B4",
+        "#EECC91",
+        "#E3AD4F",
+        "#E79F32",
+        "#9BE9A8",
+        "#40C463",
+        "#109B67",
+        "#E5E7F1",
+      ],
     },
     success: {
       main: "#109B67",
