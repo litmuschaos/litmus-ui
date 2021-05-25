@@ -58,7 +58,7 @@ const ChildCalendarHeatmap = ({
   } = useTooltip<ToolTipValue>({
     tooltipOpen: true,
   });
-  const [currentHovered, setcurrentHovered] = useState<string>("");
+  const [currentSelectedBin, setCurrentSelectedBin] = useState<string>("");
   const [currentSelectedColor, setCurrentSelectedColor] = useState<string>("");
   const minValue = 0;
   const maxValue = 100;
@@ -206,7 +206,7 @@ const ChildCalendarHeatmap = ({
               return heatmap.map((heatmapBins) =>
                 heatmapBins.map((bin) => {
                   const selectedColor =
-                    currentHovered ===
+                    currentSelectedBin ===
                     `heatmap-rect-id-${bin.row}-${bin.column}`
                       ? bin &&
                         bin?.count &&
@@ -234,26 +234,26 @@ const ChildCalendarHeatmap = ({
                         y={yMax - bin.y}
                         fill={selectedColor}
                         filter={
-                          currentHovered ===
+                          currentSelectedBin ===
                           `heatmap-rect-id-${bin.row}-${bin.column}`
                             ? "url(#inset)"
                             : ""
                         }
                         fillOpacity={
-                          currentHovered ===
+                          currentSelectedBin ===
                           `heatmap-rect-id-${bin.row}-${bin.column}`
                             ? 1
-                            : currentHovered === ""
+                            : currentSelectedBin === ""
                             ? 1
                             : 0.45
                         }
                         strokeWidth={4}
                         onClick={(e) => {
                           if (
-                            currentHovered !==
+                            currentSelectedBin !==
                             `heatmap-rect-id-${bin.row}-${bin.column}`
                           ) {
-                            setcurrentHovered(
+                            setCurrentSelectedBin(
                               e.currentTarget.getAttribute("id")?.toString() ??
                                 ""
                             );
@@ -261,7 +261,7 @@ const ChildCalendarHeatmap = ({
                             setCurrentSelectedColor(selectedColor);
                           } else {
                             setCurrentSelectedColor("");
-                            setcurrentHovered("");
+                            setCurrentSelectedBin("");
                           }
                           handleBinClick?.(bin);
                         }}
