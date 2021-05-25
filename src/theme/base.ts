@@ -50,6 +50,7 @@ declare module "@material-ui/core/styles/createPalette" {
       radialChartPassed: string;
       line: string[];
       area: string[];
+      calendarHeatmap: string[];
     };
     modal: {
       background: string;
@@ -96,6 +97,7 @@ declare module "@material-ui/core/styles/createPalette" {
       radialChartPassed: string;
       line: string[];
       area: string[];
+      calendarHeatmap: string[];
     };
     modal?: {
       background: string;
