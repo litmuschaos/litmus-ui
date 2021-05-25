@@ -3,7 +3,6 @@ import { makeStyles, Theme } from "@material-ui/core";
 interface StyleProps {
   width: number;
   height: number;
-  separation: number;
   margin: { top: number; right: number; bottom: number; left: number };
 }
 
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   xAxis: (props: StyleProps) => ({
     display: "flex",
     justifyContent: "space-around",
-    width: props.width - props.separation,
+    width: props.width,
     paddingLeft: props.margin.left,
     marginRight: props.margin.right,
     background: theme.palette.background.paper,

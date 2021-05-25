@@ -1,19 +1,20 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
 import { CalendarHeatmap } from "./CalendarHeatmap.tsx";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
-import { testData2 } from "./testData.ts";
+import { testData, TestCalendarHeatmapTooltip } from "./testData.tsx";
 
 <Meta title="Lab/CalendarHeatmap" component={CalendarHeatmap} />
 
 # CalendarHeatmap
 
-`CalendarHeatmap` component is a table used to represent data associated with graphs.
+`CalendarHeatmap` component is used to display data as individual nodes in grid format.
+Such that each node has a color based on its value.
 
 <Canvas>
   <Story
     name="Default"
     args={{
-      calendarHeatmapMetric: testData2,
+      calendarHeatmapMetric: testData,
       colorRange: [
         "#FD6868",
         "#FE9A9A",
@@ -25,12 +26,17 @@ import { testData2 } from "./testData.ts";
         "#40C463",
         "#109B67",
         "#E5E7F1",
-        "black",
+        "#BDC3DB",
       ],
       valueThreshold: [13, 26, 39, 49, 59, 69, 79, 89, 100],
+      CalendarHeatmapTooltip: TestCalendarHeatmapTooltip,
     }}
   >
-    {(args) => <CalendarHeatmap {...args} />}
+    {(args) => (
+      <div style={{ width: "60rem", height: "9rem" }}>
+        <CalendarHeatmap {...args} />
+      </div>
+    )}
   </Story>
 </Canvas>
 

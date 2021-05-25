@@ -15,9 +15,9 @@ const monthList = [
 ];
 
 const getColorIndex = (value: number, valueThreshold: number[]) => {
-  if (value || value === 0) {
+  if (value >= 0) {
     for (let i = 0; i < valueThreshold.length; i++) {
-      if (valueThreshold[i] && value <= valueThreshold[i]) {
+      if (value <= valueThreshold[i]) {
         return i;
       }
     }

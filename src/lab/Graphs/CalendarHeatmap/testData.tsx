@@ -1,15 +1,30 @@
+import React from "react";
+import { CalendarHeatmapTooltipProps } from ".";
 import { WeekData } from "./base";
 
-const testData2: Array<WeekData> = [
+const TestCalendarHeatmapTooltip = ({
+  tooltipData,
+}: CalendarHeatmapTooltipProps): React.ReactElement => {
+  return (
+    <div>
+      <div style={{ marginBottom: "0.2rem" }}>
+        {tooltipData?.data?.bin?.bin.value}% Average Resiliency
+      </div>
+      <div>{tooltipData?.data?.bin?.bin.workflowCount} runs</div>
+    </div>
+  );
+};
+
+const testData: Array<WeekData> = [
   {
     bins: [
       { value: -1 },
       { value: -1 },
       { value: -1 },
       { value: -1 },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
     ],
   },
   {
@@ -25,24 +40,24 @@ const testData2: Array<WeekData> = [
   },
   {
     bins: [
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
     ],
   },
   {
     bins: [
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
     ],
   },
   {
@@ -53,7 +68,7 @@ const testData2: Array<WeekData> = [
       { value: 90 },
       { value: 99 },
       { value: 100 },
-      { value: NaN },
+      { value: undefined },
     ],
   },
   {
@@ -124,10 +139,10 @@ const testData2: Array<WeekData> = [
   },
   {
     bins: [
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
       { value: 15 },
       { value: 25 },
       { value: 10 },
@@ -138,10 +153,10 @@ const testData2: Array<WeekData> = [
       { value: 10 },
       { value: 14 },
       { value: 25 },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
     ],
   },
   {
@@ -182,20 +197,20 @@ const testData2: Array<WeekData> = [
       { value: 10 },
       { value: 14 },
       { value: 25 },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
     ],
   },
   {
     bins: [
       { value: 10 },
       { value: 14 },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
       { value: 10 },
     ],
   },
@@ -205,7 +220,7 @@ const testData2: Array<WeekData> = [
       { value: 14 },
       { value: 25 },
       { value: 10 },
-      { value: NaN },
+      { value: undefined },
       { value: 25 },
       { value: 10 },
     ],
@@ -224,19 +239,8 @@ const testData2: Array<WeekData> = [
   {
     bins: [
       { value: 10 },
-      { value: NaN },
-      { value: NaN },
-      { value: 10 },
-      { value: 15 },
-      { value: 25 },
-      { value: 10 },
-    ],
-  },
-  {
-    bins: [
-      { value: 10 },
-      { value: 14 },
-      { value: 25 },
+      { value: undefined },
+      { value: undefined },
       { value: 10 },
       { value: 15 },
       { value: 25 },
@@ -257,8 +261,19 @@ const testData2: Array<WeekData> = [
   {
     bins: [
       { value: 10 },
+      { value: 14 },
+      { value: 25 },
       { value: 10 },
-      { value: NaN },
+      { value: 15 },
+      { value: 25 },
+      { value: 10 },
+    ],
+  },
+  {
+    bins: [
+      { value: 10 },
+      { value: 10 },
+      { value: undefined },
       { value: 10 },
       { value: 10 },
       { value: 10 },
@@ -306,7 +321,7 @@ const testData2: Array<WeekData> = [
       { value: 90 },
       { value: 99 },
       { value: 100 },
-      { value: NaN },
+      { value: undefined },
     ],
   },
   {
@@ -454,33 +469,22 @@ const testData2: Array<WeekData> = [
   },
   {
     bins: [
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
     ],
   },
   {
     bins: [
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: NaN },
-      { value: 25 },
-      { value: 10 },
-    ],
-  },
-  {
-    bins: [
-      { value: 10 },
-      { value: 14 },
-      { value: 25 },
-      { value: 10 },
-      { value: 15 },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
+      { value: undefined },
       { value: 25 },
       { value: 10 },
     ],
@@ -510,8 +514,19 @@ const testData2: Array<WeekData> = [
   {
     bins: [
       { value: 10 },
+      { value: 14 },
+      { value: 25 },
       { value: 10 },
-      { value: NaN },
+      { value: 15 },
+      { value: 25 },
+      { value: 10 },
+    ],
+  },
+  {
+    bins: [
+      { value: 10 },
+      { value: 10 },
+      { value: undefined },
       { value: 10 },
       { value: 10 },
       { value: 10 },
@@ -585,4 +600,4 @@ const testData2: Array<WeekData> = [
     ],
   },
 ];
-export { testData2 };
+export { testData, TestCalendarHeatmapTooltip };
