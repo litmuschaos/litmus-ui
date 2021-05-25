@@ -117,7 +117,7 @@ const ChildCalendarHeatmap = ({
 
     [margin.left, margin.top, showTooltip, yMax]
   );
-  if (calendarHeatmapMetric.length === 0) {
+  if (calendarHeatmapMetric.length === 0 || !calendarHeatmapMetric) {
     return null;
   }
   return width < 10 ? null : (
