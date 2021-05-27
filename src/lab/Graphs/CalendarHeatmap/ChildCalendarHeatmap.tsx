@@ -115,7 +115,7 @@ const ChildCalendarHeatmap = ({
       });
     },
 
-    [margin.left, margin.top, showTooltip, yMax]
+    [showTooltip, yMax]
   );
   if (calendarHeatmapMetric.length === 0 || !calendarHeatmapMetric) {
     return null;
@@ -277,6 +277,7 @@ const ChildCalendarHeatmap = ({
       </svg>
       {tooltipData && (
         <Tooltip
+          unstyled={false}
           top={tooltipTop - binHeight}
           left={tooltipLeft}
           className={classes.tooltipStyles}
