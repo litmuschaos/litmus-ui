@@ -1,6 +1,6 @@
 import { addons } from "@storybook/addons";
-import yourTheme from "./storybookTheme";
+import storybookLitmusTheme from "./storybookTheme";
 
 addons.setConfig({
-  theme: yourTheme,
+  theme: storybookLitmusTheme,
 });
