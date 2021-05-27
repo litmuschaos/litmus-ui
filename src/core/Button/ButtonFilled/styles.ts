@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: "fit-content",
     minWidth: "6.25rem",
+    minHeight: "2.75rem",
     padding: theme.spacing(1.5, 2),
     textTransform: "none",
     background: theme.palette.primary.main,
