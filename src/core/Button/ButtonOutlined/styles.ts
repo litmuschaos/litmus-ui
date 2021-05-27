@@ -5,6 +5,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: "fit-content",
     padding: theme.spacing(1.5, 2),
+    minWidth: "6.25rem",
+    minHeight: "2.75rem",
     textTransform: "none",
     background: "transparent",
     fontSize: "1rem",
@@ -18,6 +20,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   // Button Outlined
   highlight: {
     color: theme.palette.highlight,
+  },
+
+  // Sizes
+  large: {
+    padding: theme.spacing(2, 4),
+  },
+  medium: {
+    padding: theme.spacing(1.5, 2.5),
+  },
+  small: {
+    padding: theme.spacing(1, 1.25),
   },
 }));
 

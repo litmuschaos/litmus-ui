@@ -30,22 +30,10 @@ declare module "@material-ui/core/styles/createPalette" {
     };
     progressBarGradient: string;
     status: {
-      running: {
-        text: string;
-        background: string;
-      };
-      completed: {
-        text: string;
-        background: string;
-      };
-      pending: {
-        text: string;
-        background: string;
-      };
-      failed: {
-        text: string;
-        background: string;
-      };
+      running: string;
+      completed: string;
+      pending: string;
+      failed: string;
     };
     cards: {
       header: string;
@@ -62,6 +50,7 @@ declare module "@material-ui/core/styles/createPalette" {
       radialChartPassed: string;
       line: string[];
       area: string[];
+      calendarHeatmap: string[];
     };
     modal: {
       background: string;
@@ -88,22 +77,10 @@ declare module "@material-ui/core/styles/createPalette" {
     };
     progressBarGradient?: string;
     status?: {
-      running: {
-        text: string;
-        background: string;
-      };
-      completed: {
-        text: string;
-        background: string;
-      };
-      pending: {
-        text: string;
-        background: string;
-      };
-      failed: {
-        text: string;
-        background: string;
-      };
+      running: string;
+      completed: string;
+      pending: string;
+      failed: string;
     };
     cards?: {
       header: string;
@@ -120,6 +97,7 @@ declare module "@material-ui/core/styles/createPalette" {
       radialChartPassed: string;
       line: string[];
       area: string[];
+      calendarHeatmap: string[];
     };
     modal?: {
       background: string;

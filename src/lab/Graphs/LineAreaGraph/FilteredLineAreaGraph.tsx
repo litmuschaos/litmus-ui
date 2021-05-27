@@ -34,9 +34,8 @@ const FilteredLineAreaGraph: React.FC<LineAreaGraphChildProps> = ({
   },
   ...rest
 }) => {
-  let augmentEventSeries: Array<GraphMetric> | undefined = filterUndefinedData(
-    eventSeries
-  );
+  let augmentEventSeries: Array<GraphMetric> | undefined =
+    filterUndefinedData(eventSeries);
 
   if (augmentEventSeries) {
     for (let i = 0; i < augmentEventSeries.length; i++) {
