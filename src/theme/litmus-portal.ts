@@ -44,6 +44,19 @@ const litmusPortalTheme = createTheme({
         "#51C9DA73",
         "#2F4B7C73",
       ],
+      calendarHeatmap: [
+        "#FD6868",
+        "#FE9A9A",
+        "#FDB4B4",
+        "#EECC91",
+        "#E3AD4F",
+        "#E79F32",
+        "#9BE9A8",
+        "#40C463",
+        "#109B67",
+        "#E5E7F1",
+        "#BDC3DB",
+      ],
     },
     success: {
       main: "#109B67",
@@ -89,22 +102,10 @@ const litmusPortalTheme = createTheme({
     progressBarGradient:
       "linear-gradient(90.43deg, #5B44BA 0.35%, #858CDD 51.03%, #109B67 99.64%)",
     status: {
-      running: {
-        text: "#5252F6",
-        background: "#5252F620",
-      },
-      completed: {
-        text: "#109B67",
-        background: "#109B6720",
-      },
-      pending: {
-        text: "#BBBBBB",
-        background: "#BBBBBB20",
-      },
-      failed: {
-        text: "#CA2C2C",
-        background: "#CA2C2C20",
-      },
+      running: "#3A97D4",
+      completed: "#09825D",
+      pending: "#949AB7",
+      failed: "#ED474A",
     },
     cards: {
       header: "#EDF0F8",

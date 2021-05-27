@@ -431,9 +431,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 data: dd1,
                 baseColor: filteredEventSeries[j].baseColor,
               };
-              legenTablePointerData[
-                j + legenTablePointerData.length
-              ] = singleEventToolTip;
+              legenTablePointerData[j + legenTablePointerData.length] =
+                singleEventToolTip;
 
               if (dd1.value !== "False") {
                 pointerDataSelection[i++] = singleEventToolTip;
@@ -502,9 +501,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 data: dd0,
                 baseColor: filteredEventSeries[j].baseColor,
               };
-              legenTablePointerData[
-                j + legenTablePointerData.length
-              ] = singleEventToolTip;
+              legenTablePointerData[j + legenTablePointerData.length] =
+                singleEventToolTip;
 
               if (dd0.value !== "False") {
                 pointerDataSelection[i++] = singleEventToolTip;

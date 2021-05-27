@@ -1,16 +1,20 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { LitmusThemeProvider } from "../../../../theme";
 import { OutlinedPills } from "../../../Pills";
 
-describe("Basic Pills Component", () => {
-  it("Renders", () => {
-    const { getByText } = render(
-      <LitmusThemeProvider>
-        <OutlinedPills label="Outlined Pill" />
-      </LitmusThemeProvider>
-    );
+let label: HTMLElement;
+beforeEach(() => {
+  render(
+    <LitmusThemeProvider>
+      <OutlinedPills label="succeeded" variant="succeeded" />
+    </LitmusThemeProvider>
+  );
 
-    expect(getByText("Outlined Pill")).toBeTruthy();
-  });
+  // Get label for the pill
+  label = screen.getByText("succeeded");
+});
+
+test("Renders outlined pill of 'succeeded' variant", () => {
+  expect(label.textContent).toBe("succeeded");
 });
