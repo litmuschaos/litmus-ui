@@ -27,11 +27,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   radialFont: {
     textAlign: "left",
     fontStyle: "normal",
-    fontFamily: "Ubuntu",
   },
   centerDataFont: {
     fontStyle: "normal",
-    fontFamily: "Ubuntu",
     background: "transparent",
     wordWrap: "break-word",
     whiteSpace: "initial",
@@ -39,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     lineHeight: "1.5rem",
     margin: theme.spacing(1, 0),
     alignContent: "flex-start",
+    fontSize: "1rem",
   },
   centerValue: {
     maxWidth: "8rem",
