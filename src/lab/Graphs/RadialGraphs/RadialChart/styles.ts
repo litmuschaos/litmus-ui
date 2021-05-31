@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   centerDataFont: {
     fontStyle: "normal",
-    background: "transparent",
     wordWrap: "break-word",
     whiteSpace: "initial",
     textAlign: "center",
