@@ -68,27 +68,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   legendTableArea: (props: StyleProps) => ({
     display: "flex",
     width: props.alignLegendTable === "bottom" ? props.width : props.width / 2,
-    height:
-      props.alignLegendTable === "bottom"
-        ? props.legendTableHeight
-        : props.outerRadius * 2,
-    alignItems:
-      props.circleOrient === 1
-        ? props.alignLegendTable === "right"
-          ? "flex-end"
-          : "center"
-        : "center",
+    height: props.height,
+    alignItems: props.alignLegendTable === "right" ? "center" : "unset",
   }),
 
   legendTableChild: (props: StyleProps) => ({
     width: "inherit",
     height: props.legendTableHeight,
-    transform:
-      props.circleOrient === 1
-        ? props.alignLegendTable === "right"
-          ? "translate(0,-25%)"
-          : "unset"
-        : "unset",
   }),
 
   figureWithLegendTable: (props: StyleProps) => ({

@@ -57,22 +57,28 @@ const RadialChartChild = ({
   const [currentHovered, setcurrentHovered] = useState<string>("");
   const radialFigureWidth = alignLegendTable === "bottom" ? width : width / 2;
   const circleOrient = semiCircle ? 1 : 2;
-
   const scalerArc: number = circleOrient * Math.PI;
   const startAngle: number = -(Math.PI / 2);
   let currentAngle: number = startAngle;
   if (showLegend && alignLegendTable === "bottom") {
     height -= legendTableHeight;
   }
-  const outerRadius =
-    (circleOrient === 1
-      ? Math.min(radialFigureWidth / 2, height)
-      : Math.min(radialFigureWidth, height) * 0.5 - arcWidth) -
-    circleExpandOnHover;
+  let outerRadius = 0;
+
+  if (circleOrient === 1) {
+    if (alignLegendTable === "bottom") {
+      outerRadius = Math.min(radialFigureWidth, height);
+    } else {
+      outerRadius = Math.min(radialFigureWidth / 2, height);
+    }
+  } else {
+    outerRadius = Math.min(radialFigureWidth, height) * 0.5;
+  }
+
   const innerRadius = outerRadius - arcWidth - circleExpandOnHover;
   const classes = useStyles({
     width,
-    height,
+    height: alignLegendTable === "bottom" ? height + legendTableHeight : height,
     circleOrient,
     alignLegendTable,
     legendTableHeight,
@@ -118,11 +124,11 @@ const RadialChartChild = ({
       <div className={classes.figureWithLegendTable}>
         <svg
           width={radialFigureWidth}
-          height={circleOrient === 1 ? outerRadius : outerRadius * 2}
+          height={circleOrient === 1 ? outerRadius : height}
         >
           <rect
             width={radialFigureWidth}
-            height={circleOrient === 1 ? outerRadius : outerRadius * 2}
+            height={circleOrient === 1 ? outerRadius : height}
             className={classes.rectBase}
           />
 
