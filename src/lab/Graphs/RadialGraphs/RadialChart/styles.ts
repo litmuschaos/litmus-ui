@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: props.height,
     position: "relative",
     transition: "0.5s",
+    background: theme.palette.background.paper,
   }),
   rectBase: {
     fill: theme.palette.background.paper,
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: "absolute",
     top:
       props.circleOrient === 1
-        ? props.innerRadius * 2
+        ? props.innerRadius
         : props.innerRadius + props.arcWidth,
     left: props.alignLegendTable === "bottom" ? "50%" : "25%",
     transform: "translate(-50%, -50%)",
@@ -92,6 +93,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   figureWithLegendTable: (props: StyleProps) => ({
     display: props.alignLegendTable === "bottom" ? "inline-block" : "flex",
+    height: "100%",
   }),
 }));
 export { useStyles };
