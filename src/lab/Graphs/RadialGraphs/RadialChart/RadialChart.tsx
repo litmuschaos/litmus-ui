@@ -55,24 +55,30 @@ const RadialChartChild = ({
   const [centerValue, setcenterValue] = useState<string>("0");
   const [centerText, setCenterText] = useState<string>(heading ?? "");
   const [currentHovered, setcurrentHovered] = useState<string>("");
-  const radialFigurWidth = alignLegendTable === "bottom" ? width : width / 2;
+  const radialFigureWidth = alignLegendTable === "bottom" ? width : width / 2;
   const circleOrient = semiCircle ? 1 : 2;
-
   const scalerArc: number = circleOrient * Math.PI;
   const startAngle: number = -(Math.PI / 2);
   let currentAngle: number = startAngle;
-  const outerRadius =
-    (circleOrient === 1
-      ? radialFigurWidth <= height * 2
-        ? radialFigurWidth
-        : height * 2
-      : Math.min(radialFigurWidth, height)) *
-      0.5 -
-    arcWidth;
-  const innerRadius = outerRadius - arcWidth;
+  if (showLegend && alignLegendTable === "bottom") {
+    height -= legendTableHeight;
+  }
+  let outerRadius = 0;
+
+  if (circleOrient === 1) {
+    if (alignLegendTable === "bottom") {
+      outerRadius = Math.min(radialFigureWidth, height);
+    } else {
+      outerRadius = Math.min(radialFigureWidth / 2, height);
+    }
+  } else {
+    outerRadius = Math.min(radialFigureWidth, height) * 0.5;
+  }
+
+  const innerRadius = outerRadius - arcWidth - circleExpandOnHover;
   const classes = useStyles({
     width,
-    height,
+    height: alignLegendTable === "bottom" ? height + legendTableHeight : height,
     circleOrient,
     alignLegendTable,
     legendTableHeight,
@@ -80,6 +86,7 @@ const RadialChartChild = ({
     outerRadius,
     arcWidth,
   });
+
   const total = radialData
     ? radialData.reduce(
         (previousValue, currentValue) => previousValue + currentValue.value,
@@ -98,7 +105,7 @@ const RadialChartChild = ({
   if (centerValue === "0" && total > 0) {
     setcenterValue(total.toString());
     if (showCenterHeading) {
-      setCenterText(`${heading}`);
+      setCenterText(heading ?? "");
     }
   }
   legendData = legendData.splice(0);
@@ -115,16 +122,19 @@ const RadialChartChild = ({
   return width < 10 ? null : (
     <div className={`${classes.radialChartRoot} ${className}`}>
       <div className={classes.figureWithLegendTable}>
-        <svg width={radialFigurWidth} height={outerRadius * 2}>
+        <svg
+          width={radialFigureWidth}
+          height={circleOrient === 1 ? outerRadius : height}
+        >
           <rect
-            width={radialFigurWidth}
-            height={outerRadius * 2}
+            width={radialFigureWidth}
+            height={circleOrient === 1 ? outerRadius : height}
             className={classes.rectBase}
           />
 
           <Group
-            top={circleOrient === 1 ? innerRadius * 2 : outerRadius}
-            left={radialFigurWidth / 2}
+            top={circleOrient === 1 ? outerRadius : outerRadius}
+            left={radialFigureWidth / 2}
           >
             {total > 0 &&
               radialArc &&
@@ -135,13 +145,13 @@ const RadialChartChild = ({
                     data={elem.value}
                     innerRadius={
                       currentHovered === `${elem.label}-arc`
-                        ? innerRadius - circleExpandOnHover
-                        : innerRadius
+                        ? innerRadius - circleExpandOnHover * 2
+                        : innerRadius - circleExpandOnHover
                     }
                     outerRadius={
                       currentHovered === `${elem.label}-arc`
-                        ? outerRadius + circleExpandOnHover
-                        : outerRadius
+                        ? outerRadius - circleExpandOnHover
+                        : outerRadius - circleExpandOnHover * 2
                     }
                     fill={elem.baseColor}
                     startAngle={currentAngle}
@@ -149,7 +159,7 @@ const RadialChartChild = ({
                     onMouseEnter={(e) => {
                       setcenterValue(radialData[i].value.toString());
                       if (showCenterHeading) {
-                        setCenterText(`${heading}`);
+                        setCenterText(radialData[i].label?.toString() ?? "");
                       }
                       setcurrentHovered(
                         e.currentTarget.getAttribute("id")?.toString() ?? ""
@@ -158,7 +168,7 @@ const RadialChartChild = ({
                     onMouseLeave={() => {
                       setcenterValue(total.toString());
                       if (showCenterHeading) {
-                        setCenterText(`${heading}`);
+                        setCenterText(heading ?? "");
                       }
                       setcurrentHovered("");
                     }}

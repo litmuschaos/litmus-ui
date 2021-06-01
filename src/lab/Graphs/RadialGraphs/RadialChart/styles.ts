@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: props.height,
     position: "relative",
     transition: "0.5s",
+    background: theme.palette.background.paper,
   }),
   rectBase: {
     fill: theme.palette.background.paper,
@@ -26,18 +27,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   radialFont: {
     textAlign: "left",
     fontStyle: "normal",
-    fontFamily: "Ubuntu",
   },
   centerDataFont: {
     fontStyle: "normal",
-    fontFamily: "Ubuntu",
-    background: "transparent",
     wordWrap: "break-word",
     whiteSpace: "initial",
     textAlign: "center",
     lineHeight: "1.5rem",
     margin: theme.spacing(1, 0),
     alignContent: "flex-start",
+    fontSize: "1rem",
   },
   centerValue: {
     maxWidth: "8rem",
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: "absolute",
     top:
       props.circleOrient === 1
-        ? props.innerRadius * 2
+        ? props.innerRadius
         : props.innerRadius + props.arcWidth,
     left: props.alignLegendTable === "bottom" ? "50%" : "25%",
     transform: "translate(-50%, -50%)",
@@ -67,31 +66,18 @@ const useStyles = makeStyles((theme: Theme) => ({
   legendTableArea: (props: StyleProps) => ({
     display: "flex",
     width: props.alignLegendTable === "bottom" ? props.width : props.width / 2,
-    height:
-      props.alignLegendTable === "bottom"
-        ? props.legendTableHeight
-        : props.outerRadius * 2,
-    alignItems:
-      props.circleOrient === 1
-        ? props.alignLegendTable === "right"
-          ? "flex-end"
-          : "center"
-        : "center",
+    height: props.height,
+    alignItems: props.alignLegendTable === "right" ? "center" : "unset",
   }),
 
   legendTableChild: (props: StyleProps) => ({
     width: "inherit",
     height: props.legendTableHeight,
-    transform:
-      props.circleOrient === 1
-        ? props.alignLegendTable === "right"
-          ? "translate(0,-25%)"
-          : "unset"
-        : "unset",
   }),
 
   figureWithLegendTable: (props: StyleProps) => ({
     display: props.alignLegendTable === "bottom" ? "inline-block" : "flex",
+    height: "100%",
   }),
 }));
 export { useStyles };
