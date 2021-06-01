@@ -12,6 +12,7 @@ import {
 } from "@visx/visx";
 import { extent, max, min } from "d3-array";
 import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 import React, { useCallback, useMemo, useState } from "react";
 import { LegendData } from "../LegendTable";
 import { LegendTable } from "../LegendTable/LegendTable";
@@ -58,7 +59,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   height = 200,
   margin = {
     top: 20,
-    left: 30,
+    left: 60,
     bottom: 20,
     right: 10,
   },
@@ -84,6 +85,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [dataRender, setAutoRender] = useState(true);
   // Use for showing the tooltip when showMultiTooltip is disabled
   const [mouseY, setMouseY] = useState(0);
+
+  // More format options for Dayjs
+  dayjs.extend(advancedFormat);
 
   //  ToolTip Data
   const {
