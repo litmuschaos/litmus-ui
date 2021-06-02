@@ -58,11 +58,11 @@ const openSeriesData: Array<GraphMetric> = [
 ];
 const closedSeriesData: Array<GraphMetric> = [
   { metricName: "orange", data: closedSeriesData1, baseColor: "orange" },
-  { metricName: "pink", data: closedSeriesData2, baseColor: "pink" },
+  { metricName: "noColorAssigned-1", data: closedSeriesData2 },
 ];
 const eventSeriesData: Array<EventMetric> = [
   {
-    metricName: "chaos-pod-delete-",
+    metricName: "chaos-pod-delete-no-color",
     data: eventSeriesData1,
     subData: [
       { subDataName: "subData-0-1", value: "0-1", date: 3000 },
@@ -70,7 +70,6 @@ const eventSeriesData: Array<EventMetric> = [
       { subDataName: "subData-0-3", value: "0-3", date: 3000 },
       { subDataName: "subData-0-4", value: "0-4", date: 3000 },
     ],
-    baseColor: "red",
   },
   {
     metricName: "chaos-network-pod",

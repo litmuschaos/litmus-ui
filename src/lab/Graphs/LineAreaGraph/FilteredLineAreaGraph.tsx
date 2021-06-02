@@ -1,6 +1,6 @@
 import React from "react";
 import { GraphMetric, LineAreaGraphChildProps } from "./base";
-import { ComputationGraph } from "./ComputationGraph";
+import { ColorAugmentation } from "./ColorsAugmentation";
 
 // filterUndefinedData performs type checking and
 const filterUndefinedData = (
@@ -21,17 +21,9 @@ const filterUndefinedData = (
     : data;
 
 const FilteredLineAreaGraph: React.FC<LineAreaGraphChildProps> = ({
-  compact = false,
   closedSeries,
   openSeries,
   eventSeries,
-  height = 200,
-  margin = {
-    top: 20,
-    left: 100,
-    bottom: 20,
-    right: 20,
-  },
   ...rest
 }) => {
   let augmentEventSeries: Array<GraphMetric> | undefined =
@@ -68,17 +60,12 @@ const FilteredLineAreaGraph: React.FC<LineAreaGraphChildProps> = ({
   const augmentOpenSeries: Array<GraphMetric> =
     filterUndefinedData(openSeries) ?? [];
   return (
-    <div>
-      <ComputationGraph
-        closedSeries={augmentClosedSeries}
-        openSeries={augmentOpenSeries}
-        eventSeries={augmentEventSeries}
-        height={height}
-        margin={margin}
-        compact={compact}
-        {...rest}
-      />
-    </div>
+    <ColorAugmentation
+      closedSeries={augmentClosedSeries}
+      openSeries={augmentOpenSeries}
+      eventSeries={augmentEventSeries}
+      {...rest}
+    />
   );
 };
 
