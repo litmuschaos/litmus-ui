@@ -3,13 +3,13 @@ import { Grid } from "@visx/grid";
 import { Group } from "@visx/group";
 import { scaleBand, scaleLinear, scaleOrdinal, scaleTime } from "@visx/scale";
 import { BarStack } from "@visx/shape";
-import { SeriesPoint } from "@visx/shape/lib/types";
 import { defaultStyles, useTooltip, useTooltipInPortal } from "@visx/tooltip";
-import { curveMonotoneX, LinePath, localPoint, MarkerCircle } from "@visx/visx";
+import { curveMonotoneX, LinePath, localPoint } from "@visx/visx";
 import { extent, max, min } from "d3-array";
 import React, { useCallback, useMemo, useState } from "react";
-import { DateValue, GraphMetric, TooltipData, ToolTipDateValue } from "./base";
+import { GraphMetric, TooltipData, ToolTipDateValue } from "./base";
 import { bisectDate, bisectorValue, getDateNum, getValueNum } from "./utils";
+
 export interface StackBarMetric {
   date: string;
   pass: string;
@@ -17,16 +17,6 @@ export interface StackBarMetric {
 }
 type StackName = "pass" | "fail";
 
-type TooltipDataBar = {
-  bar: SeriesPoint<StackBarMetric>;
-  key: StackName;
-  index: number;
-  height: number;
-  width: number;
-  x: number;
-  y: number;
-  color: string;
-};
 const openSeries: GraphMetric[] = [
   {
     metricName: "probe success",
@@ -38,7 +28,7 @@ const openSeries: GraphMetric[] = [
       { date: 45, value: 10 },
       { date: 70, value: 30 },
     ],
-    baseColor: "#5469D4",
+    baseColor: "orange",
   },
 ];
 
@@ -260,9 +250,6 @@ const PlotStackBar = ({
             firstToolTipData.data &&
             elem.data.date <= firstToolTipData.data.date
         );
-        const legenTablePointerData = JSON.parse(
-          JSON.stringify(pointerDataSelection)
-        );
 
         pointerDataSelection = pointerDataSelection.sort((a, b) =>
           a.data.value > b.data.value ? 1 : -1
@@ -321,15 +308,7 @@ const PlotStackBar = ({
       filteredOpenSeries,
     ]
   );
-  const getDateNumBar = (d: any) => {
-    if (d) {
-      if (typeof d.date === "number") {
-        return new Date(d.date);
-      } else return new Date(parseInt(d.date, 10));
-    } else {
-      return new Date(0);
-    }
-  };
+
   if (width < 10) return null;
   if (tooltipData && tooltipData[0]) {
     console.log("tooltip", tooltipData[0].data.date);
@@ -346,6 +325,33 @@ const PlotStackBar = ({
           rx={14}
           onMouseMove={(e) => console.log("mouve", e.movementX, e.movementY)}
         />
+        <defs>
+          <filter id="inset" x="-50%" y="-50%" width="200%" height="200%">
+            <feFlood floodColor="red" result="outside-color" />
+            <feMorphology in="SourceAlpha" operator="dilate" radius="2" />
+            <feComposite
+              in="outside-color"
+              operator="in"
+              result="outside-stroke"
+            />
+
+            <feFlood floodColor="white" result="inside-color" />
+            <feComposite
+              in2="SourceAlpha"
+              operator="in"
+              result="inside-stroke"
+            />
+
+            <feMorphology in="SourceAlpha" radius="5" />
+            <feComposite in="SourceGraphic" operator="in" result="fill-area" />
+
+            <feMerge>
+              <feMergeNode in="outside-stroke" />
+              <feMergeNode in="inside-stroke" />
+              <feMergeNode in="fill-area" />
+            </feMerge>
+          </filter>
+        </defs>
         <Grid
           top={margin.top}
           left={margin.left}
@@ -388,28 +394,35 @@ const PlotStackBar = ({
           </BarStack>
           {openSeries &&
             openSeries.length > 0 &&
-            openSeries.map((openLineData, j) => (
-              <g key={`openSeriesGroup-${openLineData.metricName}-${j}`}>
-                <MarkerCircle
-                  id={`${j}-circle`}
-                  fill={openLineData.baseColor}
-                  size={2.5}
-                  refX={2.5}
-                  fillOpacity={0.6}
-                />
-                <LinePath<DateValue>
-                  data={openLineData.data}
+            openSeries.map((linedata: GraphMetric, index) => (
+              <Group key={`closedSeriesGroup-${linedata.metricName}-${index}`}>
+                <LinePath
+                  data={linedata.data}
                   x={(d) => xScale(getDateNum(d)) ?? 0}
                   y={(d) => yScale(getValueNum(d)) ?? 0}
                   strokeWidth={2}
-                  stroke={openLineData.baseColor}
+                  stroke={linedata.baseColor}
                   strokeOpacity={0.7}
                   curve={curveMonotoneX}
-                  markerMid={`url(#${j}-circle)`}
-                  markerStart={`url(#${j}-circle)`}
-                  markerEnd={`url(#${j}-circle)`}
                 />
-              </g>
+
+                {true &&
+                  linedata.data.map((d, index) => (
+                    <g
+                      key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}-${index}`}
+                    >
+                      <circle
+                        cx={xScale(getDateNum(d))}
+                        cy={yScale(getValueNum(d))}
+                        r={7}
+                        fill={linedata.baseColor}
+                        fillOpacity={0.7}
+                        pointerEvents="none"
+                        filter="url(#inset)"
+                      />
+                    </g>
+                  ))}
+              </Group>
             ))}
         </Group>
         <Group>
@@ -420,8 +433,7 @@ const PlotStackBar = ({
             height={height}
             rx={14}
             onMouseMove={handleTooltip}
-            fill={"pink"}
-            fillOpacity="0.1"
+            fill={"transparent"}
           />
         </Group>
 

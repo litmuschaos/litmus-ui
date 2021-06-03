@@ -19,10 +19,26 @@ const filterUndefinedData = (
           )
         )
     : data;
-
+const filterUndefinedBarData = (
+  data: GraphMetric[] | undefined
+): GraphMetric[] | undefined =>
+  data
+    ? data
+        .filter((elem) => elem && elem.data && elem.data.length)
+        .filter((elem) =>
+          elem.data.filter(
+            (d) =>
+              d &&
+              d.date &&
+              (typeof d.date === "number" || typeof d.date === "string") &&
+              (typeof d.value === "number" || typeof d.value === "string")
+          )
+        )
+    : data;
 const FilteredStackBar: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
   openSeries,
+  barSeries,
   height = 200,
   margin = {
     top: 20,
@@ -34,6 +50,8 @@ const FilteredStackBar: React.FC<LineAreaGraphChildProps> = ({
 }) => {
   const augmentOpenSeries: Array<GraphMetric> =
     filterUndefinedData(openSeries) ?? [];
+  const augmentBarSeries: Array<GraphMetric> =
+    filterUndefinedBarData(barSeries) ?? [];
   return (
     <div>
       <PlotStackBar height={height} width={400} />
