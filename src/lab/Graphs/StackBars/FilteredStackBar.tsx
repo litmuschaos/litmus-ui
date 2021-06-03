@@ -1,6 +1,6 @@
 import React from "react";
 import { GraphMetric, LineAreaGraphChildProps } from "./base";
-import { Example } from "./PlotLineAreaGraphBar";
+import { PlotStackBar } from "./PlotStackBar";
 
 // filterUndefinedData performs type checking and
 const filterUndefinedData = (
@@ -20,7 +20,7 @@ const filterUndefinedData = (
         )
     : data;
 
-const FilteredLineAreaGraph: React.FC<LineAreaGraphChildProps> = ({
+const FilteredStackBar: React.FC<LineAreaGraphChildProps> = ({
   compact = false,
   openSeries,
   height = 200,
@@ -36,9 +36,9 @@ const FilteredLineAreaGraph: React.FC<LineAreaGraphChildProps> = ({
     filterUndefinedData(openSeries) ?? [];
   return (
     <div>
-      <Example height={height} width={400} />
+      <PlotStackBar height={height} width={400} />
     </div>
   );
 };
 
-export { FilteredLineAreaGraph };
+export { FilteredStackBar };

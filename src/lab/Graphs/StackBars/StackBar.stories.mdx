@@ -1,9 +1,9 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
-import { LineAreaGraphBar } from "./LineAreaGraphBar";
+import { StackBar } from "./StackBar";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
 import { closedSeriesData, eventSeriesData, barSeriesData } from "./testData";
 
-<Meta title="Lab/LineAreaGraphAS" component={LineAreaGraphBar} />
+<Meta title="Lab/LineAreaGraphAS" component={StackBar} />
 
 # LineAreaGraph
 
@@ -31,10 +31,10 @@ in form of lines, area-closed under the graph and events.
   >
     {(args) => (
       <div style={{ width: "40rem", height: "25rem" }}>
-        <LineAreaGraphBar {...args} />
+        <StackBar {...args} />
       </div>
     )}
   </Story>
 </Canvas>
 
-<ArgsTable of={LineAreaGraphBar} />
+<ArgsTable of={StackBar} />

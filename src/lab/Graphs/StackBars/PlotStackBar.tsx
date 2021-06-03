@@ -124,7 +124,7 @@ const colorScale = scaleOrdinal<StackName, string>({
 
 let tooltipTimeout: number;
 
-const Example = ({
+const PlotStackBar = ({
   width,
   height,
   events = false,
@@ -441,4 +441,4 @@ const Example = ({
   );
 };
 
-export { Example };
+export { PlotStackBar };
