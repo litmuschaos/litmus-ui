@@ -4,11 +4,21 @@ import { Group } from "@visx/group";
 import { scaleBand, scaleLinear, scaleOrdinal, scaleTime } from "@visx/scale";
 import { BarStack } from "@visx/shape";
 import { defaultStyles, useTooltip, useTooltipInPortal } from "@visx/tooltip";
-import { curveMonotoneX, LinePath, localPoint } from "@visx/visx";
+import { curveMonotoneX, LinePath, localPoint, Tooltip } from "@visx/visx";
 import { extent, max, min } from "d3-array";
 import React, { useCallback, useMemo, useState } from "react";
 import { GraphMetric, TooltipData, ToolTipDateValue } from "./base";
-import { bisectDate, bisectorValue, getDateNum, getValueNum } from "./utils";
+import { useStyles } from "./styles";
+import {
+  bisectBarDate,
+  bisectDate,
+  bisectorValue,
+  getBarDateNum,
+  getDateNum,
+  getDateNumber,
+  getValueNum,
+  getValueStr,
+} from "./utils";
 
 export interface StackBarMetric {
   date: string;
@@ -21,22 +31,31 @@ const openSeries: GraphMetric[] = [
   {
     metricName: "probe success",
     data: [
-      { date: 15, value: 100 },
+      { date: 10, value: 100 },
       { date: 20, value: 10 },
       { date: 30, value: 1 },
       { date: 40, value: 20 },
-      { date: 45, value: 10 },
+      { date: 50, value: 10 },
+      { date: 60, value: 15 },
       { date: 70, value: 30 },
+      { date: 80, value: 30 },
+      { date: 90, value: 30 },
+      { date: 100, value: 30 },
+      { date: 110, value: 30 },
+      { date: 120, value: 30 },
+      { date: 130, value: 30 },
+      { date: 140, value: 30 },
+      { date: 150, value: 30 },
     ],
-    baseColor: "orange",
+    baseColor: "#5469D4",
   },
 ];
 
 const barData: StackBarMetric[] = [
   {
     date: "10",
-    pass: "60",
-    fail: "40",
+    pass: "100",
+    fail: "0",
   },
   {
     date: "20",
@@ -63,6 +82,56 @@ const barData: StackBarMetric[] = [
     pass: "40",
     fail: "60",
   },
+  {
+    date: "70",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "80",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "90",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "100",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "110",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "110",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "120",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "130",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "140",
+    pass: "10",
+    fail: "90",
+  },
+  {
+    date: "150",
+    pass: "10",
+    fail: "90",
+  },
 ];
 export type BarStackProps = {
   width: number;
@@ -71,11 +140,11 @@ export type BarStackProps = {
   events?: boolean;
 };
 
-const purple1 = "lightGreen";
-const purple2 = "red";
+const purple1 = "#00CC9A";
+const purple2 = "#F2536D";
 export const purple3 = "#a44afe";
 export const background = "#eaedff";
-const defaultMargin = { top: 40, right: 0, bottom: 0, left: 0 };
+const defaultMargin = { top: 40, right: 50, bottom: 20, left: 50 };
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -83,10 +152,12 @@ const tooltipStyles = {
   color: "white",
 };
 
-const data = barData;
-const keys = Object.keys(data[0]).filter((d) => d !== "date") as StackName[];
+const filteredBarSeries = barData;
+const keys = Object.keys(filteredBarSeries[0]).filter(
+  (d) => d !== "date"
+) as StackName[];
 
-const temperatureTotals = data.reduce((allTotals, currentDate) => {
+const temperatureTotals = filteredBarSeries.reduce((allTotals, currentDate) => {
   const totalTemperature = keys.reduce((dailyTotal, k) => {
     dailyTotal += Number(currentDate[k]);
     return dailyTotal;
@@ -100,7 +171,7 @@ const getDate = (d: StackBarMetric) => d.date;
 
 // scales
 const dateScale = scaleBand<string>({
-  domain: data.map(getDate),
+  domain: filteredBarSeries.map(getDate),
   padding: 0.5,
 });
 const temperatureScale = scaleLinear<number>({
@@ -117,7 +188,6 @@ let tooltipTimeout: number;
 const PlotStackBar = ({
   width,
   height,
-  events = false,
   margin = defaultMargin,
 }: BarStackProps) => {
   const {
@@ -131,6 +201,10 @@ const PlotStackBar = ({
   });
   const [filteredOpenSeries, setfilteredOpenSeries] = useState(openSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
+  const classes = useStyles({
+    width,
+    height,
+  });
   const [mouseY, setMouseY] = useState(0);
 
   const [dataRender, setAutoRender] = useState(true);
@@ -142,8 +216,8 @@ const PlotStackBar = ({
     scroll: true,
   });
   // bounds
-  const xMax = width;
-  const yMax = height - margin.top - 100;
+  const xMax = width - margin.left - margin.right;
+  const yMax = height - margin.top - margin.bottom;
 
   const xScale = useMemo(
     () =>
@@ -199,7 +273,11 @@ const PlotStackBar = ({
       event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>
     ) => {
       let pointerDataSelection: ToolTipDateValue[] = [
-        { metricName: "", data: { date: NaN, value: NaN }, baseColor: "" },
+        {
+          metricName: "",
+          data: { date: NaN, value: NaN, value2: undefined },
+          baseColor: "",
+        },
       ];
       if (true) {
         let { x, y } = localPoint(event) || { x: 0, y: 0 };
@@ -227,16 +305,46 @@ const PlotStackBar = ({
                 getDateNum(dd1).valueOf() - x0.valueOf()
                   ? {
                       metricName: filteredOpenSeries[j].metricName,
-                      data: dd1,
-                      baseColor: filteredOpenSeries[j].baseColor,
+                      data: {
+                        date: dd1.date,
+                        value: dd1.value,
+                        value2: undefined,
+                      },
+                      baseColor: filteredOpenSeries[j].baseColor ?? "red",
                     }
                   : {
                       metricName: filteredOpenSeries[j].metricName,
-                      data: dd0,
-                      baseColor: filteredOpenSeries[j].baseColor,
+                      data: {
+                        date: dd0.date,
+                        value: dd0.value,
+                        value2: undefined,
+                      },
+                      baseColor: filteredOpenSeries[j].baseColor ?? "red",
                     };
               i++;
             }
+          }
+        }
+        if (filteredBarSeries) {
+          const indexer = bisectBarDate(filteredBarSeries, x0, 1);
+          const dd0 = filteredBarSeries[indexer - 1] ?? undefined;
+          const dd1 = filteredBarSeries[indexer] ?? undefined;
+
+          if (dd1) {
+            pointerDataSelection[i] =
+              x0.valueOf() - getBarDateNum(dd0).valueOf() >
+              getBarDateNum(dd1).valueOf() - x0.valueOf()
+                ? {
+                    metricName: "BarSeries",
+                    data: { date: dd1.date, value: dd1.pass, value2: dd1.fail },
+                    baseColor: "red",
+                  }
+                : {
+                    metricName: "BarSeries",
+                    data: { date: dd0.date, value: dd0.pass, value2: dd0.fail },
+                    baseColor: "red",
+                  };
+            i++;
           }
         }
 
@@ -292,7 +400,7 @@ const PlotStackBar = ({
       showTooltip({
         tooltipData: pointerDataSelection,
         tooltipLeft: tooltipLeftValue,
-        tooltipTop: tooltipTopValue,
+        tooltipTop: yMax / 2,
       });
     },
 
@@ -302,6 +410,7 @@ const PlotStackBar = ({
       xMax,
       yScale,
       showTooltip,
+      yMax,
       margin.left,
       margin.top,
       firstMouseEnterGraph,
@@ -311,11 +420,16 @@ const PlotStackBar = ({
 
   if (width < 10) return null;
   if (tooltipData && tooltipData[0]) {
-    console.log("tooltip", tooltipData[0].data.date);
+    console.log("tooltip", tooltipData);
   }
   return width < 10 ? null : (
-    <div style={{ position: "relative" }}>
-      <svg ref={containerRef} width={width} height={height}>
+    <div style={{ position: "relative", margin: "1rem" }}>
+      <svg
+        ref={containerRef}
+        width={width}
+        height={height}
+        onMouseLeave={() => hideTooltip()}
+      >
         <rect
           x={0}
           y={0}
@@ -323,26 +437,25 @@ const PlotStackBar = ({
           height={height}
           fill={"white"}
           rx={14}
-          onMouseMove={(e) => console.log("mouve", e.movementX, e.movementY)}
         />
         <defs>
           <filter id="inset" x="-50%" y="-50%" width="200%" height="200%">
-            <feFlood floodColor="red" result="outside-color" />
-            <feMorphology in="SourceAlpha" operator="dilate" radius="2" />
+            <feFlood floodColor={"#5469D4"} result="outside-color" />
+            <feMorphology in="SourceAlpha" operator="dilate" radius="1" />
             <feComposite
               in="outside-color"
               operator="in"
               result="outside-stroke"
             />
 
-            <feFlood floodColor="white" result="inside-color" />
+            <feFlood floodColor={"#FFF"} result="inside-color" />
             <feComposite
               in2="SourceAlpha"
               operator="in"
               result="inside-stroke"
             />
 
-            <feMorphology in="SourceAlpha" radius="5" />
+            <feMorphology in="SourceAlpha" radius="1.5" />
             <feComposite in="SourceGraphic" operator="in" result="fill-area" />
 
             <feMerge>
@@ -351,6 +464,11 @@ const PlotStackBar = ({
               <feMergeNode in="fill-area" />
             </feMerge>
           </filter>
+        </defs>
+        <defs>
+          <clipPath id="round-corner">
+            <rect x="0" y="0" width="10" height="56" rx="5" ry="5" />
+          </clipPath>
         </defs>
         <Grid
           top={margin.top}
@@ -362,9 +480,9 @@ const PlotStackBar = ({
           stroke="black"
           strokeOpacity={0.1}
         />
-        <Group top={margin.top}>
+        <Group top={margin.top} left={margin.left}>
           <BarStack<StackBarMetric, StackName>
-            data={data}
+            data={filteredBarSeries}
             keys={keys}
             x={getDate}
             xScale={dateScale}
@@ -376,6 +494,18 @@ const PlotStackBar = ({
                 barStack.bars.map((bar) => {
                   return (
                     <rect
+                      rx={
+                        parseInt(bar.bar.data.pass, 10) < 100 &&
+                        bar.key === "fail"
+                          ? "10"
+                          : "0"
+                      }
+                      ry={
+                        parseInt(bar.bar.data.pass, 10) < 100 &&
+                        bar.key === "fail"
+                          ? "10"
+                          : "0"
+                      }
                       key={`bar-stack-${barStack.index}-${bar.index}`}
                       // x={bar.x}
                       x={
@@ -385,6 +515,14 @@ const PlotStackBar = ({
                       y={bar.y}
                       height={bar.height}
                       width={bar.width}
+                      opacity={
+                        tooltipData && tooltipData[0]
+                          ? getDateNumber(bar.bar.data.date) ===
+                            getDateNumber(tooltipData[0].data.date)
+                            ? 1
+                            : 0.4
+                          : 1
+                      }
                       fill={bar.color}
                     />
                   );
@@ -401,11 +539,10 @@ const PlotStackBar = ({
                   x={(d) => xScale(getDateNum(d)) ?? 0}
                   y={(d) => yScale(getValueNum(d)) ?? 0}
                   strokeWidth={2}
-                  stroke={linedata.baseColor}
+                  stroke={linedata.baseColor ?? "red"}
                   strokeOpacity={0.7}
                   curve={curveMonotoneX}
                 />
-
                 {true &&
                   linedata.data.map((d, index) => (
                     <g
@@ -415,10 +552,10 @@ const PlotStackBar = ({
                         cx={xScale(getDateNum(d))}
                         cy={yScale(getValueNum(d))}
                         r={7}
-                        fill={linedata.baseColor}
-                        fillOpacity={0.7}
-                        pointerEvents="none"
                         filter="url(#inset)"
+                        fill={linedata.baseColor ?? "#5469D4"}
+                        fillOpacity={1}
+                        pointerEvents="none"
                       />
                     </g>
                   ))}
@@ -427,10 +564,10 @@ const PlotStackBar = ({
         </Group>
         <Group>
           <rect
-            x={0}
-            y={0}
-            width={width}
-            height={height}
+            x={margin.left}
+            y={margin.top}
+            width={xMax}
+            height={yMax}
             rx={14}
             onMouseMove={handleTooltip}
             fill={"transparent"}
@@ -438,7 +575,9 @@ const PlotStackBar = ({
         </Group>
 
         <AxisBottom
+          numTicks={width > 520 ? 6 : 5}
           top={yMax + margin.top}
+          left={margin.left}
           scale={xScale}
           stroke={purple3}
           tickStroke={purple3}
@@ -449,6 +588,36 @@ const PlotStackBar = ({
           })}
         />
       </svg>
+      {tooltipData && tooltipData[0] && (
+        <Tooltip
+          left={tooltipLeft}
+          top={tooltipTop}
+          // Hardcoded value for tooltip
+          // will be removed later
+          className={`${classes.tooltipMetric} ${
+            xMax - tooltipLeft < 180
+              ? classes.tooltipMetricLeft
+              : classes.tooltipMetricRight
+          }`}
+        >
+          {tooltipData.map((linedata, index) => (
+            <div key={`tooltipName-value- ${linedata.metricName}-${index}`}>
+              <div className={classes.tooltipData}>
+                <div className={classes.tooltipLabel}>
+                  <div
+                    className={classes.legendMarker}
+                    style={{ background: linedata.baseColor ?? "red" }}
+                  />
+                  <span>{`${linedata.metricName}`}</span>
+                </div>
+                <div className={classes.tooltipValue}>
+                  <span>{`${getValueStr(linedata.data)}`}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Tooltip>
+      )}
     </div>
   );
 };

@@ -4,6 +4,14 @@ export interface DateValue {
   // Value to the corresponding date stamp
   value: number | string;
 }
+
+export interface DateValue2 {
+  // Date in milliseconds
+  date: number | string;
+  // Value to the corresponding date stamp
+  value: number | string;
+  value2: number | string | undefined;
+}
 export interface GraphMetric {
   // Name of the GraphMetric
   metricName: string;
@@ -110,5 +118,5 @@ export interface LineAreaGraphChildProps
   height?: number;
 }
 
-export type ToolTipDateValue = ToolTip<DateValue>;
+export type ToolTipDateValue = ToolTip<DateValue2>;
 export type TooltipData = Array<ToolTipDateValue>;

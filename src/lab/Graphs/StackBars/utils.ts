@@ -1,6 +1,28 @@
 import { bisector } from "d3-array";
 import { DateValue } from ".";
 import { ToolTipDateValue } from "./base";
+import { StackBarMetric } from "./PlotStackBar";
+
+// Accessor functions
+const getBarDateNum = (d: StackBarMetric) => {
+  if (d) {
+    if (typeof d.date === "number") {
+      return new Date(d.date);
+    } else return new Date(parseInt(d.date, 10));
+  } else {
+    return new Date(0);
+  }
+};
+
+const getDateNumber = (d: string | number) => {
+  if (d) {
+    if (typeof d === "number") {
+      return d;
+    } else return parseInt(d, 10);
+  } else {
+    return 0;
+  }
+};
 
 // Accessor functions
 const getDateNum = (d: DateValue) => {
@@ -46,6 +68,9 @@ const getSum = (total: number, num: number | string) => {
 const bisectDate = bisector<DateValue, Date>(
   (d) => new Date(getDateNum(d))
 ).left;
+const bisectBarDate = bisector<StackBarMetric, Date>(
+  (d) => new Date(getBarDateNum(d))
+).left;
 const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
   getValueNum(d.data)
 ).left;
@@ -57,4 +82,7 @@ export {
   getSum,
   bisectDate,
   bisectorValue,
+  getBarDateNum,
+  bisectBarDate,
+  getDateNumber,
 };

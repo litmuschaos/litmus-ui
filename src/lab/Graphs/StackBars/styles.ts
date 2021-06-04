@@ -3,11 +3,6 @@ import { makeStyles, Theme } from "@material-ui/core";
 interface StyleProps {
   width: number;
   height: number;
-  legendTableHeight: number;
-  widthPercentageEventTable: number;
-  marginLeftEventTable: number;
-  showLegendTable: boolean;
-  showEventTable: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -87,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: `${theme.palette.cards.background} !important`,
   },
   tooltipMetricLeft: {
-    transform: "translate(-70%,0)",
+    transform: "translate(-100%,0)",
   },
   tooltipMetricRight: {
     transform: "translate(50%,0)",
@@ -126,21 +121,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
-  wrapperLegendTable: (props: StyleProps) => ({
-    width:
-      props.showEventTable && props.showLegendTable
-        ? props.width * (1 - props.widthPercentageEventTable / 100) -
-          props.marginLeftEventTable
-        : props.width,
-    height: props.legendTableHeight,
-  }),
-  wrapperSubDataTableForEvents: (props: StyleProps) => ({
-    width:
-      props.showEventTable && props.showLegendTable
-        ? props.width * (props.widthPercentageEventTable / 100)
-        : 0,
-    height: props.legendTableHeight,
-  }),
 }));
 
 const usePlotLineAreaGraphStyles = makeStyles((theme: Theme) => ({

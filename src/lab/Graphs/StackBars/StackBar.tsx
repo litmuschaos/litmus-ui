@@ -14,7 +14,7 @@ const StackBar: React.FC<LineAreaGraphProps<Array<GraphMetric>>> = ({
         width > 0 &&
         height > 0 && (
           <FilteredStackBar
-            height={height - (showLegendTable ? legendTableHeight : 0)}
+            height={height}
             showLegendTable={showLegendTable}
             legendTableHeight={legendTableHeight}
             width={width}

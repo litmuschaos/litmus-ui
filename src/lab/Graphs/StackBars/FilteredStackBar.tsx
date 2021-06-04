@@ -36,16 +36,10 @@ const filterUndefinedBarData = (
         )
     : data;
 const FilteredStackBar: React.FC<LineAreaGraphChildProps> = ({
-  compact = false,
   openSeries,
   barSeries,
   height = 200,
-  margin = {
-    top: 20,
-    left: 100,
-    bottom: 20,
-    right: 20,
-  },
+  width = 200,
   ...rest
 }) => {
   const augmentOpenSeries: Array<GraphMetric> =
@@ -54,7 +48,7 @@ const FilteredStackBar: React.FC<LineAreaGraphChildProps> = ({
     filterUndefinedBarData(barSeries) ?? [];
   return (
     <div>
-      <PlotStackBar height={height} width={400} />
+      <PlotStackBar height={height} width={width} />
     </div>
   );
 };
