@@ -1,7 +1,6 @@
 import { bisector } from "d3-array";
 import dayjs from "dayjs";
-import { DateValue } from ".";
-import { StackBarMetric } from "./base";
+import { BarDateValue, StackBarMetric } from "./base";
 
 const dateFormat = (date: number, xAxistimeFormat: string) => {
   return dayjs(new Date(date)).format(xAxistimeFormat);
@@ -28,7 +27,7 @@ const getBarDateNum = (d: StackBarMetric) => {
   }
 };
 // Accessor functions
-const getLineDateNum = (d: DateValue) => {
+const getLineDateNum = (d: BarDateValue) => {
   if (d) {
     if (typeof d.date === "number") {
       return new Date(d.date);
@@ -48,7 +47,7 @@ const getDateNumber = (d: string | number) => {
   }
 };
 
-const getValueNum = (d: DateValue) => {
+const getValueNum = (d: BarDateValue) => {
   if (d) {
     if (typeof d.value === "number") {
       return d.value;
@@ -58,7 +57,7 @@ const getValueNum = (d: DateValue) => {
   }
 };
 
-const getValueStr = (d: DateValue) => {
+const getValueStr = (d: BarDateValue) => {
   if (d) {
     if (typeof d.value === "number") {
       return d.value.toFixed(2).toString();
@@ -69,7 +68,7 @@ const getValueStr = (d: DateValue) => {
 };
 
 // Bisectors
-const bisectLineDate = bisector<DateValue, Date>(
+const bisectLineDate = bisector<BarDateValue, Date>(
   (d) => new Date(getLineDateNum(d))
 ).left;
 const bisectBarDate = bisector<StackBarMetric, Date>(
