@@ -3,13 +3,8 @@ export interface DateValue {
   date: number | string;
   // Value to the corresponding date stamp
   value: number | string;
-}
 
-export interface DateValue2 {
-  // Date in milliseconds
-  date: number | string;
-  // Value to the corresponding date stamp
-  value: number | string;
+  runId?: string | undefined;
 }
 export interface GraphMetric {
   // Name of the GraphMetric
@@ -21,20 +16,15 @@ export interface GraphMetric {
   // Color of the metric in the graph and legends
   baseColor?: string;
 }
-export interface EventMetric extends GraphMetric {
-  // Name of the GraphMetric
-  metricName: string;
 
-  // Array of {date and value}
-  data: Array<DateValue>;
-
-  // Sub-data describing the specific event
-  subData?: Array<{ subDataName: string; value: string; date: number }>;
-
-  // Color of the metric in the graph and legends
-  baseColor?: string;
+export interface StackBarMetric {
+  runId: string;
+  date: number;
+  passPercentage: string;
+  failPercentage: string;
+  passCount: number;
+  failCount: number;
 }
-
 export interface ToolTip<T> {
   // Name of the metric
   metricName: string;
@@ -45,77 +35,26 @@ export interface ToolTip<T> {
   baseColor?: string;
 }
 
-export interface LineAreaGraphProps<T> {
-  // Area under the curve graph:
-
-  // Line Graph:
-  openSeries?: T;
-
-  // Overlay events with y-height as yMax
-
-  barSeries?: T;
-
-  // Y-axis units
-  unit?: string;
-
-  // Show Tooltip
-  showTips?: boolean;
-
-  // Show multiToolTip, when true it shows all the data
-  // points along the Y-axix for the dateStamp where mouse is hovering
-  showMultiToolTip?: boolean;
-
-  // Show individual points of the line and area under the curve graph
-  showPoints?: boolean;
-
-  // Show the individual start and end markers for the event series
-  showEventMarkers?: boolean;
-
-  // Grid line for the graph
-  showGrid?: boolean;
-
-  // Legend Table below the graph
-  showLegendTable?: boolean;
-
-  // Event Table for the Event Series and its sub-data
-  showEventTable?: boolean;
-
-  // Legend Table height
-  legendTableHeight?: number;
-
-  // Width percentage of the Event Table when both Legend Table and Event Table are
-  // aligned side by side
-  widthPercentageEventTable?: number;
-
-  // Margin left of Event Table i.e. gap between Event Table and Legend Table
-  marginLeftEventTable?: number;
-
-  // Margins for the LineAreaGraph
+export type StackBarTooltipProps = {
+  // Used for the tooltip to receive Tooltip data for the contruction of tooltip UI
+  tooltipData: TooltipData;
+};
+export interface BarStackProps {
+  barSeries: Array<StackBarMetric>;
+  openSeries?: GraphMetric | undefined;
   margin?: { top: number; right: number; bottom: number; left: number };
-
-  // Boolean for making the inner margins of the LineAreaGraph compact
-  compact?: boolean;
-
-  // Y-axis label
-  yLabel?: string;
-
-  // Y-axis label's offset from the axis
-  yLabelOffset?: number;
-
-  // X-axis ticks format
   xAxistimeFormat?: string;
-
-  // ToolTip date's format
-  toolTiptimeFormat?: string;
+  unit?: string;
+  yLabel?: string;
+  yLabelOffset?: number;
+  handleBarClick?: (barData: any) => void;
+  StackBarTooltip?: ({
+    tooltipData,
+  }: StackBarTooltipProps) => React.ReactElement;
 }
-export interface LineAreaGraphChildProps
-  extends LineAreaGraphProps<Array<GraphMetric>> {
-  // Width of the LineAreaGraph
-  width?: number;
-
-  // Height of the LineAreaGraph excluding the legendTable
-  height?: number;
+export interface BarStackChildProps extends BarStackProps {
+  width: number;
+  height: number;
 }
-
-export type ToolTipDateValue = ToolTip<DateValue2>;
+export type ToolTipDateValue = ToolTip<DateValue>;
 export type TooltipData = Array<ToolTipDateValue>;

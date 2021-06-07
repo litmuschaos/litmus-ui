@@ -12,73 +12,36 @@ import {
   localPoint,
   Tooltip,
 } from "@visx/visx";
-import { extent } from "d3-array";
-import dayjs from "dayjs";
 import React, { useCallback, useMemo } from "react";
-import { TooltipData, ToolTipDateValue } from "./base";
+import {
+  BarStackChildProps,
+  StackBarMetric,
+  StackBarTooltipProps,
+  TooltipData,
+  ToolTipDateValue,
+} from "./base";
 import { useStyles } from "./styles";
-import { barData, openSeries } from "./testData";
 import {
   bisectBarDate,
-  bisectDate,
+  bisectLineDate,
+  dateFormat,
   getBarDateNum,
-  getDateNum,
   getDateNumber,
+  getLineDateNum,
   getValueNum,
   getValueStr,
+  intToString,
 } from "./utils";
 
-export interface StackBarMetric {
-  date: string;
-  passPercentage: string;
-  failPercentage: string;
-  passCount: number;
-  failCount: number;
-}
 type StackName = "passPercentage" | "failPercentage";
-const dateFormat = (date: number, xAxistimeFormat: string) => {
-  return dayjs(new Date(date)).format(xAxistimeFormat);
-};
-const intToString = (value: number, unit: string) => {
-  let numValue = "";
-  const shortValue = parseFloat(value.toPrecision(2));
-  numValue = shortValue.toString();
-
-  if (shortValue % 1 !== 0) {
-    numValue = shortValue.toFixed(2);
-  }
-  return `${numValue} ${unit}`;
-};
-
-export type StackBarTooltipProps = {
-  // Used for the tooltip to receive Tooltip data for the contruction of tooltip UI
-  tooltipData: TooltipData;
-};
-export type BarStackProps = {
-  width: number;
-  height: number;
-  margin?: { top: number; right: number; bottom: number; left: number };
-  xAxistimeFormat?: string;
-  unit?: string;
-  yLabel?: string;
-  yLabelOffset?: number;
-  StackBarTooltip?: ({
-    tooltipData,
-  }: StackBarTooltipProps) => React.ReactElement;
-};
 
 const defaultMargin = { top: 20, right: 50, bottom: 30, left: 80 };
-const filteredBarSeries = barData;
 const keys: StackName[] = ["passPercentage", "failPercentage"];
 
 // accessors
-const getDate = (d: StackBarMetric) => d.date;
+const getDateStr = (d: StackBarMetric) => d.date.toString();
 
 // scales
-const dateScale = scaleBand<string>({
-  domain: filteredBarSeries.map(getDate),
-  padding: 0.5,
-});
 
 const PlotStackBar = ({
   width,
@@ -88,6 +51,9 @@ const PlotStackBar = ({
   unit = "%",
   yLabel = "",
   yLabelOffset = 0,
+  handleBarClick,
+  barSeries,
+  openSeries,
   StackBarTooltip = ({ tooltipData }: StackBarTooltipProps) => {
     return (
       <div>
@@ -104,7 +70,7 @@ const PlotStackBar = ({
       </div>
     );
   },
-}: BarStackProps) => {
+}: BarStackChildProps) => {
   const {
     showTooltip,
     hideTooltip,
@@ -114,7 +80,6 @@ const PlotStackBar = ({
   } = useTooltip<TooltipData>({
     tooltipOpen: true,
   });
-  const filteredOpenSeries = openSeries;
   const classes = useStyles({
     width,
     height,
@@ -125,6 +90,10 @@ const PlotStackBar = ({
     range: [palette.status.completed, palette.status.failed],
   });
 
+  const dateScale = scaleBand<string>({
+    domain: barSeries.map(getDateStr),
+    padding: 0.5,
+  });
   const axisLeftTickLabelProps = {
     dy: "0.3rem",
     dx: "-0.3rem",
@@ -153,21 +122,16 @@ const PlotStackBar = ({
   // bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
-
   const xScale = useMemo(
     () =>
       scaleTime<number>({
         range: [0, xMax],
-        domain: extent(
-          filteredOpenSeries
-            ? [filteredOpenSeries]
-                .map((linedata) => linedata.data)
-                .reduce((rec, d) => rec.concat(d), [])
-            : [{ date: NaN, value: NaN }],
-          getDateNum
-        ) as [Date, Date],
+        domain: [
+          new Date(Math.min(...barSeries.map((element) => element.date))),
+          new Date(Math.max(...barSeries.map((element) => element.date))),
+        ],
       }),
-    [filteredOpenSeries, xMax]
+    [barSeries, xMax]
   );
   const yScale = useMemo(
     () =>
@@ -198,107 +162,109 @@ const PlotStackBar = ({
           baseColor: "",
         },
       ];
-      if (true) {
-        let { x } = localPoint(event) || { x: 0 };
-        x -= margin.left;
-        const x0 = xScale.invert(x);
+      let { x } = localPoint(event) || { x: 0 };
+      x -= margin.left;
+      const x0 = xScale.invert(x);
 
-        let i = 0;
+      let i = 0;
 
-        if (filteredOpenSeries) {
-          const indexer = bisectDate(filteredOpenSeries.data, x0, 1);
-          const dd0 = filteredOpenSeries.data[indexer - 1] ?? undefined;
-          const dd1 = filteredOpenSeries.data[indexer] ?? undefined;
+      if (openSeries) {
+        const indexer = bisectLineDate(openSeries.data, x0, 1);
+        const dd0 = openSeries.data[indexer - 1] ?? undefined;
+        const dd1 = openSeries.data[indexer] ?? undefined;
 
-          if (dd1) {
-            pointerDataSelection[i] =
-              x0.valueOf() - getDateNum(dd0).valueOf() >
-              getDateNum(dd1).valueOf() - x0.valueOf()
-                ? {
-                    metricName: "resiliencyScore",
-                    data: {
-                      date: dd1.date,
-                      value: dd1.value,
-                    },
-                    baseColor: filteredOpenSeries.baseColor ?? "red",
-                  }
-                : {
-                    metricName: "resiliencyScore",
-                    data: {
-                      date: dd0.date,
-                      value: dd0.value,
-                    },
-                    baseColor: filteredOpenSeries.baseColor ?? "red",
-                  };
-            i++;
-          }
+        if (dd1) {
+          pointerDataSelection[i] =
+            x0.valueOf() - getLineDateNum(dd0).valueOf() >
+            getLineDateNum(dd1).valueOf() - x0.valueOf()
+              ? {
+                  metricName: "resiliencyScore",
+                  data: {
+                    date: dd1.date,
+                    value: dd1.value,
+                  },
+                  baseColor: openSeries.baseColor ?? "red",
+                }
+              : {
+                  metricName: "resiliencyScore",
+                  data: {
+                    date: dd0.date,
+                    value: dd0.value,
+                  },
+                  baseColor: openSeries.baseColor ?? "red",
+                };
+          i++;
         }
-        // 1
-        if (filteredBarSeries) {
-          const indexer = bisectBarDate(filteredBarSeries, x0, 1);
-          const dd0 = filteredBarSeries[indexer - 1] ?? undefined;
-          const dd1 = filteredBarSeries[indexer] ?? undefined;
-
-          //3
-          if (dd1) {
-            pointerDataSelection[i] =
-              x0.valueOf() - getBarDateNum(dd0).valueOf() >
-              getBarDateNum(dd1).valueOf() - x0.valueOf()
-                ? {
-                    metricName: "passCount",
-                    data: {
-                      date: dd1.date,
-                      value: dd1.passCount,
-                    },
-                    baseColor: "red",
-                  }
-                : {
-                    metricName: "passCount",
-                    data: {
-                      date: dd0.date,
-                      value: dd0.passCount,
-                    },
-                    baseColor: "red",
-                  };
-            i++;
-          }
-          //4
-          if (dd1) {
-            pointerDataSelection[i] =
-              x0.valueOf() - getBarDateNum(dd0).valueOf() >
-              getBarDateNum(dd1).valueOf() - x0.valueOf()
-                ? {
-                    metricName: "failCount",
-                    data: {
-                      date: dd1.date,
-                      value: dd1.failCount,
-                    },
-                    baseColor: "red",
-                  }
-                : {
-                    metricName: "failCount",
-                    data: {
-                      date: dd0.date,
-                      value: dd0.failCount,
-                    },
-                    baseColor: "red",
-                  };
-            i++;
-          }
-        }
-
-        const firstToolTipData = pointerDataSelection[0];
-        pointerDataSelection = pointerDataSelection.filter(
-          (elem) =>
-            elem.data &&
-            firstToolTipData.data &&
-            elem.data.date <= firstToolTipData.data.date
-        );
       }
+      // 1
+      if (barSeries) {
+        const indexer = bisectBarDate(barSeries, x0, 1);
+        const dd0 = barSeries[indexer - 1] ?? undefined;
+        const dd1 = barSeries[indexer] ?? undefined;
+
+        //3
+        if (dd1) {
+          pointerDataSelection[i] =
+            x0.valueOf() - getBarDateNum(dd0).valueOf() >
+            getBarDateNum(dd1).valueOf() - x0.valueOf()
+              ? {
+                  metricName: "passCount",
+                  data: {
+                    date: dd1.date,
+                    runId: dd1.runId,
+                    value: dd1.passCount,
+                  },
+                  baseColor: "red",
+                }
+              : {
+                  metricName: "passCount",
+                  data: {
+                    date: dd0.date,
+                    runId: dd0.runId,
+                    value: dd0.passCount,
+                  },
+                  baseColor: "red",
+                };
+          i++;
+        }
+        //4
+        if (dd1) {
+          pointerDataSelection[i] =
+            x0.valueOf() - getBarDateNum(dd0).valueOf() >
+            getBarDateNum(dd1).valueOf() - x0.valueOf()
+              ? {
+                  metricName: "failCount",
+                  data: {
+                    date: dd1.date,
+                    runId: dd1.runId,
+                    value: dd1.failCount,
+                  },
+                  baseColor: "red",
+                }
+              : {
+                  metricName: "failCount",
+                  data: {
+                    date: dd0.date,
+                    runId: dd0.runId,
+                    value: dd0.failCount,
+                  },
+                  baseColor: "red",
+                };
+          i++;
+        }
+      }
+
+      const firstToolTipData = pointerDataSelection[0];
+      pointerDataSelection = pointerDataSelection.filter(
+        (elem) =>
+          elem.data &&
+          firstToolTipData.data &&
+          elem.data.date <= firstToolTipData.data.date
+      );
       if (width < 10) return null;
       const tooltipLeftValue =
         pointerDataSelection[0] && pointerDataSelection[0].data
-          ? xScale(getDateNum(pointerDataSelection[0].data))
+          ? xScale(getLineDateNum(pointerDataSelection[0].data))
           : xScale(xMax);
 
       showTooltip({
@@ -308,7 +274,7 @@ const PlotStackBar = ({
       });
     },
 
-    [width, xScale, xMax, showTooltip, yMax, margin.left, filteredOpenSeries]
+    [width, xScale, xMax, showTooltip, yMax, margin.left, openSeries, barSeries]
   );
 
   if (width < 10) return null;
@@ -365,9 +331,9 @@ const PlotStackBar = ({
         />
         <Group top={margin.top} left={margin.left}>
           <BarStack<StackBarMetric, StackName>
-            data={filteredBarSeries}
+            data={barSeries}
             keys={keys}
-            x={getDate}
+            x={getDateStr}
             xScale={dateScale}
             yScale={yScale}
             color={colorScale}
@@ -378,10 +344,7 @@ const PlotStackBar = ({
                   return (
                     <rect
                       key={`bar-stack-${barStack.index}-${bar.index}`}
-                      x={
-                        (xScale(parseInt(bar.bar.data.date, 10)) ?? 0) -
-                        bar.width / 2
-                      }
+                      x={xScale(bar.bar.data.date ?? 0) - bar.width / 2}
                       y={bar.y}
                       height={bar.height}
                       width={bar.width}
@@ -404,7 +367,7 @@ const PlotStackBar = ({
             <Group>
               <LinePath
                 data={openSeries.data}
-                x={(d) => xScale(getDateNum(d)) ?? 0}
+                x={(d) => xScale(getLineDateNum(d)) ?? 0}
                 y={(d) => yScale(getValueNum(d)) ?? 0}
                 strokeWidth={2}
                 stroke={openSeries.baseColor ?? "red"}
@@ -416,7 +379,7 @@ const PlotStackBar = ({
                   key={`dataPoint-${d.date}-${d.value}-${openSeries.metricName}-${index}`}
                 >
                   <circle
-                    cx={xScale(getDateNum(d))}
+                    cx={xScale(getLineDateNum(d))}
                     cy={yScale(getValueNum(d))}
                     r={7}
                     filter="url(#inset)"
@@ -437,6 +400,14 @@ const PlotStackBar = ({
             height={yMax}
             onMouseMove={handleTooltip}
             fill={"transparent"}
+            onClick={() => {
+              handleBarClick &&
+                handleBarClick(
+                  tooltipData
+                    ? tooltipData[tooltipData.length - 1].data.runId
+                    : ""
+                );
+            }}
           />
         </Group>
         <AxisLeft

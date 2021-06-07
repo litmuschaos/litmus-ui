@@ -1,10 +1,34 @@
 import { bisector } from "d3-array";
+import dayjs from "dayjs";
 import { DateValue } from ".";
-import { ToolTipDateValue } from "./base";
-import { StackBarMetric } from "./PlotStackBar";
+import { StackBarMetric } from "./base";
+
+const dateFormat = (date: number, xAxistimeFormat: string) => {
+  return dayjs(new Date(date)).format(xAxistimeFormat);
+};
+const intToString = (value: number, unit: string) => {
+  let numValue = "";
+  const shortValue = parseFloat(value.toPrecision(2));
+  numValue = shortValue.toString();
+
+  if (shortValue % 1 !== 0) {
+    numValue = shortValue.toFixed(2);
+  }
+  return `${numValue} ${unit}`;
+};
 
 // Accessor functions
 const getBarDateNum = (d: StackBarMetric) => {
+  if (d) {
+    if (typeof d.date === "number") {
+      return new Date(d.date);
+    } else return new Date(parseInt(d.date, 10));
+  } else {
+    return new Date(0);
+  }
+};
+// Accessor functions
+const getLineDateNum = (d: DateValue) => {
   if (d) {
     if (typeof d.date === "number") {
       return new Date(d.date);
@@ -21,17 +45,6 @@ const getDateNumber = (d: string | number) => {
     } else return parseInt(d, 10);
   } else {
     return 0;
-  }
-};
-
-// Accessor functions
-const getDateNum = (d: DateValue) => {
-  if (d) {
-    if (typeof d.date === "number") {
-      return new Date(d.date);
-    } else return new Date(parseInt(d.date, 10));
-  } else {
-    return new Date(0);
   }
 };
 
@@ -55,34 +68,22 @@ const getValueStr = (d: DateValue) => {
   }
 };
 
-// For reducer
-const getSum = (total: number, num: number | string) => {
-  if (typeof num === "number") {
-    return total + (num || 0);
-  } else {
-    return total + (parseInt(num, 10) || 0);
-  }
-};
-
 // Bisectors
-const bisectDate = bisector<DateValue, Date>(
-  (d) => new Date(getDateNum(d))
+const bisectLineDate = bisector<DateValue, Date>(
+  (d) => new Date(getLineDateNum(d))
 ).left;
 const bisectBarDate = bisector<StackBarMetric, Date>(
   (d) => new Date(getBarDateNum(d))
 ).left;
-const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
-  getValueNum(d.data)
-).left;
 
 export {
-  getDateNum,
+  getLineDateNum,
   getValueNum,
   getValueStr,
-  getSum,
-  bisectDate,
-  bisectorValue,
+  bisectLineDate,
   getBarDateNum,
   bisectBarDate,
   getDateNumber,
+  dateFormat,
+  intToString,
 };

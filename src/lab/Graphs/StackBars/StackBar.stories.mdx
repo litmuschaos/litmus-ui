@@ -1,7 +1,7 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
 import { StackBar } from "./StackBar";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
-import { closedSeriesData, eventSeriesData, barSeriesData } from "./testData";
+import { barData, openSeries } from "./testData";
 
 <Meta title="Lab/StackBarGraph" component={StackBar} />
 
@@ -15,8 +15,8 @@ in form of lines, area-closed under the graph and events.
     name="Default"
     args={{
       legendTableHeight: 120,
-      openSeries: closedSeriesData,
-      barSeries: barSeriesData,
+      openSeries: openSeries,
+      barSeries: barData,
       showEventTable: true,
       showMultiToolTip: false,
       showPoints: true,
