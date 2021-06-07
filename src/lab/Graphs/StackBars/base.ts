@@ -10,7 +10,6 @@ export interface DateValue2 {
   date: number | string;
   // Value to the corresponding date stamp
   value: number | string;
-  value2: number | string | undefined;
 }
 export interface GraphMetric {
   // Name of the GraphMetric
