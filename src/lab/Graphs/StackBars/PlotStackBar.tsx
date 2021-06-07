@@ -46,6 +46,7 @@ const getDateStr = (d: StackBarMetric) => d.date.toString();
 const PlotStackBar = ({
   width,
   height,
+  initalxAxisDate,
   margin = defaultMargin,
   xAxistimeFormat = "MMM D,YYYY ",
   unit = "%",
@@ -122,16 +123,22 @@ const PlotStackBar = ({
   // bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
+  initalxAxisDate = initalxAxisDate ?? barSeries[0].date ?? 0;
   const xScale = useMemo(
     () =>
       scaleTime<number>({
         range: [0, xMax],
         domain: [
-          new Date(Math.min(...barSeries.map((element) => element.date))),
+          new Date(
+            Math.min(
+              ...barSeries.map((element) => element.date),
+              initalxAxisDate
+            )
+          ),
           new Date(Math.max(...barSeries.map((element) => element.date))),
         ],
       }),
-    [barSeries, xMax]
+    [barSeries, initalxAxisDate, xMax]
   );
   const yScale = useMemo(
     () =>
@@ -145,7 +152,6 @@ const PlotStackBar = ({
 
   dateScale.rangeRound([0, xMax]);
 
-  //
   // tooltip handler
 
   const handleTooltip = useCallback(
@@ -167,7 +173,7 @@ const PlotStackBar = ({
       const x0 = xScale.invert(x);
 
       let i = 0;
-
+      pointerDataSelection.slice(0);
       if (openSeries) {
         const indexer = bisectLineDate(openSeries.data, x0, 1);
         const dd0 = openSeries.data[indexer - 1] ?? undefined;
@@ -263,7 +269,8 @@ const PlotStackBar = ({
       );
       if (width < 10) return null;
       const tooltipLeftValue =
-        pointerDataSelection[0] && pointerDataSelection[0].data
+        pointerDataSelection[pointerDataSelection.length - 1] &&
+        pointerDataSelection[0].data
           ? xScale(getLineDateNum(pointerDataSelection[0].data))
           : xScale(xMax);
 
@@ -326,7 +333,7 @@ const PlotStackBar = ({
           yScale={yScale}
           width={xMax}
           height={yMax}
-          stroke="black"
+          stroke={palette.border.main}
           strokeOpacity={0.1}
         />
         <Group top={margin.top} left={margin.left}>

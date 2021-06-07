@@ -1,4 +1,4 @@
-export interface DateValue {
+export interface BarDateValue {
   // Date in milliseconds
   date: number | string;
   // Value to the corresponding date stamp
@@ -6,12 +6,12 @@ export interface DateValue {
 
   runId?: string | undefined;
 }
-export interface GraphMetric {
+export interface LineMetricSeries {
   // Name of the GraphMetric
   metricName: string;
 
   // Array of {date and value}
-  data: Array<DateValue>;
+  data: Array<BarDateValue>;
 
   // Color of the metric in the graph and legends
   baseColor?: string;
@@ -41,7 +41,8 @@ export type StackBarTooltipProps = {
 };
 export interface BarStackProps {
   barSeries: Array<StackBarMetric>;
-  openSeries?: GraphMetric | undefined;
+  openSeries?: LineMetricSeries | undefined;
+  initalxAxisDate: number;
   margin?: { top: number; right: number; bottom: number; left: number };
   xAxistimeFormat?: string;
   unit?: string;
@@ -56,5 +57,5 @@ export interface BarStackChildProps extends BarStackProps {
   width: number;
   height: number;
 }
-export type ToolTipDateValue = ToolTip<DateValue>;
+export type ToolTipDateValue = ToolTip<BarDateValue>;
 export type TooltipData = Array<ToolTipDateValue>;

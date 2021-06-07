@@ -1,9 +1,9 @@
-import { GraphMetric, StackBarMetric } from "./base";
+import { LineMetricSeries, StackBarMetric } from "./base";
 
-const openSeries: GraphMetric = {
+const openSeries: LineMetricSeries = {
   metricName: "probe success",
   data: [
-    { date: 10, value: NaN },
+    { date: 10, value: 10 },
     { date: 20, value: 10 },
     { date: 30, value: 1 },
     { date: 40, value: 20 },
@@ -26,8 +26,8 @@ const barData: StackBarMetric[] = [
   {
     runId: "1",
     date: 10,
-    passPercentage: "0",
-    failPercentage: "0",
+    passPercentage: "80",
+    failPercentage: "20",
     passCount: 10,
     failCount: 20,
   },

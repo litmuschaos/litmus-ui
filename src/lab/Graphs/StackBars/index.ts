@@ -1,2 +1,2 @@
-export type { DateValue, GraphMetric } from "./base";
+export type { BarDateValue, LineMetricSeries, StackBarMetric } from "./base";
 export * from "./StackBar";
