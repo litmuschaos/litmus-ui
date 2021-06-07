@@ -15,10 +15,7 @@ import {
 import { extent } from "d3-array";
 import dayjs from "dayjs";
 import React, { useCallback, useMemo } from "react";
-import ResiliencyScoreIcon from "../../../assets/circle.svg";
-import CorrectIcon from "../../../assets/correct.svg";
-import CrossIcon from "../../../assets/cross.svg";
-import { GraphMetric, TooltipData, ToolTipDateValue } from "./base";
+import { TooltipData, ToolTipDateValue } from "./base";
 import { useStyles } from "./styles";
 import { barData, openSeries } from "./testData";
 import {
@@ -33,20 +30,15 @@ import {
 
 export interface StackBarMetric {
   date: string;
-  pass: string;
-  fail: string;
+  passPercentage: string;
+  failPercentage: string;
   passCount: number;
   failCount: number;
 }
-type StackName = "pass" | "fail";
-const xAxistimeFormat = "MMM D,YYYY ";
+type StackName = "passPercentage" | "failPercentage";
 const dateFormat = (date: number, xAxistimeFormat: string) => {
   return dayjs(new Date(date)).format(xAxistimeFormat);
 };
-const hideLeftAxis = false;
-const unit = "%";
-const yLabel = "chaos";
-const yLabelOffset = 50;
 const intToString = (value: number, unit: string) => {
   let numValue = "";
   const shortValue = parseFloat(value.toPrecision(2));
@@ -58,20 +50,26 @@ const intToString = (value: number, unit: string) => {
   return `${numValue} ${unit}`;
 };
 
+export type StackBarTooltipProps = {
+  // Used for the tooltip to receive Tooltip data for the contruction of tooltip UI
+  tooltipData: TooltipData;
+};
 export type BarStackProps = {
   width: number;
   height: number;
   margin?: { top: number; right: number; bottom: number; left: number };
-  events?: boolean;
+  xAxistimeFormat?: string;
+  unit?: string;
+  yLabel?: string;
+  yLabelOffset?: number;
+  StackBarTooltip?: ({
+    tooltipData,
+  }: StackBarTooltipProps) => React.ReactElement;
 };
 
-const purple1 = "#00CC9A";
-const purple2 = "#F2536D";
-export const purple3 = "#a44afe";
-export const background = "#eaedff";
 const defaultMargin = { top: 20, right: 50, bottom: 30, left: 80 };
 const filteredBarSeries = barData;
-const keys: StackName[] = ["pass", "fail"];
+const keys: StackName[] = ["passPercentage", "failPercentage"];
 
 // accessors
 const getDate = (d: StackBarMetric) => d.date;
@@ -82,15 +80,30 @@ const dateScale = scaleBand<string>({
   padding: 0.5,
 });
 
-const colorScale = scaleOrdinal<StackName, string>({
-  domain: keys,
-  range: [purple1, purple2],
-});
-
 const PlotStackBar = ({
   width,
   height,
   margin = defaultMargin,
+  xAxistimeFormat = "MMM D,YYYY ",
+  unit = "%",
+  yLabel = "",
+  yLabelOffset = 0,
+  StackBarTooltip = ({ tooltipData }: StackBarTooltipProps) => {
+    return (
+      <div>
+        {tooltipData.map((linedata, index) => (
+          <div
+            key={`tooltipName-value- ${linedata.metricName}-${index}`}
+            style={{ lineHeight: "1.3rem" }}
+          >
+            <span>{`${linedata.metricName} ${getValueStr(
+              linedata.data
+            )}`}</span>
+          </div>
+        ))}
+      </div>
+    );
+  },
 }: BarStackProps) => {
   const {
     showTooltip,
@@ -107,11 +120,14 @@ const PlotStackBar = ({
     height,
   });
   const { palette } = useTheme();
+  const colorScale = scaleOrdinal<StackName, string>({
+    domain: keys,
+    range: [palette.status.completed, palette.status.failed],
+  });
 
   const axisLeftTickLabelProps = {
     dy: "0.3rem",
     dx: "-0.3rem",
-    fontFamily: "Ubuntu",
     fontWeight: 400,
     fontSize: "10px",
     textAnchor: "end" as const,
@@ -121,14 +137,12 @@ const PlotStackBar = ({
   const axisBottomTickLabelProps = {
     dy: "0.3rem",
     textAnchor: "middle" as const,
-    fontFamily: "Ubuntu",
     fontSize: "12px",
     fontWeight: 400,
     fill: palette.text.hint,
     lineHeight: "12px",
   };
   const yLabelProps = {
-    fontFamily: "Ubuntu",
     fontWeight: 700,
     fontSize: "12px",
     lineHeight: "12px",
@@ -146,7 +160,7 @@ const PlotStackBar = ({
         range: [0, xMax],
         domain: extent(
           filteredOpenSeries
-            ? filteredOpenSeries
+            ? [filteredOpenSeries]
                 .map((linedata) => linedata.data)
                 .reduce((rec, d) => rec.concat(d), [])
             : [{ date: NaN, value: NaN }],
@@ -185,41 +199,38 @@ const PlotStackBar = ({
         },
       ];
       if (true) {
-        let { x, y } = localPoint(event) || { x: 0, y: 0 };
+        let { x } = localPoint(event) || { x: 0 };
         x -= margin.left;
-        y -= margin.top;
         const x0 = xScale.invert(x);
 
         let i = 0;
 
         if (filteredOpenSeries) {
-          for (let j = 0; j < filteredOpenSeries.length; j++) {
-            const indexer = bisectDate(filteredOpenSeries[j].data, x0, 1);
-            const dd0 = filteredOpenSeries[j]?.data[indexer - 1] ?? undefined;
-            const dd1 = filteredOpenSeries[j]?.data[indexer] ?? undefined;
+          const indexer = bisectDate(filteredOpenSeries.data, x0, 1);
+          const dd0 = filteredOpenSeries.data[indexer - 1] ?? undefined;
+          const dd1 = filteredOpenSeries.data[indexer] ?? undefined;
 
-            if (dd1) {
-              pointerDataSelection[i] =
-                x0.valueOf() - getDateNum(dd0).valueOf() >
-                getDateNum(dd1).valueOf() - x0.valueOf()
-                  ? {
-                      metricName: "resiliencyScore",
-                      data: {
-                        date: dd1.date,
-                        value: dd1.value,
-                      },
-                      baseColor: filteredOpenSeries[j].baseColor ?? "red",
-                    }
-                  : {
-                      metricName: "resiliencyScore",
-                      data: {
-                        date: dd0.date,
-                        value: dd0.value,
-                      },
-                      baseColor: filteredOpenSeries[j].baseColor ?? "red",
-                    };
-              i++;
-            }
+          if (dd1) {
+            pointerDataSelection[i] =
+              x0.valueOf() - getDateNum(dd0).valueOf() >
+              getDateNum(dd1).valueOf() - x0.valueOf()
+                ? {
+                    metricName: "resiliencyScore",
+                    data: {
+                      date: dd1.date,
+                      value: dd1.value,
+                    },
+                    baseColor: filteredOpenSeries.baseColor ?? "red",
+                  }
+                : {
+                    metricName: "resiliencyScore",
+                    data: {
+                      date: dd0.date,
+                      value: dd0.value,
+                    },
+                    baseColor: filteredOpenSeries.baseColor ?? "red",
+                  };
+            i++;
           }
         }
         // 1
@@ -289,10 +300,6 @@ const PlotStackBar = ({
         pointerDataSelection[0] && pointerDataSelection[0].data
           ? xScale(getDateNum(pointerDataSelection[0].data))
           : xScale(xMax);
-      const tooltipTopValue =
-        pointerDataSelection[0] && pointerDataSelection[0].data
-          ? yScale(getValueNum(pointerDataSelection[0].data))
-          : 0;
 
       showTooltip({
         tooltipData: pointerDataSelection,
@@ -301,17 +308,7 @@ const PlotStackBar = ({
       });
     },
 
-    [
-      width,
-      xScale,
-      xMax,
-      yScale,
-      showTooltip,
-      yMax,
-      margin.left,
-      margin.top,
-      filteredOpenSeries,
-    ]
+    [width, xScale, xMax, showTooltip, yMax, margin.left, filteredOpenSeries]
   );
 
   if (width < 10) return null;
@@ -403,37 +400,34 @@ const PlotStackBar = ({
               )
             }
           </BarStack>
-          {openSeries &&
-            openSeries.length > 0 &&
-            openSeries.map((linedata: GraphMetric, index) => (
-              <Group key={`closedSeriesGroup-${linedata.metricName}-${index}`}>
-                <LinePath
-                  data={linedata.data}
-                  x={(d) => xScale(getDateNum(d)) ?? 0}
-                  y={(d) => yScale(getValueNum(d)) ?? 0}
-                  strokeWidth={2}
-                  stroke={linedata.baseColor ?? "red"}
-                  strokeOpacity={0.7}
-                  curve={curveMonotoneX}
-                />
-                {true &&
-                  linedata.data.map((d, index) => (
-                    <g
-                      key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}-${index}`}
-                    >
-                      <circle
-                        cx={xScale(getDateNum(d))}
-                        cy={yScale(getValueNum(d))}
-                        r={7}
-                        filter="url(#inset)"
-                        fill={linedata.baseColor ?? "#5469D4"}
-                        fillOpacity={1}
-                        pointerEvents="none"
-                      />
-                    </g>
-                  ))}
-              </Group>
-            ))}
+          {openSeries && (
+            <Group>
+              <LinePath
+                data={openSeries.data}
+                x={(d) => xScale(getDateNum(d)) ?? 0}
+                y={(d) => yScale(getValueNum(d)) ?? 0}
+                strokeWidth={2}
+                stroke={openSeries.baseColor ?? "red"}
+                strokeOpacity={0.7}
+                curve={curveMonotoneX}
+              />
+              {openSeries.data.map((d, index) => (
+                <g
+                  key={`dataPoint-${d.date}-${d.value}-${openSeries.metricName}-${index}`}
+                >
+                  <circle
+                    cx={xScale(getDateNum(d))}
+                    cy={yScale(getValueNum(d))}
+                    r={7}
+                    filter="url(#inset)"
+                    fill={openSeries.baseColor ?? "#5469D4"}
+                    fillOpacity={1}
+                    pointerEvents="none"
+                  />
+                </g>
+              ))}
+            </Group>
+          )}
         </Group>
         <Group>
           <rect
@@ -445,21 +439,18 @@ const PlotStackBar = ({
             fill={"transparent"}
           />
         </Group>
-
-        {!hideLeftAxis && (
-          <AxisLeft
-            scale={yScale}
-            numTicks={height > 200 ? 7 : 6}
-            stroke={palette.text.primary}
-            tickFormat={(num) => intToString(num.valueOf(), unit)}
-            tickLabelProps={() => axisLeftTickLabelProps}
-            label={yLabel}
-            labelProps={yLabelProps}
-            left={margin.left}
-            labelOffset={yLabelOffset}
-            top={margin.top}
-          />
-        )}
+        <AxisLeft
+          scale={yScale}
+          numTicks={height > 200 ? 7 : 6}
+          stroke={palette.text.primary}
+          tickFormat={(num) => intToString(num.valueOf(), unit)}
+          tickLabelProps={() => axisLeftTickLabelProps}
+          label={yLabel}
+          labelProps={yLabelProps}
+          left={margin.left}
+          labelOffset={yLabelOffset}
+          top={margin.top}
+        />
         <AxisBottom
           numTicks={width > 520 ? 6 : 5}
           top={yMax + margin.top}
@@ -483,27 +474,7 @@ const PlotStackBar = ({
               : classes.tooltipMetricRight
           }`}
         >
-          {tooltipData.map((linedata, index) => (
-            <div key={`tooltipName-value- ${linedata.metricName}-${index}`}>
-              <div className={classes.tooltipData}>
-                <div className={classes.tooltipLabel}>
-                  {linedata.metricName === "resiliencyScore" && (
-                    <img src={ResiliencyScoreIcon} alt="white check mark" />
-                  )}
-                  {linedata.metricName === "passCount" && (
-                    <img src={CorrectIcon} alt="white check mark" />
-                  )}
-                  {linedata.metricName === "failCount" && (
-                    <img src={CrossIcon} alt="white check mark" />
-                  )}
-                  <span>{`${linedata.metricName}`}</span>
-                </div>
-                <div className={classes.tooltipValue}>
-                  <span>{`${getValueStr(linedata.data)}`}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+          <StackBarTooltip tooltipData={tooltipData} />
         </Tooltip>
       )}
     </div>

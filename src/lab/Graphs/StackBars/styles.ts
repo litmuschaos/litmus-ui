@@ -82,10 +82,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: `${theme.palette.cards.background} !important`,
   },
   tooltipMetricLeft: {
-    transform: "translate(-100%,0)",
+    transform: "translate(-75%,0)",
   },
   tooltipMetricRight: {
-    transform: "translate(50%,0)",
+    transform: "translate(75%,0)",
   },
   tooltipDateStyles: {
     marginLeft: "3.5rem",
