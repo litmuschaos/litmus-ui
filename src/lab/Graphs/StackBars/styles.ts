@@ -1,10 +1,5 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
-interface StyleProps {
-  width: number;
-  height: number;
-}
-
 const useStyles = makeStyles((theme: Theme) => ({
   rectBase: {
     fill: theme.palette.background.paper,
