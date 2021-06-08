@@ -378,9 +378,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             } else if (dd0 && !dd1) {
               closestValue = getValueNum(dd0);
             }
-            pointerDataSelection = pointerDataSelection.filter(
-              (lineData) => closestValue && lineData.data.value === closestValue
-            );
+            if (typeof closestValue === "number") {
+              pointerDataSelection = pointerDataSelection.filter(
+                (lineData) => lineData.data.value === closestValue
+              );
+            }
           }
         }
         toolTipPointLength = pointerDataSelection.length;
@@ -723,9 +725,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         <PlotLineAreaGraph
           showPoints={showPoints}
           hideBottomAxis={compact}
-          closedSeries={filteredClosedSeries}
-          openSeries={filteredOpenSeries}
-          eventSeries={filteredEventSeries}
+          closedSeries={filteredClosedSeries ?? []}
+          openSeries={filteredOpenSeries ?? []}
+          eventSeries={filteredEventSeries ?? []}
           width={width - 20}
           height={yMax}
           margin={{ ...margin, bottom: topChartBottomMargin }}

@@ -4,6 +4,7 @@ export interface DateValue {
   // Value to the corresponding date stamp
   value: number | string;
 }
+
 export interface GraphMetric {
   // Name of the GraphMetric
   metricName: string;
@@ -11,21 +12,17 @@ export interface GraphMetric {
   // Array of {date and value}
   data: Array<DateValue>;
 
+  // Sub-data describing the specific event
+  subData?:
+    | Array<{ subDataName: string; value: string; date: number }>
+    | undefined;
+
   // Color of the metric in the graph and legends
   baseColor?: string;
 }
-export interface EventMetric extends GraphMetric {
-  // Name of the GraphMetric
-  metricName: string;
-
-  // Array of {date and value}
-  data: Array<DateValue>;
-
-  // Sub-data describing the specific event
-  subData?: Array<{ subDataName: string; value: string; date: number }>;
-
+export interface StrictColorGraphMetric extends Omit<GraphMetric, "baseColor"> {
   // Color of the metric in the graph and legends
-  baseColor?: string;
+  baseColor: string;
 }
 
 export interface ToolTip<T> {
@@ -35,7 +32,7 @@ export interface ToolTip<T> {
   // Date stamp and corresponding value
   data: T;
   // Color of the metric in the ToolTip legends
-  baseColor?: string;
+  baseColor: string;
 }
 
 export interface LineAreaGraphProps<T> {
@@ -46,7 +43,7 @@ export interface LineAreaGraphProps<T> {
   openSeries?: T;
 
   // Overlay events with y-height as yMax
-  eventSeries?: Array<EventMetric>;
+  eventSeries?: T;
 
   // Y-axis units
   unit?: string;
@@ -102,7 +99,7 @@ export interface LineAreaGraphProps<T> {
   toolTiptimeFormat?: string;
 }
 export interface LineAreaGraphChildProps
-  extends LineAreaGraphProps<Array<GraphMetric>> {
+  extends LineAreaGraphProps<Array<StrictColorGraphMetric>> {
   // Width of the LineAreaGraph
   width?: number;
 
