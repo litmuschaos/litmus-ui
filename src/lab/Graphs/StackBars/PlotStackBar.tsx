@@ -14,6 +14,7 @@ import {
 } from "@visx/visx";
 import React, { useCallback, useMemo } from "react";
 import {
+  BarDateValue,
   BarStackChildProps,
   StackBarMetric,
   StackBarTooltipProps,
@@ -357,6 +358,30 @@ const PlotStackBar = ({
           stroke={palette.border.main}
           strokeOpacity={0.1}
         />
+        <AxisLeft
+          scale={yScale}
+          numTicks={height > 200 ? 7 : 6}
+          hideAxisLine
+          hideTicks
+          tickFormat={(num) => intToString(num.valueOf(), unit)}
+          tickLabelProps={() => axisLeftTickLabelProps}
+          label={yLabel}
+          labelProps={yLabelProps}
+          left={margin.left}
+          labelOffset={yLabelOffset}
+          top={margin.top}
+        />
+        <AxisBottom
+          numTicks={width > 520 ? 6 : 5}
+          hideTicks
+          top={yMax + margin.top}
+          left={margin.left}
+          scale={xScale}
+          stroke={palette.border.main}
+          tickStroke={palette.text.primary}
+          tickFormat={(num) => dateFormat(num.valueOf(), xAxistimeFormat)}
+          tickLabelProps={() => axisBottomTickLabelProps}
+        />
         <Group top={margin.top} left={margin.left}>
           <BarStack<StackBarMetric, StackName>
             data={barSeries}
@@ -398,21 +423,32 @@ const PlotStackBar = ({
                 x={(d) => xScale(getLineDateNum(d)) ?? 0}
                 y={(d) => yScale(getValueNum(d)) ?? 0}
                 strokeWidth={2}
-                stroke={openSeries.baseColor ?? "red"}
+                stroke={
+                  openSeries.baseColor ?? palette.status.experiment.running
+                }
                 strokeOpacity={0.7}
                 curve={curveMonotoneX}
               />
-              {openSeries.data.map((d, index) => (
+              {openSeries.data.map((d: BarDateValue, index) => (
                 <g
                   key={`dataPoint-${d.date}-${d.value}-${openSeries.metricName}-${index}`}
                 >
                   <circle
                     cx={xScale(getLineDateNum(d))}
                     cy={yScale(getValueNum(d))}
-                    r={7}
+                    r={8}
                     filter="url(#inset)"
-                    fill={openSeries.baseColor ?? "#5469D4"}
-                    fillOpacity={1}
+                    fill={
+                      openSeries.baseColor ?? palette.status.experiment.running
+                    }
+                    fillOpacity={
+                      tooltipData && tooltipData[0]
+                        ? getDateNumber(d.date) ===
+                          getDateNumber(tooltipData[0].data.date)
+                          ? 1
+                          : 0.8
+                        : 1
+                    }
                     pointerEvents="none"
                   />
                 </g>
@@ -438,27 +474,6 @@ const PlotStackBar = ({
             }}
           />
         </Group>
-        <AxisLeft
-          scale={yScale}
-          numTicks={height > 200 ? 7 : 6}
-          tickFormat={(num) => intToString(num.valueOf(), unit)}
-          tickLabelProps={() => axisLeftTickLabelProps}
-          label={yLabel}
-          labelProps={yLabelProps}
-          left={margin.left}
-          labelOffset={yLabelOffset}
-          top={margin.top}
-        />
-        <AxisBottom
-          numTicks={width > 520 ? 6 : 5}
-          top={yMax + margin.top}
-          left={margin.left}
-          scale={xScale}
-          stroke={palette.border.main}
-          tickStroke={palette.text.primary}
-          tickFormat={(num) => dateFormat(num.valueOf(), xAxistimeFormat)}
-          tickLabelProps={() => axisBottomTickLabelProps}
-        />
       </svg>
       {tooltipData && tooltipData[0] && (
         <Tooltip
