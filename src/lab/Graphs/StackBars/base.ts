@@ -1,10 +1,10 @@
 export interface BarDateValue {
   // Date in milliseconds
-  date: number | string;
+  date: number;
   // Value to the corresponding date stamp
   value: number | string;
 
-  runId?: string | undefined;
+  id?: string | undefined;
 }
 export interface LineMetricSeries {
   // Name of the GraphMetric
@@ -18,10 +18,10 @@ export interface LineMetricSeries {
 }
 
 export interface StackBarMetric {
-  runId: string;
+  id: string;
   date: number;
-  passPercentage: string;
-  failPercentage: string;
+  passPercentage: number;
+  failPercentage: number;
   passCount: number;
   failCount: number;
 }
@@ -42,7 +42,7 @@ export type StackBarTooltipProps = {
 export interface BarStackProps {
   barSeries: Array<StackBarMetric>;
   openSeries?: LineMetricSeries | undefined;
-  initalxAxisDate: number;
+  initalxAxisDate?: number;
   margin?: { top: number; right: number; bottom: number; left: number };
   xAxistimeFormat?: string;
   unit?: string;

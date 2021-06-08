@@ -123,7 +123,7 @@ const PlotStackBar = ({
   // bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
-  initalxAxisDate = initalxAxisDate ?? barSeries[0].date ?? 0;
+  const localInitalxAxisDate = initalxAxisDate ?? barSeries[0].date ?? 0;
   const xScale = useMemo(
     () =>
       scaleTime<number>({
@@ -132,13 +132,13 @@ const PlotStackBar = ({
           new Date(
             Math.min(
               ...barSeries.map((element) => element.date),
-              initalxAxisDate
+              localInitalxAxisDate
             )
           ),
           new Date(Math.max(...barSeries.map((element) => element.date))),
         ],
       }),
-    [barSeries, initalxAxisDate, xMax]
+    [barSeries, localInitalxAxisDate, xMax]
   );
   const yScale = useMemo(
     () =>
@@ -217,7 +217,7 @@ const PlotStackBar = ({
                   metricName: "passCount",
                   data: {
                     date: dd1.date,
-                    runId: dd1.runId,
+                    id: dd1.id,
                     value: dd1.passCount,
                   },
                   baseColor: "red",
@@ -226,7 +226,7 @@ const PlotStackBar = ({
                   metricName: "passCount",
                   data: {
                     date: dd0.date,
-                    runId: dd0.runId,
+                    id: dd0.id,
                     value: dd0.passCount,
                   },
                   baseColor: "red",
@@ -242,7 +242,7 @@ const PlotStackBar = ({
                   metricName: "failCount",
                   data: {
                     date: dd1.date,
-                    runId: dd1.runId,
+                    id: dd1.id,
                     value: dd1.failCount,
                   },
                   baseColor: "red",
@@ -251,7 +251,7 @@ const PlotStackBar = ({
                   metricName: "failCount",
                   data: {
                     date: dd0.date,
-                    runId: dd0.runId,
+                    id: dd0.id,
                     value: dd0.failCount,
                   },
                   baseColor: "red",
@@ -285,9 +285,7 @@ const PlotStackBar = ({
   );
 
   if (width < 10) return null;
-  if (tooltipData && tooltipData[0]) {
-    console.log("tooltip", tooltipData);
-  }
+
   return width < 10 ? null : (
     <div style={{ position: "relative", margin: "1rem" }}>
       <svg width={width} height={height} onMouseLeave={() => hideTooltip()}>
@@ -411,8 +409,8 @@ const PlotStackBar = ({
               handleBarClick &&
                 handleBarClick(
                   tooltipData
-                    ? tooltipData[tooltipData.length - 1].data.runId
-                    : ""
+                    ? tooltipData[tooltipData.length - 1].data.id ?? null
+                    : null
                 );
             }}
           />
