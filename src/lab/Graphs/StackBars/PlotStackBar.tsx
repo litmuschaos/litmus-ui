@@ -299,7 +299,10 @@ const PlotStackBar = ({
         />
         <defs>
           <filter id="inset" x="-50%" y="-50%" width="200%" height="200%">
-            <feFlood floodColor={"#5469D4"} result="outside-color" />
+            <feFlood
+              floodColor={openSeries?.baseColor ?? "blue"}
+              result="outside-color"
+            />
             <feMorphology in="SourceAlpha" operator="dilate" radius="1" />
             <feComposite
               in="outside-color"
@@ -307,7 +310,10 @@ const PlotStackBar = ({
               result="outside-stroke"
             />
 
-            <feFlood floodColor={"#FFF"} result="inside-color" />
+            <feFlood
+              floodColor={palette.background.paper}
+              result="inside-color"
+            />
             <feComposite
               in2="SourceAlpha"
               operator="in"
