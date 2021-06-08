@@ -17,7 +17,7 @@ import {
 } from "@visx/visx";
 import dayjs from "dayjs";
 import React from "react";
-import { DateValue, GraphMetric } from "./base";
+import { DateValue, StrictColorGraphMetric } from "./base";
 
 // Accessors
 const getDateNum = (d: DateValue) =>
@@ -56,9 +56,9 @@ const dateFormat = (date: number, xAxistimeFormat: string) => {
 interface AreaChartProps {
   xScale: AxisScale<number>;
   yScale: AxisScale<number>;
-  closedSeries?: Array<GraphMetric>;
-  openSeries?: Array<GraphMetric>;
-  eventSeries?: Array<GraphMetric>;
+  closedSeries?: Array<StrictColorGraphMetric>;
+  openSeries?: Array<StrictColorGraphMetric>;
+  eventSeries?: Array<StrictColorGraphMetric>;
   showGrid?: boolean;
   width: number;
   height: number;
@@ -137,7 +137,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
 
   if (width < 10) return null;
   return (
-    <Group left={left || margin?.left} top={top || margin?.top}>
+    <Group left={left ?? margin?.left ?? 0} top={top ?? margin?.top ?? 0}>
       {showGrid && (
         <Group>
           <GridRows
@@ -158,7 +158,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
       )}
       {closedSeries &&
         closedSeries.length > 0 &&
-        closedSeries.map((linedata: GraphMetric, index) => (
+        closedSeries.map((linedata: StrictColorGraphMetric, index) => (
           <Group key={`closedSeriesGroup-${linedata.metricName}-${index}`}>
             <LinearGradient
               id={`${linedata.metricName}-${linedata.baseColor}-linearGragient`}
@@ -180,13 +180,13 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
             />
 
             {showPoints &&
-              linedata.data.map((d, index) => (
+              linedata.data.map((d: DateValue, index) => (
                 <g
                   key={`dataPoint-${d.date}-${d.value}-${linedata.metricName}-${index}`}
                 >
                   <circle
-                    cx={xScale(getDateNum(d))}
-                    cy={yScale(getValueNum(d))}
+                    cx={xScale(getDateNum(d)) ?? NaN}
+                    cy={yScale(getValueNum(d)) ?? NaN}
                     r={5}
                     fill={linedata.baseColor}
                     fillOpacity={0.7}
@@ -223,9 +223,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
           stroke={palette.text.primary}
           tickFormat={(num) => intToString(num, unit)}
           tickLabelProps={() => axisLeftTickLabelProps}
-          label={yLabel}
+          label={yLabel ?? ""}
           labelProps={yLabelProps}
-          left={left}
           labelOffset={yLabelOffset}
         />
       )}
@@ -273,9 +272,9 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                         style={{ strokeLinejoin: "round" }}
                       />
                       <Line
-                        from={{ x: xScale(getDateNum(d)), y: 0 }}
+                        from={{ x: xScale(getDateNum(d)) ?? 0, y: 0 }}
                         to={{
-                          x: xScale(getDateNum(d)),
+                          x: xScale(getDateNum(d)) ?? 0,
                           y: yMax,
                         }}
                         stroke={linedata.baseColor}
@@ -307,9 +306,9 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               stroke={openLineData.baseColor}
               strokeOpacity={0.7}
               curve={curveMonotoneX}
-              markerMid={showPoints ? `url(#${j}-circle)` : undefined}
-              markerStart={showPoints ? `url(#${j}-circle)` : undefined}
-              markerEnd={showPoints ? `url(#${j}-circle)` : undefined}
+              markerMid={showPoints ? `url(#${j}-circle)` : ""}
+              markerStart={showPoints ? `url(#${j}-circle)` : ""}
+              markerEnd={showPoints ? `url(#${j}-circle)` : ""}
             />
           </g>
         ))}

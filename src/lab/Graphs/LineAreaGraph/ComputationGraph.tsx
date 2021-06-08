@@ -14,6 +14,9 @@ import {
 } from "@visx/visx";
 import { extent, max, min } from "d3-array";
 import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import isoWeek from "dayjs/plugin/isoWeek";
+import weekOfYear from "dayjs/plugin/weekOfYear";
 import React, {
   useCallback,
   useEffect,
@@ -40,8 +43,8 @@ import {
   getValueStr,
 } from "./utils";
 
-let dd1: DateValue;
-let dd0: DateValue;
+let dd1: DateValue | undefined;
+let dd0: DateValue | undefined;
 let i: number;
 let j: number;
 let indexer: number;
@@ -85,7 +88,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   height = 200,
   margin = {
     top: 20,
-    left: 30,
+    left: 60,
     bottom: 20,
     right: 10,
   },
@@ -123,6 +126,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     "🚀 ~ file: ComputationGraph.tsx ~ line 93 ~ filteredClosedSeries",
     filteredClosedSeries
   );
+  // More format options for Dayjs
+  dayjs.extend(advancedFormat);
+  dayjs.extend(isoWeek);
+  dayjs.extend(weekOfYear);
+
   //  ToolTip Data
   const {
     showTooltip,
@@ -150,103 +158,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
   const eventSeriesCount = filteredEventSeries ? filteredEventSeries.length : 0;
   const brushRef = useRef<BaseBrush | null>(null);
-
-  const onBrushChange = useCallback(
-    (domain: Bounds | null) => {
-      if (!domain) return;
-      setAutoRender(false);
-      const { x0, x1, y0, y1 } = domain;
-      brushBoundData = { x0, x1, y0, y1 };
-      hideTooltip();
-      hideTooltipDate();
-      if (
-        handleCentralBrushPosition &&
-        (!centralBrushPosition || centralBrushPosition.start.x !== x0)
-      ) {
-        handleCentralBrushPosition({
-          start: { x: x0 },
-          end: { x: x1 },
-        });
-        console.log("x0:x1", x0, x1);
-        console.log(
-          "centralBrush Position",
-          brushDateScale(centralBrushPosition?.start.x ?? 0)
-        );
-        console.log(
-          "upddated brush postion",
-          updatedBrushPosition.start.x,
-          updatedBrushPosition.end.x
-        );
-        console.log("brushRef", brushRef.current);
-        console.log(
-          "date scasle 0:1",
-          new Date(dateScale.domain()[0]).getTime(),
-          new Date(dateScale.domain()[1]).getTime()
-        );
-        // console.log("initial brush postion", initialBrushPosition);
-
-        // console.log("current", brushRef.current);
-      }
-      // added lateer
-      if (closedSeries) {
-        const seriesCopy = closedSeries
-          .map((lineData) =>
-            lineData.data.filter((s) => {
-              const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
-            })
-          )
-          .map((linedata, i) => ({
-            metricName: closedSeries[i].metricName,
-            data: linedata,
-            baseColor: closedSeries[i].baseColor,
-          }));
-
-        setFilteredClosedSeries(seriesCopy);
-      }
-
-      if (openSeries) {
-        const seriesCopy = openSeries
-          .map((lineData) =>
-            lineData.data.filter((s) => {
-              const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
-            })
-          )
-          .map((linedata, i) => ({
-            metricName: openSeries[i].metricName,
-            data: linedata,
-            baseColor: openSeries[i].baseColor,
-          }));
-
-        setFilteredOpenSeries(seriesCopy);
-      }
-      if (eventSeries) {
-        const seriesCopy = eventSeries
-          .map((lineData) =>
-            lineData.data.filter((s) => {
-              const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
-            })
-          )
-          .map((linedata, i) => ({
-            metricName: eventSeries[i].metricName,
-            data: linedata,
-            subData: eventSeries[i].subData,
-            baseColor: eventSeries[i].baseColor,
-          }));
-
-        setFilteredEventSeries(seriesCopy);
-      }
-    },
-    [
-      filteredClosedSeries,
-      filteredOpenSeries,
-      filteredEventSeries,
-      hideTooltip,
-      hideTooltipDate,
-    ]
-  );
 
   const innerHeight = height - margin.top - margin.bottom;
   const topChartBottomMargin = compact
@@ -347,6 +258,64 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     }),
     [brushDateScale, centralBrushPosition]
   );
+  const handleParentUpdate = () => {
+    setAutoRender(false);
+    hideTooltip();
+    hideTooltipDate();
+    const x0 = centralBrushPosition?.start.x ?? brushBoundData.x0 ?? 0;
+    const x1 = centralBrushPosition?.end.x ?? brushBoundData.x1 ?? 0;
+
+    if (closedSeries) {
+      const seriesCopy = closedSeries
+        .map((lineData) =>
+          lineData.data.filter((s) => {
+            const x = getDateNum(s).getTime();
+            return x > x0 && x < x1;
+          })
+        )
+        .map((linedata, i) => ({
+          metricName: closedSeries[i].metricName,
+          data: linedata,
+          baseColor: closedSeries[i].baseColor,
+        }));
+
+      setFilteredClosedSeries(seriesCopy);
+    }
+
+    if (openSeries) {
+      const seriesCopy = openSeries
+        .map((lineData) =>
+          lineData.data.filter((s) => {
+            const x = getDateNum(s).getTime();
+            return x > x0 && x < x1;
+          })
+        )
+        .map((linedata, i) => ({
+          metricName: openSeries[i].metricName,
+          data: linedata,
+          baseColor: openSeries[i].baseColor,
+        }));
+
+      setFilteredOpenSeries(seriesCopy);
+    }
+    if (eventSeries) {
+      const seriesCopy = eventSeries
+        .map((lineData) =>
+          lineData.data.filter((s) => {
+            const x = getDateNum(s).getTime();
+            return x > x0 && x < x1;
+          })
+        )
+        .map((linedata, i) => ({
+          metricName: eventSeries[i].metricName,
+          data: linedata,
+          subData: eventSeries[i].subData,
+          baseColor: eventSeries[i].baseColor,
+        }));
+
+      setFilteredEventSeries(seriesCopy);
+    }
+  };
 
   const updatedBrushPosition = useMemo(
     () => ({
@@ -426,6 +395,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   // console.log("domain", brushDateScale.domain());
   // console.log("time 0", new Date(brushDateScale.domain()[1]).getTime());
   // scales for graph
+
   const dateScale = useMemo(
     () =>
       scaleTime<number>({
@@ -439,13 +409,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           ),
         ] as [Date, Date],
       }),
-    [
-      xMax,
-      filteredClosedSeries,
-      filteredOpenSeries,
-      filteredEventSeries,
-      centralBrushPosition,
-    ]
+    [xMax, centralBrushPosition, brushDateScale]
   );
   useEffect(() => {
     if (
@@ -463,65 +427,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       };
     }
   }, [centralBrushPosition]);
-
-  const handleParentUpdate = () => {
-    setAutoRender(false);
-    hideTooltip();
-    hideTooltipDate();
-    const x0 = centralBrushPosition?.start.x ?? brushBoundData.x0 ?? 0;
-    const x1 = centralBrushPosition?.end.x ?? brushBoundData.x1 ?? 0;
-
-    if (closedSeries) {
-      const seriesCopy = closedSeries
-        .map((lineData) =>
-          lineData.data.filter((s) => {
-            const x = getDateNum(s).getTime();
-            return x > x0 && x < x1;
-          })
-        )
-        .map((linedata, i) => ({
-          metricName: closedSeries[i].metricName,
-          data: linedata,
-          baseColor: closedSeries[i].baseColor,
-        }));
-
-      setFilteredClosedSeries(seriesCopy);
-    }
-
-    if (openSeries) {
-      const seriesCopy = openSeries
-        .map((lineData) =>
-          lineData.data.filter((s) => {
-            const x = getDateNum(s).getTime();
-            return x > x0 && x < x1;
-          })
-        )
-        .map((linedata, i) => ({
-          metricName: openSeries[i].metricName,
-          data: linedata,
-          baseColor: openSeries[i].baseColor,
-        }));
-
-      setFilteredOpenSeries(seriesCopy);
-    }
-    if (eventSeries) {
-      const seriesCopy = eventSeries
-        .map((lineData) =>
-          lineData.data.filter((s) => {
-            const x = getDateNum(s).getTime();
-            return x > x0 && x < x1;
-          })
-        )
-        .map((linedata, i) => ({
-          metricName: eventSeries[i].metricName,
-          data: linedata,
-          subData: eventSeries[i].subData,
-          baseColor: eventSeries[i].baseColor,
-        }));
-
-      setFilteredEventSeries(seriesCopy);
-    }
-  };
 
   const handleChangeSlider = (event: any, newValue: number | number[]) => {
     setAutoRender(false);
@@ -672,13 +577,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         ],
         nice: true,
       }),
-    [
-      yMax,
-      filteredClosedSeries,
-      filteredOpenSeries,
-      centralBrushPosition,
-      brushBoundData,
-    ]
+    [yMax, filteredClosedSeries, filteredOpenSeries]
   );
 
   // tooltip handler
@@ -698,7 +597,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (showMultiToolTip) {
           setMouseY(y);
         }
-        const y0 = valueScale.invert(y);
+        const y0: number = valueScale.invert(y);
         if (firstMouseEnterGraph === false) {
           setMouseEnterGraph(true);
         }
@@ -706,8 +605,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (filteredClosedSeries) {
           for (j = 0; j < filteredClosedSeries.length; j++) {
             indexer = bisectDate(filteredClosedSeries[i].data, x0, 1);
-            dd0 = filteredClosedSeries[j].data[indexer - 1];
-            dd1 = filteredClosedSeries[j].data[indexer];
+            dd0 = filteredClosedSeries[j]?.data[indexer - 1] ?? undefined;
+            dd1 = filteredClosedSeries[j]?.data[indexer] ?? undefined;
 
             if (dd1) {
               pointerDataSelection[i] =
@@ -730,8 +629,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (filteredOpenSeries) {
           for (j = 0; j < filteredOpenSeries.length; j++) {
             indexer = bisectDate(filteredOpenSeries[j].data, x0, 1);
-            dd0 = filteredOpenSeries[j].data[indexer - 1];
-            dd1 = filteredOpenSeries[j].data[indexer];
+            dd0 = filteredOpenSeries[j]?.data[indexer - 1] ?? undefined;
+            dd1 = filteredOpenSeries[j]?.data[indexer] ?? undefined;
 
             if (dd1) {
               pointerDataSelection[i] =
@@ -773,24 +672,27 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (!showMultiToolTip) {
           let index0 = 0;
           let closestValue: number | undefined;
-
-          index0 = bisectorValue(pointerDataSelection, y0);
-          dd0 = pointerDataSelection[index0].data;
-          dd1 = pointerDataSelection[index0 - 1].data;
-          if (dd1 && dd0) {
-            closestValue =
-              Math.abs(y0.valueOf() - getValueNum(dd0)) >
-              Math.abs(y0.valueOf() - getValueNum(dd1))
-                ? getValueNum(dd1)
-                : getValueNum(dd0);
-          } else if (dd1 && !dd0) {
-            closestValue = getValueNum(dd1);
-          } else if (dd0 && !dd1) {
-            closestValue = getValueNum(dd0);
+          if (pointerDataSelection && pointerDataSelection[0]) {
+            index0 = bisectorValue(pointerDataSelection, y0, 1);
+            dd0 = pointerDataSelection[index0]?.data ?? undefined;
+            dd1 = pointerDataSelection[index0 - 1]?.data ?? undefined;
+            if (dd1 && dd0) {
+              closestValue =
+                Math.abs(y0.valueOf() - getValueNum(dd0)) >
+                Math.abs(y0.valueOf() - getValueNum(dd1))
+                  ? getValueNum(dd1)
+                  : getValueNum(dd0);
+            } else if (dd1 && !dd0) {
+              closestValue = getValueNum(dd1);
+            } else if (dd0 && !dd1) {
+              closestValue = getValueNum(dd0);
+            }
+            if (typeof closestValue === "number") {
+              pointerDataSelection = pointerDataSelection.filter(
+                (lineData) => lineData.data.value === closestValue
+              );
+            }
           }
-          pointerDataSelection = pointerDataSelection.filter(
-            (lineData) => closestValue && lineData.data.value === closestValue
-          );
         }
         toolTipPointLength = pointerDataSelection.length;
         let singleEventToolTip: ToolTipDateValue;
@@ -801,8 +703,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (filteredEventSeries) {
           for (j = 0; j < filteredEventSeries.length; j++) {
             indexer = bisectDate(filteredEventSeries[j].data, x0, 1);
-            dd0 = filteredEventSeries[j].data[indexer - 1];
-            dd1 = filteredEventSeries[j].data[indexer];
+            dd0 = filteredEventSeries[j]?.data[indexer - 1] ?? undefined;
+            dd1 = filteredEventSeries[j]?.data[indexer] ?? undefined;
             if (
               dd1 &&
               toolTipPointLength > 0 &&
@@ -1018,6 +920,104 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       filteredEventSeries,
     ]
   );
+
+  const onBrushChange = useCallback(
+    (domain: Bounds | null) => {
+      if (!domain) return;
+      setAutoRender(false);
+      const { x0, x1, y0, y1 } = domain;
+      brushBoundData = { x0, x1, y0, y1 };
+      hideTooltip();
+      hideTooltipDate();
+      if (
+        handleCentralBrushPosition &&
+        (!centralBrushPosition || centralBrushPosition.start.x !== x0)
+      ) {
+        handleCentralBrushPosition({
+          start: { x: x0 },
+          end: { x: x1 },
+        });
+        console.log("x0:x1", x0, x1);
+        console.log(
+          "centralBrush Position",
+          brushDateScale(centralBrushPosition?.start.x ?? 0)
+        );
+        console.log(
+          "upddated brush postion",
+          updatedBrushPosition.start.x,
+          updatedBrushPosition.end.x
+        );
+        console.log("brushRef", brushRef.current);
+        console.log(
+          "date scasle 0:1",
+          new Date(dateScale.domain()[0]).getTime(),
+          new Date(dateScale.domain()[1]).getTime()
+        );
+        // console.log("initial brush postion", initialBrushPosition);
+
+        // console.log("current", brushRef.current);
+      }
+      // added lateer
+      if (closedSeries) {
+        const seriesCopy = closedSeries
+          .map((lineData) =>
+            lineData.data.filter((s) => {
+              const x = getDateNum(s).getTime();
+              return x > x0 && x < x1;
+            })
+          )
+          .map((linedata, i) => ({
+            metricName: closedSeries[i].metricName,
+            data: linedata,
+            baseColor: closedSeries[i].baseColor,
+          }));
+
+        setFilteredClosedSeries(seriesCopy);
+      }
+
+      if (openSeries) {
+        const seriesCopy = openSeries
+          .map((lineData) =>
+            lineData.data.filter((s) => {
+              const x = getDateNum(s).getTime();
+              return x > x0 && x < x1;
+            })
+          )
+          .map((linedata, i) => ({
+            metricName: openSeries[i].metricName,
+            data: linedata,
+            baseColor: openSeries[i].baseColor,
+          }));
+
+        setFilteredOpenSeries(seriesCopy);
+      }
+      if (eventSeries) {
+        const seriesCopy = eventSeries
+          .map((lineData) =>
+            lineData.data.filter((s) => {
+              const x = getDateNum(s).getTime();
+              return x > x0 && x < x1;
+            })
+          )
+          .map((linedata, i) => ({
+            metricName: eventSeries[i].metricName,
+            data: linedata,
+            subData: eventSeries[i].subData,
+            baseColor: eventSeries[i].baseColor,
+          }));
+
+        setFilteredEventSeries(seriesCopy);
+      }
+    },
+    [
+      filteredClosedSeries,
+      filteredOpenSeries,
+      filteredEventSeries,
+      hideTooltip,
+      hideTooltipDate,
+    ]
+  );
+
   // legendData
   if (showLegendTable) {
     legenddata = legenddata.splice(0);
@@ -1137,9 +1137,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           <PlotLineAreaGraph
             showPoints={showPoints}
             hideBottomAxis={compact}
-            closedSeries={filteredClosedSeries}
-            openSeries={filteredOpenSeries}
-            eventSeries={filteredEventSeries}
+            closedSeries={filteredClosedSeries ?? []}
+            openSeries={filteredOpenSeries ?? []}
+            eventSeries={filteredEventSeries ?? []}
             width={width}
             height={yMax}
             margin={{ ...margin, bottom: topChartBottomMargin }}

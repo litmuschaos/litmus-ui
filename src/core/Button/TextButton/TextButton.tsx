@@ -3,16 +3,16 @@ import React from "react";
 import { ButtonBaseProps } from "../base";
 import { useStyles } from "./styles";
 
-type Variant = "default" | "highlight" | undefined;
+type Variant = "highlight" | "success" | "error" | undefined;
 
 type Size = "large" | "medium" | "small" | undefined;
 
-interface ButtonOutlinedProps extends ButtonBaseProps {
+interface TextButtonProps extends ButtonBaseProps {
   variant?: Variant;
   size?: Size;
 }
 
-const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
+const TextButton: React.FC<TextButtonProps> = ({
   variant,
   size,
   children,
@@ -26,6 +26,10 @@ const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
     switch (variant) {
       case "highlight":
         return classes.highlight;
+      case "success":
+        return classes.success;
+      case "error":
+        return classes.error;
       default:
         return "";
     }
@@ -46,7 +50,7 @@ const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
 
   return (
     <Button
-      variant="outlined"
+      data-testid="textButton"
       className={`${classes.root} ${className} ${getVariant(
         variant
       )} ${getVariantSize(size)}`}
@@ -57,4 +61,4 @@ const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
   );
 };
 
-export { ButtonOutlined };
+export { TextButton };
