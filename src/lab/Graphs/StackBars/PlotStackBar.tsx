@@ -88,7 +88,10 @@ const PlotStackBar = ({
   const { palette } = useTheme();
   const colorScale = scaleOrdinal<StackName, string>({
     domain: keys,
-    range: [palette.status.completed, palette.status.failed],
+    range: [
+      palette.status.experiment.completed,
+      palette.status.experiment.failed,
+    ],
   });
 
   const dateScale = scaleBand<string>({
@@ -116,8 +119,8 @@ const PlotStackBar = ({
     fontWeight: 700,
     fontSize: "12px",
     lineHeight: "12px",
-    fill: palette.text.primary,
-    background: "red",
+    color: palette.text.hint,
+    fill: palette.text.hint,
   };
 
   // bounds
@@ -189,7 +192,8 @@ const PlotStackBar = ({
                     date: dd1.date,
                     value: dd1.value,
                   },
-                  baseColor: openSeries.baseColor ?? "red",
+                  baseColor:
+                    openSeries.baseColor ?? palette.status.experiment.running,
                 }
               : {
                   metricName: "resiliencyScore",
@@ -197,7 +201,8 @@ const PlotStackBar = ({
                     date: dd0.date,
                     value: dd0.value,
                   },
-                  baseColor: openSeries.baseColor ?? "red",
+                  baseColor:
+                    openSeries.baseColor ?? palette.status.experiment.running,
                 };
           i++;
         }
@@ -281,7 +286,17 @@ const PlotStackBar = ({
       });
     },
 
-    [width, xScale, xMax, showTooltip, yMax, margin.left, openSeries, barSeries]
+    [
+      width,
+      xScale,
+      xMax,
+      showTooltip,
+      yMax,
+      margin.left,
+      openSeries,
+      barSeries,
+      palette,
+    ]
   );
 
   if (width < 10) return null;
@@ -300,7 +315,9 @@ const PlotStackBar = ({
         <defs>
           <filter id="inset" x="-50%" y="-50%" width="200%" height="200%">
             <feFlood
-              floodColor={openSeries?.baseColor ?? "blue"}
+              floodColor={
+                openSeries?.baseColor ?? palette.status.experiment.running
+              }
               result="outside-color"
             />
             <feMorphology in="SourceAlpha" operator="dilate" radius="1" />
@@ -424,7 +441,6 @@ const PlotStackBar = ({
         <AxisLeft
           scale={yScale}
           numTicks={height > 200 ? 7 : 6}
-          stroke={palette.text.primary}
           tickFormat={(num) => intToString(num.valueOf(), unit)}
           tickLabelProps={() => axisLeftTickLabelProps}
           label={yLabel}
@@ -438,7 +454,7 @@ const PlotStackBar = ({
           top={yMax + margin.top}
           left={margin.left}
           scale={xScale}
-          stroke={palette.text.primary}
+          stroke={palette.border.main}
           tickStroke={palette.text.primary}
           tickFormat={(num) => dateFormat(num.valueOf(), xAxistimeFormat)}
           tickLabelProps={() => axisBottomTickLabelProps}
