@@ -47,7 +47,7 @@ const getDateStr = (d: StackBarMetric) => d.date.toString();
 const PlotStackBar = ({
   width,
   height,
-  initalxAxisDate,
+  initialxAxisDate,
   margin = defaultMargin,
   xAxistimeFormat = "MMM D,YYYY ",
   unit = "%",
@@ -127,7 +127,7 @@ const PlotStackBar = ({
   // bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
-  const localInitalxAxisDate = initalxAxisDate ?? barSeries[0].date ?? 0;
+  const localInitialxAxisDate = initialxAxisDate ?? barSeries[0].date ?? 0;
   const xScale = useMemo(
     () =>
       scaleTime<number>({
@@ -136,13 +136,13 @@ const PlotStackBar = ({
           new Date(
             Math.min(
               ...barSeries.map((element) => element.date),
-              localInitalxAxisDate
+              localInitialxAxisDate
             )
           ),
           new Date(Math.max(...barSeries.map((element) => element.date))),
         ],
       }),
-    [barSeries, localInitalxAxisDate, xMax]
+    [barSeries, localInitialxAxisDate, xMax]
   );
   const yScale = useMemo(
     () =>

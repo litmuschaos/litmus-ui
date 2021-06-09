@@ -18,11 +18,22 @@ export interface LineMetricSeries {
 }
 
 export interface StackBarMetric {
+  // Unique id corresponding to every object of StackBarMetric
   id: string;
+
+  // Date in Unix format
   date: number;
+
+  // Pass percentage value between 0-100%
   passPercentage: number;
+
+  // Fail percentage value between 0-100%
   failPercentage: number;
+
+  // Pass count value as any number preferable int
   passCount: number;
+
+  // Fail count value as any number preferable int
   failCount: number;
 }
 export interface ToolTip<T> {
@@ -40,21 +51,43 @@ export type StackBarTooltipProps = {
   tooltipData: TooltipData;
 };
 export interface BarStackProps {
+  // Array of StackBarMetric for the stack bars
   barSeries: Array<StackBarMetric>;
+
+  // Array of LineMetricSeries for the line graph
   openSeries?: LineMetricSeries | undefined;
-  initalxAxisDate?: number;
+
+  // Initial date for the axis
+  initialxAxisDate?: number;
+
+  // Margin for the graph
   margin?: { top: number; right: number; bottom: number; left: number };
+
+  // Time format for the x-axis
   xAxistimeFormat?: string;
+
+  // Unit for the y-axis values
   unit?: string;
+
+  // Label for the y-axis
   yLabel?: string;
+
+  // Offset for y-axis label
   yLabelOffset?: number;
+
+  // Handle click function which gives user barData
   handleBarClick?: (barData: any) => void;
+
+  // Tooltip React element for custom tooltip
   StackBarTooltip?: ({
     tooltipData,
   }: StackBarTooltipProps) => React.ReactElement;
 }
 export interface BarStackChildProps extends BarStackProps {
+  // Width of the parent
   width: number;
+
+  // Height of the parent
   height: number;
 }
 export type ToolTipDateValue = ToolTip<BarDateValue>;
