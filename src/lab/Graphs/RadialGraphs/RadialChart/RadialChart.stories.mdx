@@ -7,7 +7,10 @@ import { testRadialChartData } from "./testData";
 
 # RadialChart
 
-`RadialChart` component is used to represent the data as a Circle/SemiCircle graph.
+`RadialChart` component is used to represent the
+data as a Circle/SemiCircle graph. The ratio of `height:width`
+for semiCircle is preferably around `1:2` (including legend table)
+and circle is `1:1` (excluding the legend table)
 
 ## Default
 
@@ -22,7 +25,7 @@ import { testRadialChartData } from "./testData";
     }}
   >
     {(args) => (
-      <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
+      <div style={{ width: "15rem", height: "20rem", margin: "1rem" }}>
         <RadialChart {...args} />
       </div>
     )}
@@ -44,7 +47,7 @@ import { testRadialChartData } from "./testData";
     }}
   >
     {(args) => (
-      <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
+      <div style={{ width: "22rem", height: "9rem", margin: "0.5rem" }}>
         <RadialChart {...args} />
       </div>
     )}
@@ -61,7 +64,7 @@ import { testRadialChartData } from "./testData";
     }}
   >
     {(args) => (
-      <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
+      <div style={{ width: "20rem", height: "15rem", margin: "1rem" }}>
         <RadialChart {...args} />
       </div>
     )}
@@ -78,7 +81,7 @@ import { testRadialChartData } from "./testData";
     }}
   >
     {(args) => (
-      <div style={{ width: "20rem", height: "15rem", margin: "3rem" }}>
+      <div style={{ width: "25rem", height: "7rem", margin: "1rem" }}>
         <RadialChart {...args} />
       </div>
     )}
