@@ -1,5 +1,4 @@
 import { DateValue, GraphMetric } from "../../Graphs/LineAreaGraph";
-import { EventMetric } from "./base";
 
 const openSeriesData1: DateValue[] = [
   { date: 4000.0, value: 40 },
@@ -14,6 +13,8 @@ const closedSeriesData1: DateValue[] = [
   { date: 6000.0, value: -14 },
   { date: 7000.0, value: -60 },
   { date: 8000.0, value: 10 },
+  { date: 9000.0, value: 0 },
+  { date: 10000.0, value: 0 },
 ];
 const closedSeriesData2: DateValue[] = [
   { date: 4000, value: 30 },
@@ -58,11 +59,11 @@ const openSeriesData: Array<GraphMetric> = [
 ];
 const closedSeriesData: Array<GraphMetric> = [
   { metricName: "orange", data: closedSeriesData1, baseColor: "orange" },
-  { metricName: "pink", data: closedSeriesData2, baseColor: "pink" },
+  { metricName: "noColorAssigned-1", data: closedSeriesData2 },
 ];
-const eventSeriesData: Array<EventMetric> = [
+const eventSeriesData: Array<GraphMetric> = [
   {
-    metricName: "chaos-pod-delete-",
+    metricName: "chaos-pod-delete-no-color",
     data: eventSeriesData1,
     subData: [
       { subDataName: "subData-0-1", value: "0-1", date: 3000 },
@@ -70,7 +71,6 @@ const eventSeriesData: Array<EventMetric> = [
       { subDataName: "subData-0-3", value: "0-3", date: 3000 },
       { subDataName: "subData-0-4", value: "0-4", date: 3000 },
     ],
-    baseColor: "red",
   },
   {
     metricName: "chaos-network-pod",

@@ -83,10 +83,10 @@ const litmusPortalTheme = createTheme({
       "linear-gradient(78.42deg, #403083 0.01%, #5B44BA 100.01%)",
     disabledBackground: "#D9D9D9",
     text: {
-      primary: "#000000CC",
+      primary: "#1C0732",
       secondary: "#FFFFFF",
-      disabled: "#00000061",
-      hint: "#00000099",
+      disabled: "#BCB9C6",
+      hint: "#696F8C",
     },
     highlight: "#5B44BA",
     horizontalStepper: {
@@ -102,10 +102,21 @@ const litmusPortalTheme = createTheme({
     progressBarGradient:
       "linear-gradient(90.43deg, #5B44BA 0.35%, #858CDD 51.03%, #109B67 99.64%)",
     status: {
-      running: "#3A97D4",
-      completed: "#09825D",
-      pending: "#949AB7",
-      failed: "#ED474A",
+      workflow: {
+        running: "#3A97D4",
+        completed: "#09825D",
+        failed: "#DD2B0E",
+        pending: "#949AB7",
+      },
+      experiment: {
+        running: "#5469D4",
+        completed: "#00CC9A",
+        failed: "#F2536D",
+        pending: "#BBBBBB",
+        skipped: "#0098DD",
+        error: "#FFA600",
+        omitted: "#A93DDB",
+      },
     },
     cards: {
       header: "#EDF0F8",

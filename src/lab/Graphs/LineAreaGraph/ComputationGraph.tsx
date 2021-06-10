@@ -12,6 +12,9 @@ import {
 } from "@visx/visx";
 import { extent, max, min } from "d3-array";
 import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import isoWeek from "dayjs/plugin/isoWeek";
+import weekOfYear from "dayjs/plugin/weekOfYear";
 import React, { useCallback, useMemo, useState } from "react";
 import { LegendData } from "../LegendTable";
 import { LegendTable } from "../LegendTable/LegendTable";
@@ -32,8 +35,8 @@ import {
   getValueStr,
 } from "./utils";
 
-let dd1: DateValue;
-let dd0: DateValue;
+let dd1: DateValue | undefined;
+let dd0: DateValue | undefined;
 let i: number;
 let j: number;
 let indexer: number;
@@ -58,7 +61,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   height = 200,
   margin = {
     top: 20,
-    left: 30,
+    left: 60,
     bottom: 20,
     right: 10,
   },
@@ -84,6 +87,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [dataRender, setAutoRender] = useState(true);
   // Use for showing the tooltip when showMultiTooltip is disabled
   const [mouseY, setMouseY] = useState(0);
+
+  // More format options for Dayjs
+  dayjs.extend(advancedFormat);
+  dayjs.extend(isoWeek);
+  dayjs.extend(weekOfYear);
 
   //  ToolTip Data
   const {
@@ -280,7 +288,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (showMultiToolTip) {
           setMouseY(y);
         }
-        const y0 = valueScale.invert(y);
+        const y0: number = valueScale.invert(y);
         if (firstMouseEnterGraph === false) {
           setMouseEnterGraph(true);
         }
@@ -288,8 +296,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (filteredClosedSeries) {
           for (j = 0; j < filteredClosedSeries.length; j++) {
             indexer = bisectDate(filteredClosedSeries[i].data, x0, 1);
-            dd0 = filteredClosedSeries[j].data[indexer - 1];
-            dd1 = filteredClosedSeries[j].data[indexer];
+            dd0 = filteredClosedSeries[j]?.data[indexer - 1] ?? undefined;
+            dd1 = filteredClosedSeries[j]?.data[indexer] ?? undefined;
 
             if (dd1) {
               pointerDataSelection[i] =
@@ -312,8 +320,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (filteredOpenSeries) {
           for (j = 0; j < filteredOpenSeries.length; j++) {
             indexer = bisectDate(filteredOpenSeries[j].data, x0, 1);
-            dd0 = filteredOpenSeries[j].data[indexer - 1];
-            dd1 = filteredOpenSeries[j].data[indexer];
+            dd0 = filteredOpenSeries[j]?.data[indexer - 1] ?? undefined;
+            dd1 = filteredOpenSeries[j]?.data[indexer] ?? undefined;
 
             if (dd1) {
               pointerDataSelection[i] =
@@ -355,24 +363,27 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (!showMultiToolTip) {
           let index0 = 0;
           let closestValue: number | undefined;
-
-          index0 = bisectorValue(pointerDataSelection, y0);
-          dd0 = pointerDataSelection[index0].data;
-          dd1 = pointerDataSelection[index0 - 1].data;
-          if (dd1 && dd0) {
-            closestValue =
-              Math.abs(y0.valueOf() - getValueNum(dd0)) >
-              Math.abs(y0.valueOf() - getValueNum(dd1))
-                ? getValueNum(dd1)
-                : getValueNum(dd0);
-          } else if (dd1 && !dd0) {
-            closestValue = getValueNum(dd1);
-          } else if (dd0 && !dd1) {
-            closestValue = getValueNum(dd0);
+          if (pointerDataSelection && pointerDataSelection[0]) {
+            index0 = bisectorValue(pointerDataSelection, y0, 1);
+            dd0 = pointerDataSelection[index0]?.data ?? undefined;
+            dd1 = pointerDataSelection[index0 - 1]?.data ?? undefined;
+            if (dd1 && dd0) {
+              closestValue =
+                Math.abs(y0.valueOf() - getValueNum(dd0)) >
+                Math.abs(y0.valueOf() - getValueNum(dd1))
+                  ? getValueNum(dd1)
+                  : getValueNum(dd0);
+            } else if (dd1 && !dd0) {
+              closestValue = getValueNum(dd1);
+            } else if (dd0 && !dd1) {
+              closestValue = getValueNum(dd0);
+            }
+            if (typeof closestValue === "number") {
+              pointerDataSelection = pointerDataSelection.filter(
+                (lineData) => lineData.data.value === closestValue
+              );
+            }
           }
-          pointerDataSelection = pointerDataSelection.filter(
-            (lineData) => closestValue && lineData.data.value === closestValue
-          );
         }
         toolTipPointLength = pointerDataSelection.length;
         let singleEventToolTip: ToolTipDateValue;
@@ -383,8 +394,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (filteredEventSeries) {
           for (j = 0; j < filteredEventSeries.length; j++) {
             indexer = bisectDate(filteredEventSeries[j].data, x0, 1);
-            dd0 = filteredEventSeries[j].data[indexer - 1];
-            dd1 = filteredEventSeries[j].data[indexer];
+            dd0 = filteredEventSeries[j]?.data[indexer - 1] ?? undefined;
+            dd1 = filteredEventSeries[j]?.data[indexer] ?? undefined;
             if (
               dd1 &&
               toolTipPointLength > 0 &&
@@ -714,9 +725,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         <PlotLineAreaGraph
           showPoints={showPoints}
           hideBottomAxis={compact}
-          closedSeries={filteredClosedSeries}
-          openSeries={filteredOpenSeries}
-          eventSeries={filteredEventSeries}
+          closedSeries={filteredClosedSeries ?? []}
+          openSeries={filteredOpenSeries ?? []}
+          eventSeries={filteredEventSeries ?? []}
           width={width - 20}
           height={yMax}
           margin={{ ...margin, bottom: topChartBottomMargin }}
