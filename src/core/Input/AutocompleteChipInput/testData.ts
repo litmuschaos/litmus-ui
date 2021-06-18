@@ -9,7 +9,7 @@ const testData: Array<Option> = [
     name: "12 Angry Men",
   },
   { name: "Schindler's List" },
-  { name: "This title " },
+  { name: "This title is supposed to be very long" },
 ];
 
 export { testData };

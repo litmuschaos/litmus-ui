@@ -67,6 +67,7 @@ const RadialProgressChartChild = ({
     outerRadius,
     iconTop,
     iconSize,
+    centerText,
     baseColor: radialData.baseColor,
   });
   const total: number = radialData.value ? 100 : NaN;
