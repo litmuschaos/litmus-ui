@@ -104,10 +104,7 @@ const RadialProgressChartChild = ({
             className={classes.rectBase}
           />
 
-          <Group
-            top={circleOrient === 1 ? outerRadius : outerRadius}
-            left={radialFigurWidth / 2}
-          >
+          <Group top={outerRadius} left={radialFigurWidth / 2}>
             {total > 0 &&
               radialArc &&
               radialArc.map((elem) => (
