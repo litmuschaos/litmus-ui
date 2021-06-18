@@ -102,6 +102,7 @@ const ChildCalendarHeatmap = ({
       let pointerDataSelection: ToolTipValue = { data: { value: NaN } };
       const x = bin.x;
       const y = yMax - bin.y;
+      console.log("x:y", x.toFixed(1), y.toFixed(1));
       pointerDataSelection = {
         data: {
           bin: bin,
@@ -121,22 +122,20 @@ const ChildCalendarHeatmap = ({
     return null;
   }
   return width < 10 ? null : (
-    <div>
-      <Group top={margin.top} left={margin.left}>
-        <div className={classes.xAxis}>
-          {monthList &&
-            monthList.map((month) => {
-              return (
-                <Typography
-                  key={`${month}-heatmap`}
-                  className={classes.xAxisLabels}
-                >
-                  {month}
-                </Typography>
-              );
-            })}
-        </div>
-      </Group>
+    <div className={classes.root}>
+      <div className={classes.xAxis}>
+        {monthList &&
+          monthList.map((month) => {
+            return (
+              <Typography
+                key={`${month}-heatmap`}
+                className={classes.xAxisLabels}
+              >
+                {month}
+              </Typography>
+            );
+          })}
+      </div>
       <svg width={width} height={height}>
         <rect
           x={0}
@@ -278,7 +277,7 @@ const ChildCalendarHeatmap = ({
       {tooltipData && (
         <Tooltip
           unstyled={false}
-          top={tooltipTop - binHeight}
+          top={tooltipTop}
           left={tooltipLeft}
           className={classes.tooltipStyles}
         >
