@@ -102,7 +102,6 @@ const ChildCalendarHeatmap = ({
       let pointerDataSelection: ToolTipValue = { data: { value: NaN } };
       const x = bin.x;
       const y = yMax - bin.y;
-      console.log("x:y", x.toFixed(1), y.toFixed(1));
       pointerDataSelection = {
         data: {
           bin: bin,
