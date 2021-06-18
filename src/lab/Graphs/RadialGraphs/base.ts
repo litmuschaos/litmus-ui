@@ -5,6 +5,9 @@ export interface RadialChartMetric {
 }
 
 export interface RadialGraphProps {
+  // Margins for the RadialChart
+  margin?: { top: number; right: number; bottom: number; left: number };
+
   // Thickness of the arc in the RadialProgressChart
   arcWidth?: number;
 

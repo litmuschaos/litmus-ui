@@ -43,10 +43,12 @@ import { testData } from "./testData";
     args={{
       onChange: (event, value) => console.log(value),
       options: testData,
+      defaultValue: [testData[0]],
       label: "Tags",
       placeholder: "Select tags",
       multiple: true,
       disableCloseOnSelect: true,
+      disableClearable: false,
       limitTags: 2,
     }}
   >

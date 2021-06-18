@@ -5,9 +5,11 @@ const testData: Array<Option> = [
   { name: "The Godfather", type: "movie" },
   { name: "The Godfather: Part II" },
   { name: "The Dark Knight" },
-  { name: "12 Angry Men" },
+  {
+    name: "12 Angry Men",
+  },
   { name: "Schindler's List" },
-  { name: "Pulp Fiction" },
+  { name: "This title " },
 ];
 
 export { testData };

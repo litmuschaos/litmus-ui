@@ -40,7 +40,7 @@ const RadialChartChild = ({
   radialData,
   arcWidth = 20,
   semiCircle = false,
-  legendTableHeight = 150,
+  legendTableHeight = 120,
   showLegend = true,
   heading,
   circleExpandOnHover = 5,
@@ -67,9 +67,9 @@ const RadialChartChild = ({
 
   if (circleOrient === 1) {
     if (alignLegendTable === "bottom") {
-      outerRadius = Math.min(radialFigureWidth, height);
+      outerRadius = Math.min(radialFigureWidth, height) / 2;
     } else {
-      outerRadius = Math.min(radialFigureWidth / 2, height);
+      outerRadius = Math.min(radialFigureWidth, height) / 2;
     }
   } else {
     outerRadius = Math.min(radialFigureWidth, height) * 0.5;
