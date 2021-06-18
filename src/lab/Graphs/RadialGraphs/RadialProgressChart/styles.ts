@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   centerDataContainer: (props: StyleProps) => ({
     position: "absolute",
-    top: props.circleOrient === 1 ? props.outerRadius : "50%",
+    top: props.circleOrient === 1 ? props.outerRadius : props.outerRadius,
     left: "50%",
     transform: "translate(-50%, -50%)",
   }),
