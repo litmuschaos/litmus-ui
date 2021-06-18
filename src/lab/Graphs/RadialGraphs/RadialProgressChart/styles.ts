@@ -9,6 +9,7 @@ interface StyleProps {
   outerRadius: number;
   iconTop?: string;
   iconSize: string;
+  baseColor?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -52,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   centerDataContainer: (props: StyleProps) => ({
     position: "absolute",
-    top: props.circleOrient === 1 ? "100%" : "50%",
+    top: props.circleOrient === 1 ? props.outerRadius : "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
   }),
@@ -73,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: props.iconSize,
     width: props.iconSize,
     borderRadius: props.iconSize,
-    background: theme.palette.highlight,
+    background: props.baseColor ?? theme.palette.highlight,
     "& img": {
       position: "absolute",
       left: "50%",
