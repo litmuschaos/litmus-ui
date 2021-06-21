@@ -7,6 +7,9 @@ export interface PassFailBarProps {
   // Pass percentage value as number
   passPercentage: number;
 
+  // Fail percentage value as number
+  failPercentage?: number;
+
   // Optional className for overriding the styles
   className?: string;
 }
@@ -22,13 +25,14 @@ const PassFailBarChild = ({
   width,
   height,
   passPercentage,
+  failPercentage,
   className,
 }: PassFailBarChildProps) => {
   const classes = useStyles({
     width,
     height,
     pass: `${passPercentage ?? 0}%`,
-    fail: `${100 - passPercentage ?? 0}%`,
+    fail: `${failPercentage ?? 100 - passPercentage ?? 0}%`,
   });
 
   return width < 10 ? null : (
@@ -45,7 +49,7 @@ const PassFailBarChild = ({
         <Typography
           variant="h6"
           className={`${classes.failText} ${classes.text}`}
-        >{`${100 - passPercentage ?? 0}%`}</Typography>
+        >{`${failPercentage ?? 100 - passPercentage ?? 0}%`}</Typography>
       </div>
     </div>
   );
