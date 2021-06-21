@@ -128,6 +128,11 @@ const PlotStackBar = ({
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
   const localInitialxAxisDate = initialxAxisDate ?? barSeries[0].date ?? 0;
+  const openSeriesDates = openSeries
+    ? openSeries.data
+        .map((element) => element.date)
+        .concat(localInitialxAxisDate)
+    : [localInitialxAxisDate];
   const xScale = useMemo(
     () =>
       scaleTime<number>({
@@ -136,7 +141,7 @@ const PlotStackBar = ({
           new Date(
             Math.min(
               ...barSeries.map((element) => element.date),
-              localInitialxAxisDate
+              ...openSeriesDates
             )
           ),
           new Date(Math.max(...barSeries.map((element) => element.date))),
