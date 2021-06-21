@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(2),
   },
   chip: {
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    maxWidth: "-webkit-fill-available",
     margin: theme.spacing(1, 1, 0, 0),
     background: theme.palette.primary.main,
     color: theme.palette.text.secondary,

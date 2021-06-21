@@ -67,6 +67,8 @@ const RadialProgressChartChild = ({
     outerRadius,
     iconTop,
     iconSize,
+    centerText,
+    baseColor: radialData.baseColor,
   });
   const total: number = radialData.value ? 100 : NaN;
   const scalerArc: number = circleOrient * Math.PI;
@@ -102,10 +104,7 @@ const RadialProgressChartChild = ({
             className={classes.rectBase}
           />
 
-          <Group
-            top={circleOrient === 1 ? height : height / 2}
-            left={radialFigurWidth / 2}
-          >
+          <Group top={outerRadius} left={radialFigurWidth / 2}>
             {total > 0 &&
               radialArc &&
               radialArc.map((elem) => (
@@ -142,13 +141,14 @@ const RadialProgressChartChild = ({
         <img src={imageSrc} alt={imageAlt} />
       </div>
       <div className={classes.centerDataContainer}>
-        <p className={`${classes.centerValue} ${classes.centerDataFont}`}>
+        <div className={`${classes.centerValue} ${classes.centerDataFont}`}>
           {centerValue + " " + unit}
-        </p>
-
-        <p className={`${classes.centerText} ${classes.centerDataFont}`}>
-          {centerText}
-        </p>
+        </div>
+        {centerText && (
+          <div className={`${classes.centerText} ${classes.centerDataFont}`}>
+            {centerText}
+          </div>
+        )}
       </div>
     </div>
   );

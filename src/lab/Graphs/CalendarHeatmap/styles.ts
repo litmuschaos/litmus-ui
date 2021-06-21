@@ -7,10 +7,9 @@ interface StyleProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
+  root: { position: "absolute" },
   tooltipStyles: {
-    marginLeft: "3.5rem",
-    marginTop: "0.5rem",
-    transform: "translate(-50%,0)",
+    transform: "translate(-25%,-55%)",
     backgroundColor: `${theme.palette.background.paper} !important`,
   },
   xAxisLabels: {
