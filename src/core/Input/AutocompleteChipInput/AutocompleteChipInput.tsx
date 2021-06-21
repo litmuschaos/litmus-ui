@@ -15,6 +15,7 @@ const AutocompleteChipInput: React.FC<BaseAutocompleteChipInputInputProps> = ({
   className,
   multiple = true,
   disableClearable = true,
+  defaultValue,
   ...rest
 }) => {
   const classes = useStyles();
@@ -32,6 +33,7 @@ const AutocompleteChipInput: React.FC<BaseAutocompleteChipInputInputProps> = ({
   };
   return (
     <Autocomplete
+      defaultValue={defaultValue}
       data-testid="autocomplete"
       className={`${classes.root} ${className}`}
       ChipProps={chips}

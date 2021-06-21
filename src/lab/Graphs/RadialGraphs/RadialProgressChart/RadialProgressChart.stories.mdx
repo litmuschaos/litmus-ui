@@ -23,7 +23,7 @@ Parent with height:width of around 1:2 is most suitable for semiCirle
     name="Circle"
     args={{
       radialData: testRadialProgressChartData,
-      heading: "Based on test results",
+      heading: "",
       iconSize: "1.5rem",
       iconTop: "4rem",
       unit: "%",
@@ -45,14 +45,14 @@ Parent with height:width of around 1:2 is most suitable for semiCirle
     args={{
       radialData: testRadialProgressChartData,
       semiCircle: true,
-      heading: "Based on test results",
+      heading: " Based on test results",
       iconSize: "1rem",
-      iconTop: "4rem",
+      iconTop: "3rem",
       unit: "%",
     }}
   >
     {(args) => (
-      <div style={{ width: "15rem", height: "7rem" }}>
+      <div style={{ width: "15rem", height: "20rem" }}>
         <RadialProgressChart {...args} />
       </div>
     )}
