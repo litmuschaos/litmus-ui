@@ -4,6 +4,7 @@ const testHandleBarClick = (barData: any) => console.log("barId", barData);
 const openSeries: LineMetricSeries = {
   metricName: "probe success",
   data: [
+    { date: 0, value: 10 },
     { date: 10, value: 10 },
     { date: 20, value: 10 },
     { date: 30, value: 1 },
