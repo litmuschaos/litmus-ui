@@ -66,7 +66,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   legendTableArea: (props: StyleProps) => ({
     display: "flex",
     width: props.alignLegendTable === "bottom" ? props.width : props.width / 2,
-    height: "100%",
+    height:
+      props.alignLegendTable === "bottom"
+        ? props.circleOrient === 1
+          ? props.height - props.outerRadius
+          : props.height - props.outerRadius * 2
+        : props.circleOrient === 1
+        ? props.outerRadius
+        : props.outerRadius * 2,
     alignItems: props.alignLegendTable === "right" ? "center" : "unset",
   }),
 
