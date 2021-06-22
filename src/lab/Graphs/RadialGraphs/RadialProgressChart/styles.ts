@@ -9,6 +9,8 @@ interface StyleProps {
   outerRadius: number;
   iconTop?: string;
   iconSize: string;
+  baseColor?: string;
+  centerText?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -32,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     whiteSpace: "initial",
     textAlign: "center",
     lineHeight: "1.5rem",
-    margin: theme.spacing(2, 0),
     alignContent: "flex-start",
   }),
   centerValue: (props: StyleProps) => ({
@@ -52,9 +53,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   centerDataContainer: (props: StyleProps) => ({
     position: "absolute",
-    top: props.circleOrient === 1 ? "100%" : "50%",
+    top: props.outerRadius,
     left: "50%",
-    transform: "translate(-50%, -50%)",
+    transform: props.centerText
+      ? props.circleOrient === 1
+        ? "translate(-50%, -50%)"
+        : "translate(-50%, -0%)"
+      : props.circleOrient === 1
+      ? "translate(-50%, -100%)"
+      : "translate(-50%, -25%)",
   }),
 
   centerIcon: (props: StyleProps) => ({
@@ -73,7 +80,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: props.iconSize,
     width: props.iconSize,
     borderRadius: props.iconSize,
-    background: theme.palette.highlight,
+    background: props.baseColor ?? theme.palette.highlight,
     "& img": {
       position: "absolute",
       left: "50%",
