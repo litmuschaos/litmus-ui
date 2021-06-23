@@ -125,12 +125,11 @@ const PlotStackBar = ({
     color: palette.text.hint,
     fill: palette.text.hint,
   };
-  //
   // bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
-  let localInitialxAxisDate = 0;
 
+  let localInitialxAxisDate = 0;
   if (initialxAxisDate) {
     localInitialxAxisDate = initialxAxisDate;
   } else if (barSeries[0].date && barSeries[1].date) {
@@ -422,12 +421,12 @@ const PlotStackBar = ({
                         currentSelectedBar
                           ? currentSelectedBar === bar.bar.data.date
                             ? 1
-                            : 0.4
+                            : 0.3
                           : tooltipData && tooltipData[0]
                           ? getDateNumber(bar.bar.data.date) ===
                             getDateNumber(tooltipData[0].data.date)
                             ? 1
-                            : 0.4
+                            : 0.5
                           : 1
                       }
                       fill={bar.color}
@@ -466,12 +465,12 @@ const PlotStackBar = ({
                       currentSelectedBar
                         ? currentSelectedBar === d.date
                           ? 1
-                          : 0.8
+                          : 0.3
                         : tooltipData && tooltipData[0]
                         ? getDateNumber(d.date) ===
                           getDateNumber(tooltipData[0].data.date)
                           ? 1
-                          : 0.8
+                          : 0.5
                         : 1
                     }
                     pointerEvents="none"
@@ -505,7 +504,6 @@ const PlotStackBar = ({
                 );
               } else {
                 setCurrentSelectedBar(NaN);
-
                 handleBarClick?.("");
               }
             }}
