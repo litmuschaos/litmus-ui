@@ -38,6 +38,10 @@ export interface CentralBrushPostitionProps {
   start: { x: number | undefined };
   end: { x: number | undefined };
 }
+export interface StrictCentralBrushPostitionProps {
+  start: { x: number };
+  end: { x: number };
+}
 
 export interface LineAreaGraphProps<T> {
   // Area under the curve graph:
