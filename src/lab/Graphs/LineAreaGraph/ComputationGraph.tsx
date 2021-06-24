@@ -22,7 +22,7 @@ import { LegendTable } from "../LegendTable/LegendTable";
 import {
   DateValue,
   LineAreaGraphChildProps,
-  StrictCentralBrushPostitionProps,
+  StrictBrushPostitionProps,
   TooltipData,
   ToolTipDateValue,
 } from "./base";
@@ -198,7 +198,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     [xMax, closedSeries, openSeries, eventSeries]
   );
   const [localBrushPosition, setLocalBrushPosition] =
-    useState<StrictCentralBrushPostitionProps>({
+    useState<StrictBrushPostitionProps>({
       start: {
         x:
           centralBrushPosition?.start.x ??
@@ -266,7 +266,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   );
 
   const updateLocalBrushPosition = useCallback(
-    (domain: StrictCentralBrushPostitionProps) => {
+    (domain: StrictBrushPostitionProps) => {
       setLocalBrushPosition({
         start: {
           x: domain.start.x,
@@ -296,7 +296,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   );
 
   const filterAllDateWithNewDomain = useCallback(
-    (domain: StrictCentralBrushPostitionProps) => {
+    (domain: StrictBrushPostitionProps) => {
       const x0 = domain.start.x;
       const x1 = domain.end.x;
 

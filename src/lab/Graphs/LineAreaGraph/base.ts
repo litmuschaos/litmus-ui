@@ -34,12 +34,12 @@ export interface ToolTip<T> {
   // Color of the metric in the ToolTip legends
   baseColor: string;
 }
-export interface CentralBrushPostitionProps {
+export interface BrushPostitionProps {
   start: { x: number | undefined };
   end: { x: number | undefined };
 }
 
-export interface StrictCentralBrushPostitionProps {
+export interface StrictBrushPostitionProps {
   start: { x: number };
   end: { x: number };
 }
@@ -115,13 +115,11 @@ export interface LineAreaGraphProps<T> {
 
   // central variable which contains the state
   // of the brush positoins to be used by all the graphs
-  centralBrushPosition?: CentralBrushPostitionProps;
+  centralBrushPosition?: BrushPostitionProps;
 
   // function for updating the state of the centralBushPosition
   // upon the update of the localBrushPositions
-  handleCentralBrushPosition?: (
-    newBrushPosition: CentralBrushPostitionProps
-  ) => any;
+  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => any;
 }
 export interface LineAreaGraphChildProps
   extends LineAreaGraphProps<Array<StrictColorGraphMetric>> {
