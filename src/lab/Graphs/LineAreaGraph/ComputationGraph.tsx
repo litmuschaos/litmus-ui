@@ -980,7 +980,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                     end: { x: new Date(brushDateScale.domain()[1]).getTime() },
                   });
                 }
-                // handleLocalBrushPositionUpdate();
                 setAutoRender(true);
                 hideTooltip();
                 hideTooltipDate();
