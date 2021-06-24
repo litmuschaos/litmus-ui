@@ -147,7 +147,7 @@ const PlotStackBar = ({
           new Date(Math.max(...barSeries.map((element) => element.date))),
         ],
       }),
-    [barSeries, localInitialxAxisDate, xMax]
+    [barSeries, xMax, openSeriesDates]
   );
   const yScale = useMemo(
     () =>

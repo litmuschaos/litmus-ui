@@ -265,35 +265,95 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     [yMax, filteredClosedSeries, filteredOpenSeries]
   );
 
-  const updateLocalBrushPosition = (
-    domain: StrictCentralBrushPostitionProps
-  ) => {
-    setLocalBrushPosition({
-      start: {
-        x: domain.start.x,
-      },
-      end: {
-        x: domain.end.x,
-      },
-    });
-    if (handleCentralBrushPosition) {
-      if (
-        !centralBrushPosition ||
-        (centralBrushPosition &&
-          (centralBrushPosition.start.x !== domain.start.x ||
-            centralBrushPosition.end.x !== domain.end.x))
-      )
-        handleCentralBrushPosition({
-          start: {
-            x: domain.start.x,
-          },
-          end: {
-            x: domain.end.x,
-          },
-        });
-    }
-  };
-  const handleLocalBrushPositionUpdate = () => {
+  const updateLocalBrushPosition = useCallback(
+    (domain: StrictCentralBrushPostitionProps) => {
+      setLocalBrushPosition({
+        start: {
+          x: domain.start.x,
+        },
+        end: {
+          x: domain.end.x,
+        },
+      });
+      if (handleCentralBrushPosition) {
+        if (
+          !centralBrushPosition ||
+          (centralBrushPosition &&
+            (centralBrushPosition.start.x !== domain.start.x ||
+              centralBrushPosition.end.x !== domain.end.x))
+        )
+          handleCentralBrushPosition({
+            start: {
+              x: domain.start.x,
+            },
+            end: {
+              x: domain.end.x,
+            },
+          });
+      }
+    },
+    [centralBrushPosition, handleCentralBrushPosition]
+  );
+
+  const filterAllDateWithNewDomain = useCallback(
+    (domain: StrictCentralBrushPostitionProps) => {
+      const x0 = domain.start.x;
+      const x1 = domain.end.x;
+
+      if (closedSeries) {
+        const seriesCopy = closedSeries
+          .map((lineData) =>
+            lineData.data.filter((s) => {
+              const x = getDateNum(s).getTime();
+              return x > x0 && x < x1;
+            })
+          )
+          .map((linedata, i) => ({
+            metricName: closedSeries[i].metricName,
+            data: linedata,
+            baseColor: closedSeries[i].baseColor,
+          }));
+
+        setFilteredClosedSeries(seriesCopy);
+      }
+
+      if (openSeries) {
+        const seriesCopy = openSeries
+          .map((lineData) =>
+            lineData.data.filter((s) => {
+              const x = getDateNum(s).getTime();
+              return x > x0 && x < x1;
+            })
+          )
+          .map((linedata, i) => ({
+            metricName: openSeries[i].metricName,
+            data: linedata,
+            baseColor: openSeries[i].baseColor,
+          }));
+
+        setFilteredOpenSeries(seriesCopy);
+      }
+      if (eventSeries) {
+        const seriesCopy = eventSeries
+          .map((lineData) =>
+            lineData.data.filter((s) => {
+              const x = getDateNum(s).getTime();
+              return x > x0 && x < x1;
+            })
+          )
+          .map((linedata, i) => ({
+            metricName: eventSeries[i].metricName,
+            data: linedata,
+            subData: eventSeries[i].subData,
+            baseColor: eventSeries[i].baseColor,
+          }));
+
+        setFilteredEventSeries(seriesCopy);
+      }
+    },
+    [closedSeries, openSeries, eventSeries]
+  );
+  const handleLocalBrushPositionUpdate = useCallback(() => {
     setAutoRender(false);
     hideTooltip();
     hideTooltipDate();
@@ -306,7 +366,12 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         end: { x: x1 },
       });
     }
-  };
+  }, [
+    filterAllDateWithNewDomain,
+    hideTooltipDate,
+    hideTooltip,
+    localBrushPosition,
+  ]);
 
   useEffect(() => {
     if (centralBrushPosition) {
@@ -325,11 +390,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         }
       }
     }
-  }, [centralBrushPosition]);
+  }, [centralBrushPosition, localBrushPosition]);
 
   useEffect(() => {
-    handleLocalBrushPositionUpdate();
-  }, [localBrushPosition]);
+    if (localBrushPosition) handleLocalBrushPositionUpdate();
+  }, [localBrushPosition, handleLocalBrushPositionUpdate]);
 
   // Handle the change in the slider values
   const handleChangeSlider = (event: any, newValue: number | number[]) => {
@@ -702,65 +767,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       filteredEventSeries,
     ]
   );
-
-  const filterAllDateWithNewDomain = (
-    domain: StrictCentralBrushPostitionProps
-  ) => {
-    const x0 = domain.start.x;
-    const x1 = domain.end.x;
-
-    if (closedSeries) {
-      const seriesCopy = closedSeries
-        .map((lineData) =>
-          lineData.data.filter((s) => {
-            const x = getDateNum(s).getTime();
-            return x > x0 && x < x1;
-          })
-        )
-        .map((linedata, i) => ({
-          metricName: closedSeries[i].metricName,
-          data: linedata,
-          baseColor: closedSeries[i].baseColor,
-        }));
-
-      setFilteredClosedSeries(seriesCopy);
-    }
-
-    if (openSeries) {
-      const seriesCopy = openSeries
-        .map((lineData) =>
-          lineData.data.filter((s) => {
-            const x = getDateNum(s).getTime();
-            return x > x0 && x < x1;
-          })
-        )
-        .map((linedata, i) => ({
-          metricName: openSeries[i].metricName,
-          data: linedata,
-          baseColor: openSeries[i].baseColor,
-        }));
-
-      setFilteredOpenSeries(seriesCopy);
-    }
-    if (eventSeries) {
-      const seriesCopy = eventSeries
-        .map((lineData) =>
-          lineData.data.filter((s) => {
-            const x = getDateNum(s).getTime();
-            return x > x0 && x < x1;
-          })
-        )
-        .map((linedata, i) => ({
-          metricName: eventSeries[i].metricName,
-          data: linedata,
-          subData: eventSeries[i].subData,
-          baseColor: eventSeries[i].baseColor,
-        }));
-
-      setFilteredEventSeries(seriesCopy);
-    }
-  };
-
+  // function is fired when selection is performed
+  // using brush
   const onBrushChange = useCallback(
     (domain: Bounds | null) => {
       if (!domain) return;
@@ -779,11 +787,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       });
     },
     [
-      filteredClosedSeries,
-      filteredOpenSeries,
-      filteredEventSeries,
       hideTooltip,
       hideTooltipDate,
+      filterAllDateWithNewDomain,
+      updateLocalBrushPosition,
     ]
   );
 
@@ -1024,7 +1031,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             max={new Date(brushDateScale.domain()[1]).getTime()}
             marks={marks}
             getAriaValueText={valueLabelFormat}
-            valueLabelDisplay="on"
+            valueLabelDisplay="auto"
             onChange={handleChangeSlider}
           />
         </div>
