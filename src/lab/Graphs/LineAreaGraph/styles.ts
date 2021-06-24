@@ -1,4 +1,10 @@
-import { makeStyles, Theme } from "@material-ui/core";
+import {
+  makeStyles,
+  Slider,
+  Theme,
+  Tooltip,
+  withStyles,
+} from "@material-ui/core";
 
 interface StyleProps {
   width: number;
@@ -132,6 +138,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: theme.palette.text.hint,
     },
   }),
+  rangeSliderTooltip: {
+    "& .MuiTooltip-tooltip": {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+      boxShadow: `0rem 0.128rem 0.384rem ${theme.shadows[1]}, 0rem 0.682rem 1.54rem ${theme.shadows[1]}`,
+      fontSize: "0.625rem",
+      fontWeight: 400,
+    },
+  },
 }));
 
 const usePlotLineAreaGraphStyles = makeStyles((theme: Theme) => ({
@@ -140,5 +155,56 @@ const usePlotLineAreaGraphStyles = makeStyles((theme: Theme) => ({
     strokeOpacity: 0.2,
   },
 }));
+const TooltipMui = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    boxShadow: `0rem 0.128rem 0.384rem ${theme.shadows[1]}, 0rem 0.682rem 1.54rem ${theme.shadows[1]}`,
+    fontSize: "0.625rem",
+    fontWeight: 400,
+  },
+  tooltipPlacementBottom: {
+    margin: theme.spacing(1),
+  },
+}))(Tooltip);
 
-export { useStyles, usePlotLineAreaGraphStyles };
+const SliderMui = withStyles((theme: Theme) => ({
+  root: {
+    color: theme.palette.highlight,
+    height: "0.375rem",
+    "& .MuiSlider-mark": {
+      display: "none",
+    },
+  },
+  thumb: {
+    height: "0.9rem",
+    width: "0.9rem",
+    backgroundColor: theme.palette.highlight,
+    border: `4px double ${theme.palette.background.paper}`,
+    "&:focus, &:hover, &$active": {
+      boxShadow: "inherit",
+    },
+  },
+  active: {},
+  valueLabel: {
+    left: "calc(-50% + 4px)",
+  },
+  track: {
+    height: "0.375rem",
+    borderRadius: "0.3125rem",
+  },
+  rail: {
+    height: "0.375rem",
+    borderRadius: "0.3125rem",
+  },
+  markLabel: {
+    '&[data-index="0"]': {
+      transform: `translate(0%,0)`,
+    },
+    '&[data-index="1"]': {
+      transform: `translate(-100%,0)`,
+    },
+  },
+}))(Slider);
+
+export { useStyles, usePlotLineAreaGraphStyles, TooltipMui, SliderMui };

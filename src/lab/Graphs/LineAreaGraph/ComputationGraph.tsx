@@ -1,4 +1,4 @@
-import { Slider, Tooltip as TooltipMui, useTheme } from "@material-ui/core";
+import { useTheme } from "@material-ui/core";
 import { Bounds } from "@visx/brush/lib/types";
 import {
   Brush,
@@ -27,7 +27,7 @@ import {
   ToolTipDateValue,
 } from "./base";
 import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
-import { useStyles } from "./styles";
+import { SliderMui, TooltipMui, useStyles } from "./styles";
 import {
   bisectDate,
   bisectorValue,
@@ -895,7 +895,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     <div
       onMouseLeave={() => hideTooltipDate()}
       style={{
-        width,
+        width: width,
         height: height,
         position: "relative",
       }}
@@ -1017,7 +1017,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       </svg>
       {showRangeSlider && (
         <div className={classes.rangeSliderParent}>
-          <Slider
+          <SliderMui
             ValueLabelComponent={valueLabelComponent}
             value={[localBrushPosition.start.x, localBrushPosition.end.x]}
             min={new Date(brushDateScale.domain()[0]).getTime()}
