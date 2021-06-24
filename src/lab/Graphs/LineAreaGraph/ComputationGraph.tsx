@@ -215,63 +215,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           new Date(brushDateScale.domain()[1]).getTime(),
       },
     });
-  let brushBoundData: { x0: number; x1: number; y0?: number; y1?: number } = {
-    x0: new Date(brushDateScale.domain()[0]).getTime(),
-    x1: new Date(brushDateScale.domain()[1]).getTime(),
-  };
-  // const brushValueScale = useMemo(
-  //   () =>
-  //     scaleLinear<number>({
-  //       range: [yMax, 0],
-  //       domain: [
-  //         min(
-  //           (closedSeries
-  //             ? closedSeries
-  //                 .map((linedata) => linedata.data)
-  //                 .reduce((rec, d) => rec.concat(d), [])
-  //             : [{ date: NaN, value: NaN }]
-  //           )
-  //             .concat(
-  //               openSeries
-  //                 ? openSeries
-  //                     .map((linedata) => linedata.data)
-  //                     .reduce((rec, d) => rec.concat(d), [])
-  //                 : [{ date: NaN, value: NaN }]
-  //             )
-  //             .concat([{ date: new Date().getTime(), value: 0 }]),
-  //           getValueNum
-  //         ) || 0,
-  //         max(
-  //           (closedSeries
-  //             ? closedSeries
-  //                 .map((linedata) => linedata.data)
-  //                 .reduce((rec, d) => rec.concat(d), [])
-  //             : [{ date: NaN, value: NaN }]
-  //           ).concat(
-  //             openSeries
-  //               ? openSeries
-  //                   .map((linedata) => linedata.data)
-  //                   .reduce((rec, d) => rec.concat(d), [])
-  //               : [{ date: NaN, value: NaN }]
-  //           ),
-  //           getValueNum
-  //         ) || 1,
-  //       ],
-  //       nice: true,
-  //     }),
-  //   [yMax, closedSeries, openSeries]
-  // );
 
-  // // handlers for brush
-  // const initialBrushPosition = useMemo(
-  //   () => ({
-  //     // start: { x: brushDateScale.range()[1] },
-  //     // end: { x: brushDateScale.range()[0] },
-  //     start: { x: 0 },
-  //     end: { x: 50 },
-  //   }),
-  //   [brushDateScale, centralBrushPosition]
-  // );
   const handleParentUpdate = () => {
     setAutoRender(false);
     hideTooltip();
@@ -280,10 +224,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     const x1 = localBrushPosition?.end.x;
 
     if (x0 !== undefined && x1 !== undefined) {
-      brushBoundData = {
-        x0: x0,
-        x1: x1,
-      };
       if (closedSeries) {
         const seriesCopy = closedSeries
           .map((lineData) =>
@@ -337,85 +277,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     }
   };
 
-  // const updatedBrushPosition = useMemo(
-  //   () => ({
-  //     // start: { x: brushDateScale.range()[1] },
-  //     // end: { x: brushDateScale.range()[0] },
-  //     start: {
-  //       x: brushDateScale(
-  //         centralBrushPosition
-  //           ? new Date(
-  //               typeof centralBrushPosition.start.x === "number"
-  //                 ? centralBrushPosition.start.x
-  //                 : 0
-  //             )
-  //           : new Date(0)
-  //       ),
-  //     },
-  //     end: {
-  //       x: brushDateScale(
-  //         centralBrushPosition
-  //           ? new Date(
-  //               typeof centralBrushPosition.end.x === "number"
-  //                 ? centralBrushPosition.end.x
-  //                 : 0
-  //             )
-  //           : new Date(0)
-  //       ),
-  //     },
-  //   }),
-  //   [centralBrushPosition]
-  // );
-  // event handlers
-  // const handleClearClick = () => {
-  //   if (brushRef?.current) {
-  //     // setFilteredStock(stock);
-  //     setFilteredClosedSeries(closedSeries);
-  //     setFilteredOpenSeries(openSeries);
-  //     setFilteredEventSeries(eventSeries);
-  //     if (handleCentralBrushPosition) {
-  //       handleCentralBrushPosition({
-  //         start: { x: new Date(brushDateScale.domain()[0]).getTime() },
-  //         end: { x: new Date(brushDateScale.domain()[0]).getTime() },
-  //       });
-  //     }
-  //     brushRef.current.reset();
-  //   }
-  // };
-
-  // const handleResetClick = () => {
-  //   if (brushRef?.current) {
-  //     setFilteredClosedSeries(closedSeries);
-  //     setFilteredOpenSeries(openSeries);
-  //     setFilteredEventSeries(eventSeries);
-  //     const updater: UpdateBrush = (prevBrush) => {
-  //       const newExtent = brushRef.current!.getExtent(
-  //         initialBrushPosition.start,
-  //         initialBrushPosition.end
-  //       );
-
-  //       const newState: BaseBrushState = {
-  //         ...prevBrush,
-  //         // start: { y: newExtent.y0, x: newExtent.x0 },
-  //         // end: { y: newExtent.y1, x: newExtent.x1 },
-
-  //         start: { y: newExtent.y0, x: newExtent.x0 },
-
-  //         end: { y: newExtent.y1, x: newExtent.y1 },
-  //         extent: newExtent,
-  //       };
-
-  //       return newState;
-  //     };
-  //     brushRef.current.updateBrush(updater);
-  //   }
-  // };
-
-  // console.log("range", brushDateScale.range());
-  // console.log("domain", brushDateScale.domain());
-  // console.log("time 0", new Date(brushDateScale.domain()[1]).getTime());
-  // scales for graph
-
   const dateScale = useMemo(
     () =>
       scaleTime<number>({
@@ -427,22 +288,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       }),
     [xMax, localBrushPosition, brushDateScale]
   );
-  useEffect(() => {
-    // if (
-    //   (centralBrushPosition &&
-    //     brushDateScale(
-    //       centralBrushPosition?.start.x ?? brushBoundData.x0 ?? 0
-    //     ) !== new Date(dateScale.domain()[0]).getTime()) ||
-    //   brushDateScale(centralBrushPosition?.end.x ?? brushBoundData.x1 ?? 0) !==
-    //     new Date(dateScale.domain()[1]).getTime()
-    // ) {
-    //   handleParentUpdate();
-    //   brushBoundData = {
-    //     x0: centralBrushPosition?.start.x ?? 0,
-    //     x1: centralBrushPosition?.end.x ?? 1,
-    //   };
-    // }
 
+  useEffect(() => {
     if (centralBrushPosition) {
       if (
         typeof centralBrushPosition.start.x === "number" &&
@@ -461,21 +308,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     }
   }, [centralBrushPosition]);
   useEffect(() => {
-    // if (
-    //   (centralBrushPosition &&
-    //     brushDateScale(
-    //       centralBrushPosition?.start.x ?? brushBoundData.x0 ?? 0
-    //     ) !== new Date(dateScale.domain()[0]).getTime()) ||
-    //   brushDateScale(centralBrushPosition?.end.x ?? brushBoundData.x1 ?? 0) !==
-    //     new Date(dateScale.domain()[1]).getTime()
-    // ) {
-    //   handleParentUpdate();
-    //   brushBoundData = {
-    //     x0: centralBrushPosition?.start.x ?? 0,
-    //     x1: centralBrushPosition?.end.x ?? 1,
-    //   };
-    // }
-
     handleParentUpdate();
   }, [localBrushPosition]);
 
@@ -488,9 +320,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     if (newValue && typeof newValue !== "number") {
       x0 = newValue[0];
       x1 = newValue[1];
-      brushBoundData = { x0, x1 };
     }
-    if (localBrushPosition.start.x !== x0 || localBrushPosition.end.x !== x1) {
+    if (
+      (newValue && localBrushPosition.start.x !== x0) ||
+      localBrushPosition.end.x !== x1
+    ) {
       setLocalBrushPosition({
         start: { x: x0 },
         end: { x: x1 },
@@ -562,38 +396,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     }
   };
 
-  ////////////// end sliuder
-  // const dateScale = useMemo(
-  //   () =>
-  //     scaleTime<number>({
-  //       range: [0, xMax],
-  //       domain: extent(
-  //         (filteredClosedSeries
-  //           ? filteredClosedSeries
-  //               .map((linedata) => linedata.data)
-  //               .reduce((rec, d) => rec.concat(d), [])
-  //           : [{ date: NaN, value: NaN }]
-  //         )
-  //           .concat(
-  //             filteredOpenSeries
-  //               ? filteredOpenSeries
-  //                   .map((linedata) => linedata.data)
-  //                   .reduce((rec, d) => rec.concat(d), [])
-  //               : [{ date: NaN, value: NaN }]
-  //           )
-  //           .concat(
-  //             filteredEventSeries
-  //               ? filteredEventSeries
-  //                   .map((linedata) => linedata.data)
-  //                   .reduce((rec, d) => rec.concat(d), [])
-  //               : [{ date: NaN, value: NaN }]
-  //           ),
-  //         getDateNum
-  //       ) as [Date, Date],
-  //     }),
-  //   [xMax, filteredClosedSeries, filteredOpenSeries, filteredEventSeries]
-  // );
-
+  // end handle Slider
   const valueScale = useMemo(
     () =>
       scaleLinear<number>({
@@ -982,8 +785,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     (domain: Bounds | null) => {
       if (!domain) return;
       setAutoRender(false);
-      const { x0, x1, y0, y1 } = domain;
-      brushBoundData = { x0, x1, y0, y1 };
+      const { x0, x1 } = domain;
       hideTooltip();
       hideTooltipDate();
       setLocalBrushPosition({
@@ -1000,27 +802,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           start: { x: x0 },
           end: { x: x1 },
         });
-        // console.log("x0:x1", x0, x1);
-        // console.log(
-        //   "centralBrush Position",
-        //   brushDateScale(centralBrushPosition?.start.x ?? 0)
-        // );
-        // console.log(
-        //   "upddated brush postion",
-        //   updatedBrushPosition.start.x,
-        //   updatedBrushPosition.end.x
-        // );
-        // console.log("brushRef", brushRef.current);
-        // console.log(
-        //   "date scasle 0:1",
-        //   new Date(dateScale.domain()[0]).getTime(),
-        //   new Date(dateScale.domain()[1]).getTime()
-        // );
-        // console.log("initial brush postion", initialBrushPosition);
-
-        // console.log("current", brushRef.current);
       }
-      // added lateer
       if (closedSeries) {
         const seriesCopy = closedSeries
           .map((lineData) =>
