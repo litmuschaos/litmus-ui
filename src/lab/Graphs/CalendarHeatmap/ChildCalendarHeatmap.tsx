@@ -255,13 +255,13 @@ const ChildCalendarHeatmap = ({
                               e.currentTarget.getAttribute("id")?.toString() ??
                                 ""
                             );
-
                             setCurrentSelectedColor(selectedColor);
+                            handleBinClick?.(bin);
                           } else {
                             setCurrentSelectedColor("");
                             setCurrentSelectedBin("");
+                            handleBinClick?.("");
                           }
-                          handleBinClick?.(bin);
                         }}
                         rx={"4.95"}
                       />
