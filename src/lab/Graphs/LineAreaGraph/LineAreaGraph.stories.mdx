@@ -22,17 +22,17 @@ in form of lines, area-closed under the graph and events.
       showMultiToolTip: false,
       showPoints: true,
       showLegendTable: false,
+      showRangeSlider: true,
       showTips: true,
       unit: "%",
       yLabel: "Chaos",
       yLabelOffset: 35,
       marginLeftEventTable: 10,
       widthPercentageEventTable: 40,
-      xAxistimeFormat: "hh:mm:ss Do MMM",
     }}
   >
     {(args) => (
-      <div style={{ width: "40rem", height: "25rem" }}>
+      <div style={{ width: "40rem", height: "20rem" }}>
         <LineAreaGraph {...args} />
       </div>
     )}

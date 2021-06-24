@@ -38,6 +38,7 @@ export interface CentralBrushPostitionProps {
   start: { x: number | undefined };
   end: { x: number | undefined };
 }
+
 export interface StrictCentralBrushPostitionProps {
   start: { x: number };
   end: { x: number };
@@ -77,6 +78,12 @@ export interface LineAreaGraphProps<T> {
 
   // Event Table for the Event Series and its sub-data
   showEventTable?: boolean;
+
+  // RangeSlider for selecting the data from the given internal
+  showRangeSlider?: boolean;
+
+  // Range Slider height
+  rangeSliderHeight?: number;
 
   // Legend Table height
   legendTableHeight?: number;

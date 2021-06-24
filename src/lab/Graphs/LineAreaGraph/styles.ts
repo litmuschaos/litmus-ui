@@ -3,10 +3,19 @@ import { makeStyles, Theme } from "@material-ui/core";
 interface StyleProps {
   width: number;
   height: number;
+  margin: {
+    top: number;
+    left: number;
+    bottom: number;
+    right: number;
+  };
+  xMax: number;
   legendTableHeight: number;
+  rangeSliderHeight: number;
   widthPercentageEventTable: number;
   marginLeftEventTable: number;
   showLegendTable: boolean;
+  showRangeSlider: boolean;
   showEventTable: boolean;
 }
 
@@ -17,35 +26,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   rectBase2: {
     fill: "yellow",
   },
-  table: (props: StyleProps) => ({
-    display: "flex",
-    width: props.width,
-    height: props.height,
-    backgroundColor: theme.palette.background.paper,
-    overflowY: "auto",
-    "&::-webkit-scrollbar": {
-      width: "3px",
-      height: "3px",
-    },
-
-    "&::-webkit-scrollbar-track": {
-      backgroundColor: theme.palette.background.paper,
-      borderRadius: "3px",
-    },
-
-    "&::-webkit-scrollbar-corner": {
-      backgroundColor: theme.palette.background.paper,
-    },
-
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.palette.highlight,
-      borderRadius: "3px",
-    },
-    "&::-webkit-scrollbar-thumb:hover": {
-      backgroundColor: theme.palette.highlight,
-    },
-  }),
-
   tableDataRow: {
     float: "left",
     display: "flex",
@@ -143,6 +123,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         ? props.width * (props.widthPercentageEventTable / 100)
         : 0,
     height: props.legendTableHeight,
+  }),
+  rangeSliderParent: (props: StyleProps) => ({
+    width: props.xMax,
+    marginLeft: props.margin.left,
+    marginRight: props.margin.right,
+    "& .MuiSlider-markLabel": {
+      color: theme.palette.text.hint,
+    },
   }),
 }));
 
