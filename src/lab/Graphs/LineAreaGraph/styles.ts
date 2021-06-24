@@ -132,6 +132,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }),
   rangeSliderParent: (props: StyleProps) => ({
     width: props.xMax,
+    height: props.rangeSliderHeight,
     marginLeft: props.margin.left,
     marginRight: props.margin.right,
     "& .MuiSlider-markLabel": {

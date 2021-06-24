@@ -33,6 +33,7 @@ const MultipleGraphs = () => {
           yLabelOffset={35}
           marginLeftEventTable={10}
           widthPercentageEventTable={40}
+          showRangeSlider={true}
         />
       </div>
       <div style={{ width: "30rem", height: "18rem", marginTop: "4rem" }}>
@@ -50,6 +51,7 @@ const MultipleGraphs = () => {
           showPoints={true}
           showLegendTable={false}
           showTips={true}
+          showRangeSlider={true}
           unit="%"
           yLabel="Chaos"
           yLabelOffset={35}
