@@ -279,8 +279,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     const x0 = localBrushPosition?.start.x;
     const x1 = localBrushPosition?.end.x;
 
-    console.log("locla:", localBrushPosition);
-    console.log("central:", centralBrushPosition);
     if (x0 !== undefined && x1 !== undefined) {
       brushBoundData = {
         x0: x0,
@@ -446,7 +444,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     // }
 
     if (centralBrushPosition) {
-      if (centralBrushPosition.start.x && centralBrushPosition.end.x) {
+      if (
+        typeof centralBrushPosition.start.x === "number" &&
+        typeof centralBrushPosition.end.x === "number"
+      ) {
         if (
           centralBrushPosition.start.x !== localBrushPosition.start.x ||
           centralBrushPosition.end.x !== localBrushPosition.end.x
@@ -1173,6 +1174,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     setFilteredOpenSeries(openSeries);
     setFilteredEventSeries(eventSeries);
   }
+  console.log("local:", localBrushPosition);
+  console.log("central", centralBrushPosition);
   return (
     <div
       onMouseLeave={() => hideTooltipDate()}
