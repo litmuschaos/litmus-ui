@@ -1024,7 +1024,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             max={new Date(brushDateScale.domain()[1]).getTime()}
             marks={marks}
             getAriaValueText={valueLabelFormat}
-            valueLabelDisplay="auto"
+            valueLabelDisplay="on"
             onChange={handleChangeSlider}
           />
         </div>

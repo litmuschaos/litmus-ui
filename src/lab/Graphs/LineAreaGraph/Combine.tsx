@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { LineAreaGraph } from "../LineAreaGraph";
+import { CentralBrushPostitionProps } from "./base";
 import { closedSeriesData, eventSeriesData, openSeriesData } from "./testData";
-
-interface CentralBrushPostitionProps {
-  start: { x: number | undefined };
-  end: { x: number | undefined };
-}
 
 const MultipleGraphs = () => {
   const [centralBrushPosition, setCentralBrushPosition] =

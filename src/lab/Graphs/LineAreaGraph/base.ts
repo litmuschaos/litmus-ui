@@ -113,8 +113,12 @@ export interface LineAreaGraphProps<T> {
   // ToolTip date's format
   toolTiptimeFormat?: string;
 
+  // central variable which contains the state
+  // of the brush positoins to be used by all the graphs
   centralBrushPosition?: CentralBrushPostitionProps;
 
+  // function for updating the state of the centralBushPosition
+  // upon the update of the localBrushPositions
   handleCentralBrushPosition?: (
     newBrushPosition: CentralBrushPostitionProps
   ) => any;
