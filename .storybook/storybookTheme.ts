@@ -8,12 +8,12 @@ const createTheme = (theme: Theme) => {
     base: "light",
 
     colorPrimary: theme.palette.background.paper,
-    colorSecondary: theme.palette.highlight,
+    colorSecondary: theme.palette.primary.light,
 
     // UI
     appBg: theme.palette.background.paper,
     appContentBg: theme.palette.background.paper,
-    appBorderColor: theme.palette.highlight,
+    appBorderColor: theme.palette.primary.light,
     appBorderRadius: theme.spacing(1),
 
     // Typography
@@ -27,12 +27,12 @@ const createTheme = (theme: Theme) => {
 
     // Toolbar default and active colors
     barTextColor: theme.palette.text.hint,
-    barSelectedColor: theme.palette.highlight,
+    barSelectedColor: theme.palette.primary.light,
     barBg: theme.palette.background.paper,
 
     // Form colors
     inputBg: theme.palette.background.paper,
-    inputBorder: theme.palette.highlight,
+    inputBorder: theme.palette.primary.light,
     inputTextColor: theme.palette.text.primary,
     inputBorderRadius: theme.spacing(1),
 
