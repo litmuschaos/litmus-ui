@@ -27,7 +27,9 @@ import {
   ToolTipDateValue,
 } from "./base";
 import { PlotLineAreaGraph } from "./PlotLineAreaGraph";
-import { SliderMui, TooltipMui, useStyles } from "./styles";
+import { SliderMui } from "./SliderMui";
+import { useStyles } from "./styles";
+import { TooltipMui } from "./TooltipMui";
 import {
   bisectDate,
   bisectorValue,
