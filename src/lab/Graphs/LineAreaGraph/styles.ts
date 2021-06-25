@@ -3,10 +3,19 @@ import { makeStyles, Theme } from "@material-ui/core";
 interface StyleProps {
   width: number;
   height: number;
+  margin: {
+    top: number;
+    left: number;
+    bottom: number;
+    right: number;
+  };
+  xMax: number;
   legendTableHeight: number;
+  rangeSliderHeight: number;
   widthPercentageEventTable: number;
   marginLeftEventTable: number;
   showLegendTable: boolean;
+  showRangeSlider: boolean;
   showEventTable: boolean;
 }
 
@@ -14,35 +23,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   rectBase: {
     fill: theme.palette.background.paper,
   },
-  table: (props: StyleProps) => ({
-    display: "flex",
-    width: props.width,
-    height: props.height,
-    backgroundColor: theme.palette.background.paper,
-    overflowY: "auto",
-    "&::-webkit-scrollbar": {
-      width: "3px",
-      height: "3px",
-    },
-
-    "&::-webkit-scrollbar-track": {
-      backgroundColor: theme.palette.background.paper,
-      borderRadius: "3px",
-    },
-
-    "&::-webkit-scrollbar-corner": {
-      backgroundColor: theme.palette.background.paper,
-    },
-
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.palette.highlight,
-      borderRadius: "3px",
-    },
-    "&::-webkit-scrollbar-thumb:hover": {
-      backgroundColor: theme.palette.highlight,
-    },
-  }),
-
+  rectBase2: {
+    fill: "yellow",
+  },
   tableDataRow: {
     float: "left",
     display: "flex",
@@ -141,6 +124,24 @@ const useStyles = makeStyles((theme: Theme) => ({
         : 0,
     height: props.legendTableHeight,
   }),
+  rangeSliderParent: (props: StyleProps) => ({
+    width: props.xMax,
+    height: props.rangeSliderHeight,
+    marginLeft: props.margin.left,
+    marginRight: props.margin.right,
+    "& .MuiSlider-markLabel": {
+      color: theme.palette.text.hint,
+    },
+  }),
+  rangeSliderTooltip: {
+    "& .MuiTooltip-tooltip": {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+      boxShadow: `0rem 0.128rem 0.384rem ${theme.shadows[1]}, 0rem 0.682rem 1.54rem ${theme.shadows[1]}`,
+      fontSize: "0.625rem",
+      fontWeight: 400,
+    },
+  },
 }));
 
 const usePlotLineAreaGraphStyles = makeStyles((theme: Theme) => ({

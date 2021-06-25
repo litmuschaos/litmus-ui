@@ -15,24 +15,25 @@ in form of lines, area-closed under the graph and events.
     name="Default"
     args={{
       legendTableHeight: 120,
+      rangeSliderHeight: 60,
       closedSeries: closedSeriesData,
       openSeries: openSeriesData,
       eventSeries: eventSeriesData,
       showEventTable: true,
       showMultiToolTip: false,
       showPoints: true,
-      showLegendTable: false,
+      showLegendTable: true,
+      showRangeSlider: true,
       showTips: true,
       unit: "%",
       yLabel: "Chaos",
       yLabelOffset: 35,
       marginLeftEventTable: 10,
       widthPercentageEventTable: 40,
-      xAxistimeFormat: "hh:mm:ss Do MMM",
     }}
   >
     {(args) => (
-      <div style={{ width: "40rem", height: "25rem" }}>
+      <div style={{ width: "50rem", height: "40rem" }}>
         <LineAreaGraph {...args} />
       </div>
     )}
