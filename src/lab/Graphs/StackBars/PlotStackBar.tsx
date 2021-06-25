@@ -12,7 +12,7 @@ import {
   localPoint,
   Tooltip,
 } from "@visx/visx";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   BarDateValue,
   BarStackChildProps,
@@ -87,6 +87,8 @@ const PlotStackBar = ({
     height,
   });
   const { palette } = useTheme();
+  const [currentSelectedBar, setCurrentSelectedBar] = useState<number>();
+
   const colorScale = scaleOrdinal<StackName, string>({
     domain: keys,
     range: [
@@ -123,11 +125,20 @@ const PlotStackBar = ({
     color: palette.text.hint,
     fill: palette.text.hint,
   };
-
   // bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
-  const localInitialxAxisDate = initialxAxisDate ?? barSeries[0].date ?? 0;
+
+  let localInitialxAxisDate = 0;
+  if (initialxAxisDate) {
+    localInitialxAxisDate = initialxAxisDate;
+  } else if (barSeries[0].date && barSeries[1].date) {
+    localInitialxAxisDate =
+      barSeries[0].date - (barSeries[1].date - barSeries[0].date) / 2;
+  } else if (barSeries[0].date) {
+    localInitialxAxisDate = barSeries[0].date;
+  }
+
   const openSeriesDates = openSeries
     ? openSeries.data
         .map((element) => element.date)
@@ -147,7 +158,7 @@ const PlotStackBar = ({
           new Date(Math.max(...barSeries.map((element) => element.date))),
         ],
       }),
-    [barSeries, localInitialxAxisDate, xMax]
+    [barSeries, xMax, openSeriesDates]
   );
   const yScale = useMemo(
     () =>
@@ -407,11 +418,15 @@ const PlotStackBar = ({
                       height={bar.height}
                       width={bar.width}
                       opacity={
-                        tooltipData && tooltipData[0]
+                        currentSelectedBar
+                          ? currentSelectedBar === bar.bar.data.date
+                            ? 1
+                            : 0.3
+                          : tooltipData && tooltipData[0]
                           ? getDateNumber(bar.bar.data.date) ===
                             getDateNumber(tooltipData[0].data.date)
                             ? 1
-                            : 0.4
+                            : 0.5
                           : 1
                       }
                       fill={bar.color}
@@ -447,11 +462,15 @@ const PlotStackBar = ({
                       openSeries.baseColor ?? palette.status.experiment.running
                     }
                     fillOpacity={
-                      tooltipData && tooltipData[0]
+                      currentSelectedBar
+                        ? currentSelectedBar === d.date
+                          ? 1
+                          : 0.3
+                        : tooltipData && tooltipData[0]
                         ? getDateNumber(d.date) ===
                           getDateNumber(tooltipData[0].data.date)
                           ? 1
-                          : 0.8
+                          : 0.5
                         : 1
                     }
                     pointerEvents="none"
@@ -470,12 +489,23 @@ const PlotStackBar = ({
             onMouseMove={handleTooltip}
             fill={"transparent"}
             onClick={() => {
-              handleBarClick &&
-                handleBarClick(
+              if (
+                tooltipData &&
+                currentSelectedBar !==
+                  tooltipData[tooltipData.length - 1].data.date
+              ) {
+                setCurrentSelectedBar(
+                  tooltipData[tooltipData.length - 1].data.date ?? ""
+                );
+                handleBarClick?.(
                   tooltipData
                     ? tooltipData[tooltipData.length - 1].data.id ?? null
                     : null
                 );
+              } else {
+                setCurrentSelectedBar(NaN);
+                handleBarClick?.("");
+              }
             }}
           />
         </Group>

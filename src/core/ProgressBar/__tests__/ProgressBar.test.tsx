@@ -1,21 +1,22 @@
-import { cleanup, render, screen } from "@testing-library/react";
-import React from "react";
+import { render, screen } from "@testing-library/react";
+import { default as React } from "react";
+import { LitmusThemeProvider } from "../../../theme";
 import { ProgressBar } from "../ProgressBar";
 
-afterEach(cleanup);
-jest.useFakeTimers();
+let component: HTMLElement;
 
-describe("ProgressBar renders", () => {
-  it("Render", () => {
-    const { getByTestId } = render(
-      <ProgressBar value={80} color={"red"} label="Success" />
-    );
-    const elem = screen.getByRole("progressbar");
-    // check label text
-    expect(getByTestId("label").textContent).toBe("Success");
-    // check value
-    expect(getByTestId("value").textContent).toBe("80");
-    // check value progressbar
-    expect(elem.getAttribute("aria-valuenow")).toBe("80");
-  });
+beforeEach(() => {
+  render(
+    <LitmusThemeProvider>
+      <ProgressBar value={80} color={"red"} />
+    </LitmusThemeProvider>
+  );
+
+  // Get AutocompleteChipInput component
+  component = screen.getByTestId("linear-Progress");
+});
+
+test("Check value of the linear progress", () => {
+  // Check value
+  expect(component.getAttribute("aria-valuenow")).toBe("80");
 });
