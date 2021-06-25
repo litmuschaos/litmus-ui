@@ -17,7 +17,6 @@ const SliderMui = withStyles((theme: Theme) => ({
       boxShadow: "inherit",
     },
   },
-  active: {},
   valueLabel: {
     left: "calc(-50% + 4px)",
   },
