@@ -12,7 +12,7 @@ import {
   localPoint,
   Tooltip,
 } from "@visx/visx";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   BarDateValue,
   BarStackChildProps,
@@ -45,6 +45,7 @@ const getDateStr = (d: StackBarMetric) => d.date.toString();
 // scales
 
 const PlotStackBar = ({
+  defaultSelectedBar,
   width,
   height,
   initialxAxisDate,
@@ -87,7 +88,8 @@ const PlotStackBar = ({
     height,
   });
   const { palette } = useTheme();
-  const [currentSelectedBar, setCurrentSelectedBar] = useState<number>();
+  const [currentSelectedBar, setCurrentSelectedBar] =
+    useState<number | undefined>(defaultSelectedBar);
 
   const colorScale = scaleOrdinal<StackName, string>({
     domain: keys,
@@ -316,6 +318,12 @@ const PlotStackBar = ({
     ]
   );
 
+  useEffect(() => {
+    return () => {
+      console.log("will unmount");
+    };
+  }, []);
+
   if (width < 10) return null;
 
   return width < 10 ? null : (
@@ -495,7 +503,7 @@ const PlotStackBar = ({
                   tooltipData[tooltipData.length - 1].data.date
               ) {
                 setCurrentSelectedBar(
-                  tooltipData[tooltipData.length - 1].data.date ?? ""
+                  tooltipData[tooltipData.length - 1].data.date
                 );
                 handleBarClick?.(
                   tooltipData
@@ -503,7 +511,7 @@ const PlotStackBar = ({
                     : null
                 );
               } else {
-                setCurrentSelectedBar(NaN);
+                setCurrentSelectedBar(undefined);
                 handleBarClick?.("");
               }
             }}
