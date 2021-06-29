@@ -319,10 +319,8 @@ const PlotStackBar = ({
   );
 
   useEffect(() => {
-    return () => {
-      console.log("will unmount");
-    };
-  }, []);
+    setCurrentSelectedBar(undefined);
+  }, [barSeries]);
 
   if (width < 10) return null;
 

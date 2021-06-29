@@ -1,5 +1,10 @@
 import { Meta } from "@storybook/addon-docs";
 import LitmusLogo from "./assets/favicon.svg";
+import Slack from "./assets/slack.svg";
+import Twitter from "./assets/twitter.svg";
+import Youtube from "./assets/youtube.svg";
+import Dev from "./assets/dev.svg";
+import Github from "./assets/github.svg";
 
 <Meta
   title="Docs Overview/Introduction"
@@ -194,7 +199,7 @@ import LitmusLogo from "./assets/favicon.svg";
       </div>
       <div style={{ display: "flex", height:'1rem', width:'100%' , marginTop:'2rem'}}>
           <div style={{background:'#5B44BA',padding:'12px 20px', width:'50%', height:'100%', boxShadow: '0px 0.3px 0.9px rgba(0, 0, 0, 0.1), 0px 1.6px 3.6px rgba(0, 0, 0, 0.13)', borderRadius:'4px', display:'grid', placeContent: 'center'}}>Home</div>
-          <div style={{background:'#5B44BA',padding:'12px 20px', width:'50%', height:'100%', boxShadow: '0px 0.3px 0.9px rgba(0, 0, 0, 0.1), 0px 1.6px 3.6px rgba(0, 0, 0, 0.13)', borderRadius:'4px' ,placeContent: 'center'}}>Home</div>
+          <div style={{marginLeft:'1rem', background:'#FFFFFF',padding:'12px 20px', width:'50%', height:'100%', borderRadius:'4px' ,placeContent: 'center'}}>Home</div>
       </div>
     </div>
   </div>
@@ -264,7 +269,7 @@ import LitmusLogo from "./assets/favicon.svg";
   </div>
 </div>
 </div>
-<div className="subheading" style={{ marginTop: "10rem" }}>
+<div className="subheading" style={{ marginTop: "12rem" }}>
   Components
 </div>
 
@@ -293,6 +298,101 @@ import LitmusLogo from "./assets/favicon.svg";
   </a>
 </div>
 
+<div style={{ width: "100%", height: "21rem", display: "flex" }}>
+  <div
+    style={{
+      width: "50%",
+      height: "100%",
+      position: "relative",
+      borderRadius: "10px",
+      background: "#F1F5F9",
+      overflow: "hidden",
+      margin: "1rem 0.5rem 1rem 0rem",
+    }}
+  >
+    <div
+      style={{
+        marginTop: "10%",
+        marginLeft: "10%",
+        width: "70%",
+      }}
+    >
+      <div>
+        <strong>Design Guidelines</strong>
+      </div>
+      <div style={{ marginTop: "1.5rem" }}>
+        <span
+          style={{
+            marginTop: "1.5rem",
+            color: "#696F8C",
+          }}
+        >
+          Learn about our coloring schemes, typography and elevations.
+        </span>
+      </div>
+    </div>
+    <div
+      style={{
+        position: "absolute",
+        bottom: "0",
+        right: "0",
+        width: "50%",
+        height: "50%",
+        clipPath: "polygon(0% 100%, 100% 0%, 100% 100%)",
+        margin: 0,
+        background:
+          "conic-gradient(from 0deg at 50% 50%, rgba(36, 0, 255, 0.5216) 0deg, #0087FF 56.25deg, rgba(105, 30, 255, 0.686777) 131.25deg, rgba(255, 83, 53, 0.75971) 196.87deg, rgba(36, 0, 255, 0.519419) 213.75deg, rgba(245, 56, 27, 0.736825) 223.13deg, rgba(255, 29, 122, 0.776873) 264.38deg, rgba(36, 0, 255, 0.5216) 360deg)",
+      }}
+    />
+  </div>
+  <div
+    style={{
+      width: "50%",
+      height: "100%",
+      position: "relative",
+      borderRadius: "10px",
+      background: "#F1F5F9",
+      overflow: "hidden",
+      margin: "1rem 0rem 1rem 0.5rem",
+    }}
+  >
+    <div
+      style={{
+        marginTop: "10%",
+        marginLeft: "10%",
+        width: "70%",
+      }}
+    >
+      <div>
+        <strong>Design Guidelines</strong>
+      </div>
+      <div style={{ marginTop: "1.5rem" }}>
+        <span
+          style={{
+            marginTop: "1.5rem",
+            color: "#696F8C",
+          }}
+        >
+          Learn about our coloring schemes, typography and elevations.
+        </span>
+      </div>
+    </div>
+    <div
+      style={{
+        position: "absolute",
+        bottom: "0",
+        right: "0",
+        width: "50%",
+        height: "50%",
+        clipPath: "polygon(0% 100%, 100% 0%, 100% 100%)",
+        margin: 0,
+        background:
+          "conic-gradient(from 0deg at 50% 50%, rgba(36, 0, 255, 0.5216) 0deg, #0087FF 56.25deg, rgba(105, 30, 255, 0.686777) 131.25deg, rgba(255, 83, 53, 0.75971) 196.87deg, rgba(36, 0, 255, 0.519419) 213.75deg, rgba(245, 56, 27, 0.736825) 223.13deg, rgba(255, 29, 122, 0.776873) 264.38deg, rgba(36, 0, 255, 0.5216) 360deg)",
+      }}
+    />
+  </div>
+</div>
+
 <footer>
   <div
     style={{
@@ -300,7 +400,7 @@ import LitmusLogo from "./assets/favicon.svg";
       height: "18rem",
       background: "white",
       postition: "relative",
-      marginTop: "1rem",
+      marginTop: "2rem",
     }}
   >
     <div
@@ -382,7 +482,64 @@ import LitmusLogo from "./assets/favicon.svg";
             marginTop: "0.8rem",
           }}
         >
-          <div style={{ display: "flex" }}>hi</div>
+          <div style={{ display: "flex-root" }}>
+            Follow us:
+            <button
+              style={{
+                background: "transparent",
+                border: "0",
+                width: "2rem",
+                height: "2rem",
+                verticalAlign: "middle",
+              }}
+            >
+              <img src={Slack} alt="plugin" />
+            </button>
+            <button
+              style={{
+                background: "transparent",
+                border: "0",
+                width: "2rem",
+                height: "2rem",
+                verticalAlign: "middle",
+              }}
+            >
+              <img src={Github} alt="plugin" />
+            </button>
+            <button
+              style={{
+                background: "transparent",
+                border: "0",
+                width: "2rem",
+                height: "2rem",
+                verticalAlign: "middle",
+              }}
+            >
+              <img src={Dev} alt="plugin" />
+            </button>
+            <button
+              style={{
+                background: "transparent",
+                border: "0",
+                width: "2rem",
+                height: "2rem",
+                verticalAlign: "middle",
+              }}
+            >
+              <img src={Twitter} alt="plugin" />
+            </button>
+            <button
+              style={{
+                background: "transparent",
+                border: "0",
+                width: "2rem",
+                height: "2rem",
+                verticalAlign: "middle",
+              }}
+            >
+              <img src={Youtube} alt="plugin" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
