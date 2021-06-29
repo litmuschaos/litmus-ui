@@ -82,9 +82,6 @@ export interface BarStackProps {
   StackBarTooltip?: ({
     tooltipData,
   }: StackBarTooltipProps) => React.ReactElement;
-
-  // Bar to be selected by default
-  defaultSelectedBar?: number;
 }
 export interface BarStackChildProps extends BarStackProps {
   // Width of the parent

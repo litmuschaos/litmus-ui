@@ -121,7 +121,7 @@ const RadialChartChild = ({
   }
 
   useEffect(() => {
-    if (centerValue === "0" && total > 0) {
+    if (total > 0) {
       setcenterValue(total.toString());
       if (showCenterHeading) {
         setCenterText(heading ?? "");

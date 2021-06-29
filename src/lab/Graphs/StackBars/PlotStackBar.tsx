@@ -45,7 +45,6 @@ const getDateStr = (d: StackBarMetric) => d.date.toString();
 // scales
 
 const PlotStackBar = ({
-  defaultSelectedBar,
   width,
   height,
   initialxAxisDate,
@@ -89,7 +88,7 @@ const PlotStackBar = ({
   });
   const { palette } = useTheme();
   const [currentSelectedBar, setCurrentSelectedBar] =
-    useState<number | undefined>(defaultSelectedBar);
+    useState<number | undefined>();
 
   const colorScale = scaleOrdinal<StackName, string>({
     domain: keys,
@@ -134,18 +133,30 @@ const PlotStackBar = ({
   let localInitialxAxisDate = 0;
   if (initialxAxisDate) {
     localInitialxAxisDate = initialxAxisDate;
-  } else if (barSeries[0].date && barSeries[1].date) {
+  } else if (barSeries[0] && barSeries[1]) {
     localInitialxAxisDate =
       barSeries[0].date - (barSeries[1].date - barSeries[0].date) / 2;
-  } else if (barSeries[0].date) {
-    localInitialxAxisDate = barSeries[0].date;
+  } else if (barSeries[0]) {
+    localInitialxAxisDate = barSeries[0].date - 10;
+  }
+  let localEndxAxisDate = 0;
+  if (barSeries) {
+    if (barSeries.length > 1) {
+      localEndxAxisDate =
+        barSeries[barSeries.length - 1].date +
+        (barSeries[1].date - barSeries[0].date) / 2;
+    } else {
+      localEndxAxisDate = barSeries[0].date + 10;
+    }
   }
 
   const openSeriesDates = openSeries
     ? openSeries.data
         .map((element) => element.date)
         .concat(localInitialxAxisDate)
-    : [localInitialxAxisDate];
+        .concat(localEndxAxisDate)
+    : [localInitialxAxisDate, localEndxAxisDate];
+
   const xScale = useMemo(
     () =>
       scaleTime<number>({
@@ -157,10 +168,15 @@ const PlotStackBar = ({
               ...openSeriesDates
             )
           ),
-          new Date(Math.max(...barSeries.map((element) => element.date))),
+          new Date(
+            Math.max(
+              ...barSeries.map((element) => element.date),
+              ...openSeriesDates
+            )
+          ),
         ],
       }),
-    [barSeries, localInitialxAxisDate, xMax]
+    [barSeries, openSeriesDates, xMax]
   );
   const yScale = useMemo(
     () =>
@@ -173,6 +189,29 @@ const PlotStackBar = ({
   );
 
   dateScale.rangeRound([0, xMax]);
+
+  // Computation of barWidth
+
+  // value initized with the difference of first two dates
+  // 10 is the fall back value for cases where the series has only one entry
+  let barWidth: number =
+    barSeries[0] && barSeries[1] ? barSeries[1].date - barSeries[0].date : 10;
+  // Finding the smallest difference in the dates
+  if (barSeries) {
+    for (let i = 1; i < barSeries.length - 1; i++) {
+      if (barWidth > barSeries[i].date - barSeries[i - 1].date) {
+        barWidth = barSeries[i].date - barSeries[i - 1].date;
+      }
+    }
+  }
+
+  // Here the smallest differnce in date is added to
+  // the date of the first element and then inverted on the xScale
+  // to find the bar width in px
+
+  barWidth =
+    (xScale(new Date(xScale.domain()[0]).getTime() + barWidth) * 3) / 5;
+  console.log("barWidth", barWidth);
 
   // tooltip handler
 
@@ -193,6 +232,7 @@ const PlotStackBar = ({
       let { x } = localPoint(event) || { x: 0 };
       x -= margin.left;
       const x0 = xScale.invert(x);
+      console.log("x0", new Date(x0).getTime());
 
       let i = 0;
       pointerDataSelection.slice(0);
@@ -201,10 +241,11 @@ const PlotStackBar = ({
         const dd0 = openSeries.data[indexer - 1] ?? undefined;
         const dd1 = openSeries.data[indexer] ?? undefined;
 
-        if (dd1) {
+        if (dd0) {
           pointerDataSelection[i] =
+            dd1 &&
             x0.valueOf() - getLineDateNum(dd0).valueOf() >
-            getLineDateNum(dd1).valueOf() - x0.valueOf()
+              getLineDateNum(dd1).valueOf() - x0.valueOf()
               ? {
                   metricName: "resiliencyScore",
                   data: {
@@ -226,17 +267,16 @@ const PlotStackBar = ({
           i++;
         }
       }
-      // 1
+
       if (barSeries) {
         const indexer = bisectBarDate(barSeries, x0, 1);
         const dd0 = barSeries[indexer - 1] ?? undefined;
         const dd1 = barSeries[indexer] ?? undefined;
-
-        //3
-        if (dd1) {
+        if (dd0) {
           pointerDataSelection[i] =
+            dd1 &&
             x0.valueOf() - getBarDateNum(dd0).valueOf() >
-            getBarDateNum(dd1).valueOf() - x0.valueOf()
+              getBarDateNum(dd1).valueOf() - x0.valueOf()
               ? {
                   metricName: "passCount",
                   data: {
@@ -257,11 +297,12 @@ const PlotStackBar = ({
                 };
           i++;
         }
-        //4
-        if (dd1) {
+
+        if (dd0) {
           pointerDataSelection[i] =
+            dd1 &&
             x0.valueOf() - getBarDateNum(dd0).valueOf() >
-            getBarDateNum(dd1).valueOf() - x0.valueOf()
+              getBarDateNum(dd1).valueOf() - x0.valueOf()
               ? {
                   metricName: "failCount",
                   data: {
@@ -419,10 +460,10 @@ const PlotStackBar = ({
                   return (
                     <rect
                       key={`bar-stack-${barStack.index}-${bar.index}`}
-                      x={xScale(bar.bar.data.date ?? 0) - bar.width / 2}
+                      x={xScale(bar.bar.data.date ?? 0) - barWidth / 2}
                       y={bar.y}
                       height={bar.height}
-                      width={bar.width}
+                      width={barWidth}
                       opacity={
                         currentSelectedBar
                           ? currentSelectedBar === bar.bar.data.date
