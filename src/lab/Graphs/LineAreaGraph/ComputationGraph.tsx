@@ -816,10 +816,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       });
     },
     [
+      handleCentralAllowGraphUpdate,
       hideTooltip,
       hideTooltipDate,
-      filterAllDateWithNewDomain,
       updateLocalBrushPosition,
+      filterAllDateWithNewDomain,
     ]
   );
 
