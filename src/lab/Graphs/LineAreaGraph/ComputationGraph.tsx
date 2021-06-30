@@ -116,7 +116,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       <TooltipMui
         open={open}
         enterTouchDelay={0}
-        placement={"bottom"}
+        placement="bottom"
         title={` ${dayjs(new Date(value)).format(toolTiptimeFormat)}`}
       >
         {children}
@@ -419,12 +419,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
   useEffect(() => {
     if (typeof centralAllowGraphUpdate === "boolean") {
-      console.log("updateAllow");
       setAllowGraphUpdate(centralAllowGraphUpdate);
     }
   }, [centralAllowGraphUpdate]);
 
-  console.log("allow:cen", allowGraphUpdate, centralAllowGraphUpdate);
   // Handle the change in the slider values
   const handleChangeSlider = (event: any, newValue: number | number[]) => {
     setAutoRender(false);
@@ -933,8 +931,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     <div
       onMouseLeave={() => hideTooltipDate()}
       style={{
-        width: width,
-        height: height,
+        width,
+        height,
         position: "relative",
       }}
     >
@@ -1005,14 +1003,12 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   },
                   end: { x: new Date(brushDateScale.domain()[1]).getTime() },
                 });
-                if (handleCentralBrushPosition) {
-                  handleCentralBrushPosition({
-                    start: {
-                      x: new Date(brushDateScale.domain()[0]).getTime(),
-                    },
-                    end: { x: new Date(brushDateScale.domain()[1]).getTime() },
-                  });
-                }
+                handleCentralBrushPosition?.({
+                  start: {
+                    x: new Date(brushDateScale.domain()[0]).getTime(),
+                  },
+                  end: { x: new Date(brushDateScale.domain()[1]).getTime() },
+                });
                 setAutoRender(true);
                 hideTooltip();
                 hideTooltipDate();
