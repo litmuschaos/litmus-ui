@@ -207,7 +207,7 @@ const PlotStackBar = ({
     (xScale(new Date(xScale.domain()[0]).getTime() + minimumDateDifference) *
       2) /
       5,
-    100
+    60
   );
 
   // tooltip handler
