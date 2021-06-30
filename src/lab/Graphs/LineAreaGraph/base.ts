@@ -121,7 +121,11 @@ export interface LineAreaGraphProps<T> {
   // upon the update of the localBrushPositions
   handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
 
+  //  State variable to allow/block data update of the Graph
+  // espically for realtime data
   centralAllowGraphUpdate?: boolean;
+
+  // Handle function for setting the centralAllowGraphUpdate
   handleCentralAllowGraphUpdate?: (value: boolean) => void;
 }
 export interface LineAreaGraphChildProps
