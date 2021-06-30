@@ -119,7 +119,10 @@ export interface LineAreaGraphProps<T> {
 
   // function for updating the state of the centralBushPosition
   // upon the update of the localBrushPositions
-  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => any;
+  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
+
+  centralAllowGraphUpdate?: boolean;
+  handleCentralAllowGraphUpdate?: (value: boolean) => void;
 }
 export interface LineAreaGraphChildProps
   extends LineAreaGraphProps<Array<StrictColorGraphMetric>> {

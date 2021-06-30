@@ -6,6 +6,8 @@ import { closedSeriesData, eventSeriesData, openSeriesData } from "./testData";
 const MultipleGraphs = () => {
   const [centralBrushPosition, setCentralBrushPosition] =
     useState<BrushPostitionProps>();
+  const [centralAllowGraphUpdate, setCentralAllowGraphUpdate] =
+    useState<boolean>(true);
   // console.log("brushPosition Stae", centralBrushPosition);
   return (
     <div>
@@ -14,6 +16,10 @@ const MultipleGraphs = () => {
           centralBrushPosition={centralBrushPosition}
           handleCentralBrushPosition={(newBrushPosition: BrushPostitionProps) =>
             setCentralBrushPosition(newBrushPosition)
+          }
+          centralAllowGraphUpdate={centralAllowGraphUpdate}
+          handleCentralAllowGraphUpdate={(value: boolean) =>
+            setCentralAllowGraphUpdate(value)
           }
           legendTableHeight={120}
           closedSeries={closedSeriesData}
@@ -36,6 +42,10 @@ const MultipleGraphs = () => {
           centralBrushPosition={centralBrushPosition}
           handleCentralBrushPosition={(newBrushPosition: BrushPostitionProps) =>
             setCentralBrushPosition(newBrushPosition)
+          }
+          centralAllowGraphUpdate={centralAllowGraphUpdate}
+          handleCentralAllowGraphUpdate={(value: boolean) =>
+            setCentralAllowGraphUpdate(value)
           }
           legendTableHeight={120}
           closedSeries={closedSeriesData}

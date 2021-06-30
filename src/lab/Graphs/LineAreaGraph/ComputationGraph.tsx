@@ -80,6 +80,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   showPoints = true,
   centralBrushPosition,
   handleCentralBrushPosition,
+  centralAllowGraphUpdate,
+  handleCentralAllowGraphUpdate,
   ...rest
 }) => {
   const { palette } = useTheme();
@@ -132,7 +134,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [filteredEventSeries, setFilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
-  const [allowGraphUpdate, setAllowGraphUpdate] = useState(true);
+  const [allowGraphUpdate, setAllowGraphUpdate] = useState(
+    centralAllowGraphUpdate ?? true
+  );
 
   // Use for showing the tooltip when showMultiTooltip is disabled
   const [mouseY, setMouseY] = useState(0);
@@ -412,6 +416,15 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       });
     }
   }, [allowGraphUpdate, brushDateScale, openSeries, closedSeries, eventSeries]);
+
+  useEffect(() => {
+    if (typeof centralAllowGraphUpdate === "boolean") {
+      console.log("updateAllow");
+      setAllowGraphUpdate(centralAllowGraphUpdate);
+    }
+  }, [centralAllowGraphUpdate]);
+
+  console.log("allow:cen", allowGraphUpdate, centralAllowGraphUpdate);
   // Handle the change in the slider values
   const handleChangeSlider = (event: any, newValue: number | number[]) => {
     setAutoRender(false);
@@ -789,6 +802,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     (domain: Bounds | null) => {
       if (!domain) return;
       setAllowGraphUpdate(false);
+      handleCentralAllowGraphUpdate?.(false);
       setAutoRender(false);
       const { x0, x1 } = domain;
       hideTooltip();
@@ -980,6 +994,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               onMouseMove={handleTooltip}
               onClick={() => {
                 setAllowGraphUpdate(true);
+                handleCentralAllowGraphUpdate?.(true);
                 setFilteredClosedSeries(closedSeries);
                 setFilteredOpenSeries(openSeries);
                 setFilteredEventSeries(eventSeries);
