@@ -34,6 +34,15 @@ export interface ToolTip<T> {
   // Color of the metric in the ToolTip legends
   baseColor: string;
 }
+export interface BrushPostitionProps {
+  start: { x: number | undefined };
+  end: { x: number | undefined };
+}
+
+export interface StrictBrushPostitionProps {
+  start: { x: number };
+  end: { x: number };
+}
 
 export interface LineAreaGraphProps<T> {
   // Area under the curve graph:
@@ -70,6 +79,12 @@ export interface LineAreaGraphProps<T> {
   // Event Table for the Event Series and its sub-data
   showEventTable?: boolean;
 
+  // RangeSlider for selecting the data from the given internal
+  showRangeSlider?: boolean;
+
+  // Range Slider height
+  rangeSliderHeight?: number;
+
   // Legend Table height
   legendTableHeight?: number;
 
@@ -97,6 +112,14 @@ export interface LineAreaGraphProps<T> {
 
   // ToolTip date's format
   toolTiptimeFormat?: string;
+
+  // central variable which contains the state
+  // of the brush positoins to be used by all the graphs
+  centralBrushPosition?: BrushPostitionProps;
+
+  // function for updating the state of the centralBushPosition
+  // upon the update of the localBrushPositions
+  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => any;
 }
 export interface LineAreaGraphChildProps
   extends LineAreaGraphProps<Array<StrictColorGraphMetric>> {
