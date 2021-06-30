@@ -229,8 +229,6 @@ const PlotStackBar = ({
       let { x } = localPoint(event) || { x: 0 };
       x -= margin.left;
       const x0 = xScale.invert(x);
-      console.log("x0", new Date(x0).getTime());
-
       let i = 0;
       pointerDataSelection.slice(0);
       if (openSeries) {
