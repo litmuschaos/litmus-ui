@@ -132,6 +132,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [filteredEventSeries, setFilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
+  const [allowGraphUpdate, setAllowGraphUpdate] = useState(true);
+
   // Use for showing the tooltip when showMultiTooltip is disabled
   const [mouseY, setMouseY] = useState(0);
 
@@ -398,6 +400,18 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     if (localBrushPosition) handleLocalBrushPositionUpdate();
   }, [localBrushPosition, handleLocalBrushPositionUpdate]);
 
+  useEffect(() => {
+    if (allowGraphUpdate) {
+      setLocalBrushPosition({
+        start: {
+          x: new Date(brushDateScale.domain()[0]).getTime(),
+        },
+        end: {
+          x: new Date(brushDateScale.domain()[1]).getTime(),
+        },
+      });
+    }
+  }, [allowGraphUpdate, brushDateScale, openSeries, closedSeries, eventSeries]);
   // Handle the change in the slider values
   const handleChangeSlider = (event: any, newValue: number | number[]) => {
     setAutoRender(false);
@@ -774,6 +788,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const onBrushChange = useCallback(
     (domain: Bounds | null) => {
       if (!domain) return;
+      setAllowGraphUpdate(false);
       setAutoRender(false);
       const { x0, x1 } = domain;
       hideTooltip();
@@ -964,6 +979,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               }}
               onMouseMove={handleTooltip}
               onClick={() => {
+                setAllowGraphUpdate(true);
                 setFilteredClosedSeries(closedSeries);
                 setFilteredOpenSeries(openSeries);
                 setFilteredEventSeries(eventSeries);
