@@ -307,7 +307,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           .map((lineData) =>
             lineData.data.filter((s) => {
               const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
+              return x >= x0 && x <= x1;
             })
           )
           .map((linedata, i) => ({
@@ -324,7 +324,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           .map((lineData) =>
             lineData.data.filter((s) => {
               const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
+              return x >= x0 && x <= x1;
             })
           )
           .map((linedata, i) => ({
@@ -340,7 +340,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           .map((lineData) =>
             lineData.data.filter((s) => {
               const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
+              return x >= x0 && x <= x1;
             })
           )
           .map((linedata, i) => ({
