@@ -24,7 +24,7 @@
     "lint:script": "eslint --ext js --ext jsx --ext ts --ext tsx --ext mdx src",
     "lint:style": "stylelint src",
     "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006 -s ./src/assets -c .storybook --no-manager-cache",
+    "storybook": "start-storybook -p 6006 -s ./src/assets -c .storybook",
     "test": "jest --maxWorkers=2",
     "test:clean": "jest --clearCache",
     "test:watch": "yarn test --watch",

@@ -31,7 +31,6 @@ export const parameters = {
     isToolshown: true,
     storySort: {
       method: "alphabetical",
-      order: ["Docs Overview", ["Introduction"]],
     },
   },
   knobs: {
