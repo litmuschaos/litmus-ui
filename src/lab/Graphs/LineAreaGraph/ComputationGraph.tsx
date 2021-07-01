@@ -80,6 +80,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   showPoints = true,
   centralBrushPosition,
   handleCentralBrushPosition,
+  centralAllowGraphUpdate,
+  handleCentralAllowGraphUpdate,
   ...rest
 }) => {
   const { palette } = useTheme();
@@ -114,7 +116,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       <TooltipMui
         open={open}
         enterTouchDelay={0}
-        placement={"bottom"}
+        placement="bottom"
         title={` ${dayjs(new Date(value)).format(toolTiptimeFormat)}`}
       >
         {children}
@@ -132,6 +134,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [filteredEventSeries, setFilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
+  const [allowGraphUpdate, setAllowGraphUpdate] = useState(
+    centralAllowGraphUpdate ?? true
+  );
+
   // Use for showing the tooltip when showMultiTooltip is disabled
   const [mouseY, setMouseY] = useState(0);
 
@@ -307,7 +313,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           .map((lineData) =>
             lineData.data.filter((s) => {
               const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
+              return x >= x0 && x <= x1;
             })
           )
           .map((linedata, i) => ({
@@ -324,7 +330,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           .map((lineData) =>
             lineData.data.filter((s) => {
               const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
+              return x >= x0 && x <= x1;
             })
           )
           .map((linedata, i) => ({
@@ -340,7 +346,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           .map((lineData) =>
             lineData.data.filter((s) => {
               const x = getDateNum(s).getTime();
-              return x > x0 && x < x1;
+              return x >= x0 && x <= x1;
             })
           )
           .map((linedata, i) => ({
@@ -397,6 +403,25 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   useEffect(() => {
     if (localBrushPosition) handleLocalBrushPositionUpdate();
   }, [localBrushPosition, handleLocalBrushPositionUpdate]);
+
+  useEffect(() => {
+    if (allowGraphUpdate) {
+      setLocalBrushPosition({
+        start: {
+          x: new Date(brushDateScale.domain()[0]).getTime(),
+        },
+        end: {
+          x: new Date(brushDateScale.domain()[1]).getTime(),
+        },
+      });
+    }
+  }, [allowGraphUpdate, brushDateScale, openSeries, closedSeries, eventSeries]);
+
+  useEffect(() => {
+    if (typeof centralAllowGraphUpdate === "boolean") {
+      setAllowGraphUpdate(centralAllowGraphUpdate);
+    }
+  }, [centralAllowGraphUpdate]);
 
   // Handle the change in the slider values
   const handleChangeSlider = (event: any, newValue: number | number[]) => {
@@ -774,6 +799,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const onBrushChange = useCallback(
     (domain: Bounds | null) => {
       if (!domain) return;
+      setAllowGraphUpdate(false);
+      handleCentralAllowGraphUpdate?.(false);
       setAutoRender(false);
       const { x0, x1 } = domain;
       hideTooltip();
@@ -789,10 +816,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       });
     },
     [
+      handleCentralAllowGraphUpdate,
       hideTooltip,
       hideTooltipDate,
-      filterAllDateWithNewDomain,
       updateLocalBrushPosition,
+      filterAllDateWithNewDomain,
     ]
   );
 
@@ -904,8 +932,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     <div
       onMouseLeave={() => hideTooltipDate()}
       style={{
-        width: width,
-        height: height,
+        width,
+        height,
         position: "relative",
       }}
     >
@@ -964,6 +992,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               }}
               onMouseMove={handleTooltip}
               onClick={() => {
+                setAllowGraphUpdate(true);
+                handleCentralAllowGraphUpdate?.(true);
                 setFilteredClosedSeries(closedSeries);
                 setFilteredOpenSeries(openSeries);
                 setFilteredEventSeries(eventSeries);
@@ -974,14 +1004,12 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   },
                   end: { x: new Date(brushDateScale.domain()[1]).getTime() },
                 });
-                if (handleCentralBrushPosition) {
-                  handleCentralBrushPosition({
-                    start: {
-                      x: new Date(brushDateScale.domain()[0]).getTime(),
-                    },
-                    end: { x: new Date(brushDateScale.domain()[1]).getTime() },
-                  });
-                }
+                handleCentralBrushPosition?.({
+                  start: {
+                    x: new Date(brushDateScale.domain()[0]).getTime(),
+                  },
+                  end: { x: new Date(brushDateScale.domain()[1]).getTime() },
+                });
                 setAutoRender(true);
                 hideTooltip();
                 hideTooltipDate();

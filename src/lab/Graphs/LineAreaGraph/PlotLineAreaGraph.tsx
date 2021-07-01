@@ -233,9 +233,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               y={(d) => {
                 if (getValueStr(d) === "False" || getValueStr(d) === "End") {
                   return yScale(yScale.domain()[0]) ?? 0;
-                } else {
-                  return yScale(yScale.domain()[1]) ?? 0;
                 }
+                return yScale(yScale.domain()[1]) ?? 0;
               }}
               yScale={yScale}
               fill={linedata.baseColor}
