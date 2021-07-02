@@ -143,7 +143,7 @@ function createTheme(themeOptions?: ThemeOptions) {
     },
     typography: {
       fontSize: 12,
-      fontFamily: ["Inter", "sand-serif"].join(","),
+      fontFamily: ["Inter", "sans-serif"].join(","),
     },
     ...themeOptions,
   });

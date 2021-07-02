@@ -6,7 +6,7 @@ const openSeries: LineMetricSeries = {
   data: [
     { date: 100, value: 30 },
     { date: 110, value: 30 },
-    { date: 120, value: 30 },
+    { date: 112, value: 30 },
     { date: 130, value: 30 },
     { date: 140, value: 30 },
     { date: 150, value: 30 },

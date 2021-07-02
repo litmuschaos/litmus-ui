@@ -1,6 +1,6 @@
 import { useTheme } from "@material-ui/core";
 import { Arc, Group, ParentSize } from "@visx/visx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LegendData, LegendTable } from "../../LegendTable";
 import { RadialChartMetric, RadialGraphProps } from "../base";
 import { useStyles } from "./styles";
@@ -119,6 +119,16 @@ const RadialChartChild = ({
         };
     });
   }
+
+  useEffect(() => {
+    if (total > 0) {
+      setcenterValue(total.toString());
+      if (showCenterHeading) {
+        setCenterText(heading ?? "");
+      }
+    }
+  }, [total]);
+
   return width < 10 ? null : (
     <div className={`${classes.radialChartRoot} ${className}`}>
       <div className={classes.figureWithLegendTable}>

@@ -23,4 +23,17 @@ export const decorators = [
 ];
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+  options: {
+    showPanel: true,
+    panelPosition: "bottom",
+    showNav: true,
+    isFullscreen: false,
+    isToolshown: true,
+    storySort: {
+      method: "alphabetical",
+    },
+  },
+  knobs: {
+    escapeHTML: false,
+  },
 };
