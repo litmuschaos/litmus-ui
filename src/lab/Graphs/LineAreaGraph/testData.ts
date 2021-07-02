@@ -1,4 +1,4 @@
-import { DateValue, GraphMetric } from "../../Graphs/LineAreaGraph";
+import { DateValue, GraphMetric } from ".";
 
 const openSeriesData1: DateValue[] = [
   { date: 4000.0, value: 40 },
