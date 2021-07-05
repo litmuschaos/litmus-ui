@@ -30,10 +30,21 @@ declare module "@material-ui/core/styles/createPalette" {
     };
     progressBarGradient: string;
     status: {
-      running: string;
-      completed: string;
-      pending: string;
-      failed: string;
+      workflow: {
+        running: string;
+        completed: string;
+        failed: string;
+        pending: string;
+      };
+      experiment: {
+        running: string;
+        completed: string;
+        failed: string;
+        pending: string;
+        skipped: string;
+        error: string;
+        omitted: string;
+      };
     };
     cards: {
       header: string;
@@ -77,10 +88,21 @@ declare module "@material-ui/core/styles/createPalette" {
     };
     progressBarGradient?: string;
     status?: {
-      running: string;
-      completed: string;
-      pending: string;
-      failed: string;
+      workflow: {
+        running: string;
+        completed: string;
+        failed: string;
+        pending: string;
+      };
+      experiment: {
+        running: string;
+        completed: string;
+        failed: string;
+        pending: string;
+        skipped: string;
+        error: string;
+        omitted: string;
+      };
     };
     cards?: {
       header: string;
@@ -121,7 +143,7 @@ function createTheme(themeOptions?: ThemeOptions) {
     },
     typography: {
       fontSize: 12,
-      fontFamily: ["Inter", "sand-serif"].join(","),
+      fontFamily: ["Inter", "sans-serif"].join(","),
     },
     ...themeOptions,
   });

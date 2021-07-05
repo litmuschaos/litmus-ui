@@ -4,6 +4,7 @@ export interface DateValue {
   // Value to the corresponding date stamp
   value: number | string;
 }
+
 export interface GraphMetric {
   // Name of the GraphMetric
   metricName: string;
@@ -11,21 +12,17 @@ export interface GraphMetric {
   // Array of {date and value}
   data: Array<DateValue>;
 
+  // Sub-data describing the specific event
+  subData?:
+    | Array<{ subDataName: string; value: string; date: number }>
+    | undefined;
+
   // Color of the metric in the graph and legends
   baseColor?: string;
 }
-export interface EventMetric extends GraphMetric {
-  // Name of the GraphMetric
-  metricName: string;
-
-  // Array of {date and value}
-  data: Array<DateValue>;
-
-  // Sub-data describing the specific event
-  subData?: Array<{ subDataName: string; value: string; date: number }>;
-
+export interface StrictColorGraphMetric extends Omit<GraphMetric, "baseColor"> {
   // Color of the metric in the graph and legends
-  baseColor?: string;
+  baseColor: string;
 }
 
 export interface ToolTip<T> {
@@ -35,7 +32,16 @@ export interface ToolTip<T> {
   // Date stamp and corresponding value
   data: T;
   // Color of the metric in the ToolTip legends
-  baseColor?: string;
+  baseColor: string;
+}
+export interface BrushPostitionProps {
+  start: { x: number | undefined };
+  end: { x: number | undefined };
+}
+
+export interface StrictBrushPostitionProps {
+  start: { x: number };
+  end: { x: number };
 }
 
 export interface LineAreaGraphProps<T> {
@@ -46,7 +52,7 @@ export interface LineAreaGraphProps<T> {
   openSeries?: T;
 
   // Overlay events with y-height as yMax
-  eventSeries?: Array<EventMetric>;
+  eventSeries?: T;
 
   // Y-axis units
   unit?: string;
@@ -72,6 +78,12 @@ export interface LineAreaGraphProps<T> {
 
   // Event Table for the Event Series and its sub-data
   showEventTable?: boolean;
+
+  // RangeSlider for selecting the data from the given internal
+  showRangeSlider?: boolean;
+
+  // Range Slider height
+  rangeSliderHeight?: number;
 
   // Legend Table height
   legendTableHeight?: number;
@@ -100,9 +112,24 @@ export interface LineAreaGraphProps<T> {
 
   // ToolTip date's format
   toolTiptimeFormat?: string;
+
+  // central variable which contains the state
+  // of the brush positoins to be used by all the graphs
+  centralBrushPosition?: BrushPostitionProps;
+
+  // function for updating the state of the centralBushPosition
+  // upon the update of the localBrushPositions
+  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
+
+  //  State variable to allow/block data update of the Graph
+  // espically for realtime data
+  centralAllowGraphUpdate?: boolean;
+
+  // Handle function for setting the centralAllowGraphUpdate
+  handleCentralAllowGraphUpdate?: (value: boolean) => void;
 }
 export interface LineAreaGraphChildProps
-  extends LineAreaGraphProps<Array<GraphMetric>> {
+  extends LineAreaGraphProps<Array<StrictColorGraphMetric>> {
   // Width of the LineAreaGraph
   width?: number;
 

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   singleBar: (props: StyleProps) => ({
     marginRight: theme.spacing(1),
     borderRadius: "0.3rem 0 0 0.3rem",
-    height: props.height / 2 - theme.spacing(1),
+    height: props.height / 2 - theme.spacing(1.18),
     minWidth: "0.1rem",
     marginTop: theme.spacing(1),
   }),

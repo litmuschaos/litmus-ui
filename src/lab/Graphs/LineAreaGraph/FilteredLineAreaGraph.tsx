@@ -1,11 +1,11 @@
 import React from "react";
-import { GraphMetric, LineAreaGraphChildProps } from "./base";
+import { LineAreaGraphChildProps, StrictColorGraphMetric } from "./base";
 import { ComputationGraph } from "./ComputationGraph";
 
 // filterUndefinedData performs type checking and
 const filterUndefinedData = (
-  data: GraphMetric[] | undefined
-): GraphMetric[] | undefined =>
+  data: StrictColorGraphMetric[] | undefined
+): StrictColorGraphMetric[] | undefined =>
   data
     ? data
         .filter((elem) => elem && elem.data && elem.data.length)
@@ -21,20 +21,12 @@ const filterUndefinedData = (
     : data;
 
 const FilteredLineAreaGraph: React.FC<LineAreaGraphChildProps> = ({
-  compact = false,
   closedSeries,
   openSeries,
   eventSeries,
-  height = 200,
-  margin = {
-    top: 20,
-    left: 100,
-    bottom: 20,
-    right: 20,
-  },
   ...rest
 }) => {
-  let augmentEventSeries: Array<GraphMetric> | undefined =
+  let augmentEventSeries: Array<StrictColorGraphMetric> | undefined =
     filterUndefinedData(eventSeries);
 
   if (augmentEventSeries) {
@@ -62,23 +54,18 @@ const FilteredLineAreaGraph: React.FC<LineAreaGraphChildProps> = ({
     }
   }
   augmentEventSeries = augmentEventSeries ?? [];
-  const augmentClosedSeries: Array<GraphMetric> =
+  const augmentClosedSeries: Array<StrictColorGraphMetric> =
     filterUndefinedData(closedSeries) ?? [];
 
-  const augmentOpenSeries: Array<GraphMetric> =
+  const augmentOpenSeries: Array<StrictColorGraphMetric> =
     filterUndefinedData(openSeries) ?? [];
   return (
-    <div>
-      <ComputationGraph
-        closedSeries={augmentClosedSeries}
-        openSeries={augmentOpenSeries}
-        eventSeries={augmentEventSeries}
-        height={height}
-        margin={margin}
-        compact={compact}
-        {...rest}
-      />
-    </div>
+    <ComputationGraph
+      closedSeries={augmentClosedSeries}
+      openSeries={augmentOpenSeries}
+      eventSeries={augmentEventSeries}
+      {...rest}
+    />
   );
 };
 
