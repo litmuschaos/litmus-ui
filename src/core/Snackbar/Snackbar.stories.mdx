@@ -42,7 +42,7 @@ Snackbars contain a single line of text directly related to the operation perfor
           <ButtonFilled onClick={() => setOpen(true)}>
             Open Snackbar
           </ButtonFilled>
-          <Snackbar {...args} open={open} onClose={() => setOpen(false)} />
+          <Snackbar {...args} open={open} setOpen={setOpen} />
         </div>
       );
     }}
@@ -63,7 +63,7 @@ Snackbars contain a single line of text directly related to the operation perfor
           <ButtonFilled onClick={() => setOpen(true)}>
             Open Snackbar
           </ButtonFilled>
-          <Snackbar {...args} open={open} onClose={() => setOpen(false)} />
+          <Snackbar {...args} open={open} setOpen={setOpen} />
         </div>
       );
     }}
@@ -76,7 +76,7 @@ Snackbars contain a single line of text directly related to the operation perfor
           <ButtonFilled onClick={() => setOpen(true)}>
             Open Snackbar
           </ButtonFilled>
-          <Snackbar {...args} open={open} onClose={() => setOpen(false)} />
+          <Snackbar {...args} open={open} setOpen={setOpen} />
         </div>
       );
     }}

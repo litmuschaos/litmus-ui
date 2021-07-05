@@ -9,19 +9,30 @@ type Variant = "success" | "warning" | "error" | undefined;
 
 export interface SnackbarProps extends SnackbarBaseProps {
   variant?: Variant;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Snackbar: React.FC<SnackbarProps> = ({
   variant,
   children,
   className,
+  setOpen,
   open,
-  onClose,
   message,
   ...rest
 }) => {
   // Styles
   const classes = useStyles();
+
+  const handleClose = (
+    event: React.SyntheticEvent | MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   function getVariant(variant: Variant): string {
     switch (variant) {
@@ -44,11 +55,11 @@ const Snackbar: React.FC<SnackbarProps> = ({
       }}
       message={message}
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       autoHideDuration={2000}
       action={
         <>
-          <IconButton className={classes.IconButton} onClick={onClose}>
+          <IconButton className={classes.IconButton} onClick={handleClose}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </>
