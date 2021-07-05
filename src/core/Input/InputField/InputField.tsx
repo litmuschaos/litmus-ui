@@ -1,9 +1,9 @@
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
+import { Icon } from "./../../Icon";
 import { BaseInputProps } from "./base";
 import { useStyles } from "./styles";
-import SuccessIcon from "/public/assets/icons/check.svg";
 
 type Variant = "primary" | "error" | "success" | undefined;
 
@@ -70,7 +70,7 @@ const InputField: React.FC<InputProps> = ({
             </InputAdornment>
           ) : variant === "success" ? (
             <InputAdornment position="end">
-              <img src={SuccessIcon} alt="white check mark" />
+              <Icon name="check" />
             </InputAdornment>
           ) : (
             endIcon && (

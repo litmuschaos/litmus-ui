@@ -1,7 +1,7 @@
 import SVG from "@leeoniya/react-inlinesvg";
-import { makeStyles } from "@material-ui/core";
 import React from "react";
 import { IconName, IconSize } from "./base";
+import { useStyles } from "./style";
 
 const iconRoot = "/assets/icons/";
 
@@ -9,7 +9,6 @@ export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   name: IconName;
   size?: IconSize;
 }
-/* Transform string with px to number and add 2 pxs as path in svg is 2px smaller */
 export const getSvgSize = (size: IconSize) => {
   switch (size) {
     case "xs":
@@ -23,41 +22,31 @@ export const getSvgSize = (size: IconSize) => {
     case "xl":
       return 24;
     case "xxl":
-      return 36;
-    case "xxxl":
-      return 48;
+      return 32;
   }
 };
 
-const useStyles = makeStyles(() => ({
-  container: {
-    display: "inline-block",
-  },
-  icon: {
-    verticalAlign: "middle",
-    display: "inline-block",
-  },
-}));
-
-export const Icon = React.forwardRef<HTMLDivElement, IconProps>(
-  ({ size = "md", name, className, style, ...divElementProps }, ref) => {
-    const classes = useStyles();
-    const svgSize = getSvgSize(size);
-    const iconPath = `${iconRoot}${name}.svg`;
-    console.log("path", iconPath);
-    return (
-      <div className={classes.container} {...divElementProps} ref={ref}>
-        <SVG
-          src={iconPath}
-          width={svgSize}
-          height={svgSize}
-          className={`${classes.icon}
+const Icon: React.FC<IconProps> = ({
+  size = "md",
+  name,
+  className,
+  style,
+  ...divElementProps
+}) => {
+  const classes = useStyles();
+  const svgSize = getSvgSize(size);
+  const iconPath = `${iconRoot}${name}.svg`;
+  return (
+    <div className={classes.container} {...divElementProps}>
+      <SVG
+        src={iconPath}
+        width={svgSize}
+        height={svgSize}
+        className={`${classes.icon}
             ${className}`}
-          style={style}
-        />
-      </div>
-    );
-  }
-);
-
-Icon.displayName = "Icon";
+        style={style}
+      />
+    </div>
+  );
+};
+export { Icon };

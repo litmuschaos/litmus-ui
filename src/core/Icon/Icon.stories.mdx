@@ -6,14 +6,12 @@ import { ArgsTable } from "@storybook/addon-docs/blocks";
 
 # Icon
 
-Litmus-ui icon
-
-### Changing icon size
-
-## Default variant:
+Litmus-ui has a set of icons defined to cater to Litmus specifications. Select the `name`
+of the icon and its `size`. Users may also pass `className` to override the css properties
+of the SVG element.
 
 <Canvas>
-  <Story name="default" args={{ name: "check" }}>
+  <Story name="Default" args={{ name: "check" }}>
     {(args) => <Icon {...args} />}
   </Story>
 </Canvas>

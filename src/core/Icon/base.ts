@@ -1,20 +1,35 @@
-export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl";
+export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
 export type IconName =
+  | "agents"
   | "analytics"
+  | "applicationDashboard"
+  | "arrowDown"
+  | "arrowLeft"
+  | "arrowRight"
+  | "arrowUp"
   | "calendar"
   | "check"
+  | "chevronDown"
+  | "chevronLeft"
+  | "chevronRight"
+  | "chevronUp"
   | "clock"
   | "close"
+  | "clusters"
+  | "code"
   | "collapseRight"
   | "collapseDown"
   | "collapseLeft"
   | "collapseUp"
+  | "community"
   | "configure"
   | "copy"
   | "delete"
+  | "dataSource"
   | "disableSchedule"
   | "disconnectTarget"
+  | "document"
   | "download"
   | "edit"
   | "enableSchedule"
@@ -23,6 +38,7 @@ export type IconName =
   | "expandLeft"
   | "expandRight"
   | "expandUp"
+  | "experiment"
   | "experimentError"
   | "experimentFailed"
   | "experimentNotAvailable"
@@ -31,42 +47,72 @@ export type IconName =
   | "experimentPending"
   | "experimentRunning"
   | "experimentSkipped"
+  | "externalLink"
   | "eye"
   | "eyeSlash"
   | "hamburger"
+  | "home"
+  | "info"
   | "logout"
+  | "logs"
   | "maximise"
   | "menuHorizontal"
   | "menuVertical"
   | "minimise"
+  | "paused"
+  | "project"
+  | "recurringSchedule"
   | "redo"
   | "refresh"
   | "reload"
+  | "schedule"
+  | "scheduleWorkflow"
+  | "search"
+  | "settings"
+  | "share"
   | "showAnalytics"
   | "sync"
   | "terminate"
   | "undo"
   | "upload"
+  | "usage"
+  | "users"
+  | "workflow"
   | "workflowCompleted"
   | "workflowFailed"
   | "workflowPending"
   | "workflowRunning";
 
 export const getAvailableIcons = (): IconName[] => [
+  "agents",
   "analytics",
+  "applicationDashboard",
+  "arrowDown",
+  "arrowLeft",
+  "arrowRight",
+  "arrowUp",
   "calendar",
   "check",
+  "chevronDown",
+  "chevronLeft",
+  "chevronRight",
+  "chevronUp",
   "clock",
   "close",
+  "clusters",
+  "code",
   "collapseRight",
   "collapseDown",
   "collapseLeft",
   "collapseUp",
+  "community",
   "configure",
   "copy",
   "delete",
+  "dataSource",
   "disableSchedule",
   "disconnectTarget",
+  "document",
   "download",
   "edit",
   "enableSchedule",
@@ -75,6 +121,7 @@ export const getAvailableIcons = (): IconName[] => [
   "expandLeft",
   "expandRight",
   "expandUp",
+  "experiment",
   "experimentError",
   "experimentFailed",
   "experimentNotAvailable",
@@ -83,22 +130,37 @@ export const getAvailableIcons = (): IconName[] => [
   "experimentPending",
   "experimentRunning",
   "experimentSkipped",
+  "externalLink",
   "eye",
   "eyeSlash",
   "hamburger",
+  "home",
+  "info",
   "logout",
+  "logs",
   "maximise",
   "menuHorizontal",
   "menuVertical",
   "minimise",
+  "paused",
+  "project",
+  "recurringSchedule",
   "redo",
   "refresh",
   "reload",
+  "schedule",
+  "scheduleWorkflow",
+  "search",
+  "settings",
+  "share",
   "showAnalytics",
   "sync",
   "terminate",
   "undo",
   "upload",
+  "usage",
+  "users",
+  "workflow",
   "workflowCompleted",
   "workflowFailed",
   "workflowPending",

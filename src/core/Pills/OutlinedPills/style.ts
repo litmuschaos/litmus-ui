@@ -17,18 +17,38 @@ const useStyles = makeStyles((theme: Theme) => ({
   failed: {
     color: theme.palette.status.workflow.failed,
     border: `0.025rem solid  ${theme.palette.status.workflow.failed}`,
+    "& svg": {
+      "& path ": {
+        stroke: theme.palette.status.workflow.failed,
+      },
+    },
   },
   succeeded: {
     color: theme.palette.status.workflow.completed,
     border: `0.025rem solid  ${theme.palette.status.workflow.completed}`,
+    "& svg": {
+      "& path": {
+        stroke: theme.palette.status.workflow.completed,
+      },
+    },
   },
   pending: {
     color: theme.palette.status.workflow.pending,
     border: `0.025rem solid  ${theme.palette.status.workflow.pending}`,
+    "& svg": {
+      "& path": {
+        stroke: theme.palette.status.workflow.pending,
+      },
+    },
   },
   running: {
     color: theme.palette.status.workflow.running,
     border: `0.025rem solid  ${theme.palette.status.workflow.running}`,
+    "& svg": {
+      "& path": {
+        stroke: theme.palette.status.workflow.running,
+      },
+    },
   },
 }));
 

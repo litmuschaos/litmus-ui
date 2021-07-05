@@ -1,11 +1,8 @@
 import { Chip } from "@material-ui/core";
 import React from "react";
+import { Icon, IconName } from "../../Icon";
 import { ChipBaseProps } from "../base";
 import { useStyles } from "./style";
-import SuccessIcon from "/public/assets/icons/workflowCompleted.svg";
-import FailedIcon from "/public/assets/icons/workflowFailed.svg";
-import PendingIcon from "/public/assets/icons/workflowPending.svg";
-import RunningIcon from "/public/assets/icons/workflowRunning.svg";
 
 type Variant = "succeeded" | "running" | "failed" | "pending" | undefined;
 
@@ -37,23 +34,23 @@ const OutlinedPills: React.FC<OutlinedPillsProps> = ({
         return "";
     }
   }
-  function getIconVariant(variant: Variant): string {
+  function getIconVariant(variant: Variant): IconName {
     switch (variant) {
       case "failed":
-        return FailedIcon;
+        return "workflowFailed";
       case "running":
-        return RunningIcon;
+        return "workflowRunning";
       case "succeeded":
-        return SuccessIcon;
+        return "workflowCompleted";
       case "pending":
-        return PendingIcon;
+        return "workflowPending";
       default:
-        return "";
+        return "workflowPending";
     }
   }
   return (
     <Chip
-      icon={<img src={getIconVariant(variant)} alt={variant} />}
+      icon={<Icon name={getIconVariant(variant)} />}
       label={label}
       variant="outlined"
       className={`${classes.root} ${className} ${getVariant(variant)}`}
