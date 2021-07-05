@@ -48,12 +48,12 @@ const Snackbar: React.FC<SnackbarProps> = ({
       autoHideDuration={2000}
       action={
         <>
-          <IconButton color="inherit" onClick={onClose}>
+          <IconButton className={classes.IconButton} onClick={onClose}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </>
       }
-      className={`${classes.root} ${className} ${getVariant(variant)}`}
+      className={`${className} ${getVariant(variant)}`}
       {...rest}
     >
       {children}

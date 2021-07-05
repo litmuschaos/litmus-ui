@@ -1,11 +1,9 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  // Global
-  root: {
-    //
+  IconButton: {
+    color: theme.palette.common.white,
   },
-
   // SnackBar variants
   success: {
     "& .MuiSnackbarContent-root": {
