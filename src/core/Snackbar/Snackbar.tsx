@@ -32,7 +32,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
       case "error":
         return classes.error;
       default:
-        return "";
+        return classes.default;
     }
   }
 

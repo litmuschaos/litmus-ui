@@ -20,6 +20,11 @@ const useStyles = makeStyles((theme: Theme) => ({
       background: `${theme.palette.error.main}`,
     },
   },
+  default: {
+    "& .MuiSnackbarContent-root": {
+      background: `${theme.palette.horizontalStepper.completed}`,
+    },
+  },
 }));
 
 export { useStyles };
