@@ -1,272 +1,106 @@
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl";
 
 export type IconName =
-  | "angle-double-down"
-  | "angle-double-right"
-  | "angle-down"
-  | "angle-left"
-  | "angle-right"
-  | "angle-up"
-  | "apps"
-  | "arrow-down"
-  | "arrow-from-right"
-  | "arrow-left"
-  | "arrow-random"
-  | "arrow-right"
-  | "arrow-up"
-  | "arrow"
-  | "arrows-h"
-  | "bars"
-  | "bell-slash"
-  | "bell"
-  | "bolt"
-  | "book-open"
-  | "book"
-  | "brackets-curly"
-  | "bug"
-  | "calculator-alt"
-  | "calendar-alt"
-  | "camera"
-  | "channel-add"
-  | "chart-line"
-  | "check-circle"
+  | "analytics"
+  | "calendar"
   | "check"
-  | "circle"
-  | "clipboard-alt"
-  | "clock-nine"
-  | "cloud-download"
-  | "cloud-upload"
-  | "cloud"
-  | "code-branch"
-  | "cog"
-  | "columns"
-  | "comment-alt"
-  | "comments-alt"
-  | "compass"
+  | "clock"
+  | "close"
+  | "collapseRight"
+  | "collapseDown"
+  | "collapseLeft"
+  | "collapseUp"
+  | "configure"
   | "copy"
-  | "cube"
-  | "database"
-  | "document-info"
-  | "download-alt"
-  | "draggabledots"
+  | "delete"
+  | "disableSchedule"
+  | "disconnectTarget"
+  | "download"
   | "edit"
-  | "ellipsis-v"
-  | "envelope"
-  | "exchange-alt"
-  | "exclamation-triangle"
-  | "exclamation"
-  | "external-link-alt"
-  | "eye-slash"
+  | "enableSchedule"
+  | "expand"
+  | "expandDown"
+  | "expandLeft"
+  | "expandRight"
+  | "expandUp"
+  | "experimentError"
+  | "experimentFailed"
+  | "experimentNotAvailable"
+  | "experimentOmitted"
+  | "experimentPassed"
+  | "experimentPending"
+  | "experimentRunning"
+  | "experimentSkipped"
   | "eye"
-  | "fa fa-spinner"
-  | "favorite"
-  | "file-alt"
-  | "file-blank"
-  | "file-copy-alt"
-  | "filter"
-  | "folder-open"
-  | "folder-plus"
-  | "folder-upload"
-  | "folder"
-  | "forward"
-  | "gf-interpolation-linear"
-  | "gf-interpolation-smooth"
-  | "gf-interpolation-step-after"
-  | "gf-interpolation-step-before"
-  | "gf-logs"
-  | "grafana"
-  | "graph-bar"
-  | "heart-break"
-  | "heart"
-  | "history"
-  | "home-alt"
-  | "import"
-  | "info-circle"
-  | "key-skeleton-alt"
-  | "keyboard"
-  | "line-alt"
-  | "link"
-  | "list-ul"
-  | "lock"
-  | "minus-circle"
-  | "minus"
-  | "mobile-android"
-  | "monitor"
-  | "palette"
-  | "panel-add"
-  | "pause"
-  | "pen"
-  | "percentage"
-  | "play"
-  | "plug"
-  | "plus-circle"
-  | "plus-square"
-  | "plus"
-  | "power"
-  | "question-circle"
-  | "repeat"
-  | "reusable-panel"
-  | "rocket"
-  | "save"
-  | "search-minus"
-  | "search-plus"
-  | "search"
-  | "share-alt"
-  | "shield"
-  | "sign-in-alt"
-  | "signal"
-  | "signin"
-  | "signout"
-  | "slack"
-  | "sliders-v-alt"
-  | "sort-amount-down"
-  | "square-shape"
-  | "star"
-  | "step-backward"
+  | "eyeSlash"
+  | "hamburger"
+  | "logout"
+  | "maximise"
+  | "menuHorizontal"
+  | "menuVertical"
+  | "minimise"
+  | "redo"
+  | "refresh"
+  | "reload"
+  | "showAnalytics"
   | "sync"
-  | "table"
-  | "tag-alt"
-  | "times"
-  | "trash-alt"
-  | "unlock"
+  | "terminate"
+  | "undo"
   | "upload"
-  | "user"
-  | "users-alt"
-  | "wrap-text"
-  | "heart-rate"
-  | "x";
+  | "workflowCompleted"
+  | "workflowFailed"
+  | "workflowPending"
+  | "workflowRunning";
 
 export const getAvailableIcons = (): IconName[] => [
-  "angle-double-down",
-  "angle-double-right",
-  "angle-down",
-  "angle-left",
-  "angle-right",
-  "angle-up",
-  "apps",
-  "arrow-down",
-  "arrow-from-right",
-  "arrow-left",
-  "arrow-random",
-  "arrow-right",
-  "arrow-up",
-  "arrow",
-  "arrows-h",
-  "bars",
-  "bell-slash",
-  "bell",
-  "bolt",
-  "book-open",
-  "book",
-  "brackets-curly",
-  "bug",
-  "calculator-alt",
-  "calendar-alt",
-  "camera",
-  "channel-add",
-  "chart-line",
-  "check-circle",
+  "analytics",
+  "calendar",
   "check",
-  "circle",
-  "clipboard-alt",
-  "clock-nine",
-  "cloud-download",
-  "cloud-upload",
-  "cloud",
-  "code-branch",
-  "cog",
-  "columns",
-  "comment-alt",
-  "comments-alt",
-  "compass",
+  "clock",
+  "close",
+  "collapseRight",
+  "collapseDown",
+  "collapseLeft",
+  "collapseUp",
+  "configure",
   "copy",
-  "cube",
-  "database",
-  "document-info",
-  "download-alt",
-  "draggabledots",
+  "delete",
+  "disableSchedule",
+  "disconnectTarget",
+  "download",
   "edit",
-  "ellipsis-v",
-  "envelope",
-  "exchange-alt",
-  "exclamation-triangle",
-  "external-link-alt",
-  "eye-slash",
+  "enableSchedule",
+  "expand",
+  "expandDown",
+  "expandLeft",
+  "expandRight",
+  "expandUp",
+  "experimentError",
+  "experimentFailed",
+  "experimentNotAvailable",
+  "experimentOmitted",
+  "experimentPassed",
+  "experimentPending",
+  "experimentRunning",
+  "experimentSkipped",
   "eye",
-  "fa fa-spinner",
-  "favorite",
-  "file-alt",
-  "file-blank",
-  "file-copy-alt",
-  "filter",
-  "folder-open",
-  "folder-plus",
-  "folder-upload",
-  "folder",
-  "forward",
-  "gf-interpolation-linear",
-  "gf-interpolation-smooth",
-  "gf-interpolation-step-after",
-  "gf-interpolation-step-before",
-  "gf-logs",
-  "grafana",
-  "graph-bar",
-  "heart-break",
-  "heart",
-  "history",
-  "home-alt",
-  "import",
-  "info-circle",
-  "key-skeleton-alt",
-  "keyboard",
-  "line-alt",
-  "link",
-  "list-ul",
-  "lock",
-  "minus-circle",
-  "minus",
-  "mobile-android",
-  "monitor",
-  "palette",
-  "panel-add",
-  "pause",
-  "pen",
-  "percentage",
-  "play",
-  "plug",
-  "plus-circle",
-  "plus-square",
-  "plus",
-  "power",
-  "question-circle",
-  "repeat",
-  "reusable-panel",
-  "rocket",
-  "save",
-  "search-minus",
-  "search-plus",
-  "search",
-  "share-alt",
-  "shield",
-  "sign-in-alt",
-  "signal",
-  "signin",
-  "signout",
-  "slack",
-  "sliders-v-alt",
-  "sort-amount-down",
-  "square-shape",
-  "star",
-  "step-backward",
+  "eyeSlash",
+  "hamburger",
+  "logout",
+  "maximise",
+  "menuHorizontal",
+  "menuVertical",
+  "minimise",
+  "redo",
+  "refresh",
+  "reload",
+  "showAnalytics",
   "sync",
-  "table",
-  "tag-alt",
-  "times",
-  "trash-alt",
-  "unlock",
+  "terminate",
+  "undo",
   "upload",
-  "user",
-  "users-alt",
-  "wrap-text",
-  "x",
+  "workflowCompleted",
+  "workflowFailed",
+  "workflowPending",
+  "workflowRunning",
 ];

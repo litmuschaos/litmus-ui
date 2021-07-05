@@ -1,10 +1,9 @@
 import SVG from "@leeoniya/react-inlinesvg";
-import { makeStyles, Theme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import React from "react";
 import { IconName, IconSize } from "./base";
 
-// const iconRoot = "/public/img/icons/";
-const iconRoot = "/src/assets/";
+const iconRoot = "/assets/icons/";
 
 export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   name: IconName;
@@ -30,49 +29,29 @@ export const getSvgSize = (size: IconSize) => {
   }
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
-    label: "Icon",
     display: "inline-block",
   },
   icon: {
     verticalAlign: "middle",
     display: "inline-block",
-    marginBottom: "1rem",
-    fill: "white",
-    "& path": {
-      fill: "white",
-      stroke: "blue",
-    },
-  },
-  orange: {
-    fill: theme.palette.highlight,
   },
 }));
 
 export const Icon = React.forwardRef<HTMLDivElement, IconProps>(
   ({ size = "md", name, className, style, ...divElementProps }, ref) => {
-    if (name === "panel-add") {
-      size = "xl";
-    }
-
-    const styles = useStyles();
+    const classes = useStyles();
     const svgSize = getSvgSize(size);
-    const svgHgt = svgSize;
-    const svgWid = name?.startsWith("gf-bar-align")
-      ? 16
-      : name?.startsWith("gf-interp")
-      ? 30
-      : svgSize;
-    const svgPath = "/assets/litmusLogo.svg";
-
+    const iconPath = `${iconRoot}${name}.svg`;
+    console.log("path", iconPath);
     return (
-      <div className={styles.container} {...divElementProps} ref={ref}>
+      <div className={classes.container} {...divElementProps} ref={ref}>
         <SVG
-          src={"/assets/icons/workflowPending.svg"}
-          width={svgWid}
-          height={svgHgt}
-          className={`${styles.icon}
+          src={iconPath}
+          width={svgSize}
+          height={svgSize}
+          className={`${classes.icon}
             ${className}`}
           style={style}
         />
