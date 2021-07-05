@@ -1,11 +1,11 @@
 import { Chip } from "@material-ui/core";
 import React from "react";
-import FailedIcon from "../../../assets/statusFailed.svg";
-import PendingIcon from "../../../assets/statusPending.svg";
-import RunningIcon from "../../../assets/statusRunning.svg";
-import SuccessIcon from "../../../assets/statusSuccess.svg";
 import { ChipBaseProps } from "../base";
 import { useStyles } from "./style";
+import SuccessIcon from "/public/assets/icons/workflowCompleted.svg";
+import FailedIcon from "/public/assets/icons/workflowFailed.svg";
+import PendingIcon from "/public/assets/icons/workflowPending.svg";
+import RunningIcon from "/public/assets/icons/workflowRunning.svg";
 
 type Variant = "succeeded" | "running" | "failed" | "pending" | undefined;
 

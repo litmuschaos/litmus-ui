@@ -24,7 +24,7 @@
     "lint:script": "eslint --ext js --ext jsx --ext ts --ext tsx --ext mdx src",
     "lint:style": "stylelint src",
     "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006 -s ./src/assets -c .storybook",
+    "storybook": "start-storybook -p 6006 -s public -c .storybook",
     "test": "jest --maxWorkers=2",
     "test:clean": "jest --clearCache",
     "test:watch": "yarn test --watch",
@@ -53,6 +53,7 @@
   "module": "lib.esm.js",
   "types": "index.d.ts",
   "dependencies": {
+    "@leeoniya/react-inlinesvg": "^2.2.4",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",

@@ -1,9 +1,9 @@
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
-import SuccessIcon from "../../../assets/checkIcon.svg";
 import { BaseInputProps } from "./base";
 import { useStyles } from "./styles";
+import SuccessIcon from "/public/assets/icons/check.svg";
 
 type Variant = "primary" | "error" | "success" | undefined;
 
