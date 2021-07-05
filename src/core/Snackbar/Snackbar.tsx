@@ -9,7 +9,7 @@ type Variant = "success" | "warning" | "error" | undefined;
 
 export interface SnackbarProps extends SnackbarBaseProps {
   variant?: Variant;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Snackbar: React.FC<SnackbarProps> = ({
@@ -31,7 +31,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    setOpen?.(false);
   };
 
   function getVariant(variant: Variant): string {
