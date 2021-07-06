@@ -1,6 +1,6 @@
-import SVG from "@leeoniya/react-inlinesvg";
 import React from "react";
-import { IconName, IconSize } from "./base";
+import SVG from "react-inlinesvg";
+import { IconName, IconSize, onlyStorke } from "./base";
 import { useStyles } from "./style";
 
 const iconRoot = "/assets/icons/";
@@ -8,6 +8,7 @@ const iconRoot = "/assets/icons/";
 export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   name: IconName;
   size?: IconSize;
+  color?: string;
 }
 export const getSvgSize = (size: IconSize) => {
   switch (size) {
@@ -31,14 +32,20 @@ const Icon: React.FC<IconProps> = ({
   name,
   className,
   style,
+  color = "red",
   ...divElementProps
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({
+    fill: onlyStorke.includes(name) ? "" : color,
+    stroke: onlyStorke.includes(name) ? color : "",
+  });
   const svgSize = getSvgSize(size);
   const iconPath = `${iconRoot}${name}.svg`;
   return (
     <div className={classes.container} {...divElementProps}>
+      <img src={iconPath} />
       <SVG
+        cacheRequests={true}
         src={iconPath}
         width={svgSize}
         height={svgSize}

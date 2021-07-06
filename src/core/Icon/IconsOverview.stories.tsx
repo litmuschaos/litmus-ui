@@ -49,7 +49,7 @@ const IconWrapper = ({ name }: { name: IconName }) => {
 
   return (
     <div className={classes.iconWrapperRoot}>
-      <Icon name={name} />
+      <Icon name={name} size={"lg"} color="purple" />
       <div className={classes.iconLabel}>{name}</div>
     </div>
   );
