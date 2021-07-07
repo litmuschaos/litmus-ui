@@ -51,7 +51,11 @@ const Icon: React.FC<IconProps> = ({
   const svgSize = getSvgSize(size);
   const iconPath = `${iconRoot}${name}.svg`;
   return (
-    <div className={classes.container} {...divElementProps}>
+    <div
+      className={classes.container}
+      {...divElementProps}
+      data-testid="icon-component"
+    >
       <SVG
         cacheRequests={true}
         src={iconPath}
