@@ -77,6 +77,8 @@ export type IconName =
   | "upload"
   | "usage"
   | "users"
+  | "userDisable"
+  | "userEnable"
   | "workflow"
   | "workflowCompleted"
   | "workflowFailed"
@@ -160,6 +162,8 @@ export const getAvailableIcons = (): IconName[] => [
   "upload",
   "usage",
   "users",
+  "userDisable",
+  "userEnable",
   "workflow",
   "workflowCompleted",
   "workflowFailed",
@@ -167,7 +171,7 @@ export const getAvailableIcons = (): IconName[] => [
   "workflowRunning",
 ];
 export const onlyStorke = [
-  "analytics",
+  // "analytics",
   "applicationDashboard",
   "arrowDown",
   "arrowLeft",
@@ -179,7 +183,7 @@ export const onlyStorke = [
   "chevronLeft",
   "chevronRight",
   "chevronUp",
-  "clock",
+  // "clock",
   "close",
   "clusters",
   "code",
@@ -242,15 +246,17 @@ export const onlyStorke = [
   "upload",
   "usage",
   "users",
+  // "userDisable",
+  // "userEnable",
   "workflow",
   "workflowCompleted",
-  // "workflowFailed",
+  "workflowFailed",
   "workflowPending",
   // "workflowRunning",
 ];
 
-export const withRect = [
-  "clock",
+export const withRectFill = [
+  // "clock",
   "experimentError",
   "experimentFailed",
   "experimentNotAvailable",
@@ -260,4 +266,12 @@ export const withRect = [
   "experimentRunning",
   "experimentSkipped",
   "recurringSchedule",
+];
+
+export const withRectStroke = [
+  "code",
+  "dataSource",
+  "workflowCompleted",
+  "workflowFailed",
+  "workflowRunning",
 ];

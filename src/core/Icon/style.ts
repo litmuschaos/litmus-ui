@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 interface StyleProps {
-  fill?: string;
-  stroke?: string;
-  rect?: boolean;
+  color?: string;
+  rectFill?: boolean;
+  rectStroke?: boolean;
+  pathStroke?: boolean;
 }
 const useStyles = makeStyles(() => ({
   container: {
@@ -12,11 +13,12 @@ const useStyles = makeStyles(() => ({
     verticalAlign: "middle",
     display: "inline-block",
     "& path": {
-      stroke: props.stroke,
-      fill: props.rect ? "white" : props.fill,
+      stroke: props.pathStroke ? props.color : "",
+      fill: props.rectFill ? "" : props.pathStroke ? "" : props.color,
     },
     "& rect": {
-      fill: props.fill,
+      fill: props.rectFill ? props.color : "",
+      stroke: props.rectStroke ? props.color : "",
     },
   }),
 }));
