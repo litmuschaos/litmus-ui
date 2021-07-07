@@ -1,5 +1,9 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
+interface StyleProps {
+  color?: string;
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(0.5, 0.75),
@@ -14,42 +18,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       padding: theme.spacing(0, 0, 0, 1.25),
     },
   },
-  failed: {
-    color: theme.palette.status.workflow.failed,
-    border: `0.025rem solid  ${theme.palette.status.workflow.failed}`,
-    "& svg": {
-      "& path ": {
-        stroke: theme.palette.status.workflow.failed,
-      },
-    },
-  },
-  succeeded: {
-    color: theme.palette.status.workflow.completed,
-    border: `0.025rem solid  ${theme.palette.status.workflow.completed}`,
-    "& svg": {
-      "& path": {
-        stroke: theme.palette.status.workflow.completed,
-      },
-    },
-  },
-  pending: {
-    color: theme.palette.status.workflow.pending,
-    border: `0.025rem solid  ${theme.palette.status.workflow.pending}`,
-    "& svg": {
-      "& path": {
-        stroke: theme.palette.status.workflow.pending,
-      },
-    },
-  },
-  running: {
-    color: theme.palette.status.workflow.running,
-    border: `0.025rem solid  ${theme.palette.status.workflow.running}`,
-    "& svg": {
-      "& path": {
-        stroke: theme.palette.status.workflow.running,
-      },
-    },
-  },
+  variant: (props: StyleProps) => ({
+    color: props.color,
+    border: `0.025rem solid  ${props.color}`,
+  }),
 }));
 
 export { useStyles };

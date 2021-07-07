@@ -1,4 +1,9 @@
-import { IconButton, InputAdornment, TextField } from "@material-ui/core";
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  useTheme,
+} from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Icon } from "./../../Icon";
@@ -28,6 +33,7 @@ const InputField: React.FC<InputProps> = ({
   ...rest
 }) => {
   const classes = useStyles({ fullWidth, width: width ?? "25rem" });
+  const { palette } = useTheme();
   // Hides or shows the password
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -70,7 +76,7 @@ const InputField: React.FC<InputProps> = ({
             </InputAdornment>
           ) : variant === "success" ? (
             <InputAdornment position="end">
-              <Icon name="check" />
+              <Icon name="check" color={palette.success.main} />
             </InputAdornment>
           ) : (
             endIcon && (

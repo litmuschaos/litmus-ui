@@ -89,14 +89,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& label": {
       color: `${theme.palette.success.main} !important`,
     },
-    "& svg": {
-      "& path": {
-        stroke: theme.palette.border.success,
-      },
-      "& path:last-child": {
-        fill: theme.palette.border.success,
-      },
-    },
   },
 }));
 
