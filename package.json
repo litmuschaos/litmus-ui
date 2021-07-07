@@ -1,7 +1,7 @@
 {
   "name": "litmus-ui",
   "license": "Apache-2.0",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "private": false,
   "description": "Component Library for LitmusChaos",
   "author": "LitmusChaos Authors",
@@ -49,9 +49,6 @@
       "pre-push": "yarn test"
     }
   },
-  "main": "lib.cjs.js",
-  "module": "lib.esm.js",
-  "types": "index.d.ts",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.9.1",
