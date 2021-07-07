@@ -16,8 +16,7 @@ beforeEach(() => {
   component = screen.getByTestId("icon-component");
 });
 
-test("Check placeholder and label", () => {
-  console.log("first child-1", component);
+test("Check the Icon className and name", () => {
   // check componenet is div
   expect(component?.tagName).toBe("DIV");
   // check the class of the component
