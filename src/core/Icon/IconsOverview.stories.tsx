@@ -1,7 +1,8 @@
 import { Input, makeStyles } from "@material-ui/core";
 import React, { ChangeEvent, useState } from "react";
-import { getAvailableIcons, IconName } from "./base";
+import { IconName } from "./base";
 import { Icon } from "./Icon";
+import { getAvailableIcons } from "./utils";
 
 export default {
   title: "Core/Icon/Icons Overview",

@@ -1,13 +1,12 @@
 import React from "react";
 import SVG from "react-inlinesvg";
-import {
-  IconName,
-  IconSize,
-  onlyStorke,
-  withRectFill,
-  withRectStroke,
-} from "./base";
+import { IconName, IconSize } from "./base";
 import { useStyles } from "./style";
+import {
+  iconsPathWithStorke,
+  iconsWithRectFill,
+  iconsWithRectStroke,
+} from "./utils";
 
 const iconRoot = "/assets/icons/";
 
@@ -30,6 +29,8 @@ export const getSvgSize = (size: IconSize) => {
       return 24;
     case "xxl":
       return 32;
+    case "xxxl":
+      return 48;
   }
 };
 
@@ -38,20 +39,19 @@ const Icon: React.FC<IconProps> = ({
   name,
   className,
   style,
-  color = "red",
+  color = "black",
   ...divElementProps
 }) => {
   const classes = useStyles({
     color: color,
-    pathStroke: onlyStorke.includes(name),
-    rectFill: withRectFill.includes(name),
-    rectStroke: withRectStroke.includes(name),
+    pathStroke: iconsPathWithStorke.includes(name),
+    rectFill: iconsWithRectFill.includes(name),
+    rectStroke: iconsWithRectStroke.includes(name),
   });
   const svgSize = getSvgSize(size);
   const iconPath = `${iconRoot}${name}.svg`;
   return (
     <div className={classes.container} {...divElementProps}>
-      <img src={iconPath} />
       <SVG
         cacheRequests={true}
         src={iconPath}
@@ -60,7 +60,10 @@ const Icon: React.FC<IconProps> = ({
         className={`${classes.icon}
             ${className}`}
         style={style}
-      />
+      >
+        {/* fallback content in case of a fetch error or unsupported browser*/}
+        <img src={iconPath} alt={name} />
+      </SVG>
     </div>
   );
 };
