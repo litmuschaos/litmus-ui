@@ -19,6 +19,7 @@ const settingAugmentedColors = (
       metricName: linedata.metricName,
       data: linedata.data,
       baseColor: elementColor,
+      subData: linedata.subData,
     };
   });
 };
