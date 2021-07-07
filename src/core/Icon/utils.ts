@@ -103,7 +103,6 @@ const iconsPathWithStorke = [
   "configure",
   "delete",
   "dataSource",
-  "document",
   "enableSchedule",
   "expand",
   "externalLink",
