@@ -1,6 +1,6 @@
 import React from "react";
 import SVG from "react-inlinesvg";
-import { IconName, IconSize, onlyStorke } from "./base";
+import { IconName, IconSize, onlyStorke, withRect } from "./base";
 import { useStyles } from "./style";
 
 const iconRoot = "/assets/icons/";
@@ -36,8 +36,9 @@ const Icon: React.FC<IconProps> = ({
   ...divElementProps
 }) => {
   const classes = useStyles({
-    fill: onlyStorke.includes(name) ? "" : color,
-    stroke: onlyStorke.includes(name) ? color : "",
+    fill: onlyStorke.includes(name) ? "none" : color,
+    stroke: onlyStorke.includes(name) ? color : "none",
+    rect: withRect.includes(name),
   });
   const svgSize = getSvgSize(size);
   const iconPath = `${iconRoot}${name}.svg`;
