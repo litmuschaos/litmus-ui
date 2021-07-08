@@ -2,7 +2,15 @@ import { Story, Canvas, Meta } from "@storybook/addon-docs/blocks";
 import { Icon } from "./Icon";
 import { ArgsTable } from "@storybook/addon-docs/blocks";
 
-<Meta title="Core/Icon" component={Icon} />
+<Meta
+  title="Core/Icon"
+  component={Icon}
+  argTypes={{
+    color: {
+      control: "color",
+    },
+  }}
+/>
 
 # Icon
 
@@ -15,5 +23,17 @@ of the SVG element.
     {(args) => <Icon {...args} />}
   </Story>
 </Canvas>
+
+The size of the icons are mapped to the standard sizes in the following way:
+
+```
+xs   : 12 px
+sm   : 14 px
+md   : 16 px
+lg   : 18 px
+xl   : 24 px
+xxl  : 32 px
+xxxl : 48 px
+```
 
 <ArgsTable of={Icon} />

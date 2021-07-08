@@ -57,7 +57,7 @@ const Icon: React.FC<IconProps> = ({
       data-testid="icon-component"
     >
       <SVG
-        cacheRequests={true}
+        cacheRequests={false}
         src={iconPath}
         width={svgSize}
         height={svgSize}
