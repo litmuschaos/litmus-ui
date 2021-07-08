@@ -1,18 +1,18 @@
 import { Theme } from "@material-ui/core";
 import { create } from "@storybook/theming";
-import litmusLogo from "../src/assets/litmusLogo.svg";
 import { litmusPortalTheme } from "../src/theme/litmus-portal";
+import litmusLogo from "/public/assets/litmusLogo.svg";
 
 const createTheme = (theme: Theme) => {
   return create({
     base: "light",
 
-    colorPrimary: theme.palette.background.paper,
+    colorPrimary: theme.palette.background.default,
     colorSecondary: theme.palette.highlight,
 
     // UI
-    appBg: theme.palette.background.paper,
-    appContentBg: theme.palette.background.paper,
+    appBg: theme.palette.background.default,
+    appContentBg: theme.palette.background.default,
     appBorderColor: theme.palette.primary.light,
     appBorderRadius: theme.spacing(1),
 
@@ -28,10 +28,10 @@ const createTheme = (theme: Theme) => {
     // Toolbar default and active colors
     barTextColor: theme.palette.text.hint,
     barSelectedColor: theme.palette.highlight,
-    barBg: theme.palette.background.paper,
+    barBg: theme.palette.background.default,
 
     // Form colors
-    inputBg: theme.palette.background.paper,
+    inputBg: theme.palette.background.default,
     inputBorder: theme.palette.highlight,
     inputTextColor: theme.palette.text.primary,
     inputBorderRadius: theme.spacing(1),
