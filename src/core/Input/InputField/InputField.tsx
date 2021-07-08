@@ -76,7 +76,7 @@ const InputField: React.FC<InputProps> = ({
             </InputAdornment>
           ) : variant === "success" ? (
             <InputAdornment position="end">
-              <Icon name="check" color={palette.success.main} />
+              <Icon name="experimentPassed" color={palette.success.main} />
             </InputAdornment>
           ) : (
             endIcon && (
