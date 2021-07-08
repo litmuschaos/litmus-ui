@@ -90,8 +90,9 @@ const PlotStackBar = ({
     height,
   });
   const { palette } = useTheme();
-  const [currentSelectedBar, setCurrentSelectedBar] =
-    useState<number | undefined>();
+  const [currentSelectedBar, setCurrentSelectedBar] = useState<
+    number | undefined
+  >();
 
   const colorScale = scaleOrdinal<StackName, string>({
     domain: keys,

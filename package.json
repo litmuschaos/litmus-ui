@@ -1,7 +1,7 @@
 {
   "name": "litmus-ui",
   "license": "Apache-2.0",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": false,
   "description": "Component Library for LitmusChaos",
   "author": "LitmusChaos Authors",
@@ -24,7 +24,7 @@
     "lint:script": "eslint --ext js --ext jsx --ext ts --ext tsx --ext mdx src",
     "lint:style": "stylelint src",
     "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006 -s ./src/assets -c .storybook",
+    "storybook": "start-storybook -p 6006 -s public -c .storybook",
     "test": "jest --maxWorkers=2",
     "test:clean": "jest --clearCache",
     "test:watch": "yarn test --watch",
@@ -60,6 +60,7 @@
     "dayjs": "^1.10.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-inlinesvg": "^2.3.0",
     "react-router-dom": "^5.2.0",
     "react-spring": "^8.0.27"
   },
