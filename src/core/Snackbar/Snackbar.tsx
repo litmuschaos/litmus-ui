@@ -19,6 +19,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
   setOpen,
   open,
   message,
+  autoHideDuration = 2000,
   ...rest
 }) => {
   // Styles
@@ -56,7 +57,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
       message={message}
       open={open}
       onClose={handleClose}
-      autoHideDuration={2000}
+      autoHideDuration={autoHideDuration}
       action={
         <>
           <IconButton className={classes.IconButton} onClick={handleClose}>

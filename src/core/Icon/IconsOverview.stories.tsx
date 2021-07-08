@@ -1,5 +1,7 @@
 import { Input, makeStyles } from "@material-ui/core";
 import React, { ChangeEvent, useState } from "react";
+import { copyTextToClipboard } from "../../utils/copyTextToClipboard";
+import { Snackbar } from "../Snackbar/";
 import { IconName } from "./base";
 import { Icon } from "./Icon";
 import { getAvailableIcons } from "./utils";
@@ -15,14 +17,18 @@ export default {
 };
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
     width: "100%",
     background: "#F5F6F8",
     padding: "1rem",
   },
-  search: { width: "18rem", marginBottom: "1rem" },
-  iconGroup: { display: "flex", flexWrap: "wrap" },
+  search: {
+    width: "18rem",
+    marginBottom: "1rem",
+  },
+  iconGroup: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
   iconWrapperRoot: {
     width: "10rem",
     padding: ".8rem",
@@ -45,12 +51,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const IconWrapper = ({ name }: { name: IconName }) => {
+const IconWrapper = ({
+  name,
+  onClick,
+}: {
+  name: IconName;
+  onClick: () => void;
+}) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.iconWrapperRoot}>
-      <Icon name={name} size={"lg"} color="#5B44BA" />
+    <div className={classes.iconWrapperRoot} onClick={onClick}>
+      <Icon name={name} size="lg" color="#5B44BA" />
       <div className={classes.iconLabel}>{name}</div>
     </div>
   );
@@ -62,11 +74,12 @@ export const IconsOverview = () => {
   const classes = useStyles();
 
   const [filter, setFilter] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const searchIcon = (event: ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
   };
-
   return (
     <div className={classes.root}>
       <div className={classes.search}>
@@ -75,10 +88,29 @@ export const IconsOverview = () => {
       <div className={classes.iconGroup}>
         {icons
           .filter((val) => val.includes(filter))
-          .map((i) => {
-            return <IconWrapper name={i} key={i} />;
+          .map((icon) => {
+            return (
+              <IconWrapper
+                name={icon}
+                key={icon}
+                onClick={() => {
+                  copyTextToClipboard(
+                    `<Icon name="${icon}" size="lg" color="#5B44BA" />`
+                  );
+                  setSnackbarMessage(`Copied ${icon} icon code`);
+                  setSnackbarOpen(true);
+                }}
+              />
+            );
           })}
       </div>
+      <Snackbar
+        message={snackbarMessage}
+        variant="success"
+        open={snackbarOpen}
+        setOpen={setSnackbarOpen}
+        autoHideDuration={3500}
+      />
     </div>
   );
 };
