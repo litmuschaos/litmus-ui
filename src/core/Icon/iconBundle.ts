@@ -81,6 +81,7 @@ import i080 from "../../assets/icons/workflowCompleted.svg";
 import i081 from "../../assets/icons/workflowFailed.svg";
 import i082 from "../../assets/icons/workflowPending.svg";
 import i083 from "../../assets/icons/workflowRunning.svg";
+import { IconName } from "./base";
 
 interface AllIconsProps {
   [index: string]: string;
@@ -171,4 +172,8 @@ const allIcons: AllIconsProps = {
   workflowRunning: i083,
 };
 
-export { allIcons };
+const getIcon = (name: IconName): string => {
+  return allIcons[name];
+};
+
+export { allIcons, getIcon };

@@ -1,7 +1,7 @@
 import React from "react";
 import SVG from "react-inlinesvg";
 import { IconName, IconSize } from "./base";
-import { allIcons } from "./iconBundle";
+import { getIcon } from "./iconBundle";
 import { useStyles } from "./style";
 import {
   iconsPathWithStorke,
@@ -43,7 +43,7 @@ const Icon: React.FC<IconProps> = ({
   className,
   style,
   color = "black",
-  ...divElementProps
+  ...rest
 }) => {
   const classes = useStyles({
     color: color,
@@ -55,20 +55,19 @@ const Icon: React.FC<IconProps> = ({
 
   return (
     <div
-      className={classes.container}
-      {...divElementProps}
+      className={`${classes.container}  ${className}`}
+      style={style}
+      {...rest}
       data-testid="icon-component"
     >
       <SVG
-        src={allIcons[name]}
+        src={getIcon(name)}
         width={svgSize}
         height={svgSize}
-        className={`${classes.icon}
-            ${className}`}
-        style={style}
+        className={classes.icon}
       >
         {/* fallback content in case of a fetch error or unsupported browser*/}
-        <img src={allIcons[name]} alt={name} />
+        <img src={getIcon(name)} alt={name} />
       </SVG>
     </div>
   );
