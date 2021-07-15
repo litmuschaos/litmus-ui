@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import "jest";
 import React from "react";
 import { LitmusThemeProvider } from "../../../theme";
 import { Icon } from "../Icon";

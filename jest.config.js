@@ -2,7 +2,7 @@ module.exports = {
   preset: "ts-jest/presets/js-with-ts",
   transform: {
     "^.+\\.(css|scss|sass)$": "<rootDir>/mocks/styleMock.js",
-    "^.+\\.svg$": "<rootDir>/mocks/svgTransform.js",
+    "^.+\\.svg$": "jest-svg-transformer",
   },
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
