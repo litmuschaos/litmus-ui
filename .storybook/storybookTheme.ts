@@ -1,7 +1,7 @@
 import { Theme } from "@material-ui/core";
 import { create } from "@storybook/theming";
+import litmusLogo from "../src/assets/litmusLogo.svg";
 import { litmusPortalTheme } from "../src/theme/litmus-portal";
-import litmusLogo from "/public/assets/litmusLogo.svg";
 
 const createTheme = (theme: Theme) => {
   return create({
