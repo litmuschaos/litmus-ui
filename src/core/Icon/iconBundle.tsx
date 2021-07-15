@@ -82,10 +82,10 @@ import i081 from "../../assets/icons/workflowFailed.svg";
 import i082 from "../../assets/icons/workflowPending.svg";
 import i083 from "../../assets/icons/workflowRunning.svg";
 
-interface CacheAllIconsProps {
+interface AllIconsProps {
   [index: string]: string;
 }
-const cacheAllIcons: CacheAllIconsProps = {
+const allIcons: AllIconsProps = {
   agents: i001,
   analytics: i002,
   applicationDashboard: i003,
@@ -171,4 +171,4 @@ const cacheAllIcons: CacheAllIconsProps = {
   workflowRunning: i083,
 };
 
-export { cacheAllIcons };
+export { allIcons };
