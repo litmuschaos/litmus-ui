@@ -66,7 +66,7 @@ const closedSeriesData: Array<GraphMetric> = [
   },
   {
     metricName:
-      "no-Color-has-been-assigened-to-this-series-Also-the-name-of-this-series-is-very-long-without-any-white-space",
+      "noColorHasBeenAssigenedToThisSeriesAlsoTheNameOfThisSeriesIsVeryLongWithoutAnyWhiteSpace",
     data: closedSeriesData2,
   },
 ];
@@ -78,7 +78,7 @@ const eventSeriesData: Array<GraphMetric> = [
       { subDataName: "subData-0-1", value: "0-1", date: 3000 },
       {
         subDataName:
-          "subData-0-2-Long-sub-data-without-any-whiteSpace-to-test-wrapping",
+          "subData-0-2-Long-sub-data-without-any-whiteSpace-to-test-wrapping-in-subData",
         value: "0-2",
         date: 3000,
       },

@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   metricNameText: {
     marginLeft: "1.5rem",
+    wordBreak: "break-word",
   },
 }));
 

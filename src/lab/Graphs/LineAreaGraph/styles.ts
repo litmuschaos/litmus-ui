@@ -95,6 +95,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       paddingLeft: "1.5rem",
       maxWidth: "20rem",
       lineHeight: "1rem",
+      wordBreak: "break-word",
     },
   },
   tooltipBottomDate: {
