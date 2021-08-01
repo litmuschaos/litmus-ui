@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     width: "100%",
     height: "100%",
+    position: "relative",
     backgroundColor: theme.palette.background.paper,
     overflowY: "auto",
     "&::-webkit-scrollbar": {
@@ -57,8 +58,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignContent: "flex-start",
   },
   tableFont: {
-    wordWrap: "break-word",
+    width: "inherit",
     whiteSpace: "initial",
+    overflowWrap: "break-word",
     alignContent: "flex-start",
     color: theme.palette.text.primary,
   },
@@ -66,8 +68,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "1rem",
     height: "0.2rem",
     alignSelf: "baseline",
-    marginRight: "0.5em",
+    position: "absolute",
     marginTop: "0.5rem",
+  },
+  metricNameText: {
+    marginLeft: "1.5rem",
   },
 }));
 

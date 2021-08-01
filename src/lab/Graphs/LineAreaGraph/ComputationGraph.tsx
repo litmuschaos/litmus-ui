@@ -95,7 +95,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   // bounds
   const xMax = Math.max(width - margin.left - margin.right, 0);
   const yMax = Math.max(topChartHeight, 0);
-
   const classes = useStyles({
     width,
     height,
