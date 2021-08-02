@@ -9,6 +9,7 @@ import {
   scaleLinear,
   scaleTime,
   Tooltip,
+  TooltipWithBounds,
   useTooltip,
 } from "@visx/visx";
 import { extent, max, min } from "d3-array";
@@ -95,7 +96,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   // bounds
   const xMax = Math.max(width - margin.left - margin.right, 0);
   const yMax = Math.max(topChartHeight, 0);
-
   const classes = useStyles({
     width,
     height,
@@ -1067,6 +1067,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       )}
       {tooltipDataDate && showTips && tooltipDataDate[0] && (
         <Tooltip
+          // key added as per visx guideline
+          key={Math.random()}
           top={yMax}
           left={tooltipLeftDate}
           className={classes.tooltipDateStyles}
@@ -1079,15 +1081,14 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         </Tooltip>
       )}
       {tooltipData && showTips && tooltipData[0] && (
-        <Tooltip
-          left={tooltipLeft}
+        <TooltipWithBounds
+          // key added as per visx guideline
+          key={Math.random()}
+          left={tooltipLeft + margin.left}
           top={showMultiToolTip ? mouseY : tooltipTop}
           // Hardcoded value for tooltip
           // will be removed later
-          className={`${classes.tooltipMetric} ${
-            width - margin.left - margin.right - tooltipLeft < 160
-              ? classes.tooltipMetricLeft
-              : classes.tooltipMetricRight
+          className={`${classes.tooltipMetric}
           }`}
         >
           {tooltipData.map((linedata, index) => (
@@ -1106,7 +1107,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               </div>
             </div>
           ))}
-        </Tooltip>
+        </TooltipWithBounds>
       )}
 
       {showLegendTable && showEventTable && (
