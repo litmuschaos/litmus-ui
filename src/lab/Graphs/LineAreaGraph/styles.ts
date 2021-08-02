@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: "1rem",
     padding: "1rem",
     backgroundColor: `${theme.palette.cards.background} !important`,
-    transition: "all 0.3s ease-out",
+    minWidth: "10rem !important",
   },
   tooltipMetricLeft: {
     transform: "translate(-90%,0)",
