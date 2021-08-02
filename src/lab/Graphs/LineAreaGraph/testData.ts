@@ -1,5 +1,17 @@
 import { DateValue, GraphMetric } from ".";
 
+// This file shows how the data should be constucted
+// for the linAreaGraph
+
+// First step involves setting the Time series data
+// in form of array of (date,value)
+
+// Second step involes adding metricName, baseColor (legend markger)
+// and the above data together to constuct metric of type Array<GraphMetric>
+
+// subData may also be added to the metric
+// which corresponds to additional information for the given metric
+
 const openSeriesData1: DateValue[] = [
   { date: 4000.0, value: 40 },
   { date: 5000.0, value: 50 },

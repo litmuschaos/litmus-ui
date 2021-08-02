@@ -18,6 +18,9 @@ import {
 import { useStyles } from "./styles";
 import { dayList, getColorIndex, monthList } from "./utils";
 
+// The heatmap contains buckets (or columns) and every bucket contains bins (or rows)
+// max function here calculates the maximum number of bins among all the
+// given buckets
 function max<Datum>(data: Datum[], value: (d: Datum) => number): number {
   return Math.max(...data.map(value));
 }
@@ -28,12 +31,17 @@ const bins = (d: WeekData) => d.bins;
 const ChildCalendarHeatmap = ({
   width = 1000,
   height = 140,
+  // As per design the binWidth and binHeight as a default value
+  // but this can be overridden as per design changes
   binWidth = 17.9,
   binHeight = 17.9,
   calendarHeatmapMetric,
   margin = { top: 10, left: 40, right: 10, bottom: 20 },
   valueThreshold = [],
   colorMap,
+  // Tooltip here has been kept generic
+  // tooltipData is passed to the tooltip so that user can
+  // render the tooltip as per latest design
   CalendarHeatmapTooltip = ({ tooltipData }: CalendarHeatmapTooltipProps) => {
     return (
       <div>
@@ -60,12 +68,19 @@ const ChildCalendarHeatmap = ({
   });
   const [currentSelectedBin, setCurrentSelectedBin] = useState<string>("");
   const [currentSelectedColor, setCurrentSelectedColor] = useState<string>("");
+  // As per given Litmus use case, the percentage will be between 0-100
   const minValue = 0;
   const maxValue = 100;
-
+  // To calculate the max number of bins among all the buckets
+  // this varialble will be helpful for future designs for
+  // render a different dimension of heatmap
   const bucketSizeMax = max(calendarHeatmapMetric, (d) => bins(d).length);
 
+  // Array of colors as per the interval of the values
+  // this may be passed by the user or it will take palette.graph.calendarHeatmap
+  // colors by default
   const colorRange = colorMap ?? palette.graph.calendarHeatmap;
+
   // scales
   const xScale = scaleLinear<number>({
     domain: [0, calendarHeatmapMetric.length],
@@ -84,6 +99,7 @@ const ChildCalendarHeatmap = ({
   xScale.range([0, xMax]);
   yScale.range([yMax, 0]);
 
+  // y-axis label props as per visx
   const axisLeftTickLabelProps = {
     dy: "0.3rem",
     dx: "-0.3rem",
@@ -102,6 +118,7 @@ const ChildCalendarHeatmap = ({
       let pointerDataSelection: ToolTipValue = { data: { value: NaN } };
       const x = bin.x;
       const y = yMax - bin.y;
+      // Storing the data of the selected bin
       pointerDataSelection = {
         data: {
           bin: bin,
@@ -117,11 +134,13 @@ const ChildCalendarHeatmap = ({
 
     [showTooltip, yMax]
   );
+  // Check if data is present in the calendarHeatmapMetric
   if (calendarHeatmapMetric.length === 0 || !calendarHeatmapMetric) {
     return null;
   }
   return width < 10 ? null : (
     <div className={classes.root}>
+      {/* Print all the months on top */}
       <div className={classes.xAxis}>
         {monthList &&
           monthList.map((month) => {
@@ -154,6 +173,7 @@ const ChildCalendarHeatmap = ({
             tickFormat={(num) => `${dayList[num.valueOf()]}`}
             tickLabelProps={() => axisLeftTickLabelProps}
           />
+          {/* Filter for giving border to the bin for the case when it is selected */}
           <defs>
             <filter id="inset" x="-50%" y="-50%" width="200%" height="200%">
               <feFlood
@@ -203,6 +223,10 @@ const ChildCalendarHeatmap = ({
             {(heatmap) => {
               return heatmap.map((heatmapBins) =>
                 heatmapBins.map((bin) => {
+                  // First check whether the particular bin is elected or not
+                  // then check whether it contains valid data or not
+                  // if data is valid then give it appropriate color
+                  // as per color array
                   const selectedColor =
                     currentSelectedBin ===
                     `heatmap-rect-id-${bin.row}-${bin.column}`
@@ -216,8 +240,14 @@ const ChildCalendarHeatmap = ({
                         : palette.graph.calendarHeatmap[10]
                       : colorRange[
                           getColorIndex(bin.count ?? 0, valueThreshold)
-                        ] ?? "lightGrey";
+                        ] ?? "lightGrey"; // lightGrey is a fallback color
+
                   return (
+                    // First check whether bin is valid or not
+                    // also any bin with value -1 is not rendered
+                    // this is done to handle the cases when the calendar
+                    // is starting from lets say Wednesday, so from Sunday to
+                    // Tuesday the metric will have value -1
                     bin &&
                     typeof bin.count === "number" &&
                     (bin.count > -1 || !bin.count) && (
@@ -231,12 +261,14 @@ const ChildCalendarHeatmap = ({
                         x={bin.x}
                         y={yMax - bin.y}
                         fill={selectedColor}
+                        // set filter based on whether user has selected it or not
                         filter={
                           currentSelectedBin ===
                           `heatmap-rect-id-${bin.row}-${bin.column}`
                             ? "url(#inset)"
                             : ""
                         }
+                        // set opacity based on whether user has selected it or not
                         fillOpacity={
                           currentSelectedBin ===
                           `heatmap-rect-id-${bin.row}-${bin.column}`
@@ -251,6 +283,8 @@ const ChildCalendarHeatmap = ({
                             currentSelectedBin !==
                             `heatmap-rect-id-${bin.row}-${bin.column}`
                           ) {
+                            // if the bin which is clicked was not selected
+                            // previously then select it
                             setCurrentSelectedBin(
                               e.currentTarget.getAttribute("id")?.toString() ??
                                 ""
@@ -258,6 +292,8 @@ const ChildCalendarHeatmap = ({
                             setCurrentSelectedColor(selectedColor);
                             handleBinClick?.(bin);
                           } else {
+                            // if the bin which is clicked was selected
+                            // previously then deselect it
                             setCurrentSelectedColor("");
                             setCurrentSelectedBin("");
                             handleBinClick?.("");
@@ -274,12 +310,14 @@ const ChildCalendarHeatmap = ({
         </Group>
       </svg>
       {tooltipData && (
+        // Tooltip
         <Tooltip
           unstyled={false}
           top={tooltipTop}
           left={tooltipLeft}
           className={classes.tooltipStyles}
         >
+          {/* Render tooltip as passed by the user */}
           <CalendarHeatmapTooltip tooltipData={tooltipData} />
         </Tooltip>
       )}

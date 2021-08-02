@@ -1,5 +1,6 @@
 import { Slider, Theme, withStyles } from "@material-ui/core";
 
+// Wrapping styles over the slider component
 const SliderMui = withStyles((theme: Theme) => ({
   root: {
     color: theme.palette.highlight,
