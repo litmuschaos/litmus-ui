@@ -1,9 +1,6 @@
-import { Chip } from "@material-ui/core";
+import { Chip, useTheme } from "@material-ui/core";
 import React from "react";
-import FailedIcon from "../../../assets/statusFailed.svg";
-import PendingIcon from "../../../assets/statusPending.svg";
-import RunningIcon from "../../../assets/statusRunning.svg";
-import SuccessIcon from "../../../assets/statusSuccess.svg";
+import { Icon, IconName } from "../../Icon";
 import { ChipBaseProps } from "../base";
 import { useStyles } from "./style";
 
@@ -21,42 +18,46 @@ const OutlinedPills: React.FC<OutlinedPillsProps> = ({
   ...rest
 }) => {
   // Styles
-  const classes = useStyles();
+  const theme = useTheme();
 
-  function getVariant(variant: Variant): string {
+  function getIconVariant(variant: Variant): IconName {
     switch (variant) {
       case "failed":
-        return classes.failed;
+        return "workflowFailed";
       case "running":
-        return classes.running;
+        return "workflowRunning";
       case "succeeded":
-        return classes.succeeded;
+        return "workflowCompleted";
       case "pending":
-        return classes.pending;
+        return "workflowPending";
       default:
-        return "";
+        return "workflowPending";
     }
   }
-  function getIconVariant(variant: Variant): string {
+  function getIconColor(variant: Variant): string {
     switch (variant) {
       case "failed":
-        return FailedIcon;
+        return theme.palette.status.workflow.failed;
       case "running":
-        return RunningIcon;
+        return theme.palette.status.workflow.running;
       case "succeeded":
-        return SuccessIcon;
+        return theme.palette.status.workflow.completed;
       case "pending":
-        return PendingIcon;
+        return theme.palette.status.workflow.pending;
       default:
-        return "";
+        return theme.palette.status.workflow.pending;
     }
   }
+  const classes = useStyles({ color: getIconColor(variant) });
+
   return (
     <Chip
-      icon={<img src={getIconVariant(variant)} alt={variant} />}
+      icon={
+        <Icon name={getIconVariant(variant)} color={getIconColor(variant)} />
+      }
       label={label}
       variant="outlined"
-      className={`${classes.root} ${className} ${getVariant(variant)}`}
+      className={`${classes.root} ${classes.variant} ${className}`}
       {...rest}
     />
   );

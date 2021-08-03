@@ -68,6 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: "1rem",
     padding: "1rem",
     backgroundColor: `${theme.palette.cards.background} !important`,
+    minWidth: "10rem !important",
   },
   tooltipMetricLeft: {
     transform: "translate(-90%,0)",
@@ -90,6 +91,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       paddingLeft: "1.5rem",
       maxWidth: "20rem",
       lineHeight: "1rem",
+      wordBreak: "break-word",
     },
   },
   tooltipBottomDate: {

@@ -18,6 +18,7 @@ import {
 import dayjs from "dayjs";
 import React from "react";
 import { DateValue, StrictColorGraphMetric } from "./base";
+import { removeSpecialChar } from "./utils";
 
 // Accessors
 const getDateNum = (d: DateValue) =>
@@ -162,7 +163,9 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
           <Group key={`closedSeriesGroup-${linedata.metricName}-${index}`}>
             {/* LinearGradient for each metric based on its color */}
             <LinearGradient
-              id={`${linedata.metricName}-${linedata.baseColor}-linearGragient`}
+              id={`${removeSpecialChar(linedata.metricName)}-${
+                linedata.baseColor
+              }-linearGragient`}
               from={linedata.baseColor}
               to={linedata.baseColor}
               fromOpacity={0.5}
@@ -177,7 +180,9 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               yScale={yScale}
               strokeWidth={2}
               stroke={linedata.baseColor}
-              fill={`url(#${linedata.metricName}-${linedata.baseColor}-linearGragient)`}
+              fill={`url(#${removeSpecialChar(linedata.metricName)}-${
+                linedata.baseColor
+              }-linearGragient)`}
               curve={curveMonotoneX}
             />
             {/* Plot points for each data point if showPoints is true */}

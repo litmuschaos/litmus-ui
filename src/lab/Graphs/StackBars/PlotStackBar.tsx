@@ -1,16 +1,19 @@
 import { useTheme } from "@material-ui/core";
-import { AxisBottom } from "@visx/axis";
-import { Grid } from "@visx/grid";
-import { Group } from "@visx/group";
-import { scaleBand, scaleLinear, scaleOrdinal, scaleTime } from "@visx/scale";
-import { BarStack } from "@visx/shape";
-import { useTooltip } from "@visx/tooltip";
 import {
+  AxisBottom,
   AxisLeft,
+  BarStack,
   curveMonotoneX,
+  Grid,
+  Group,
   LinePath,
   localPoint,
+  scaleBand,
+  scaleLinear,
+  scaleOrdinal,
+  scaleTime,
   Tooltip,
+  useTooltip,
 } from "@visx/visx";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -87,8 +90,9 @@ const PlotStackBar = ({
     height,
   });
   const { palette } = useTheme();
-  const [currentSelectedBar, setCurrentSelectedBar] =
-    useState<number | undefined>();
+  const [currentSelectedBar, setCurrentSelectedBar] = useState<
+    number | undefined
+  >();
 
   const colorScale = scaleOrdinal<StackName, string>({
     domain: keys,

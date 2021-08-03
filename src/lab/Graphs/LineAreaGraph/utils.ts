@@ -2,6 +2,9 @@ import { bisector } from "d3-array";
 import { DateValue } from ".";
 import { ToolTipDateValue } from "./base";
 
+// List of special characters
+const specialCharList = ["$", "&", "%", ",", "/", ":", ";", "=", "?", "@"];
+
 // Accessor functions
 
 // getDateNum returns the date (number) from the data of type DateValue
@@ -57,6 +60,16 @@ const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
   getValueNum(d.data)
 ).left;
 
+// For removing special characters from the string
+const removeSpecialChar = (value: string): string => {
+  let cleanString = value;
+  cleanString = cleanString.replace(/\s/g, "-");
+  specialCharList.forEach(
+    (element) => (cleanString = cleanString.replace(element, "-"))
+  );
+  return cleanString;
+};
+
 export {
   getDateNum,
   getValueNum,
@@ -64,4 +77,5 @@ export {
   getSum,
   bisectDate,
   bisectorValue,
+  removeSpecialChar,
 };

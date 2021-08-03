@@ -5,34 +5,29 @@ import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
 import pkg from "./package.json";
 
-const globals = {
-  react: "React",
-  "react-dom": "ReactDOM",
-  "@material-ui/core": "MaterialUI",
-  "@material-ui/lab": "MaterialUILab",
-  "@visx/visx": "Visx",
-};
-
 export default {
   input: "./src/index.ts",
   external: [
     ...Object.keys(pkg.dependencies),
+    ...Object.keys(pkg.peerDependencies),
     ...Object.keys(pkg.devDependencies),
+    "dayjs/plugin/advancedFormat",
+    "dayjs/plugin/isoWeek",
+    "dayjs/plugin/weekOfYear",
   ],
   output: [
     {
-      file: `./dist/${pkg.main}`,
+      dir: "dist",
       format: "cjs",
-      globals,
       sourcemap: true,
     },
     {
-      file: `./dist/${pkg.module}`,
+      dir: "dist",
       format: "es",
-      globals,
       sourcemap: true,
     },
   ],
+  preserveModules: true,
   plugins: [
     commonjs(),
     postcss({
