@@ -98,7 +98,7 @@ export interface LineAreaGraphProps<T> {
   // Margins for the LineAreaGraph
   margin?: { top: number; right: number; bottom: number; left: number };
 
-  // Boolean for making the inner margins of the LineAreaGraph compact
+  // Boolean to hide or show the x-axis
   compact?: boolean;
 
   // Y-axis label
@@ -137,5 +137,8 @@ export interface LineAreaGraphChildProps
   height?: number;
 }
 
+// ToolTipDateValue interface is the of type ToolTip with data as type DateValue
 export type ToolTipDateValue = ToolTip<DateValue>;
+
+// TooltipData is the array of ToolTipDateValue
 export type TooltipData = Array<ToolTipDateValue>;

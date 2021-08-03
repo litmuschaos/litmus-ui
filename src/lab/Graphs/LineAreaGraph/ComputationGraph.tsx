@@ -86,11 +86,14 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   ...rest
 }) => {
   const { palette } = useTheme();
+  // Calculate the hight of the svg (graph) depending on the
+  // height of the parent and legendTable
   const svgElementHeight =
     height -
     (showLegendTable ? legendTableHeight : 0) -
     (showRangeSlider ? rangeSliderHeight : 0);
 
+  // Deduct margins
   const topChartHeight = svgElementHeight - margin.top - margin.bottom;
 
   // bounds
@@ -110,6 +113,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     showRangeSlider,
   });
 
+  // Label the Slider value with a tooltip
   const valueLabelComponent = (props: Props) => {
     const { children, open, value } = props;
     return (
@@ -124,16 +128,29 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     );
   };
 
+  // Format the given date as per the format given by
+  // toolTiptTimeFormat
   const valueLabelFormat = (value: number) => {
     return ` ${dayjs(new Date(value)).format(toolTiptimeFormat)}`;
   };
 
+  // Intiallize state for all the metrics
+  // here the term filtered before each metric
+  // corresponds to the portion of metric data
+  // plotted on the graph
   const [filteredClosedSeries, setFilteredClosedSeries] =
     useState(closedSeries);
   const [filteredOpenSeries, setFilteredOpenSeries] = useState(openSeries);
   const [filteredEventSeries, setFilteredEventSeries] = useState(eventSeries);
+
+  // State for checking if the mouse has entered for the first time
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
+
+  // State used to avoid unnecessary rendering
   const [dataRender, setAutoRender] = useState(true);
+
+  // Boolean to determine the graph rentering
+  // this boolean is associated with the update of the central Brush position
   const [allowGraphUpdate, setAllowGraphUpdate] = useState(
     centralAllowGraphUpdate ?? true
   );
@@ -157,6 +174,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     tooltipOpen: true,
   });
 
+  // Tooltip for the date
   const {
     showTooltip: showTooltipDate,
     hideTooltip: hideTooltipDate,
@@ -173,8 +191,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
   const eventSeriesCount = filteredEventSeries ? filteredEventSeries.length : 0;
 
-  // scales for brush
+  // Scales for brush
 
+  // Brush x-axis or Date scale. This scale does not change
+  // even if the user zooms in/out
   const brushDateScale = useMemo(
     () =>
       scaleTime<number>({
@@ -205,6 +225,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       }),
     [xMax, closedSeries, openSeries, eventSeries]
   );
+
+  // State of the local brush is set with the
+  // central bruch positon if not defined
+  /// then it is assigned value as per brushDateScale
   const [localBrushPosition, setLocalBrushPosition] =
     useState<StrictBrushPostitionProps>({
       start: {
@@ -219,6 +243,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       },
     });
 
+  // DateScale is calculated everytime, based on user
+  // action
   const dateScale = useMemo(
     () =>
       scaleTime<number>({
@@ -230,11 +256,18 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       }),
     [xMax, localBrushPosition]
   );
+
+  // Value scale is calculated for the filtered metrics
+  // so it is calculated based on user selection
   const valueScale = useMemo(
     () =>
       scaleLinear<number>({
         range: [yMax, 0],
         domain: [
+          // Get min of open & close metrics
+          // event metric is not used here as
+          // the y-value of event metric is Start, End, True, False
+          // at this point
           min(
             (filteredClosedSeries
               ? filteredClosedSeries
@@ -252,6 +285,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               .concat([{ date: new Date().getTime(), value: 0 }]),
             getValueNum
           ) || 0,
+          // Get max of y-values of open and close metrics
           max(
             (filteredClosedSeries
               ? filteredClosedSeries
@@ -273,6 +307,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     [yMax, filteredClosedSeries, filteredOpenSeries]
   );
 
+  // This function is called when user has make selection in the
+  // graph or slider. It update the centralBrushPosition
   const updateLocalBrushPosition = useCallback(
     (domain: StrictBrushPostitionProps) => {
       setLocalBrushPosition({
@@ -303,9 +339,14 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     [centralBrushPosition, handleCentralBrushPosition]
   );
 
+  // Whenever new selection is make all the filterd metrics
+  // are updated with the data as per new selection (new time domain)
   const filterAllDateWithNewDomain = useCallback(
     (domain: StrictBrushPostitionProps) => {
+      // start date of the selection
       const x0 = domain.start.x;
+
+      // end date of the selection
       const x1 = domain.end.x;
 
       if (closedSeries) {
@@ -361,6 +402,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     },
     [closedSeries, openSeries, eventSeries]
   );
+
+  // When the brush position of this graph is changed (not the central Brush)
+  // then the data is filtered as per new domain
   const handleLocalBrushPositionUpdate = useCallback(() => {
     setAutoRender(false);
     hideTooltip();
@@ -381,6 +425,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     localBrushPosition,
   ]);
 
+  // useEffect to check if the centralBrushPosition is different from
+  // local bursh postion. If so, then the local Brush position is updated
+
   useEffect(() => {
     if (centralBrushPosition) {
       if (
@@ -400,10 +447,13 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     }
   }, [centralBrushPosition, localBrushPosition]);
 
+  // Any change in the localBurshPosition, trigger filtering of the daata
   useEffect(() => {
     if (localBrushPosition) handleLocalBrushPositionUpdate();
   }, [localBrushPosition, handleLocalBrushPositionUpdate]);
 
+  // If the data of the metrics is updated real-time then
+  /// the local BrushPosition is reset only if allowGraphUpdate is true
   useEffect(() => {
     if (allowGraphUpdate) {
       setLocalBrushPosition({
@@ -417,6 +467,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     }
   }, [allowGraphUpdate, brushDateScale, openSeries, closedSeries, eventSeries]);
 
+  // The local graph updated is controlled by the centralAllowGraphUpdate
+  // This is usefull for the case when the user has zoomed in
   useEffect(() => {
     if (typeof centralAllowGraphUpdate === "boolean") {
       setAllowGraphUpdate(centralAllowGraphUpdate);
@@ -455,7 +507,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   // end handle Slider
 
   // tooltip handler
-
   const handleTooltip = useCallback(
     (
       event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>

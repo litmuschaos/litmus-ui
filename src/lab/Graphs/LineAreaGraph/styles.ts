@@ -112,6 +112,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
   },
   wrapperLegendTable: (props: StyleProps) => ({
+    // Table below the graph may be divided into two tables
+    // LegendTable is the first table on the left side
+    // if showEvenTable and showLegendTable both is enabled
+    // the width of the legendTable is reduced based on the
+    // widthPercentageEventTable
     width:
       props.showEventTable && props.showLegendTable
         ? props.width * (1 - props.widthPercentageEventTable / 100) -
@@ -120,6 +125,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: props.legendTableHeight,
   }),
   wrapperSubDataTableForEvents: (props: StyleProps) => ({
+    // SubData table is displayed on the right side
+    // its width is based on the widthPercentableEventTable
     width:
       props.showEventTable && props.showLegendTable
         ? props.width * (props.widthPercentageEventTable / 100)

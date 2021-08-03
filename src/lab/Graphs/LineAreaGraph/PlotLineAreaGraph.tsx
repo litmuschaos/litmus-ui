@@ -104,6 +104,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   showEventMarkers = true,
 }) => {
   const { palette } = useTheme();
+
+  // x-axis ticks label style
   const axisBottomTickLabelProps = {
     dy: "0.3rem",
     textAnchor: "middle" as const,
@@ -113,6 +115,8 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
     fill: palette.text.hint,
     lineHeight: "12px",
   };
+
+  // y-axis ticks label style
   const axisLeftTickLabelProps = {
     dy: "0.3rem",
     dx: "-0.3rem",
@@ -133,6 +137,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
   if (width < 10) return null;
   return (
     <Group left={left ?? margin?.left ?? 0} top={top ?? margin?.top ?? 0}>
+      {/* display grid in the graph */}
       {showGrid && (
         <Group>
           <GridRows
@@ -151,10 +156,12 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
           />
         </Group>
       )}
+      {/* map over closedSeries */}
       {closedSeries &&
         closedSeries.length > 0 &&
         closedSeries.map((linedata: StrictColorGraphMetric, index) => (
           <Group key={`closedSeriesGroup-${linedata.metricName}-${index}`}>
+            {/* LinearGradient for each metric based on its color */}
             <LinearGradient
               id={`${removeSpecialChar(linedata.metricName)}-${
                 linedata.baseColor
@@ -165,6 +172,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               toOpacity={0.1}
             />
 
+            {/* Plot area closed under the curve graph */}
             <AreaClosed<DateValue>
               data={linedata.data}
               x={(d) => xScale(getDateNum(d)) || 0}
@@ -177,7 +185,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               }-linearGragient)`}
               curve={curveMonotoneX}
             />
-
+            {/* Plot points for each data point if showPoints is true */}
             {showPoints &&
               linedata.data.map((d: DateValue, index) => (
                 <g
@@ -195,11 +203,14 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               ))}
           </Group>
         ))}
+
+      {/* Plot x-axis if hideBottomAxis is false */}
       {!hideBottomAxis &&
         (xAxistimeFormat ? (
           <AxisBottom
             top={yMax}
             scale={xScale}
+            // number of Ticks
             numTicks={width > 520 ? 6 : 5}
             tickFormat={(num) => dateFormat(num, xAxistimeFormat)}
             stroke={palette.text.primary}
@@ -215,9 +226,11 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
           />
         ))}
 
+      {/* Plot y-axis if hideLeftAxis is false */}
       {!hideLeftAxis && (
         <AxisLeft
           scale={yScale}
+          // number of Ticks
           numTicks={height > 200 ? 7 : 6}
           stroke={palette.text.primary}
           tickFormat={(num) => intToString(num, unit)}
@@ -228,6 +241,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
         />
       )}
 
+      {/* Plot eventSeries metric  */}
       {eventSeries &&
         eventSeries.length > 0 &&
         eventSeries.map((linedata, index) => (
@@ -246,7 +260,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               fillOpacity={0.15}
               curve={curveStepAfter}
             />
-
+            {/* Plot event markers  */}
             {showEventMarkers &&
               linedata.data.map((d, index) => (
                 <g
@@ -254,6 +268,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
                 >
                   {(getValueStr(d) === "Start" || getValueStr(d) === "End") && (
                     <g>
+                      {/* Here, it will plot a triangle */}
                       <Polygon
                         sides={3}
                         size={6}
@@ -285,6 +300,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               ))}
           </Group>
         ))}
+      {/* Plot openSeries */}
       {openSeries &&
         openSeries.length > 0 &&
         openSeries.map((openLineData, j) => (
@@ -296,6 +312,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               refX={2.5}
               fillOpacity={0.6}
             />
+            {/* Draw the line graph */}
             <LinePath<DateValue>
               data={openLineData.data}
               x={(d) => xScale(getDateNum(d)) ?? 0}
@@ -304,6 +321,7 @@ const PlotLineAreaGraph: React.FC<AreaChartProps> = ({
               stroke={openLineData.baseColor}
               strokeOpacity={0.7}
               curve={curveMonotoneX}
+              // Plot marker for each data point
               markerMid={showPoints ? `url(#${j}-circle)` : ""}
               markerStart={showPoints ? `url(#${j}-circle)` : ""}
               markerEnd={showPoints ? `url(#${j}-circle)` : ""}
