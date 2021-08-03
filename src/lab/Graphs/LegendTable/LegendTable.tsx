@@ -66,7 +66,9 @@ const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
                             style={{ background: row.baseColor }}
                           />
                         )}
-                        <Typography>{element}</Typography>
+                        <Typography className={classes.metricNameText}>
+                          {element}
+                        </Typography>
                       </TableCell>
                     )) ||
                     (index !== 0 && (
