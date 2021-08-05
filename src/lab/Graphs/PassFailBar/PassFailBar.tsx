@@ -60,10 +60,10 @@ const PassFailBarChild = ({
   );
 };
 const PassFailBar: React.FC<PassFailBarProps> = ({ ...rest }) => {
+  //  ParentSize calculates the (width,height) of the parent and passes
+  //  it to the PassFailBarChild along with other props
   return (
     <ParentSize>
-      {/* ParentSize calculates the (width,height) of the parent and passes  */}
-      {/* it to the PassFailBarChild along with other props */}
       {({ width, height }) =>
         width > 0 &&
         height > 0 && (
