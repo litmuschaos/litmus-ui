@@ -195,6 +195,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
   // Brush x-axis or Date scale. This scale does not change
   // even if the user zooms in/out
+  // this scale is maintained to that when the user
+  // zooms out the graph is reset as per this scale
   const brushDateScale = useMemo(
     () =>
       scaleTime<number>({
@@ -511,28 +513,63 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     (
       event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>
     ) => {
+      // Initialize variable to store all the individual points
+      // of all the metrics based on current mouse pointer location
+      // Note: this is any array of data
+      // because for one point on x-axis there can be multiple
+      // points on y-axis (each metric might have one point)
       let pointerDataSelection: ToolTipDateValue[] = [
         { metricName: "", data: { date: NaN, value: NaN }, baseColor: "" },
       ];
+      // All the computation related to tooltip is only performed
+      // if it is enabled
+      // this save a lot of memory when it is disabled
       if (showTips) {
+        // get the local Points (mouse location )
         let { x, y } = localPoint(event) || { x: 0, y: 0 };
+        // Subtract the margins
         x -= margin.left;
         y -= margin.top;
+
+        // Convert the local point from pixel to the actual
+        // form of data as passed by the user
+        // For eg. x is 200 px this might correspond to
+        // 5:00 am, 1st Aug, 2021
         const x0 = dateScale.invert(x);
+        // Multi tooltip means that when hovering over
+        // a point above x-axis, it will show the points
+        // of all the metric in the tooltip
+        // if it is false then it will show the point only
+        // for the metric point which is closest to the mouse
+        // pointer both in x,y coordinate
         if (showMultiToolTip) {
           setMouseY(y);
         }
+        // Simarly get the actual y value
         const y0: number = valueScale.invert(y);
         if (firstMouseEnterGraph === false) {
+          // First Mouse Enter is used because in the legend
+          // table data, the Curr field will be empty
+          // if mouse has never entered the graph
           setMouseEnterGraph(true);
         }
         i = 0;
+        // Check if filterdClosedSeries is defined and not null
         if (filteredClosedSeries) {
+          // Iterate over all the metrics that are part of filterdClosedSeries
           for (j = 0; j < filteredClosedSeries.length; j++) {
+            // Slice or bisect all the metric data at a point x0 based on
+            // mouse pointer location
             indexer = bisectDate(filteredClosedSeries[i].data, x0, 1);
+            // dd1 is the point on immediate right to the mouse pointer
+            // dd0 is the point on immediate left of dd1
             dd0 = filteredClosedSeries[j]?.data[indexer - 1] ?? undefined;
             dd1 = filteredClosedSeries[j]?.data[indexer] ?? undefined;
+            // Two point are taken into consideration
+            // as for the time series data, some metric may be defined
+            // only till certain time and after that they might become undefined
 
+            // Here we check which of the two are more close to the mouse pointer
             if (dd1) {
               pointerDataSelection[i] =
                 x0.valueOf() - getDateNum(dd0).valueOf() >
@@ -551,6 +588,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             }
           }
         }
+        // Same process for filteredOpenSeries
+        // TODO as the steps remain same for both open and close series
+        // they can be performed using a single function
         if (filteredOpenSeries) {
           for (j = 0; j < filteredOpenSeries.length; j++) {
             indexer = bisectDate(filteredOpenSeries[j].data, x0, 1);
@@ -575,21 +615,35 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             }
           }
         }
-
+        // Now we sort the pointer data as per date
+        // this is performed because there might be a case
+        // where there is a discontinuity in the time series metric
+        // which can result in selection of points of all the metric
+        // that have a different date stamp
+        // so for any tooltip is should show the tip at only one point
+        // not multiple
         pointerDataSelection = pointerDataSelection.sort((a, b) =>
           a.data.date > b.data.date ? 1 : -1
         );
         const firstToolTipData = pointerDataSelection[0];
+        // after selecting a single point all the pointer data is
+        // filterd accordingly
         pointerDataSelection = pointerDataSelection.filter(
           (elem) =>
             elem.data &&
             firstToolTipData.data &&
             elem.data.date <= firstToolTipData.data.date
         );
+        // same is to be used in the legendTable so here it is stored
+        // in a variable
         legenTablePointerData = JSON.parse(
           JSON.stringify(pointerDataSelection)
         );
 
+        // here it is sorted as per value
+        // this step is performed so that
+        // for the case when the showMultiToolTip is off
+        // we will be able to bisect the metric based on y coordinate
         pointerDataSelection = pointerDataSelection.sort((a, b) =>
           a.data.value > b.data.value ? 1 : -1
         );
@@ -598,7 +652,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           let index0 = 0;
           let closestValue: number | undefined;
           if (pointerDataSelection && pointerDataSelection[0]) {
+            // the bisection is performed here
             index0 = bisectorValue(pointerDataSelection, y0, 1);
+            // similar to previous computation
+            // the closest among dd0 and dd1 to the pointer is selected
             dd0 = pointerDataSelection[index0]?.data ?? undefined;
             dd1 = pointerDataSelection[index0 - 1]?.data ?? undefined;
             if (dd1 && dd0) {
@@ -612,6 +669,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             } else if (dd0 && !dd1) {
               closestValue = getValueNum(dd0);
             }
+            // Once we have the closest value
+            // all the pointer data is again filterd
+            // to that the tooltip has only one y point
+            // also if there are multiple points on the same (x, y)
+            // then they will be taken as array
             if (typeof closestValue === "number") {
               pointerDataSelection = pointerDataSelection.filter(
                 (lineData) => lineData.data.value === closestValue
@@ -619,17 +681,33 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             }
           }
         }
+        // storing the length of the pointerData or the length of all data
+        // to be shown in the tooltip (open series + closed series)
         toolTipPointLength = pointerDataSelection.length;
         let singleEventToolTip: ToolTipDateValue;
+        // clearning the eventTable data
         eventTableData = eventTableData.splice(0);
         let k = 0;
+        // trimPreviewToolTipData acts as a boolean check
+        // so that data is not trimmed twice
         let trimPreviousToopTipData = 0;
-
+        // if filteredEventSeries is defiend
         if (filteredEventSeries) {
+          // Iterate over all the metrics passed as part of event series
           for (j = 0; j < filteredEventSeries.length; j++) {
+            // same bisecting as above
             indexer = bisectDate(filteredEventSeries[j].data, x0, 1);
             dd0 = filteredEventSeries[j]?.data[indexer - 1] ?? undefined;
             dd1 = filteredEventSeries[j]?.data[indexer] ?? undefined;
+
+            // 1. for the case when tooltip data till this point is greater than 0
+            // means that there is at least one point in open series and
+            // closed series which was added in the tooltip
+            // 2. making sure that trim opertion is being performed only for the first time
+            // 3. For the dd1(defined) of the event metric, checking its distance from mouse pointer is
+            // less than the distance between the last point of the
+            // pointerDataSelection or not
+
             if (
               dd1 &&
               toolTipPointLength > 0 &&
@@ -641,6 +719,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   ).valueOf() - x0.valueOf()
                 )
             ) {
+              // for case when dd1 is defined and event metric point
+              // is closer to mouse pointer than the pointerDataSelection
+              // then the pointerDataSelection is truncated
               i = 0;
               toolTipPointLength = 0;
               trimPreviousToopTipData = 1;
@@ -656,11 +737,22 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   ).valueOf() - x0.valueOf()
                 )
             ) {
+              //  if dd1 was undefined,
+              // then we perform the same check for dd0
               i = 0;
               toolTipPointLength = 0;
               trimPreviousToopTipData = 1;
               pointerDataSelection.slice(0, 0);
             }
+
+            // if dd1 is defined, then
+            //    1. if all the data in the tooltip has been truncated
+            //      then the distance of dd1 from mouse is less then dd0
+            //    or
+            //   2. if tooltip contains some data points
+            //      then the date of all the points in the tooltip
+            //      should be same as the event metric points
+            //      that has to be added in the tooltip data
 
             if (
               dd1 &&
@@ -741,6 +833,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   dd0.date ===
                     pointerDataSelection[toolTipPointLength - 1].data.date))
             ) {
+              // if dd1 was undefined
+              // then similar steps are followed for dd0
               singleEventToolTip = {
                 metricName: filteredEventSeries[j].metricName,
                 data: dd0,
@@ -797,25 +891,40 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             }
           }
         }
+        // Here, the event metric data is also added to the pointerDataSelection
+        // so if the date stamp of event metric was closer to the combined(open + closed)
+        // series data, then the combined series data would have been truncated
+        // and only event series data is added to the poninter data
         pointerDataSelection = pointerDataSelection.slice(0, i);
 
         i = 0;
+        // Slicing just for clearning any old data
         eventTableData = eventTableData.slice(0, k);
         // Passing hyphen if eventTableData data is empty
         if (eventTableData.length === 0) {
           eventTableData[0] = { data: ["--", "--"] };
         }
       }
+      // render graph only if width is greater than certain limit
       if (width < 10) return null;
+      // The tooltip must be displayed near the mouse pointer
+      // to the left and top is derived from the pointerDataSelection
       const tooltipLeftValue =
         pointerDataSelection[0] && pointerDataSelection[0].data
           ? dateScale(getDateNum(pointerDataSelection[0].data))
           : dateScale(xMax);
+      // The date is converted to the dateScale that is in px
+      // also a fall back option dateScale(xMax) is also given
+
+      // Top for the toolip is calcuted as per valueScale
       const tooltipTopValue =
         pointerDataSelection[0] && pointerDataSelection[0].data
           ? valueScale(getValueNum(pointerDataSelection[0].data))
           : 0;
-
+      // here, there are two separate tooltips
+      // reason is that the date stamp is shown separately
+      // and the rest of the data (metric name and value)
+      // is shown separately
       showTooltip({
         tooltipData: pointerDataSelection,
         tooltipLeft: tooltipLeftValue,
@@ -850,17 +959,28 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const onBrushChange = useCallback(
     (domain: Bounds | null) => {
       if (!domain) return;
+
+      // First freeze graph updation
       setAllowGraphUpdate(false);
+
+      // Also freeze all other connected graphs
       handleCentralAllowGraphUpdate?.(false);
+
+      // Disable rendering
       setAutoRender(false);
       const { x0, x1 } = domain;
+
+      // Remove the old tooltip from the screen
       hideTooltip();
       hideTooltipDate();
+
+      // Update the LocalBrushPosition with new domain
       updateLocalBrushPosition({
         start: { x: x0 },
         end: { x: x1 },
       });
 
+      // Filter data with new domains
       filterAllDateWithNewDomain({
         start: { x: x0 },
         end: { x: x1 },
@@ -875,25 +995,34 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     ]
   );
 
-  // legendData
+  // Display legend table if showLegendTable is true
   if (showLegendTable) {
     legenddata = legenddata.splice(0);
 
+    // As per user selection if filteredEventSeries is defined
     if (filteredEventSeries) {
       filteredEventSeries.map((linedata, index) => {
+        // Filter the event metric from the legenTablePointeData
+        // this step also avoids multiple entries with same name
         const pointerElement = legenTablePointerData
           ? legenTablePointerData.filter(
               (singleMetric) => singleMetric.metricName === linedata.metricName
             )[0]
           : undefined;
+
+        // Curr (current or recent mouse pointer location)is only defined
+        // when the user has entered in the graph for at leat once
         const curr = pointerElement
           ? getValueStr(pointerElement.data)
           : firstMouseEnterGraph
           ? "--"
           : getValueStr(linedata.data[linedata.data.length - 1]);
 
+        // avg (average) is initialized with --
+        // for event series avg won't be defined
+        // as by now the data in the event metric is (True, False, Start, End)
         const avg = "--";
-
+        //  all the constructed values are assigned to legenddata
         if (linedata.data !== undefined) {
           legenddata[index] = {
             data: [linedata.metricName, avg, curr],
@@ -904,6 +1033,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     }
     if (filteredClosedSeries) {
       filteredClosedSeries.map((linedata, index) => {
+        // Same steps as event metric
         const pointerElement = legenTablePointerData
           ? legenTablePointerData.filter(
               (singleMetric) => singleMetric.metricName === linedata.metricName
@@ -914,6 +1044,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           : firstMouseEnterGraph
           ? "--"
           : getValueStr(linedata.data[linedata.data.length - 1]);
+        // avg is caculated over all the points present the filtered metric
         const avg = (
           linedata.data.map((d) => (d.value ? d.value : 0)).reduce(getSum, 0) /
           linedata.data.length
@@ -928,7 +1059,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           };
       });
     }
-
+    //  same steps as above
     if (filteredOpenSeries) {
       filteredOpenSeries.map((linedata, index) => {
         const pointerElement = legenTablePointerData
@@ -957,6 +1088,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       });
     }
   }
+  // The start and end calculated over all data is stored
+  // to be used by the range slider placed at the bottom of the graph
   const marks = [
     {
       value: new Date(brushDateScale.domain()[0]).getTime(),
@@ -968,6 +1101,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     },
   ];
 
+  // Reset the graph is data Render is true
+  // TODO as per new addition of multiple zooming this if statement
+  // may be omitted
   if (
     (filteredClosedSeries !== closedSeries ||
       filteredOpenSeries !== openSeries ||
@@ -988,7 +1124,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         position: "relative",
       }}
     >
+      {/* Constuct an svg */}
       <svg width={width} height={svgElementHeight}>
+        {/* Plot a background rect */}
         <rect
           x={0}
           y={0}
@@ -996,12 +1134,14 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           height={svgElementHeight}
           className={classes.rectBase}
         />
+        {/* Group all plotting components and position them */}
         <Group
           top={0}
           width={width}
           height={yMax}
           onMouseLeave={() => hideTooltip()}
         >
+          {/*Plot the graph*/}
           <PlotLineAreaGraph
             showPoints={showPoints}
             hideBottomAxis={compact}
@@ -1017,6 +1157,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             yScale={valueScale}
             {...rest}
           >
+            {/* Formulate a linear gradient for the zooming brush */}
             <LinearGradient
               id="linearGradient-Brush"
               from={palette.text.primary}
@@ -1024,7 +1165,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               fromOpacity={0.4}
               toOpacity={0}
             />
-
+            {/* Add the zoom brush */}
             <Brush
               xScale={dateScale}
               yScale={valueScale}
@@ -1034,14 +1175,29 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               handleSize={8}
               resizeTriggerAreas={["left", "right"]}
               resetOnEnd
+              // When the user completes (ends) his selection
+              // then fire the onBrushChange func
               onBrushEnd={onBrushChange}
+              // For any change in the brush first hide the old tooltip
               onChange={() => hideTooltip()}
               selectedBoxStyle={{
                 fill: "url(#linearGradient-Brush)",
                 stroke: palette.text.primary,
                 strokeOpacity: "0.8",
               }}
+              // Handle mouse pointer move to generate a new tooltip
               onMouseMove={handleTooltip}
+              // When the user click on the graph then the zoom out or reset has
+              // to occu
+              // 1. Allow all the graph to update themselves to the lasted data
+              // this is done for the case when data is updating real-time
+              // 2. Allow all connected graph to update
+              // 3. Rest all filtered metric with complete data
+              // 4. Prevent render
+              // 5. Set/ Rest new brush location locally
+              // 6. Update the new central brush location
+              // 7. Allow render
+              // 8. hide all old tooltips
               onClick={() => {
                 setAllowGraphUpdate(true);
                 handleCentralAllowGraphUpdate?.(true);
@@ -1066,7 +1222,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 hideTooltipDate();
               }}
             />
+            {/*  if showTips is true and tooltip data is defined */}
             {showTips && tooltipDataDate && tooltipDataDate[0] && (
+              // draw a line
               <Line
                 key={`${tooltipDataDate[0].metricName}-toolTipLine`}
                 from={{
@@ -1080,6 +1238,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                 className={classes.tooltipLine}
               />
             )}
+            {/* plot a circle at the point as per tooltip */}
             {showTips &&
               !showMultiToolTip &&
               tooltipData &&
@@ -1102,6 +1261,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           </PlotLineAreaGraph>
         </Group>
       </svg>
+      {/* Add the range slider */}
       {showRangeSlider && (
         <div className={classes.rangeSliderParent}>
           <SliderMui
@@ -1116,6 +1276,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           />
         </div>
       )}
+      {/* Print the date tooltip */}
       {tooltipDataDate && showTips && tooltipDataDate[0] && (
         <Tooltip
           // key added as per visx guideline
@@ -1124,6 +1285,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           left={tooltipLeftDate}
           className={classes.tooltipDateStyles}
         >
+          {/* Print date stamp as per specified format */}
           <div className={`${classes.tooltipBottomDate}`}>
             <span>{` ${dayjs(
               new Date(getDateNum(tooltipDataDate[0].data))
@@ -1131,7 +1293,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           </div>
         </Tooltip>
       )}
+      {/* Print the metric name and value  */}
       {tooltipData && showTips && tooltipData[0] && (
+        // Tooltip with bounds
         <TooltipWithBounds
           // key added as per visx guideline
           key={Math.random()}
@@ -1146,12 +1310,15 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             <div key={`tooltipName-value- ${linedata.metricName}-${index}`}>
               <div className={classes.tooltipData}>
                 <div className={classes.tooltipLabel}>
+                  {/* Add legend marker with metric color */}
                   <div
                     className={classes.legendMarker}
                     style={{ background: linedata.baseColor }}
                   />
+                  {/* Add name of the metric */}
                   <span>{`${linedata.metricName}`}</span>
                 </div>
+                {/* Add metric value */}
                 <div className={classes.tooltipValue}>
                   <span>{`${getValueStr(linedata.data)}`}</span>
                 </div>
@@ -1160,15 +1327,17 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           ))}
         </TooltipWithBounds>
       )}
-
+      {/* Displaying legend and event data Table */}
       {showLegendTable && showEventTable && (
         <div className={classes.wrapperParentLegendAndEventTable}>
           <div className={classes.wrapperLegendTable}>
+            {/* Pass legend data to LegendTable component */}
             <LegendTable
               data={legenddata}
               heading={["Metric Name", "Avg", "Curr"]}
             />
           </div>
+
           <div className={classes.wrapperSubDataTableForEvents}>
             <LegendTable
               data={eventTableData}
@@ -1177,6 +1346,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           </div>
         </div>
       )}
+      {/* displaying only legend table */}
       {showLegendTable && !showEventTable && (
         <div className={classes.wrapperLegendTable}>
           <LegendTable

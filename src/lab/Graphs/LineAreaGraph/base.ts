@@ -99,6 +99,8 @@ export interface LineAreaGraphProps<T> {
   margin?: { top: number; right: number; bottom: number; left: number };
 
   // Boolean to hide or show the x-axis
+  //TODO replace compact with the much verbose prop hideBottomAxis
+  // and hideLeftAxis
   compact?: boolean;
 
   // Y-axis label

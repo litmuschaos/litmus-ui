@@ -21,35 +21,42 @@ import { DateValue, StrictColorGraphMetric } from "./base";
 import { removeSpecialChar } from "./utils";
 
 // Accessors
+// TODO these accessors may be moved to utils
+// Return date in number type
 const getDateNum = (d: DateValue) =>
   typeof d.date === "number"
     ? new Date(d.date)
     : new Date(parseInt(d.date, 10));
+
+// Returns Value in number type
 const getValueNum = (d: DateValue) =>
   typeof d.value === "number" ? d.value : parseInt(d.value, 10);
 
+// Returns Value in string type
 const getValueStr = (d: DateValue) =>
   typeof d.value === "number" ? d.value.toFixed(2).toString() : d.value;
 
 let numValue = "";
+
+// Convert long digit number to short representation
+// Also appends the unit passed by the user
 const intToString = (value: number, unit: string) => {
   numValue = "";
   const suffixes = ["", "k", "m", "b", "t"];
-
   const suffixNum = Math.floor(
     Math.floor(Math.abs(value)).toString().length / 3
   );
-
   const shortValue = parseFloat(
     (suffixNum !== 0 ? value / 1000 ** suffixNum : value).toPrecision(2)
   );
   numValue = shortValue.toString();
-
   if (shortValue % 1 !== 0) {
     numValue = shortValue.toFixed(2);
   }
   return `${numValue}${suffixes[suffixNum]} ${unit}`;
 };
+
+// Return the date in the string type as per the format passed by the user
 const dateFormat = (date: number, xAxistimeFormat: string) => {
   return dayjs(new Date(date)).format(xAxistimeFormat);
 };

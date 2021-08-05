@@ -28,6 +28,9 @@ const PassFailBarChild = ({
   failPercentage,
   className,
 }: PassFailBarChildProps) => {
+  // Allow user to send both pass and fail percentage
+  // if user doesn't sends fail percentage then go ahead with standard calc
+  // if user sends then overrride the calc
   const classes = useStyles({
     width,
     height,
@@ -38,6 +41,7 @@ const PassFailBarChild = ({
   return width < 10 ? null : (
     <div className={`${classes.passFailRoot} ${className}`}>
       <div className={classes.barAndText}>
+        {/* plot a pass bar with value */}
         <div className={`${classes.singleBar} ${classes.passBar} `} />
         <Typography
           variant="h6"
@@ -45,6 +49,7 @@ const PassFailBarChild = ({
         >{`${passPercentage ?? 0}%`}</Typography>
       </div>
       <div style={{ display: "flex" }}>
+        {/* plot a fail bar with value */}
         <div className={`${classes.singleBar} ${classes.failBar} `} />
         <Typography
           variant="h6"
@@ -55,6 +60,8 @@ const PassFailBarChild = ({
   );
 };
 const PassFailBar: React.FC<PassFailBarProps> = ({ ...rest }) => {
+  //  ParentSize calculates the (width,height) of the parent and passes
+  //  it to the PassFailBarChild along with other props
   return (
     <ParentSize>
       {({ width, height }) =>
