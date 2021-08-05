@@ -24,6 +24,7 @@ export type LegendTableProps = LegendTableBaseProps<LegendData>;
 const LegendTable: React.FC<LegendTableProps> = ({ data, heading }) => {
   const classes = useStyles();
   return (
+    //TODO replace the table with data grid
     <TableContainer className={classes.root}>
       <Table aria-label="simple table" cellPadding="0.2">
         <TableHead>
