@@ -49,7 +49,7 @@ let toolTipPointLength: number;
 let legenTablePointerData: Array<ToolTipDateValue>;
 let eventTableData: Array<LegendData> = [{ data: ["--", "--"], baseColor: "" }];
 
-interface Props {
+interface SliderLabelProps {
   children: React.ReactElement;
   open: boolean;
   value: number;
@@ -114,7 +114,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   });
 
   // Label the Slider value with a tooltip
-  const valueLabelComponent = (props: Props) => {
+  const valueLabelComponent = (props: SliderLabelProps) => {
     const { children, open, value } = props;
     return (
       <TooltipMui
@@ -147,6 +147,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
 
   // State used to avoid unnecessary rendering
+  // TODO remove if not required
   const [dataRender, setAutoRender] = useState(true);
 
   // Boolean to determine the graph rentering
@@ -183,6 +184,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   } = useTooltip<TooltipData>({
     tooltipOpen: true,
   });
+
   let legenddata: Array<LegendData> = [{ data: [], baseColor: "" }];
 
   const closedSeriesCount = filteredClosedSeries
@@ -545,8 +547,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (showMultiToolTip) {
           setMouseY(y);
         }
-        // Simarly get the actual y value
-        const y0: number = valueScale.invert(y);
+
         if (firstMouseEnterGraph === false) {
           // First Mouse Enter is used because in the legend
           // table data, the Curr field will be empty
@@ -652,6 +653,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           let index0 = 0;
           let closestValue: number | undefined;
           if (pointerDataSelection && pointerDataSelection[0]) {
+            // Get the actual y value from the mouse pointer value in px
+            const y0: number = valueScale.invert(y);
+
             // the bisection is performed here
             index0 = bisectorValue(pointerDataSelection, y0, 1);
             // similar to previous computation
@@ -1188,7 +1192,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               // Handle mouse pointer move to generate a new tooltip
               onMouseMove={handleTooltip}
               // When the user click on the graph then the zoom out or reset has
-              // to occu
+              // to occur
               // 1. Allow all the graph to update themselves to the lasted data
               // this is done for the case when data is updating real-time
               // 2. Allow all connected graph to update

@@ -3,6 +3,7 @@ import { LineAreaGraphChildProps, StrictColorGraphMetric } from "./base";
 import { ComputationGraph } from "./ComputationGraph";
 
 // filterUndefinedData performs type checking and filter undefined data
+// TODO optimization for the case when Backend api is sure of data integrity
 const filterUndefinedData = (
   data: StrictColorGraphMetric[] | undefined
 ): StrictColorGraphMetric[] | undefined =>

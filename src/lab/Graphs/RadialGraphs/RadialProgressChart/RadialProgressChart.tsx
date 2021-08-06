@@ -70,9 +70,15 @@ const RadialProgressChartChild = ({
     centerText,
     baseColor: radialData.baseColor,
   });
+
+  // Initialize total
   const total: number = radialData.value ? 100 : NaN;
+
+  // Scale of the arc will be based on circle orientation
   const scalerArc: number = circleOrient * Math.PI;
 
+  // Construct radialArc data, here the values passed by the user
+  // are converted to radian
   const radialArc: RadialChartMetric[] = radialData
     ? [
         {
@@ -88,6 +94,7 @@ const RadialProgressChartChild = ({
       ]
     : [{ value: NaN }];
 
+  // Assign central value with radialData passed by the user
   if (centerValue === "0" && total > 0) {
     {
       centerValue = radialData.value.toString();
@@ -105,6 +112,8 @@ const RadialProgressChartChild = ({
           />
 
           <Group top={outerRadius} left={radialFigurWidth / 2}>
+            {/* Render the radial graph if total is greater than 0 and then 
+            iterate over the radialArc */}
             {total > 0 &&
               radialArc &&
               radialArc.map((elem) => (
@@ -122,6 +131,8 @@ const RadialProgressChartChild = ({
               ))}
 
             {(currentAngle = Math.PI)}
+
+            {/* If total is 0 then plot an a arc to show that no data is available */}
             {(total === 0 || Number.isNaN(total)) && (
               <Arc
                 cornerRadius={2}
@@ -137,9 +148,11 @@ const RadialProgressChartChild = ({
           </Group>
         </svg>
       </div>
+      {/* Dispaly Icon*/}
       <div className={classes.centerIcon}>
         <img src={imageSrc} alt={imageAlt} />
       </div>
+      {/* Display the central text and value */}
       <div className={classes.centerDataContainer}>
         <div className={`${classes.centerValue} ${classes.centerDataFont}`}>
           {centerValue + " " + unit}
@@ -157,6 +170,8 @@ const RadialProgressChart: React.FC<RadialProgressChartProps> = ({
   ...rest
 }) => {
   return (
+    // ParentSize calculates the (width,height) of the parent and passes
+    // it to the RadialProgressChartChild along with other props
     <ParentSize>
       {({ width, height }) =>
         width > 0 &&
