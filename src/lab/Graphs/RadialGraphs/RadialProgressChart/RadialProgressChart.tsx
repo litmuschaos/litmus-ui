@@ -42,13 +42,32 @@ const RadialProgressChartChild = ({
   imageAlt = "icon",
   className,
 }: RadialProgressChartChildProps) => {
+  // Get palette
   const { palette } = useTheme();
+
+  // Initialize centerValue
   let centerValue = "0";
+
+  // Initialize centerText
   const centerText = heading ?? "";
+
+  // Initialize figure with
+  // this variable is same as in RadialChart component
+  // to be used if legendTable is added
   const radialFigurWidth = width;
+
+  // Initialize the circle orientation
   const circleOrient = semiCircle ? 1 : 2;
+
+  // Initialize the start angle in radian
   const startAngle: number = -(Math.PI / 2);
+
+  // Initialize the current angle
   let currentAngle: number = startAngle;
+
+  // Calc outer radius of the arc
+  // based on the circle orientation
+  //  and then subtract the width of the arc from it
   const outerRadius =
     (circleOrient === 1
       ? radialFigurWidth <= height * 2
@@ -57,7 +76,11 @@ const RadialProgressChartChild = ({
       : Math.min(radialFigurWidth, height)) *
       0.5 -
     arcWidth;
+
+  // Calc the inner radius
   const innerRadius = outerRadius - arcWidth;
+
+  // Initialize the styling
   const classes = useStyles({
     width,
     height,

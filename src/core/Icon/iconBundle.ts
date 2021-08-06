@@ -84,8 +84,12 @@ import i083 from "../../assets/icons/workflowRunning.svg";
 import { IconName } from "./base";
 
 interface AllIconsProps {
+  //  Generic key with value of type string
   [index: string]: string;
 }
+
+// All icons are imported and an object containing
+// all the icons is contructed
 const allIcons: AllIconsProps = {
   agents: i001,
   analytics: i002,
@@ -172,6 +176,8 @@ const allIcons: AllIconsProps = {
   workflowRunning: i083,
 };
 
+// Function to get a particular icon from the object containing
+// all the icons
 const getIcon = (name: IconName): string => {
   return allIcons[name];
 };

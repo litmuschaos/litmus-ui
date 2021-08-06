@@ -55,20 +55,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: "absolute",
     top: props.outerRadius,
     left: "50%",
+    // Depending on whether the centerText is defined or not
+    // the centerValue and centerText are aligned
     transform: props.centerText
-      ? props.circleOrient === 1
-        ? "translate(-50%, -50%)"
-        : "translate(-50%, -0%)"
+      ? "translate(-50%, -50%)"
       : props.circleOrient === 1
       ? "translate(-50%, -100%)"
-      : "translate(-50%, -25%)",
+      : "translate(-50%, -50%)",
   }),
 
   centerIcon: (props: StyleProps) => ({
+    // Left of the icon is always 50% of the width
     left: "50%",
+    // The top of the icon is assigned iconTop as passed by
+    // the user
+    // if the user doesn't passes the iconTop then a rough
+    // calculation based on the height
+    // radius of the arc and its width is performed
     top: props.iconTop
-      ? props.iconTop
-      : props.circleOrient === 1
+      ? props.iconTop // iconTop as per props sent by user
+      : props.circleOrient === 1 // rough estimation
       ? props.height -
         props.innerRadius +
         (props.arcWidth * props.outerRadius * 2) / 120
