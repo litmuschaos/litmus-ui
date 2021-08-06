@@ -547,7 +547,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         if (showMultiToolTip) {
           setMouseY(y);
         }
-
+        // Simarly get the actual y value
+        const y0: number = valueScale.invert(y);
         if (firstMouseEnterGraph === false) {
           // First Mouse Enter is used because in the legend
           // table data, the Curr field will be empty
@@ -653,9 +654,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
           let index0 = 0;
           let closestValue: number | undefined;
           if (pointerDataSelection && pointerDataSelection[0]) {
-            // Get the actual y value from the mouse pointer value in px
-            const y0: number = valueScale.invert(y);
-
             // the bisection is performed here
             index0 = bisectorValue(pointerDataSelection, y0, 1);
             // similar to previous computation
