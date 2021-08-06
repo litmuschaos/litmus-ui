@@ -141,7 +141,7 @@ const RadialChartChild = ({
       })
     : [{ value: NaN, label: "" }];
 
-  // Assign cental value and text
+  // Assign central value and text
   if (centerValue === "0" && total > 0) {
     setcenterValue(total.toString());
     if (showCenterHeading) {
