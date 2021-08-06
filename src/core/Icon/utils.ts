@@ -1,6 +1,6 @@
 import { IconName } from "./base";
 
-// to get list of icons part of Icon
+// To get list of icons part of Icon
 const getAvailableIcons = (): IconName[] => [
   "agents",
   "analytics",
@@ -87,7 +87,7 @@ const getAvailableIcons = (): IconName[] => [
   "workflowRunning",
 ];
 
-// list of icons having stroke color for the svg path
+// List of icons having stroke color for the svg path
 const iconsPathWithStorke = [
   "arrowDown",
   "arrowLeft",

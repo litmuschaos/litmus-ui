@@ -15,7 +15,6 @@ interface StyleProps {
 const useStyles = makeStyles((theme: Theme) => ({
   radialChartRoot: (props: StyleProps) => ({
     width: props.width,
-    height: props.height,
     position: "relative",
     transition: "0.5s",
     background: theme.palette.background.paper,
@@ -55,6 +54,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   centerDataContainer: (props: StyleProps) => ({
     position: "absolute",
+    // text is displayed as per circle orientation
+    // and legend Table aligment
     top:
       props.circleOrient === 1
         ? props.innerRadius
@@ -65,12 +66,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   legendTableArea: (props: StyleProps) => ({
     display: "flex",
+    // width and height of the legendTable depends on circle orientation
+    // and legendTable aligment
     width: props.alignLegendTable === "bottom" ? props.width : props.width / 2,
     height:
       props.alignLegendTable === "bottom"
-        ? props.circleOrient === 1
-          ? props.height - props.outerRadius
-          : props.height - props.outerRadius * 2
+        ? props.legendTableHeight
         : props.circleOrient === 1
         ? props.outerRadius
         : props.outerRadius * 2,
@@ -84,12 +85,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   figureWithLegendTable: (props: StyleProps) => ({
     display: props.alignLegendTable === "bottom" ? "inline-block" : "flex",
-    height:
-      props.alignLegendTable === "bottom"
-        ? props.height
-        : props.circleOrient === 1
-        ? props.outerRadius
-        : props.outerRadius * 2,
+    height: props.alignLegendTable === "bottom" ? "inherit" : props.height,
   }),
 }));
 export { useStyles };
