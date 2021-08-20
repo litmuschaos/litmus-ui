@@ -42,13 +42,32 @@ const RadialProgressChartChild = ({
   imageAlt = "icon",
   className,
 }: RadialProgressChartChildProps) => {
+  // Get palette
   const { palette } = useTheme();
+
+  // Initialize centerValue
   let centerValue = "0";
+
+  // Initialize centerText
   const centerText = heading ?? "";
+
+  // Initialize figure with
+  // this variable is same as in RadialChart component
+  // to be used if legendTable is added
   const radialFigurWidth = width;
+
+  // Initialize the circle orientation
   const circleOrient = semiCircle ? 1 : 2;
+
+  // Initialize the start angle in radian
   const startAngle: number = -(Math.PI / 2);
+
+  // Initialize the current angle
   let currentAngle: number = startAngle;
+
+  // Calc outer radius of the arc
+  // based on the circle orientation
+  //  and then subtract the width of the arc from it
   const outerRadius =
     (circleOrient === 1
       ? radialFigurWidth <= height * 2
@@ -57,7 +76,11 @@ const RadialProgressChartChild = ({
       : Math.min(radialFigurWidth, height)) *
       0.5 -
     arcWidth;
+
+  // Calc the inner radius
   const innerRadius = outerRadius - arcWidth;
+
+  // Initialize the styling
   const classes = useStyles({
     width,
     height,
@@ -67,10 +90,18 @@ const RadialProgressChartChild = ({
     outerRadius,
     iconTop,
     iconSize,
+    centerText,
+    baseColor: radialData.baseColor,
   });
+
+  // Initialize total
   const total: number = radialData.value ? 100 : NaN;
+
+  // Scale of the arc will be based on circle orientation
   const scalerArc: number = circleOrient * Math.PI;
 
+  // Construct radialArc data, here the values passed by the user
+  // are converted to radian
   const radialArc: RadialChartMetric[] = radialData
     ? [
         {
@@ -86,6 +117,7 @@ const RadialProgressChartChild = ({
       ]
     : [{ value: NaN }];
 
+  // Assign central value with radialData passed by the user
   if (centerValue === "0" && total > 0) {
     {
       centerValue = radialData.value.toString();
@@ -102,10 +134,9 @@ const RadialProgressChartChild = ({
             className={classes.rectBase}
           />
 
-          <Group
-            top={circleOrient === 1 ? height : height / 2}
-            left={radialFigurWidth / 2}
-          >
+          <Group top={outerRadius} left={radialFigurWidth / 2}>
+            {/* Render the radial graph if total is greater than 0 and then 
+            iterate over the radialArc */}
             {total > 0 &&
               radialArc &&
               radialArc.map((elem) => (
@@ -123,6 +154,8 @@ const RadialProgressChartChild = ({
               ))}
 
             {(currentAngle = Math.PI)}
+
+            {/* If total is 0 then plot an a arc to show that no data is available */}
             {(total === 0 || Number.isNaN(total)) && (
               <Arc
                 cornerRadius={2}
@@ -138,17 +171,20 @@ const RadialProgressChartChild = ({
           </Group>
         </svg>
       </div>
+      {/* Dispaly Icon*/}
       <div className={classes.centerIcon}>
         <img src={imageSrc} alt={imageAlt} />
       </div>
+      {/* Display the central text and value */}
       <div className={classes.centerDataContainer}>
-        <p className={`${classes.centerValue} ${classes.centerDataFont}`}>
+        <div className={`${classes.centerValue} ${classes.centerDataFont}`}>
           {centerValue + " " + unit}
-        </p>
-
-        <p className={`${classes.centerText} ${classes.centerDataFont}`}>
-          {centerText}
-        </p>
+        </div>
+        {centerText && (
+          <div className={`${classes.centerText} ${classes.centerDataFont}`}>
+            {centerText}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -157,6 +193,8 @@ const RadialProgressChart: React.FC<RadialProgressChartProps> = ({
   ...rest
 }) => {
   return (
+    // ParentSize calculates the (width,height) of the parent and passes
+    // it to the RadialProgressChartChild along with other props
     <ParentSize>
       {({ width, height }) =>
         width > 0 &&

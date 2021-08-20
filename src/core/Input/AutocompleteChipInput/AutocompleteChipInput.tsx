@@ -1,5 +1,4 @@
-import Checkbox from "@material-ui/core/Checkbox";
-import TextField from "@material-ui/core/TextField";
+import { Checkbox, TextField } from "@material-ui/core";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import { Autocomplete } from "@material-ui/lab";
@@ -15,6 +14,7 @@ const AutocompleteChipInput: React.FC<BaseAutocompleteChipInputInputProps> = ({
   className,
   multiple = true,
   disableClearable = true,
+  defaultValue,
   ...rest
 }) => {
   const classes = useStyles();
@@ -32,6 +32,7 @@ const AutocompleteChipInput: React.FC<BaseAutocompleteChipInputInputProps> = ({
   };
   return (
     <Autocomplete
+      defaultValue={defaultValue}
       data-testid="autocomplete"
       className={`${classes.root} ${className}`}
       ChipProps={chips}

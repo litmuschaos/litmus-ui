@@ -1,0 +1,86 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { Snackbar } from "../Snackbar";
+import { ButtonFilled, ButtonOutlined } from "../Button";
+import { useState } from "react";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta
+  title="Core/Snackbar"
+  component={Snackbar}
+  argTypes={{
+    variant: {
+      control: {
+        type: "radio",
+        options: {
+          success: "success",
+          warning: "warning",
+          error: "error",
+        },
+        defaultValue: "success",
+      },
+    },
+  }}
+/>
+
+# Snackbar
+
+`Snackbar` Snackbars inform users of a process that an app has performed or will perform. They appear temporarily, towards the bottom of the screen. They shouldn’t interrupt the user experience, and they don’t require user input to disappear.
+
+Snackbars contain a single line of text directly related to the operation performed. They may contain a text action, but no icons. You can use them to display notifications..
+
+## Default variant:
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{ message: "Success Message", variant: "success" }}
+  >
+    {(args) => {
+      const [open, setOpen] = useState(false);
+      return (
+        <div>
+          <ButtonFilled onClick={() => setOpen(true)}>
+            Open Snackbar
+          </ButtonFilled>
+          <Snackbar {...args} open={open} setOpen={setOpen} />
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Other variants:
+
+<Canvas>
+  <Story
+    name="warning"
+    args={{ message: "Warning Message", variant: "warning" }}
+  >
+    {(args) => {
+      const [open, setOpen] = useState(false);
+      return (
+        <div>
+          <ButtonFilled onClick={() => setOpen(true)}>
+            Open Snackbar
+          </ButtonFilled>
+          <Snackbar {...args} open={open} setOpen={setOpen} />
+        </div>
+      );
+    }}
+  </Story>
+  <Story name="error" args={{ message: "Error Message", variant: "error" }}>
+    {(args) => {
+      const [open, setOpen] = useState(false);
+      return (
+        <div>
+          <ButtonFilled onClick={() => setOpen(true)}>
+            Open Snackbar
+          </ButtonFilled>
+          <Snackbar {...args} open={open} setOpen={setOpen} />
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Snackbar} />

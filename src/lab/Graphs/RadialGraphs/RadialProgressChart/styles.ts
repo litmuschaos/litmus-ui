@@ -9,6 +9,8 @@ interface StyleProps {
   outerRadius: number;
   iconTop?: string;
   iconSize: string;
+  baseColor?: string;
+  centerText?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -32,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     whiteSpace: "initial",
     textAlign: "center",
     lineHeight: "1.5rem",
-    margin: theme.spacing(2, 0),
     alignContent: "flex-start",
   }),
   centerValue: (props: StyleProps) => ({
@@ -52,16 +53,28 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   centerDataContainer: (props: StyleProps) => ({
     position: "absolute",
-    top: props.circleOrient === 1 ? "100%" : "50%",
+    top: props.outerRadius,
     left: "50%",
-    transform: "translate(-50%, -50%)",
+    // Depending on whether the centerText is defined or not
+    // the centerValue and centerText are aligned
+    transform: props.centerText
+      ? "translate(-50%, -50%)"
+      : props.circleOrient === 1
+      ? "translate(-50%, -100%)"
+      : "translate(-50%, -50%)",
   }),
 
   centerIcon: (props: StyleProps) => ({
+    // Left of the icon is always 50% of the width
     left: "50%",
+    // The top of the icon is assigned iconTop as passed by
+    // the user
+    // if the user doesn't passes the iconTop then a rough
+    // calculation based on the height
+    // radius of the arc and its width is performed
     top: props.iconTop
-      ? props.iconTop
-      : props.circleOrient === 1
+      ? props.iconTop // iconTop as per props sent by user
+      : props.circleOrient === 1 // rough estimation
       ? props.height -
         props.innerRadius +
         (props.arcWidth * props.outerRadius * 2) / 120
@@ -73,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: props.iconSize,
     width: props.iconSize,
     borderRadius: props.iconSize,
-    background: theme.palette.highlight,
+    background: props.baseColor ?? theme.palette.highlight,
     "& img": {
       position: "absolute",
       left: "50%",
