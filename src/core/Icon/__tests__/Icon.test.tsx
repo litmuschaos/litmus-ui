@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 test("Check the Icon className and name", () => {
-  // check componenet is div
+  // check component is div
   expect(component?.tagName).toBe("DIV");
   // check the class of the component
   expect(component?.className.includes("container")).toBe(true);
