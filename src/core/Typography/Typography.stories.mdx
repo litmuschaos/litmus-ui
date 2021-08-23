@@ -1,0 +1,41 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { Typography } from "./Typography";
+import { ArgsTable } from "@storybook/addon-docs/blocks";
+
+<Meta title="Core/Typography" component={Typography} />
+
+# Typography
+
+`Typography` component is used to write Text with consistent styling.
+
+## Default variant:
+
+<Canvas>
+  <Story name="Default" args={{}}>
+    {(args) => (
+      <Typography {...args}>
+        The quick brown fox jumps over the lazy dog
+      </Typography>
+    )}
+  </Story>
+</Canvas>
+
+the various font sizes available are:
+
+```
+heading1 : 60px
+heading2 : 48px
+heading3 : 32px
+heading4 : 28px
+heading5 : 24px
+heading6 : 20px
+subtitle  : 18px
+body1     : 16px
+body2     : 14px
+button1   : 16px
+button2   : 14px
+caption   : 12px
+overline  : 10px
+```
+
+<ArgsTable of={Typography} />
