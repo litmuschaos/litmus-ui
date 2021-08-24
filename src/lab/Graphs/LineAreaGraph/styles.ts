@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "flex-start",
   },
   tableFont: {
-    fontFamily: "Ubuntu",
     fontSize: "0.8rem",
     fontStyle: "normal",
     fontWeight: 400,

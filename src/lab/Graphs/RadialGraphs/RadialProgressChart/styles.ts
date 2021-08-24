@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   centerDataFont: (props: StyleProps) => ({
     width: props.width,
     fontStyle: "normal",
-    fontFamily: "Ubuntu",
     background: "transparent",
     wordWrap: "break-word",
     whiteSpace: "initial",
