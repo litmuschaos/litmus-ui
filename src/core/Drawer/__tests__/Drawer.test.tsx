@@ -1,22 +1,28 @@
-import { render } from "@testing-library/react";
+import { Typography } from "@material-ui/core";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { LitmusThemeProvider } from "../../../theme";
 import { Drawer } from "../Drawer";
 
-describe("Drawer Component", () => {
-  it("Renders", () => {
-    const { findByTitle } = render(
-      <LitmusThemeProvider>
-        <Drawer
-          open={true}
-          anchor={"left"}
-          onClose={() => console.log("clicked")}
-        >
-          <>Drawer</>
-        </Drawer>
-      </LitmusThemeProvider>
-    );
+let draweritems: HTMLElement;
+let closebtn: HTMLElement;
 
-    expect(findByTitle("Drawer")).toBeTruthy();
-  });
+beforeEach(() => {
+  render(
+    <LitmusThemeProvider>
+      <Drawer open={true} anchor={"left"} onCloseButton={() => {}}>
+        <Typography>Drawer</Typography>
+      </Drawer>
+    </LitmusThemeProvider>
+  );
+  draweritems = screen.getByTestId("drawer-items");
+  closebtn = screen.getByTestId("close-btn");
+});
+
+test("Check if drawer items are visible", () => {
+  expect(draweritems.textContent).toBe("Drawer");
+});
+
+test("Check if close button are visible", () => {
+  expect(closebtn).toBeTruthy();
 });

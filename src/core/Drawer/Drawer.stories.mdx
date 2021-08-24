@@ -24,14 +24,7 @@ lightboxes, or whatever else.
             {...args}
             open={open}
             onClose={() => setOpen(false)}
-            modalActions={
-              <ButtonOutlined
-                style={{ float: "right" }}
-                onClick={() => setOpen(false)}
-              >
-                &#x2715;
-              </ButtonOutlined>
-            }
+            onCloseButton={() => setOpen(false)}
           >
             <div
               style={{

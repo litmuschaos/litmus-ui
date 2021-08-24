@@ -20,8 +20,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: theme.palette.background.paper,
     textAlign: "center",
   },
-
-  modalActions: {},
+  closeIcon: {
+    float: "right",
+    width: "3rem",
+    height: "3rem",
+  },
 }));
 
 export { useStyles };

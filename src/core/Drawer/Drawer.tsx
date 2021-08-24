@@ -1,36 +1,38 @@
-import { Drawer as MuiDrawer } from "@material-ui/core";
+import { Drawer as MuiDrawer, IconButton } from "@material-ui/core";
 import React from "react";
+import { Icon } from "../Icon";
 import { DrawerBaseProps } from "./base";
 import { useStyles } from "./styles";
 
 interface DrawerProps extends DrawerBaseProps {
-  onClose: () => void;
-  modalActions?: React.ReactNode;
+  onCloseButton: () => void;
 }
 
 const Drawer: React.FC<DrawerProps> = ({
   children,
-  open,
-  anchor,
-  onClose,
+  anchor = "right",
   className,
-  modalActions,
+  onCloseButton,
   ...rest
 }) => {
   const classes = useStyles({ anchor });
+
   return (
     <MuiDrawer
       anchor={anchor}
-      open={open}
-      onClose={onClose}
       className={`${classes.root} ${className}`}
       {...rest}
     >
       <div className={classes.content}>
-        {modalActions && (
-          <div className={classes.modalActions}>{modalActions}</div>
-        )}
-        {children}
+        <IconButton
+          data-testid="close-btn"
+          className={classes.closeIcon}
+          onClick={onCloseButton}
+          component="span"
+        >
+          <Icon name="close" />
+        </IconButton>
+        <div data-testid="drawer-items">{children}</div>
       </div>
     </MuiDrawer>
   );
