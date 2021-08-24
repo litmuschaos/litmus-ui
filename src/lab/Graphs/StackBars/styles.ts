@@ -11,8 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   tooltipMetric: {
     zIndex: 3,
     marginTop: "1rem",
-    padding: "1rem",
-    backgroundColor: `${theme.palette.cards.background} !important`,
+    padding: `0 !important`,
   },
   tooltipMetricLeft: {
     transform: "translate(-75%,0)",

@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     top: "50%",
     transform: "translate(0%, 25%)",
     fontStyle: "normal",
-    fontFamily: "Ubuntu",
   },
   passText: {
     color: theme.palette.success.main,
