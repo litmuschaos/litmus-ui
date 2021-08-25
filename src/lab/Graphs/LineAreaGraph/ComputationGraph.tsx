@@ -707,8 +707,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
             // means that there is at least one point in open series and
             // closed series which was added in the tooltip
             // 2. making sure that trim opertion is being performed only for the first time
-            // 3. For the dd1(defined) of the event metric, checking its distance from mouse pointer is
-            // less than the distance between the last point of the
+            // 3. For the dd1(defined) of the event metric, checking its distance from
+            // mouse pointer is less than the distance between the last point of the
             // pointerDataSelection or not
 
             if (
