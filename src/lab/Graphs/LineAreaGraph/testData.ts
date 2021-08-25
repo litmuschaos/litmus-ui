@@ -1,5 +1,17 @@
 import { DateValue, GraphMetric } from ".";
 
+// This file shows how the data should be constucted
+// for the linAreaGraph
+
+// First step involves setting the Time series data
+// in form of array of (date,value)
+
+// Second step involes adding metricName, baseColor (legend markger)
+// and the above data together to constuct metric of type Array<GraphMetric>
+
+// subData may also be added to the metric
+// which corresponds to additional information for the given metric
+
 const openSeriesData1: DateValue[] = [
   { date: 4000.0, value: 40 },
   { date: 5000.0, value: 50 },
@@ -58,8 +70,17 @@ const openSeriesData: Array<GraphMetric> = [
   },
 ];
 const closedSeriesData: Array<GraphMetric> = [
-  { metricName: "orange", data: closedSeriesData1, baseColor: "orange" },
-  { metricName: "noColorAssigned-1", data: closedSeriesData2 },
+  // Orange series has space in between. It tests the url encoding in for coloring.
+  {
+    metricName: "orange series with whiteSpaces",
+    data: closedSeriesData1,
+    baseColor: "orange",
+  },
+  {
+    metricName:
+      "noColorHasBeenAssigenedToThisSeriesAlsoTheNameOfThisSeriesIsVeryLongWithoutAnyWhiteSpace",
+    data: closedSeriesData2,
+  },
 ];
 const eventSeriesData: Array<GraphMetric> = [
   {
@@ -67,7 +88,12 @@ const eventSeriesData: Array<GraphMetric> = [
     data: eventSeriesData1,
     subData: [
       { subDataName: "subData-0-1", value: "0-1", date: 3000 },
-      { subDataName: "subData-0-2", value: "0-2", date: 3000 },
+      {
+        subDataName:
+          "subData-0-2-Long-sub-data-without-any-whiteSpace-to-test-wrapping-in-subData",
+        value: "0-2",
+        date: 3000,
+      },
       { subDataName: "subData-0-3", value: "0-3", date: 3000 },
       { subDataName: "subData-0-4", value: "0-4", date: 3000 },
     ],

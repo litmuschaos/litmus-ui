@@ -8,4 +8,4 @@ export * from "./ProgressBar";
 export * from "./QuickActionCard";
 export * from "./RadioButton";
 export * from "./Search";
-export * from "./Text";
+export * from "./Typography";

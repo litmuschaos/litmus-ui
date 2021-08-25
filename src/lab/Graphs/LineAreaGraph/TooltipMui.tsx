@@ -1,5 +1,6 @@
 import { Theme, Tooltip, withStyles } from "@material-ui/core";
 
+// Wrapping styles over the Tooltip
 const TooltipMui = withStyles((theme: Theme) => ({
   tooltip: {
     backgroundColor: theme.palette.background.paper,
