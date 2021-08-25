@@ -10,7 +10,12 @@ let closebtn: HTMLElement;
 beforeEach(() => {
   render(
     <LitmusThemeProvider>
-      <Drawer open={true} anchor={"left"} onCloseButton={() => {}}>
+      <Drawer
+        open={true}
+        icon={"close"}
+        anchor={"left"}
+        onButtonClose={() => {}}
+      >
         <Typography>Drawer</Typography>
       </Drawer>
     </LitmusThemeProvider>

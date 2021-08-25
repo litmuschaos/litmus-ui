@@ -1,18 +1,20 @@
 import { Drawer as MuiDrawer, IconButton } from "@material-ui/core";
 import React from "react";
-import { Icon } from "../Icon";
+import { Icon, IconName } from "../Icon";
 import { DrawerBaseProps } from "./base";
 import { useStyles } from "./styles";
 
 interface DrawerProps extends DrawerBaseProps {
-  onCloseButton: () => void;
+  onButtonClose: () => void;
+  icon: IconName;
 }
 
 const Drawer: React.FC<DrawerProps> = ({
   children,
   anchor = "right",
+  icon = "close",
   className,
-  onCloseButton,
+  onButtonClose,
   ...rest
 }) => {
   const classes = useStyles({ anchor });
@@ -27,10 +29,10 @@ const Drawer: React.FC<DrawerProps> = ({
         <IconButton
           data-testid="close-btn"
           className={classes.closeIcon}
-          onClick={onCloseButton}
+          onClick={onButtonClose}
           component="span"
         >
-          <Icon name="close" />
+          <Icon name={icon} />
         </IconButton>
         <div data-testid="drawer-items">{children}</div>
       </div>

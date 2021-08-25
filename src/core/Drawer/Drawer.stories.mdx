@@ -14,7 +14,7 @@ lightboxes, or whatever else.
 ## Default variant:
 
 <Canvas>
-  <Story name="Default" args={{ variant: "temporary", anchor: "left" }}>
+  <Story name="Default" args={{ variant: "temporary", anchor: "left", icon:"close" }}>
     {(args) => {
       const [open, setOpen] = useState(false);
       return (
@@ -24,7 +24,7 @@ lightboxes, or whatever else.
             {...args}
             open={open}
             onClose={() => setOpen(false)}
-            onCloseButton={() => setOpen(false)}
+            onButtonClose={() => setOpen(false)}
           >
             <div
               style={{
