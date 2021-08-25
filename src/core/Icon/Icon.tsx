@@ -10,10 +10,17 @@ import {
 } from "./utils";
 
 export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
+  // Name of the icon
   name: IconName;
+
+  // Size of the icon
   size?: IconSize;
+
+  // Color of the icon
   color?: string;
 }
+
+// Return the size of the icon as per standard icon size
 export const getSvgSize = (size: IconSize) => {
   switch (size) {
     case "xs":
@@ -45,12 +52,22 @@ const Icon: React.FC<IconProps> = ({
   color = "black",
   ...rest
 }) => {
+  // Initialize the styling
   const classes = useStyles({
     color: color,
+
+    // To check whether this icon has stroke
     pathStroke: iconsPathWithStorke.includes(name),
+
+    // To check whether this icon has rect fill
     rectFill: iconsWithRectFill.includes(name),
+
+    // To check whether this icon has rect stroke
     rectStroke: iconsWithRectStroke.includes(name),
   });
+
+  // Size of the svg will be based on the standard size
+  // passed by the user
   const svgSize = getSvgSize(size);
 
   return (
@@ -60,6 +77,7 @@ const Icon: React.FC<IconProps> = ({
       {...rest}
       data-testid="icon-component"
     >
+      {/* Render SVG with the icon */}
       <SVG
         src={getIcon(name)}
         width={svgSize}
