@@ -1,6 +1,8 @@
 import { Checkbox, TextField } from "@material-ui/core";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import {
+  CheckBox as CheckBoxIcon,
+  CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
+} from "@material-ui/icons";
 import { Autocomplete } from "@material-ui/lab";
 import React from "react";
 import { BaseAutocompleteChipInputInputProps } from "./base";
