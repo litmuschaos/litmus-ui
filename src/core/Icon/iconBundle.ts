@@ -5,6 +5,7 @@ import i004 from "../../assets/icons/arrowDown.svg";
 import i005 from "../../assets/icons/arrowLeft.svg";
 import i006 from "../../assets/icons/arrowRight.svg";
 import i007 from "../../assets/icons/arrowUp.svg";
+import i073 from "../../assets/icons/backward.svg";
 import i008 from "../../assets/icons/calendar.svg";
 import i009 from "../../assets/icons/check.svg";
 import i010 from "../../assets/icons/chevronDown.svg";
@@ -28,7 +29,6 @@ import i027 from "../../assets/icons/disableSchedule.svg";
 import i028 from "../../assets/icons/disconnectTarget.svg";
 import i029 from "../../assets/icons/document.svg";
 import i030 from "../../assets/icons/download.svg";
-import i031 from "../../assets/icons/edit.svg";
 import i032 from "../../assets/icons/enableSchedule.svg";
 import i033 from "../../assets/icons/expand.svg";
 import i034 from "../../assets/icons/expandDown.svg";
@@ -47,19 +47,20 @@ import i046 from "../../assets/icons/experimentSkipped.svg";
 import i047 from "../../assets/icons/externalLink.svg";
 import i048 from "../../assets/icons/eye.svg";
 import i049 from "../../assets/icons/eyeSlash.svg";
+import i062 from "../../assets/icons/forward.svg";
 import i050 from "../../assets/icons/hamburger.svg";
 import i051 from "../../assets/icons/home.svg";
 import i052 from "../../assets/icons/info.svg";
 import i053 from "../../assets/icons/logout.svg";
 import i054 from "../../assets/icons/logs.svg";
-import i055 from "../../assets/icons/maximise.svg";
+import i055 from "../../assets/icons/maximize.svg";
 import i056 from "../../assets/icons/menuHorizontal.svg";
 import i057 from "../../assets/icons/menuVertical.svg";
-import i058 from "../../assets/icons/minimise.svg";
+import i058 from "../../assets/icons/minimize.svg";
 import i059 from "../../assets/icons/paused.svg";
+import i031 from "../../assets/icons/pencil.svg";
 import i060 from "../../assets/icons/project.svg";
 import i061 from "../../assets/icons/recurringSchedule.svg";
-import i062 from "../../assets/icons/redo.svg";
 import i063 from "../../assets/icons/refresh.svg";
 import i064 from "../../assets/icons/reload.svg";
 import i065 from "../../assets/icons/schedule.svg";
@@ -70,7 +71,6 @@ import i069 from "../../assets/icons/share.svg";
 import i070 from "../../assets/icons/showAnalytics.svg";
 import i071 from "../../assets/icons/sync.svg";
 import i072 from "../../assets/icons/terminate.svg";
-import i073 from "../../assets/icons/undo.svg";
 import i074 from "../../assets/icons/upload.svg";
 import i075 from "../../assets/icons/usage.svg";
 import i077 from "../../assets/icons/userDisable.svg";
@@ -89,7 +89,7 @@ interface AllIconsProps {
 }
 
 // All icons are imported and an object containing
-// all the icons is contructed
+// all the icons is constructed
 const allIcons: AllIconsProps = {
   agents: i001,
   analytics: i002,
@@ -121,7 +121,7 @@ const allIcons: AllIconsProps = {
   disconnectTarget: i028,
   document: i029,
   download: i030,
-  edit: i031,
+  pencil: i031,
   enableSchedule: i032,
   expand: i033,
   expandDown: i034,
@@ -145,14 +145,14 @@ const allIcons: AllIconsProps = {
   info: i052,
   logout: i053,
   logs: i054,
-  maximise: i055,
+  maximize: i055,
   menuHorizontal: i056,
   menuVertical: i057,
-  minimise: i058,
+  minimize: i058,
   paused: i059,
   project: i060,
   recurringSchedule: i061,
-  redo: i062,
+  forward: i062,
   refresh: i063,
   reload: i064,
   schedule: i065,
@@ -163,7 +163,7 @@ const allIcons: AllIconsProps = {
   showAnalytics: i070,
   sync: i071,
   terminate: i072,
-  undo: i073,
+  backward: i073,
   upload: i074,
   usage: i075,
   users: i076,
