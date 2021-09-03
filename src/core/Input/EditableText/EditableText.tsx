@@ -1,5 +1,5 @@
 import { IconButton, TextField, Typography } from "@material-ui/core";
-import Edit from "@material-ui/icons/Edit";
+import { Edit } from "@material-ui/icons";
 import React, { useRef, useState } from "react";
 import { EditableTextBaseProps } from "./base";
 import { useStyles } from "./styles";

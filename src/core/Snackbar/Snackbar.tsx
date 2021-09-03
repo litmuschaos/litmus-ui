@@ -1,7 +1,9 @@
-import { Snackbar as MuiSnackbar } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import { SnackbarProps as SnackbarBaseProps } from "@material-ui/core/Snackbar";
-import CloseIcon from "@material-ui/icons/Close";
+import {
+  IconButton,
+  Snackbar as MuiSnackbar,
+  SnackbarProps as SnackbarBaseProps,
+} from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 import React from "react";
 import { useStyles } from "./styles";
 
@@ -61,7 +63,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
       action={
         <>
           <IconButton className={classes.IconButton} onClick={handleClose}>
-            <CloseIcon fontSize="small" />
+            <Close fontSize="small" />
           </IconButton>
         </>
       }
