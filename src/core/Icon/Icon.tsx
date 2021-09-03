@@ -4,7 +4,7 @@ import { IconName, IconSize } from "./base";
 import { getIcon } from "./iconBundle";
 import { useStyles } from "./style";
 import {
-  iconsPathWithStorke,
+  iconsPathWithStroke,
   iconsWithRectFill,
   iconsWithRectStroke,
 } from "./utils";
@@ -57,7 +57,7 @@ const Icon: React.FC<IconProps> = ({
     color: color,
 
     // To check whether this icon has stroke
-    pathStroke: iconsPathWithStorke.includes(name),
+    pathStroke: iconsPathWithStroke.includes(name),
 
     // To check whether this icon has rect fill
     rectFill: iconsWithRectFill.includes(name),
