@@ -1,86 +1,86 @@
-import i001 from "../../assets/icons/agents.svg";
-import i002 from "../../assets/icons/analytics.svg";
-import i003 from "../../assets/icons/applicationDashboard.svg";
-import i004 from "../../assets/icons/arrowDown.svg";
-import i005 from "../../assets/icons/arrowLeft.svg";
-import i006 from "../../assets/icons/arrowRight.svg";
-import i007 from "../../assets/icons/arrowUp.svg";
-import i008 from "../../assets/icons/calendar.svg";
-import i009 from "../../assets/icons/check.svg";
-import i010 from "../../assets/icons/chevronDown.svg";
-import i011 from "../../assets/icons/chevronLeft.svg";
-import i012 from "../../assets/icons/chevronRight.svg";
-import i013 from "../../assets/icons/chevronUp.svg";
-import i014 from "../../assets/icons/clock.svg";
-import i015 from "../../assets/icons/close.svg";
-import i016 from "../../assets/icons/clusters.svg";
-import i017 from "../../assets/icons/code.svg";
-import i019 from "../../assets/icons/collapseDown.svg";
-import i020 from "../../assets/icons/collapseLeft.svg";
-import i018 from "../../assets/icons/collapseRight.svg";
-import i021 from "../../assets/icons/collapseUp.svg";
-import i022 from "../../assets/icons/community.svg";
-import i023 from "../../assets/icons/configure.svg";
-import i024 from "../../assets/icons/copy.svg";
-import i026 from "../../assets/icons/dataSource.svg";
-import i025 from "../../assets/icons/delete.svg";
-import i027 from "../../assets/icons/disableSchedule.svg";
-import i028 from "../../assets/icons/disconnectTarget.svg";
-import i029 from "../../assets/icons/document.svg";
-import i030 from "../../assets/icons/download.svg";
-import i031 from "../../assets/icons/edit.svg";
-import i032 from "../../assets/icons/enableSchedule.svg";
-import i033 from "../../assets/icons/expand.svg";
-import i034 from "../../assets/icons/expandDown.svg";
-import i035 from "../../assets/icons/expandLeft.svg";
-import i036 from "../../assets/icons/expandRight.svg";
-import i037 from "../../assets/icons/expandUp.svg";
-import i038 from "../../assets/icons/experiment.svg";
-import i039 from "../../assets/icons/experimentError.svg";
-import i040 from "../../assets/icons/experimentFailed.svg";
-import i041 from "../../assets/icons/experimentNotAvailable.svg";
-import i042 from "../../assets/icons/experimentOmitted.svg";
-import i043 from "../../assets/icons/experimentPassed.svg";
-import i044 from "../../assets/icons/experimentPending.svg";
-import i045 from "../../assets/icons/experimentRunning.svg";
-import i046 from "../../assets/icons/experimentSkipped.svg";
-import i047 from "../../assets/icons/externalLink.svg";
-import i048 from "../../assets/icons/eye.svg";
-import i049 from "../../assets/icons/eyeSlash.svg";
-import i050 from "../../assets/icons/hamburger.svg";
-import i051 from "../../assets/icons/home.svg";
-import i052 from "../../assets/icons/info.svg";
-import i053 from "../../assets/icons/logout.svg";
-import i054 from "../../assets/icons/logs.svg";
-import i055 from "../../assets/icons/maximise.svg";
-import i056 from "../../assets/icons/menuHorizontal.svg";
-import i057 from "../../assets/icons/menuVertical.svg";
-import i058 from "../../assets/icons/minimise.svg";
-import i059 from "../../assets/icons/paused.svg";
-import i060 from "../../assets/icons/project.svg";
-import i061 from "../../assets/icons/recurringSchedule.svg";
-import i062 from "../../assets/icons/redo.svg";
-import i063 from "../../assets/icons/refresh.svg";
-import i064 from "../../assets/icons/reload.svg";
-import i065 from "../../assets/icons/schedule.svg";
-import i066 from "../../assets/icons/scheduleWorkflow.svg";
-import i067 from "../../assets/icons/search.svg";
-import i068 from "../../assets/icons/settings.svg";
-import i069 from "../../assets/icons/share.svg";
-import i070 from "../../assets/icons/showAnalytics.svg";
-import i071 from "../../assets/icons/sync.svg";
-import i072 from "../../assets/icons/terminate.svg";
-import i073 from "../../assets/icons/undo.svg";
-import i074 from "../../assets/icons/upload.svg";
-import i075 from "../../assets/icons/usage.svg";
-import i077 from "../../assets/icons/userDisable.svg";
-import i078 from "../../assets/icons/userEnable.svg";
-import i076 from "../../assets/icons/users.svg";
-import i079 from "../../assets/icons/workflow.svg";
-import i080 from "../../assets/icons/workflowCompleted.svg";
-import i081 from "../../assets/icons/workflowFailed.svg";
-import i082 from "../../assets/icons/workflowPending.svg";
-import i083 from "../../assets/icons/workflowRunning.svg";
+import agents from "../../assets/icons/agents.svg";
+import analytics from "../../assets/icons/analytics.svg";
+import applicationDashboard from "../../assets/icons/applicationDashboard.svg";
+import arrowDown from "../../assets/icons/arrowDown.svg";
+import arrowLeft from "../../assets/icons/arrowLeft.svg";
+import arrowRight from "../../assets/icons/arrowRight.svg";
+import arrowUp from "../../assets/icons/arrowUp.svg";
+import backward from "../../assets/icons/backward.svg";
+import calendar from "../../assets/icons/calendar.svg";
+import check from "../../assets/icons/check.svg";
+import chevronDown from "../../assets/icons/chevronDown.svg";
+import chevronLeft from "../../assets/icons/chevronLeft.svg";
+import chevronRight from "../../assets/icons/chevronRight.svg";
+import chevronUp from "../../assets/icons/chevronUp.svg";
+import clock from "../../assets/icons/clock.svg";
+import close from "../../assets/icons/close.svg";
+import clusters from "../../assets/icons/clusters.svg";
+import code from "../../assets/icons/code.svg";
+import collapseDown from "../../assets/icons/collapseDown.svg";
+import collapseLeft from "../../assets/icons/collapseLeft.svg";
+import collapseRight from "../../assets/icons/collapseRight.svg";
+import collapseUp from "../../assets/icons/collapseUp.svg";
+import community from "../../assets/icons/community.svg";
+import configure from "../../assets/icons/configure.svg";
+import copy from "../../assets/icons/copy.svg";
+import dataSource from "../../assets/icons/dataSource.svg";
+import disableSchedule from "../../assets/icons/disableSchedule.svg";
+import disconnectTarget from "../../assets/icons/disconnectTarget.svg";
+import document from "../../assets/icons/document.svg";
+import download from "../../assets/icons/download.svg";
+import enableSchedule from "../../assets/icons/enableSchedule.svg";
+import expand from "../../assets/icons/expand.svg";
+import expandDown from "../../assets/icons/expandDown.svg";
+import expandLeft from "../../assets/icons/expandLeft.svg";
+import expandRight from "../../assets/icons/expandRight.svg";
+import expandUp from "../../assets/icons/expandUp.svg";
+import experiment from "../../assets/icons/experiment.svg";
+import experimentError from "../../assets/icons/experimentError.svg";
+import experimentFailed from "../../assets/icons/experimentFailed.svg";
+import experimentNotAvailable from "../../assets/icons/experimentNotAvailable.svg";
+import experimentOmitted from "../../assets/icons/experimentOmitted.svg";
+import experimentPassed from "../../assets/icons/experimentPassed.svg";
+import experimentPending from "../../assets/icons/experimentPending.svg";
+import experimentRunning from "../../assets/icons/experimentRunning.svg";
+import experimentSkipped from "../../assets/icons/experimentSkipped.svg";
+import externalLink from "../../assets/icons/externalLink.svg";
+import eye from "../../assets/icons/eye.svg";
+import eyeSlash from "../../assets/icons/eyeSlash.svg";
+import forward from "../../assets/icons/forward.svg";
+import hamburger from "../../assets/icons/hamburger.svg";
+import home from "../../assets/icons/home.svg";
+import info from "../../assets/icons/info.svg";
+import logout from "../../assets/icons/logout.svg";
+import logs from "../../assets/icons/logs.svg";
+import maximize from "../../assets/icons/maximize.svg";
+import menuHorizontal from "../../assets/icons/menuHorizontal.svg";
+import menuVertical from "../../assets/icons/menuVertical.svg";
+import minimize from "../../assets/icons/minimize.svg";
+import paused from "../../assets/icons/paused.svg";
+import pencil from "../../assets/icons/pencil.svg";
+import project from "../../assets/icons/project.svg";
+import recurringSchedule from "../../assets/icons/recurringSchedule.svg";
+import refresh from "../../assets/icons/refresh.svg";
+import reload from "../../assets/icons/reload.svg";
+import schedule from "../../assets/icons/schedule.svg";
+import scheduleWorkflow from "../../assets/icons/scheduleWorkflow.svg";
+import search from "../../assets/icons/search.svg";
+import settings from "../../assets/icons/settings.svg";
+import share from "../../assets/icons/share.svg";
+import showAnalytics from "../../assets/icons/showAnalytics.svg";
+import sync from "../../assets/icons/sync.svg";
+import terminate from "../../assets/icons/terminate.svg";
+import trash from "../../assets/icons/trash.svg";
+import upload from "../../assets/icons/upload.svg";
+import usage from "../../assets/icons/usage.svg";
+import userDisable from "../../assets/icons/userDisable.svg";
+import userEnable from "../../assets/icons/userEnable.svg";
+import users from "../../assets/icons/users.svg";
+import workflow from "../../assets/icons/workflow.svg";
+import workflowCompleted from "../../assets/icons/workflowCompleted.svg";
+import workflowFailed from "../../assets/icons/workflowFailed.svg";
+import workflowPending from "../../assets/icons/workflowPending.svg";
+import workflowRunning from "../../assets/icons/workflowRunning.svg";
 import { IconName } from "./base";
 
 interface AllIconsProps {
@@ -89,91 +89,91 @@ interface AllIconsProps {
 }
 
 // All icons are imported and an object containing
-// all the icons is contructed
+// all the icons is constructed
 const allIcons: AllIconsProps = {
-  agents: i001,
-  analytics: i002,
-  applicationDashboard: i003,
-  arrowDown: i004,
-  arrowLeft: i005,
-  arrowRight: i006,
-  arrowUp: i007,
-  calendar: i008,
-  check: i009,
-  chevronDown: i010,
-  chevronLeft: i011,
-  chevronRight: i012,
-  chevronUp: i013,
-  clock: i014,
-  close: i015,
-  clusters: i016,
-  code: i017,
-  collapseRight: i018,
-  collapseDown: i019,
-  collapseLeft: i020,
-  collapseUp: i021,
-  community: i022,
-  configure: i023,
-  copy: i024,
-  delete: i025,
-  dataSource: i026,
-  disableSchedule: i027,
-  disconnectTarget: i028,
-  document: i029,
-  download: i030,
-  edit: i031,
-  enableSchedule: i032,
-  expand: i033,
-  expandDown: i034,
-  expandLeft: i035,
-  expandRight: i036,
-  expandUp: i037,
-  experiment: i038,
-  experimentError: i039,
-  experimentFailed: i040,
-  experimentNotAvailable: i041,
-  experimentOmitted: i042,
-  experimentPassed: i043,
-  experimentPending: i044,
-  experimentRunning: i045,
-  experimentSkipped: i046,
-  externalLink: i047,
-  eye: i048,
-  eyeSlash: i049,
-  hamburger: i050,
-  home: i051,
-  info: i052,
-  logout: i053,
-  logs: i054,
-  maximise: i055,
-  menuHorizontal: i056,
-  menuVertical: i057,
-  minimise: i058,
-  paused: i059,
-  project: i060,
-  recurringSchedule: i061,
-  redo: i062,
-  refresh: i063,
-  reload: i064,
-  schedule: i065,
-  scheduleWorkflow: i066,
-  search: i067,
-  settings: i068,
-  share: i069,
-  showAnalytics: i070,
-  sync: i071,
-  terminate: i072,
-  undo: i073,
-  upload: i074,
-  usage: i075,
-  users: i076,
-  userDisable: i077,
-  userEnable: i078,
-  workflow: i079,
-  workflowCompleted: i080,
-  workflowFailed: i081,
-  workflowPending: i082,
-  workflowRunning: i083,
+  agents,
+  analytics,
+  applicationDashboard,
+  arrowDown,
+  arrowLeft,
+  arrowRight,
+  arrowUp,
+  backward,
+  calendar,
+  check,
+  chevronDown,
+  chevronLeft,
+  chevronRight,
+  chevronUp,
+  clock,
+  close,
+  clusters,
+  code,
+  collapseDown,
+  collapseLeft,
+  collapseRight,
+  collapseUp,
+  community,
+  configure,
+  copy,
+  dataSource,
+  disableSchedule,
+  disconnectTarget,
+  document,
+  download,
+  enableSchedule,
+  expand,
+  expandDown,
+  expandLeft,
+  expandRight,
+  expandUp,
+  experiment,
+  experimentError,
+  experimentFailed,
+  experimentNotAvailable,
+  experimentOmitted,
+  experimentPassed,
+  experimentPending,
+  experimentRunning,
+  experimentSkipped,
+  externalLink,
+  eye,
+  eyeSlash,
+  forward,
+  hamburger,
+  home,
+  info,
+  logout,
+  logs,
+  maximize,
+  menuHorizontal,
+  menuVertical,
+  minimize,
+  paused,
+  pencil,
+  project,
+  recurringSchedule,
+  refresh,
+  reload,
+  schedule,
+  scheduleWorkflow,
+  search,
+  settings,
+  share,
+  showAnalytics,
+  sync,
+  terminate,
+  trash,
+  upload,
+  usage,
+  userDisable,
+  userEnable,
+  users,
+  workflow,
+  workflowCompleted,
+  workflowFailed,
+  workflowPending,
+  workflowRunning,
 };
 
 // Function to get a particular icon from the object containing

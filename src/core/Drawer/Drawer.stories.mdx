@@ -14,7 +14,10 @@ lightboxes, or whatever else.
 ## Default variant:
 
 <Canvas>
-  <Story name="Default" args={{ variant: "temporary", anchor: "left", icon:"close" }}>
+  <Story
+    name="Default"
+    args={{ variant: "temporary", anchor: "left", icon: "close" }}
+  >
     {(args) => {
       const [open, setOpen] = useState(false);
       return (
