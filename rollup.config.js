@@ -4,9 +4,12 @@ import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
 import pkg from "./package.json";
+import getAllEntryPoints from "./scripts/inputs";
+
+const input = getAllEntryPoints("./src");
 
 export default {
-  input: "./src/index.ts",
+  input,
   external: [
     ...Object.keys(pkg.dependencies),
     ...Object.keys(pkg.peerDependencies),
@@ -22,8 +25,8 @@ export default {
       sourcemap: true,
     },
     {
-      dir: "dist",
-      format: "es",
+      dir: "dist/esm",
+      format: "esm",
       sourcemap: true,
     },
   ],

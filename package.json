@@ -1,7 +1,7 @@
 {
   "name": "litmus-ui",
   "license": "Apache-2.0",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": false,
   "description": "Component Library for LitmusChaos",
   "author": "LitmusChaos Authors",
@@ -9,6 +9,9 @@
   "bugs": {
     "url": "https://github.com/litmuschaos/litmus-ui/issues"
   },
+  "sideEffects": false,
+  "main": "./index.js",
+  "module": "./esm/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/litmuschaos/litmus-ui.git"
