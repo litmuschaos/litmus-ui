@@ -5,3 +5,4 @@ export type {
   StrictColorGraphMetric,
 } from "./base";
 export * from "./LineAreaGraph";
+export { LineAreaGraph as default } from "./LineAreaGraph";
