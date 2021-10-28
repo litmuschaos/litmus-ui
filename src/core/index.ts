@@ -1,4 +1,5 @@
 export * from "./Button";
+export * from "./Drawer";
 export * from "./Icon";
 export * from "./Input";
 export * from "./LitmusCard";
@@ -8,4 +9,5 @@ export * from "./ProgressBar";
 export * from "./QuickActionCard";
 export * from "./RadioButton";
 export * from "./Search";
-export * from "./Text";
+export * from "./Snackbar";
+export * from "./Typography";

@@ -85,6 +85,7 @@ export const IconsOverview = () => {
       <div className={classes.search}>
         <Input onChange={searchIcon} placeholder="Search icons by name" />
       </div>
+
       <div className={classes.iconGroup}>
         {icons
           .filter((val) => val.includes(filter))

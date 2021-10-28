@@ -2,7 +2,12 @@ import { bisector } from "d3-array";
 import { DateValue } from ".";
 import { ToolTipDateValue } from "./base";
 
+// List of special characters
+const specialCharList = ["$", "&", "%", ",", "/", ":", ";", "=", "?", "@"];
+
 // Accessor functions
+
+// getDateNum returns the date (number) from the data of type DateValue
 const getDateNum = (d: DateValue) => {
   if (d) {
     if (typeof d.date === "number") {
@@ -13,6 +18,7 @@ const getDateNum = (d: DateValue) => {
   return new Date(0);
 };
 
+// getValueNum returns the value (number) from the data of type DateValue
 const getValueNum = (d: DateValue) => {
   if (d) {
     if (typeof d.value === "number") {
@@ -23,6 +29,7 @@ const getValueNum = (d: DateValue) => {
   return NaN;
 };
 
+// getValueStr returns the value (string) from the data of type DateValue
 const getValueStr = (d: DateValue) => {
   if (d) {
     if (typeof d.value === "number") {
@@ -42,12 +49,26 @@ const getSum = (total: number, num: number | string) => {
 };
 
 // Bisectors
+
+// bisectDate bisects the data as per the date (number)
 const bisectDate = bisector<DateValue, Date>(
   (d) => new Date(getDateNum(d))
 ).left;
+
+// bisectValue bisects the data as per the value (number)
 const bisectorValue = bisector<ToolTipDateValue, number>((d) =>
   getValueNum(d.data)
 ).left;
+
+// For removing special characters from the string
+const removeSpecialChar = (value: string): string => {
+  let cleanString = value;
+  cleanString = cleanString.replace(/\s/g, "-");
+  specialCharList.forEach(
+    (element) => (cleanString = cleanString.replace(element, "-"))
+  );
+  return cleanString;
+};
 
 export {
   getDateNum,
@@ -56,4 +77,5 @@ export {
   getSum,
   bisectDate,
   bisectorValue,
+  removeSpecialChar,
 };
