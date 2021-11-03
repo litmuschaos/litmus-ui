@@ -25,14 +25,12 @@ test("Renders", () => {
 });
 
 test("should be clickable", () => {
-  const Button = component;
-
   // Clicking once
-  fireEvent.click(Button);
+  fireEvent.click(component);
   expect(mockCallBack.mock.calls.length).toEqual(1);
 
   // Clicking twice
-  fireEvent.click(Button);
-  fireEvent.click(Button);
+  fireEvent.click(component);
+  fireEvent.click(component);
   expect(mockCallBack.mock.calls.length).toEqual(3); // Total three clicks registered on DOM
 });
