@@ -14,6 +14,7 @@ import chevronRight from "../../assets/icons/chevronRight.svg";
 import chevronUp from "../../assets/icons/chevronUp.svg";
 import clock from "../../assets/icons/clock.svg";
 import close from "../../assets/icons/close.svg";
+import closeWrapped from "../../assets/icons/closeWrapped.svg";
 import clusters from "../../assets/icons/clusters.svg";
 import code from "../../assets/icons/code.svg";
 import collapseDown from "../../assets/icons/collapseDown.svg";
@@ -107,6 +108,7 @@ const allIcons: AllIconsProps = {
   chevronUp,
   clock,
   close,
+  closeWrapped,
   clusters,
   code,
   collapseDown,

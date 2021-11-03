@@ -26,6 +26,7 @@ export type IconName =
   | "chevronUp"
   | "clock"
   | "close"
+  | "closeWrapped"
   | "clusters"
   | "code"
   | "collapseDown"

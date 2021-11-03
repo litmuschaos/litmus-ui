@@ -18,6 +18,7 @@ const getAvailableIcons = (): IconName[] => [
   "chevronUp",
   "clock",
   "close",
+  "closeWrapped",
   "clusters",
   "code",
   "collapseDown",
