@@ -15,43 +15,43 @@ lightboxes, or whatever else.
 ## Default variant:
 
 <Canvas>
-	<Story
-		name="Default"
-		args={{ disableEscapeKeyDown: true, disableBackdropClick: true }}
-	>
-		{(args) => {
-			const [open, setOpen] = useState(false);
-			return (
-				<div>
-					<ButtonFilled onClick={() => setOpen(true)}>Open Modal</ButtonFilled>
-					<Modal
-						{...args}
-						open={open}
-						onClose={() => setOpen(false)}
-						modalActions={
-							<Icon
-								style={{ cursor: "pointer" }}
-								onClick={() => setOpen(false)}
-								name="closeWrapped"
-								size="xl"
-								color="#D9DCE8"
-							/>
-						}
-					>
-						<div
-							style={{
-								padding: "2rem",
-								fontSize: "2rem",
-								marginBottom: "15rem",
-							}}
-						>
-							Modal
-						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Story>
+  <Story
+    name="Default"
+    args={{ disableEscapeKeyDown: true, disableBackdropClick: true }}
+  >
+    {(args) => {
+      const [open, setOpen] = useState(false);
+      return (
+        <div>
+          <ButtonFilled onClick={() => setOpen(true)}>Open Modal</ButtonFilled>
+          <Modal
+            {...args}
+            open={open}
+            onClose={() => setOpen(false)}
+            modalActions={
+              <Icon
+                style={{ cursor: "pointer" }}
+                onClick={() => setOpen(false)}
+                name="closeWrapped"
+                size="xl"
+                color="#D9DCE8"
+              />
+            }
+          >
+            <div
+              style={{
+                padding: "2rem",
+                fontSize: "2rem",
+                marginBottom: "15rem",
+              }}
+            >
+              Modal
+            </div>
+          </Modal>
+        </div>
+      );
+    }}
+  </Story>
 </Canvas>
 
 ## Other variants:

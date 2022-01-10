@@ -7,6 +7,7 @@ import arrowLeft from "../../assets/icons/arrowLeft.svg";
 import arrowRight from "../../assets/icons/arrowRight.svg";
 import arrowUp from "../../assets/icons/arrowUp.svg";
 import backward from "../../assets/icons/backward.svg";
+import bell from "../../assets/icons/bell.svg";
 import calendar from "../../assets/icons/calendar.svg";
 import chaoshub from "../../assets/icons/chaoshub.svg";
 import check from "../../assets/icons/check.svg";
@@ -56,6 +57,7 @@ import experimentSkipped from "../../assets/icons/experimentSkipped.svg";
 import externalLink from "../../assets/icons/externalLink.svg";
 import eye from "../../assets/icons/eye.svg";
 import eyeSlash from "../../assets/icons/eyeSlash.svg";
+import filter from "../../assets/icons/filter.svg";
 import forward from "../../assets/icons/forward.svg";
 import hamburger from "../../assets/icons/hamburger.svg";
 import home from "../../assets/icons/home.svg";
@@ -68,6 +70,7 @@ import menuVertical from "../../assets/icons/menuVertical.svg";
 import minimize from "../../assets/icons/minimize.svg";
 import paused from "../../assets/icons/paused.svg";
 import pencil from "../../assets/icons/pencil.svg";
+import plus from "../../assets/icons/plus.svg";
 import project from "../../assets/icons/project.svg";
 import recurringSchedule from "../../assets/icons/recurringSchedule.svg";
 import refresh from "../../assets/icons/refresh.svg";
@@ -79,6 +82,7 @@ import search from "../../assets/icons/search.svg";
 import settings from "../../assets/icons/settings.svg";
 import share from "../../assets/icons/share.svg";
 import showAnalytics from "../../assets/icons/showAnalytics.svg";
+import sort from "../../assets/icons/sort.svg";
 import sync from "../../assets/icons/sync.svg";
 import terminate from "../../assets/icons/terminate.svg";
 import trash from "../../assets/icons/trash.svg";
@@ -86,6 +90,7 @@ import upload from "../../assets/icons/upload.svg";
 import usage from "../../assets/icons/usage.svg";
 import userDisable from "../../assets/icons/userDisable.svg";
 import userEnable from "../../assets/icons/userEnable.svg";
+import user from "../../assets/icons/user.svg";
 import users from "../../assets/icons/users.svg";
 import workflow from "../../assets/icons/workflow.svg";
 import workflowCompleted from "../../assets/icons/workflowCompleted.svg";
@@ -120,6 +125,7 @@ const allIcons: AllIconsProps = {
   arrowRight,
   arrowUp,
   backward,
+  bell,
   calendar,
   check,
   chevronDown,
@@ -161,6 +167,7 @@ const allIcons: AllIconsProps = {
   externalLink,
   eye,
   eyeSlash,
+  filter,
   forward,
   hamburger,
   home,
@@ -173,6 +180,7 @@ const allIcons: AllIconsProps = {
   minimize,
   paused,
   pencil,
+  plus,
   project,
   recurringSchedule,
   refresh,
@@ -183,6 +191,7 @@ const allIcons: AllIconsProps = {
   settings,
   share,
   showAnalytics,
+  sort,
   sync,
   terminate,
   trash,
@@ -190,6 +199,7 @@ const allIcons: AllIconsProps = {
   usage,
   userDisable,
   userEnable,
+  user,
   users,
   workflow,
   workflowCompleted,
