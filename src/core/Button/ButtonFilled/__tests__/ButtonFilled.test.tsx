@@ -1,37 +1,36 @@
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { LitmusThemeProvider } from "../../../../theme";
 import { ButtonFilled } from "../ButtonFilled";
 
-describe("Button Filled Component", () => {
-  it("Renders", () => {
-    const { getByText } = render(
-      <LitmusThemeProvider>
-        <ButtonFilled onClick={() => {}}>Button Filled</ButtonFilled>
-      </LitmusThemeProvider>
-    );
+let component: HTMLElement;
+let mockCallBack = jest.fn();
 
-    expect(getByText("Button Filled")).toBeTruthy();
-  });
-
-  it("should be clickable", () => {
-    const mockCallBack = jest.fn();
-    const { getByText } = render(
+beforeEach(() => {
+  render(
+    <LitmusThemeProvider>
       <LitmusThemeProvider>
         <ButtonFilled onClick={mockCallBack}>Button Filled</ButtonFilled>
       </LitmusThemeProvider>
-    );
+    </LitmusThemeProvider>
+  );
 
-    const Button = getByText("Button Filled");
+  // Get Button Filled component
+  component = screen.getByText("Button Filled");
+});
 
-    // Clicking once
-    fireEvent.click(Button);
-    expect(mockCallBack.mock.calls.length).toEqual(1);
+test("Renders", () => {
+  expect(component).toBeTruthy();
+});
 
-    // Clicking twice
-    fireEvent.click(Button);
-    fireEvent.click(Button);
-    expect(mockCallBack.mock.calls.length).toEqual(3); // Total three clicks registered on DOM
-  });
+test("should be clickable", () => {
+  // Clicking once
+  fireEvent.click(component);
+  expect(mockCallBack.mock.calls.length).toEqual(1);
+
+  // Clicking twice
+  fireEvent.click(component);
+  fireEvent.click(component);
+  expect(mockCallBack.mock.calls.length).toEqual(3); // Total three clicks registered on DOM
 });
