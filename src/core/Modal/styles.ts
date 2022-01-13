@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    borderRadius: "15px",
   },
   content: {
     position: "relative",
@@ -27,8 +28,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   modalActions: {
     position: "absolute",
-    top: "3.33rem",
-    right: "3.33rem",
+    top: "2.5rem",
+    right: "2.5rem",
   },
 }));
 
