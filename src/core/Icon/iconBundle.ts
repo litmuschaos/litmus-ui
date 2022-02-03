@@ -1,7 +1,7 @@
+import accessKey from "../../assets/icons/access_key.svg";
 import agents from "../../assets/icons/agents.svg";
 import alert from "../../assets/icons/alert.svg";
 import analytics from "../../assets/icons/analytics.svg";
-import applicationDashboard from "../../assets/icons/applicationDashboard.svg";
 import arrowDown from "../../assets/icons/arrowDown.svg";
 import arrowLeft from "../../assets/icons/arrowLeft.svg";
 import arrowRight from "../../assets/icons/arrowRight.svg";
@@ -19,6 +19,7 @@ import chooseAgent from "../../assets/icons/chooseAgent.svg";
 import clock from "../../assets/icons/clock.svg";
 import close from "../../assets/icons/close.svg";
 import closeWrapped from "../../assets/icons/closeWrapped.svg";
+import cloud from "../../assets/icons/cloud.svg";
 import clusters from "../../assets/icons/clusters.svg";
 import code from "../../assets/icons/code.svg";
 import codeFilled from "../../assets/icons/codeFilled.svg";
@@ -30,14 +31,17 @@ import community from "../../assets/icons/community.svg";
 import computer from "../../assets/icons/computer.svg";
 import configure from "../../assets/icons/configure.svg";
 import copy from "../../assets/icons/copy.svg";
+import dart from "../../assets/icons/dart.svg";
 import dataSource from "../../assets/icons/dataSource.svg";
 import disableSchedule from "../../assets/icons/disableSchedule.svg";
 import disconnectTarget from "../../assets/icons/disconnectTarget.svg";
 import document from "../../assets/icons/document.svg";
+import documentWrapped from "../../assets/icons/documentWrapped.svg";
 import download from "../../assets/icons/download.svg";
 import drive from "../../assets/icons/drive.svg";
 import dropbox from "../../assets/icons/dropbox.svg";
 import editSequence from "../../assets/icons/editSequence.svg";
+import editWrapped from "../../assets/icons/editWrapped.svg";
 import enableSchedule from "../../assets/icons/enableSchedule.svg";
 import expand from "../../assets/icons/expand.svg";
 import expandDown from "../../assets/icons/expandDown.svg";
@@ -54,17 +58,22 @@ import experimentPassed from "../../assets/icons/experimentPassed.svg";
 import experimentPending from "../../assets/icons/experimentPending.svg";
 import experimentRunning from "../../assets/icons/experimentRunning.svg";
 import experimentSkipped from "../../assets/icons/experimentSkipped.svg";
+import experimentBox from "../../assets/icons/experiment_box.svg";
 import externalLink from "../../assets/icons/externalLink.svg";
 import eye from "../../assets/icons/eye.svg";
 import eyeSlash from "../../assets/icons/eyeSlash.svg";
+import feedback from "../../assets/icons/feedback.svg";
 import filter from "../../assets/icons/filter.svg";
 import forward from "../../assets/icons/forward.svg";
+import fullscreen from "../../assets/icons/fullscreen.svg";
 import hamburger from "../../assets/icons/hamburger.svg";
 import home from "../../assets/icons/home.svg";
 import info from "../../assets/icons/info.svg";
+import like from "../../assets/icons/like.svg";
 import logout from "../../assets/icons/logout.svg";
 import logs from "../../assets/icons/logs.svg";
 import maximize from "../../assets/icons/maximize.svg";
+import medal from "../../assets/icons/medal.svg";
 import menuHorizontal from "../../assets/icons/menuHorizontal.svg";
 import menuVertical from "../../assets/icons/menuVertical.svg";
 import minimize from "../../assets/icons/minimize.svg";
@@ -86,12 +95,14 @@ import sort from "../../assets/icons/sort.svg";
 import sync from "../../assets/icons/sync.svg";
 import terminate from "../../assets/icons/terminate.svg";
 import trash from "../../assets/icons/trash.svg";
+import tree from "../../assets/icons/tree.svg";
 import upload from "../../assets/icons/upload.svg";
 import usage from "../../assets/icons/usage.svg";
+import user from "../../assets/icons/user.svg";
 import userDisable from "../../assets/icons/userDisable.svg";
 import userEnable from "../../assets/icons/userEnable.svg";
-import user from "../../assets/icons/user.svg";
 import users from "../../assets/icons/users.svg";
+import weeklySchedule from "../../assets/icons/weeklySchedule.svg";
 import workflow from "../../assets/icons/workflow.svg";
 import workflowCompleted from "../../assets/icons/workflowCompleted.svg";
 import workflowFailed from "../../assets/icons/workflowFailed.svg";
@@ -107,10 +118,10 @@ interface AllIconsProps {
 // All icons are imported and an object containing
 // all the icons is constructed
 const allIcons: AllIconsProps = {
+  accessKey,
   agents,
   alert,
   rocket,
-  editSequence,
   computer,
   experimentFilled,
   drive,
@@ -119,7 +130,6 @@ const allIcons: AllIconsProps = {
   chooseAgent,
   chaoshub,
   analytics,
-  applicationDashboard,
   arrowDown,
   arrowLeft,
   arrowRight,
@@ -135,6 +145,7 @@ const allIcons: AllIconsProps = {
   clock,
   close,
   closeWrapped,
+  cloud,
   clusters,
   code,
   collapseDown,
@@ -144,11 +155,15 @@ const allIcons: AllIconsProps = {
   community,
   configure,
   copy,
+  dart,
   dataSource,
   disableSchedule,
   disconnectTarget,
   document,
+  documentWrapped,
   download,
+  editWrapped,
+  editSequence,
   enableSchedule,
   expand,
   expandDown,
@@ -156,6 +171,7 @@ const allIcons: AllIconsProps = {
   expandRight,
   expandUp,
   experiment,
+  experimentBox,
   experimentError,
   experimentFailed,
   experimentNotAvailable,
@@ -167,14 +183,18 @@ const allIcons: AllIconsProps = {
   externalLink,
   eye,
   eyeSlash,
+  feedback,
   filter,
   forward,
+  fullscreen,
   hamburger,
   home,
   info,
+  like,
   logout,
   logs,
   maximize,
+  medal,
   menuHorizontal,
   menuVertical,
   minimize,
@@ -195,12 +215,14 @@ const allIcons: AllIconsProps = {
   sync,
   terminate,
   trash,
+  tree,
   upload,
   usage,
   userDisable,
   userEnable,
   user,
   users,
+  weeklySchedule,
   workflow,
   workflowCompleted,
   workflowFailed,
