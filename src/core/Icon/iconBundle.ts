@@ -41,7 +41,7 @@ import download from "../../assets/icons/download.svg";
 import drive from "../../assets/icons/drive.svg";
 import dropbox from "../../assets/icons/dropbox.svg";
 import editSequence from "../../assets/icons/editSequence.svg";
-import editWrapped from "../../assets/icons/edit_wrapped.svg";
+import editWrapped from "../../assets/icons/editWrapped.svg";
 import enableSchedule from "../../assets/icons/enableSchedule.svg";
 import expand from "../../assets/icons/expand.svg";
 import expandDown from "../../assets/icons/expandDown.svg";

@@ -169,7 +169,6 @@ const iconsWithRectFill = [
   "experimentPending",
   "experimentRunning",
   "experimentSkipped",
-  "medal",
   "recurringSchedule",
 ];
 
