@@ -8,6 +8,7 @@ import arrowRight from "../../assets/icons/arrowRight.svg";
 import arrowUp from "../../assets/icons/arrowUp.svg";
 import backward from "../../assets/icons/backward.svg";
 import bell from "../../assets/icons/bell.svg";
+import bookmark from "../../assets/icons/bookmark.svg";
 import calendar from "../../assets/icons/calendar.svg";
 import chaoshub from "../../assets/icons/chaoshub.svg";
 import check from "../../assets/icons/check.svg";
@@ -20,6 +21,7 @@ import clock from "../../assets/icons/clock.svg";
 import close from "../../assets/icons/close.svg";
 import closeWrapped from "../../assets/icons/closeWrapped.svg";
 import cloud from "../../assets/icons/cloud.svg";
+import cloudUpload from "../../assets/icons/cloudUpload.svg";
 import clusters from "../../assets/icons/clusters.svg";
 import code from "../../assets/icons/code.svg";
 import codeFilled from "../../assets/icons/codeFilled.svg";
@@ -43,6 +45,7 @@ import dropbox from "../../assets/icons/dropbox.svg";
 import editSequence from "../../assets/icons/editSequence.svg";
 import editWrapped from "../../assets/icons/editWrapped.svg";
 import enableSchedule from "../../assets/icons/enableSchedule.svg";
+import errorUpload from "../../assets/icons/errorUpload.svg";
 import expand from "../../assets/icons/expand.svg";
 import expandDown from "../../assets/icons/expandDown.svg";
 import expandLeft from "../../assets/icons/expandLeft.svg";
@@ -64,6 +67,7 @@ import eye from "../../assets/icons/eye.svg";
 import eyeSlash from "../../assets/icons/eyeSlash.svg";
 import feedback from "../../assets/icons/feedback.svg";
 import filter from "../../assets/icons/filter.svg";
+import flaskError from "../../assets/icons/flaskError.svg";
 import forward from "../../assets/icons/forward.svg";
 import fullscreen from "../../assets/icons/fullscreen.svg";
 import hamburger from "../../assets/icons/hamburger.svg";
@@ -136,6 +140,7 @@ const allIcons: AllIconsProps = {
   arrowUp,
   backward,
   bell,
+  bookmark,
   calendar,
   check,
   chevronDown,
@@ -146,6 +151,7 @@ const allIcons: AllIconsProps = {
   close,
   closeWrapped,
   cloud,
+  cloudUpload,
   clusters,
   code,
   collapseDown,
@@ -165,6 +171,7 @@ const allIcons: AllIconsProps = {
   editWrapped,
   editSequence,
   enableSchedule,
+  errorUpload,
   expand,
   expandDown,
   expandLeft,
@@ -185,6 +192,7 @@ const allIcons: AllIconsProps = {
   eyeSlash,
   feedback,
   filter,
+  flaskError,
   forward,
   fullscreen,
   hamburger,
