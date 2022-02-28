@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     borderRadius: "15px",
+    backdropFilter: "blur(2px)",
   },
   content: {
     position: "relative",
